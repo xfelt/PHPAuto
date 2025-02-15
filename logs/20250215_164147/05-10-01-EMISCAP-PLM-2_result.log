@@ -1,0 +1,14 @@
+Array
+(
+    [CplexRunTime] => Total (root+branch&cut) =    0,09 sec
+    [Result] =>  <60283 60260 23 1,503e+6>
+    [CS] => 60260
+    [A] => [0,2,5,6,4,6]
+    [E] =>  1503000
+    [DELIVER] => 
+S10=>P2
+S3=>P4
+S4=>P4
+S4=>P5
+
+)

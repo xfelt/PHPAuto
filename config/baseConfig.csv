@@ -1,0 +1,5 @@
+items,suppliers,service_times,strategy,model_type,strategy_values,max_capacity
+5,10,1,EMISCAP,PLM,"2500000,2200000",0
+5,20,1,EMISTAXE,PLM,"0.01,0.02",0
+5,10,1,EMISCAP,NLM,"2500000,2200000",1
+5,20,1,EMISTAXE,NLM,"0.01,0.02",1
