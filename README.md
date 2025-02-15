@@ -24,10 +24,50 @@ This project is designed to run optimization models for supplier selection under
 
 ## Project Structure
 
-SupplierSelection/ ├── config/ │ ├── settings.php # Configuration file that sets up directories and detects oplrun. │ └── baseConfig.csv # CSV file defining the base test instances (runs). ├── data/ │ ├── bom_supemis_X.csv # Bill of Materials (BOM) files; X corresponds to the number of items. │ ├── supp_list_X.csv # Supplier list files; X corresponds to the number of items (defines accepted suppliers). │ ├── supp_details_supeco.csv # Default supplier details file (includes supplier capacities). │ └── supp_details_supeco_grdCapacity.csv # Supplier details file for high capacity instances. ├── models/ │ ├── RUNS_SupEmis_Cplex_PLM_Cap.mod # Pseudo-linear model for emission cap strategy. │ ├── RUNS_SupEmis_Cplex_PLM_Tax.mod # Pseudo-linear model for emission tax strategy. │ ├── RUNS_SupEmis_CP_NLM_Cap.mod # Non-linear model for emission cap strategy. │ └── RUNS_SupEmis_CP_NLM_Tax.mod # Non-linear model for emission tax strategy. ├── logs/ │ └── (Timestamped subfolders with result logs and error logs are created here.) ├── src/ │ ├── Main.php # Main script that orchestrates the workflow. │ ├── FileUtils.php # Utility functions for file operations (dictionary substitution, directory creation, file selection). │ ├── CplexRunner.php # Executes the CPLEX model and parses its output. │ └── Logger.php # (Optional) Additional logging utilities. └── README.md # This file.
+<ul>
+  <li><strong>SupplierSelection/</strong>
+    <ul>
+      <li><strong>config/</strong>
+        <ul>
+          <li><code>settings.php</code> – Configuration file that sets up directories and detects <code>oplrun</code>.</li>
+          <li><code>baseConfig.csv</code> – CSV file defining the base test instances (runs).</li>
+        </ul>
+      </li>
+      <li><strong>data/</strong>
+        <ul>
+          <li><code>bom_supemis_X.csv</code> – Bill of Materials (BOM) files; X corresponds to the number of items.</li>
+          <li><code>supp_list_X.csv</code> – Supplier list files; X corresponds to the number of items (defines accepted suppliers).</li>
+          <li><code>supp_details_supeco.csv</code> – Default supplier details file (includes supplier capacities).</li>
+          <li><code>supp_details_supeco_grdCapacity.csv</code> – Supplier details file for high capacity instances.</li>
+        </ul>
+      </li>
+      <li><strong>models/</strong>
+        <ul>
+          <li><code>RUNS_SupEmis_Cplex_PLM_Cap.mod</code> – Pseudo-linear model for emission cap strategy.</li>
+          <li><code>RUNS_SupEmis_Cplex_PLM_Tax.mod</code> – Pseudo-linear model for emission tax strategy.</li>
+          <li><code>RUNS_SupEmis_CP_NLM_Cap.mod</code> – Non-linear model for emission cap strategy.</li>
+          <li><code>RUNS_SupEmis_CP_NLM_Tax.mod</code> – Non-linear model for emission tax strategy.</li>
+        </ul>
+      </li>
+      <li><strong>logs/</strong>
+        <ul>
+          <li>(Timestamped subfolders with result logs and error logs are created here.)</li>
+        </ul>
+      </li>
+      <li><strong>src/</strong>
+        <ul>
+          <li><code>Main.php</code> – Main script that orchestrates the workflow.</li>
+          <li><code>FileUtils.php</code> – Utility functions for file operations (dictionary substitution, directory creation, file selection).</li>
+          <li><code>CplexRunner.php</code> – Executes the CPLEX model and parses its output.</li>
+          <li><code>Logger.php</code> – (Optional) Additional logging utilities.</li>
+        </ul>
+      </li>
+      <li><code>README.md</code> – Project documentation.</li>
+    </ul>
+  </li>
+</ul>
 
-markdown
-Copier
+
 
 ---
 
