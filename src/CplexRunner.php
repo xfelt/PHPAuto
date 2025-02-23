@@ -85,11 +85,21 @@ class CplexRunner {
 
             // Step 2: Search for the line containing runtime information
             foreach ($lines as $line) {
-                if (strpos($line, "Total (root+branch&cut)") !== false) {
-                    return trim(explode("sec.", $line)[0]);
-                }
-            }
-
+				// For PLM (CPLEX) models:
+				if (strpos($line, "Total (root+branch&cut)") !== false) {
+					// Extract the part before "sec." and trim whitespace.
+					return trim(explode("sec.", $line)[0]) . " sec";
+				}
+				// For CP optimiser (NLM) models:
+				if (strpos($line, "Time spent in solve") !== false) {
+					// Assume format: "Time spent in solve : 4.23 sec"
+					$parts = explode(":", $line);
+					if (preg_match('/Time spent in solve\s*:\s*([\d,\.]+)s/', $line, $matches)) {
+						$timeValue = trim($matches[1]);
+                        return $timeValue;
+					}
+				}
+			}
             // Step 3: Return -1 if no runtime information is found
             return -1;
 
