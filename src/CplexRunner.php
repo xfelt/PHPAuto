@@ -88,7 +88,7 @@ class CplexRunner {
 				// For PLM (CPLEX) models:
 				if (strpos($line, "Total (root+branch&cut)") !== false) {
 					// Extract the part before "sec." and trim whitespace.
-					return trim(explode("sec.", $line)[0]) . " sec";
+					return trim(explode("sec.", $line)[0]);
 				}
 				// For CP optimiser (NLM) models:
 				if (strpos($line, "Time spent in solve") !== false) {

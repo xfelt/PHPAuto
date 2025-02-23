@@ -249,15 +249,25 @@ execute {
  execute {
 	writeln("xxxx");  // début du résultat pour php
  	Result.fctObj = cplex.getObjValue();
- 	//Result.StCosts = TotalCostCS;
  	Result.StCosts = TotalCostTS;
 	Result.lts = dlts;
 	Result.emiss = Emis;
-	writeln("#Result:",Result);
-
-	//writeln("CS:",TotalCostCS,"-",a[0],", E: ",Emis);
-	writeln("#TS:",TotalCostTS,"-",a[0],"#E: ",Emis);
-    writeln("#DELIVER:");
+	write("#Result <fct_obj, tot_cst, tot_ldt, Emiss>:",Result);
+	write("#TS:",TotalCostTS);
+    write("#A:[");
+    for (var i in N) {
+	   write(a[i]);
+       if(i<NB_NODE)write(",");
+    }
+    write("]");
+    write("#X:[");
+    for (var i in N) {
+	   write(x[i]);
+       if(i<NB_NODE)write(",");
+    }
+    write("]");
+	write("#E: ",Emis);
+	writeln("#DELIVER:");
 	for (var i in N){
 		for (var j in S){
 			if (z[i][j]!=0) {
