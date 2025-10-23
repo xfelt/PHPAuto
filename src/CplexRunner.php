@@ -45,30 +45,103 @@ class CplexRunner {
      */
     private static function parseOutput($output) {
         try {
-            // Step 1: Split the output into sections using "xxxx" as a delimiter
-            $result = explode("xxxx", $output);
             $solution = [];
+            $normalizedOutput = str_replace(["\r\n", "\r"], "\n", $output);
+            $sections = preg_split('/^\s*xxxx\s*$/m', $normalizedOutput);
 
-            // Step 2: Extract runtime information from the first section
-            $solution["CplexRunTime"] = self::extractCplexTime($result[0]) . " sec";
+            $runtimeSection = $sections[0] ?? '';
+            $solution["CplexRunTime"] = self::extractCplexTime($runtimeSection) . " sec";
 
-            // Step 3: Parse additional results if available
-            if (count($result) > 1) {
-                foreach (explode("#", str_replace(".", ",", $result[1])) as $data) {
-                    $parts = explode(":", $data);
-                    if (count($parts) > 1) {
-                        $solution[$parts[0]] = $parts[1];
+            if (count($sections) < 2) {
+                return $solution;
+            }
+
+            $payload = $sections[1];
+            if ($payload === null || trim($payload) === '') {
+                return $solution;
+            }
+
+            if (preg_match_all('/#([A-Za-z0-9_]+)\s*:?-?\s*([^#]*)/', $payload, $matches, PREG_SET_ORDER)) {
+                foreach ($matches as $match) {
+                    $key = trim($match[1]);
+                    $rawValue = trim($match[2]);
+
+                    if (strcasecmp($key, 'DELIVER') === 0) {
+                        $deliveries = array_filter(array_map('trim', preg_split('/\n+/', $rawValue)));
+                        $solution['DELIVER'] = array_values($deliveries);
+                        continue;
                     }
+
+                    if ($key === 'Result' && preg_match('/<([^>]+)>/', $rawValue, $vectorMatch)) {
+                        $components = preg_split('/\s+/', trim(str_replace(',', '.', $vectorMatch[1])));
+                        $labels = ['Objective', 'ServiceCost', 'LateDeliveries', 'Emissions'];
+                        $resultData = [];
+                        foreach ($labels as $index => $label) {
+                            if (isset($components[$index])) {
+                                $resultData[$label] = self::normalizeScalar($components[$index]);
+                            }
+                        }
+                        if (!empty($resultData)) {
+                            $solution['Result'] = $resultData;
+                        }
+                        continue;
+                    }
+
+                    $solution[$key] = self::normalizeValue($rawValue);
                 }
             }
 
-            // Step 4: Return the parsed results
             return $solution;
 
         } catch (Exception $e) {
-            // Catch and rethrow exceptions with additional context
             throw new Exception("Error parsing CPLEX output: " . $e->getMessage());
         }
+    }
+
+    /**
+     * Normalizes composite values by detecting arrays or scalar numbers.
+     *
+     * @param string $value Raw value captured from the opl output
+     * @return mixed Normalized PHP value
+     */
+    private static function normalizeValue($value) {
+        $value = trim($value);
+
+        if ($value === '') {
+            return '';
+        }
+
+        if (strlen($value) >= 2 && $value[0] === '[' && substr($value, -1) === ']') {
+            $inner = trim($value, '[]');
+            if ($inner === '') {
+                return [];
+            }
+
+            $items = array_map('trim', explode(',', $inner));
+            return array_map([self::class, 'normalizeScalar'], $items);
+        }
+
+        return self::normalizeScalar($value);
+    }
+
+    /**
+     * Converts scalar strings to numeric values when possible while keeping other strings intact.
+     *
+     * @param string $value Scalar value captured from the opl output
+     * @return mixed Float, int, or original string depending on detectability
+     */
+    private static function normalizeScalar($value) {
+        $value = trim($value);
+        if ($value === '') {
+            return '';
+        }
+
+        $normalized = str_replace(',', '.', $value);
+        if (is_numeric($normalized)) {
+            return $normalized + 0;
+        }
+
+        return $value;
     }
 
     /**
