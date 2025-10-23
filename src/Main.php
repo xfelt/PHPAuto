@@ -15,11 +15,11 @@ function getModelFile(string $strategy, string $modelType): string {
     $modelMap = [
         "EMISCAP" => [
             "PLM" => "RUNS_SupEmis_Cplex_PLM_Cap.mod",
-            "NLM" => "RUNS_SupEmis_Cp_NLM_Cap.mod"
+            "NLM" => "RUNS_SupEmis_CP_NLM_Cap.mod"
         ],
         "EMISTAXE" => [
             "PLM" => "RUNS_SupEmis_Cplex_PLM_Tax.mod",
-            "NLM" => "RUNS_SupEmis_Cp_NLM_Tax.mod"
+            "NLM" => "RUNS_SupEmis_CP_NLM_Tax.mod"
         ]
     ];
 
@@ -117,17 +117,72 @@ try {
     $baseConfig = [];
     if (($handle = fopen($baseConfigFile, "r")) !== false) {
     $headers = fgetcsv($handle); // Read the header row
+    $lineNumber = 1; // Header already read
+
     while (($row = fgetcsv($handle)) !== false) {
+        $lineNumber++;
+
         // Validate row consistency
         if (count($headers) !== count($row)) {
             throw new Exception(
-                "Mismatch in baseConfig.csv: Header count (" . count($headers) . ") does not match row count (" . count($row) . ")."
+                "Mismatch in baseConfig.csv on line $lineNumber: Header count (" . count($headers) . ") does not match row count (" . count($row) . ")."
             );
         }
-        $baseConfig[] = array_combine($headers, $row); // Combine headers with row values
+
+        $configRow = array_map('trim', array_combine($headers, $row));
+
+        $requiredColumns = ['items', 'suppliers', 'service_times', 'strategy', 'model_type', 'strategy_values', 'max_capacity'];
+        foreach ($requiredColumns as $column) {
+            if (!array_key_exists($column, $configRow) || $configRow[$column] === '') {
+                throw new Exception("Missing required value for '$column' in baseConfig.csv on line $lineNumber.");
+            }
+        }
+
+        $configRow['strategy'] = strtoupper($configRow['strategy']);
+        $allowedStrategies = ['EMISCAP', 'EMISTAXE'];
+        if (!in_array($configRow['strategy'], $allowedStrategies, true)) {
+            throw new Exception("Invalid strategy '" . $configRow['strategy'] . "' in baseConfig.csv on line $lineNumber.");
+        }
+
+        $configRow['model_type'] = strtoupper($configRow['model_type']);
+        $allowedModelTypes = ['PLM', 'NLM'];
+        if (!in_array($configRow['model_type'], $allowedModelTypes, true)) {
+            throw new Exception("Invalid model type '" . $configRow['model_type'] . "' in baseConfig.csv on line $lineNumber.");
+        }
+
+        $integerColumns = ['items', 'suppliers', 'service_times'];
+        foreach ($integerColumns as $column) {
+            if (!ctype_digit($configRow[$column]) || (int)$configRow[$column] <= 0) {
+                throw new Exception("Column '$column' must be a positive integer in baseConfig.csv on line $lineNumber.");
+            }
+        }
+
+        if (!ctype_digit($configRow['max_capacity']) || (int)$configRow['max_capacity'] < 0) {
+            throw new Exception("Column 'max_capacity' must be a non-negative integer in baseConfig.csv on line $lineNumber.");
+        }
+
+        $strategyValues = array_filter(array_map('trim', explode(',', $configRow['strategy_values'])), static function ($value) {
+            return $value !== '';
+        });
+        if (empty($strategyValues)) {
+            throw new Exception("Column 'strategy_values' must contain at least one numeric value in baseConfig.csv on line $lineNumber.");
+        }
+        foreach ($strategyValues as $value) {
+            if (!is_numeric($value)) {
+                throw new Exception("Invalid strategy value '$value' in baseConfig.csv on line $lineNumber. Only numeric values are allowed.");
+            }
+        }
+        $configRow['strategy_values'] = implode(',', $strategyValues);
+
+        $configRow['items'] = (int)$configRow['items'];
+        $configRow['suppliers'] = (int)$configRow['suppliers'];
+        $configRow['service_times'] = (int)$configRow['service_times'];
+        $configRow['max_capacity'] = (int)$configRow['max_capacity'];
+
+        $baseConfig[] = $configRow;
     }
     fclose($handle);
-	}
+        }
     // Uncomment the following line to debug the CSV parsing:
     // print_r($baseConfig); exit;
 	
