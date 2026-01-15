@@ -3,6 +3,8 @@
 // Include required files
 require_once __DIR__ . '/FileUtils.php'; // File utilities
 require_once __DIR__ . '/CplexRunner.php'; // CPLEX runner
+require_once __DIR__ . '/CapTighteningScenarioGenerator.php'; // Cap tightening scenario generator
+require_once __DIR__ . '/CompliancePathwayAnalyzer.php'; // Compliance pathway analyzer
 
 /**
  * Map strategy and model type to the corresponding .mod file.
@@ -206,13 +208,74 @@ try {
     // print_r($baseConfig); exit;
 	
     // -----------------------------------------------------
-    // STEP 4: Generate Test Configurations from CSV Data
+    // STEP 4: Load Cap Tightening Configuration (if enabled)
+    // -----------------------------------------------------
+    $capTighteningConfigFile = __DIR__ . '/../config/capTighteningConfig.php';
+    $capTighteningConfig = file_exists($capTighteningConfigFile) 
+        ? include $capTighteningConfigFile 
+        : ['enabled' => false];
+    
+    $capTighteningEnabled = $capTighteningConfig['enabled'] ?? false;
+    
+    // Expand baseConfig with cap tightening scenarios if enabled
+    if ($capTighteningEnabled) {
+        echo "Cap tightening scenarios enabled.\n";
+        $expandedBaseConfig = [];
+        foreach ($baseConfig as $configRow) {
+            if (strtoupper($configRow['strategy']) === 'EMISCAP') {
+                // Get method-specific configuration
+                $method = $capTighteningConfig['method'] ?? 'progressive';
+                $methodConfig = $capTighteningConfig[$method] ?? [];
+                
+                // Build cap tightening config for expansion
+                $expansionConfig = [
+                    'method' => $method
+                ];
+                
+                if ($method === 'progressive') {
+                    $expansionConfig['num_scenarios'] = $methodConfig['num_scenarios'] ?? 5;
+                    $expansionConfig['reduction_percentage'] = $methodConfig['reduction_percentage'] ?? 0.05;
+                    $expansionConfig['min_cap'] = $methodConfig['min_cap'] ?? null;
+                } elseif ($method === 'fixed_step') {
+                    $expansionConfig['num_scenarios'] = $methodConfig['num_scenarios'] ?? 5;
+                    $expansionConfig['step_size'] = $methodConfig['step_size'] ?? 100000;
+                    $expansionConfig['min_cap'] = $methodConfig['min_cap'] ?? null;
+                } elseif ($method === 'custom') {
+                    $expansionConfig['reduction_percentages'] = $methodConfig['reduction_percentages'] ?? [0.0, 0.05, 0.10, 0.15, 0.20];
+                }
+                
+                $expandedRows = CapTighteningScenarioGenerator::expandConfigWithCapTightening(
+                    $configRow,
+                    $expansionConfig
+                );
+                $expandedBaseConfig = array_merge($expandedBaseConfig, $expandedRows);
+                
+                // Print summary for first base cap value
+                if (!empty($expandedRows)) {
+                    $firstBaseCap = (int)trim(explode(',', $configRow['strategy_values'])[0]);
+                    $caps = array_column($expandedRows, 'strategy_values');
+                    $caps = array_map('intval', $caps);
+                    echo CapTighteningScenarioGenerator::generateScenarioSummary($firstBaseCap, $caps) . "\n";
+                }
+            } else {
+                // Keep non-EMISCAP rows as-is
+                $expandedBaseConfig[] = $configRow;
+            }
+        }
+        $baseConfig = $expandedBaseConfig;
+        echo "Base configuration expanded with cap tightening scenarios.\n";
+    }
+    
+    // -----------------------------------------------------
+    // STEP 5: Generate Test Configurations from CSV Data
     // -----------------------------------------------------
     $tabRuns = generateConfigurationsFromCSV($baseConfig);
 
     // -----------------------------------------------------
-    // STEP 5: Process Each Configuration Run
+    // STEP 6: Process Each Configuration Run
     // -----------------------------------------------------
+    $capTighteningResults = []; // Store results for cap tightening analysis
+    
     foreach ($tabRuns as $run) {
         echo "Processing run: " . $run["PREFIXE"] . PHP_EOL;
 
@@ -245,6 +308,61 @@ try {
         file_put_contents($logFile, print_r($result, true));
 
         echo "Run completed for: " . $run["PREFIXE"] . ". Results saved to: $logFile\n";
+        
+        // Store results for cap tightening analysis if this is an EMISCAP run
+        if ($capTighteningEnabled && isset($run["_EMISCAP_"])) {
+            $capTighteningResults[] = [
+                'prefix' => $run["PREFIXE"],
+                'cap' => $run["_EMISCAP_"],
+                'result' => $result
+            ];
+        }
+    }
+    
+    // -----------------------------------------------------
+    // STEP 7: Analyze Cap Tightening Scenarios (if enabled)
+    // -----------------------------------------------------
+    if ($capTighteningEnabled && !empty($capTighteningResults)) {
+        echo "\nAnalyzing compliance pathway cost projections...\n";
+        
+        // Group results by base configuration (items, suppliers, service_times, model_type)
+        $groupedResults = [];
+        foreach ($capTighteningResults as $result) {
+            // Extract base config from prefix (format: items-suppliers-service_times-strategy-model_type-sequence)
+            $parts = explode('-', $result['prefix']);
+            if (count($parts) >= 5) {
+                $groupKey = $parts[0] . '-' . $parts[1] . '-' . $parts[2] . '-' . $parts[4]; // items-suppliers-service_times-model_type
+                if (!isset($groupedResults[$groupKey])) {
+                    $groupedResults[$groupKey] = [];
+                }
+                $groupedResults[$groupKey][] = $result;
+            }
+        }
+        
+        // Analyze each group
+        foreach ($groupedResults as $groupKey => $results) {
+            echo "Analyzing group: $groupKey\n";
+            
+            $analysis = CompliancePathwayAnalyzer::analyzeCompliancePathway($results);
+            
+            // Generate report
+            if ($capTighteningConfig['analysis']['generate_report'] ?? true) {
+                $report = CompliancePathwayAnalyzer::generateReport($analysis);
+                $reportFile = $logSubfolder . 'compliance_pathway_' . $groupKey . '.txt';
+                file_put_contents($reportFile, $report);
+                echo "Compliance pathway report saved to: $reportFile\n";
+            }
+            
+            // Export to CSV
+            if ($capTighteningConfig['analysis']['export_csv'] ?? true) {
+                $csvFile = $logSubfolder . 'compliance_pathway_' . $groupKey . '.csv';
+                if (CompliancePathwayAnalyzer::exportToCSV($analysis, $csvFile)) {
+                    echo "Compliance pathway CSV exported to: $csvFile\n";
+                }
+            }
+        }
+        
+        echo "Cap tightening scenario analysis completed.\n";
     }
 
 } catch (Exception $e) {
