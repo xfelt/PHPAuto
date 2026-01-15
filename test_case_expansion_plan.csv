@@ -1,0 +1,17 @@
+;;Test Case Category;Current State;Proposed Expansion for Article;Expected Results to Report
+1;OK;Simple BOM Structure;3, 5, 6 component BOMs;Add 2, 4, 7, 8, 10 component variations;Identify BOM size thresholds for algorithm performance
+2;;Simple BOM Structure;Single parent, serial structure;Include parallel branches;Quantify impact of structure on buffer positioning
+3;;Simple BOM Structure;Basic supplier lists (10-20 suppliers);5-15 specialized suppliers per component type;Show supplier count vs solution quality trade-off
+4;OK;Medium Complexity BOM;13, 26 component BOMs;15, 20, 25, 35 component BOMs;Establish sweet spot for model applicability
+5;;Medium Complexity BOM;Some assembly nodes;Divergent and convergent structures;Demonstrate solution stability
+6;;Complex BOM Structure;30, 50, 80, 123 component BOMs;40, 60, 90, 100, 150 component BOMs;Prove polynomial-time solvability bounds
+7;;Complex BOM Structure;Multiple assembly levels;4-6 levels deep, realistic complexity;Report memory and runtime scalability
+8;Canceled;Supplier Configuration;10-20 suppliers per component;3-8 specialized suppliers per raw material;Optimal supplier pool size per component type
+9;;Supplier Configuration;Attributes: price, delivery, capacity, emissions;Add: quality scores, reliability, lead time variance;Quantify quality vs cost vs emissions trade-offs
+10;;Supplier Configuration;Same supplier pool for all components;Component-specific supplier pools;Reduced solution space, faster convergence
+11;;Carbon Strategy Scenarios;Tax strategy (ei = 0.01, 0.03);Combined tax+cap hybrid strategy;Cost of carbon reduction: $/ton CO2 saved
+12;;Carbon Strategy Scenarios;Cap limit strategy (customized ECap);Progressive cap tightening scenarios;Compliance pathway cost projections
+13;;Carbon Strategy Scenarios;250+ instances tested;Sensitivity analysis: 500+ instances;Confidence intervals for all KPIs
+14;;KPI-Oriented Scenarios;Focus on total cost minimization;Multi-objective: cost vs DIO vs WIP;Pareto fronts: cost-DIO, cost-WIP, cost-emissions
+15;;KPI-Oriented Scenarios;Service time constraint (SvT);Add inventory turnover constraints;Inventory efficiency frontier
+16;;KPI-Oriented Scenarios;Carbon emissions secondary;Primary objective: sustainable KPIs;S-ROI calculations with uncertainty ranges

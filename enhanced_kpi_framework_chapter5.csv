@@ -1,0 +1,16 @@
+KPI Category;Specific Metric;Formula/Calculation;Relevance to project model;Data Source
+Work-In-Process (WIP) Reduction;WIP Level;Total WIP Inventory / Total Production Cycle Time;Direct - measures inventory flow efficiency with buffer positioning;Simulation output: average on-hand inventory (aoii)
+Work-In-Process (WIP) Reduction;WIP Reduction Rate;((WIP_before - WIP_after) / WIP_before) *100;Direct - quantifies improvement from DDMRP implementation;Comparison: baseline vs optimized buffer positions
+Days Inventory Outstanding (DIO);Average DIO;(Average Inventory / COGS) *365;Direct - measures how long inventory sits before use;Model parameters: inventory levels, COGS, lead times
+Days Inventory Outstanding (DIO);DIO Improvement Rate;((DIO_before - DIO_after) / DIO_before) *100;Direct - shows impact of buffer positioning decisions;Comparison: classic vs combined approach results
+Capital Immobilization;Capital Tied in Inventory;Average Inventory Value *Holding Cost Rate;Critical - measures cost of holding buffers at decoupling points;Model output: StCi (storing costs) for positioned buffers
+Capital Immobilization;Cash Flow Improvement;Reduction in Capital Tied Up / Initial Capital;High - demonstrates financial benefit of optimized positioning;Total cost reduction from optimization
+Inventory Turnover Ratio;Inventory Turnover Ratio;COGS / Average Inventory;High - measures efficiency of inventory management;Calculated from: COGS and buffer allocation equations
+Inventory Turnover Ratio;Inventory Velocity;Number of Times Inventory Sold & Replaced/Year;High - indicates responsiveness of supply chain;From net flow equations and buffer profiles
+Sustainable ROI (S-ROI);Economic Returns;(Cost Savings + Revenue Increase) / Investment;Very High - comprehensive metric for sustainability initiatives;Cost savings  / implementation investment
+Sustainable ROI (S-ROI);Environmental Returns;(Environmental Benefits - Environmental Costs) / Investment;Very High - quantifies environmental impact reduction;Emission reductions monetized / investment
+Sustainable ROI (S-ROI);Social Returns;(Social Benefits - Social Costs) / Investment;Medium - considers labor and community impacts;Supplier selection criteria: labor practices, safety
+Service Level & Lead Time;Service Time;Max(ai) for all components in BOM;Direct - primary objective function in thesis model;Model constraint: SvT0 <= SvT
+Service Level & Lead Time;On-Time Delivery Rate;(On-Time Deliveries / Total Deliveries) *100;High - service guarantee constraint in model;Simulation results: delivery time compliance
+Carbon Emissions;Total CO2 Emissions;SOMME(Storage Emissions + Transport Emissions + Production Emissions);Critical - core contribution of project;Equation : E(X,Q) in carbon footprint model
+Carbon Emissions;Emissions per Unit Produced;Total CO2 Emissions / Units Produced;Critical - evaluates carbon reduction strategies;Total emissions / ADU (average daily usage)
