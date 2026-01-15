@@ -1,0 +1,5 @@
+items,suppliers,service_times,model_type,max_capacity,num_pareto_points
+5,10,1,PLM,0,10
+5,10,1,NLM,0,10
+13,10,1,PLM,0,10
+13,10,1,NLM,0,10
