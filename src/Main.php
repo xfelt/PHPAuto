@@ -7,7 +7,7 @@ require_once __DIR__ . '/CplexRunner.php'; // CPLEX runner
 /**
  * Map strategy and model type to the corresponding .mod file.
  *
- * @param string $strategy Strategy type (EMISCAP or EMISTAXE)
+ * @param string $strategy Strategy type (EMISCAP, EMISTAXE, or EMISHYBRID)
  * @param string $modelType Model type (PLM or NLM)
  * @return string Path to the corresponding .mod file
  */
@@ -20,6 +20,10 @@ function getModelFile(string $strategy, string $modelType): string {
         "EMISTAXE" => [
             "PLM" => "RUNS_SupEmis_Cplex_PLM_Tax.mod",
             "NLM" => "RUNS_SupEmis_CP_NLM_Tax.mod"
+        ],
+        "EMISHYBRID" => [
+            "PLM" => "RUNS_SupEmis_Cplex_PLM_Hybrid.mod",
+            "NLM" => "RUNS_SupEmis_CP_NLM_Hybrid.mod"
         ]
     ];
 
@@ -54,6 +58,8 @@ function generateConfigurationsFromCSV(array $baseConfig) {
         $supplierDetailsFile = FileUtils::getSupplierDetailsFile($maxCapacity); // Dynamically select details file
 
         foreach ($strategyValues as $value) {
+            $value = trim($value);
+            
             // Include `model_type` in the PREFIXE for clarity
             $prefix = sprintf("%02d-%02d-%02d-%s-%s-%d", $items, $suppliers, $serviceTimes, $strategy, $modelType, $sequence);
 
@@ -74,6 +80,19 @@ function generateConfigurationsFromCSV(array $baseConfig) {
             } elseif ($strategy === "EMISTAXE") {
                 $tabRun["_EMISCAP_"] = 2500000; // Default for EMISTAXE
                 $tabRun["_EMISTAXE_"] = (float)$value;
+            } elseif ($strategy === "EMISHYBRID") {
+                // For hybrid strategy, value should be in format "tax,cap" (e.g., "0.01,2500000")
+                $parts = explode(':', $value); // Use colon as separator for tax:cap pairs
+                if (count($parts) !== 2) {
+                    throw new Exception("Invalid hybrid strategy value format: '$value'. Expected format: 'tax:cap' (e.g., '0.01:2500000')");
+                }
+                $tax = trim($parts[0]);
+                $cap = trim($parts[1]);
+                if (!is_numeric($tax) || !is_numeric($cap)) {
+                    throw new Exception("Invalid hybrid strategy values: tax='$tax', cap='$cap'. Both must be numeric.");
+                }
+                $tabRun["_EMISTAXE_"] = (float)$tax;
+                $tabRun["_EMISCAP_"] = (int)$cap;
             }
 
             $tabRuns[] = $tabRun;
@@ -139,7 +158,7 @@ try {
         }
 
         $configRow['strategy'] = strtoupper($configRow['strategy']);
-        $allowedStrategies = ['EMISCAP', 'EMISTAXE'];
+        $allowedStrategies = ['EMISCAP', 'EMISTAXE', 'EMISHYBRID'];
         if (!in_array($configRow['strategy'], $allowedStrategies, true)) {
             throw new Exception("Invalid strategy '" . $configRow['strategy'] . "' in baseConfig.csv on line $lineNumber.");
         }
