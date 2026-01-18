@@ -1,0 +1,312 @@
+Array
+(
+    [CplexRunTime] => Total (root+branch&cut) =    0,44 sec
+    [Result] => Array
+        (
+            [Objective] => fct_obj.
+            [ServiceCost] => tot_cst.
+            [LateDeliveries] => tot_ldt.
+            [Emissions] => Emiss
+        )
+
+    [TS] => 1578556
+    [CS] => 968140
+    [TaxCost] => 610416
+    [A] => Array
+        (
+            [0] => 0
+            [1] => 33
+            [2] => 24
+            [3] => 24
+            [4] => 15
+            [5] => 16
+            [6] => 18
+            [7] => 11
+            [8] => 20
+            [9] => 16
+            [10] => 16
+            [11] => 10
+            [12] => 5
+            [13] => 8
+            [14] => 6
+            [15] => 14
+            [16] => 10
+            [17] => 8
+            [18] => 8
+            [19] => 7
+            [20] => 14
+            [21] => 7
+            [22] => 11
+            [23] => 8
+            [24] => 7
+            [25] => 8
+            [26] => 4
+        )
+
+    [X] => Array
+        (
+            [0] => 0
+            [1] => 1
+            [2] => 0
+            [3] => 0
+            [4] => 0
+            [5] => 0
+            [6] => 0
+            [7] => 0
+            [8] => 0
+            [9] => 0
+            [10] => 0
+            [11] => 0
+            [12] => 0
+            [13] => 0
+            [14] => 0
+            [15] => 0
+            [16] => 0
+            [17] => 0
+            [18] => 0
+            [19] => 0
+            [20] => 0
+            [21] => 0
+            [22] => 0
+            [23] => 0
+            [24] => 0
+            [25] => 0
+            [26] => 0
+        )
+
+    [E] => 30520800
+    [Cap] => 37416960
+    [Tax] => 0.02
+    [DELIVER] => Array
+        (
+            [0] => S8=>P13
+            [1] => S8=>P14
+            [2] => S4=>P15
+            [3] => S8=>P15
+            [4] => S3=>P16
+            [5] => S4=>P16
+            [6] => S10=>P16
+            [7] => S8=>P17
+            [8] => S10=>P18
+            [9] => S8=>P19
+            [10] => S5=>P20
+            [11] => S8=>P20
+            [12] => S8=>P21
+            [13] => S3=>P22
+            [14] => S4=>P22
+            [15] => S8=>P22
+            [16] => S10=>P22
+            [17] => S8=>P23
+            [18] => S10=>P24
+            [19] => S4=>P25
+            [20] => S10=>P25
+            [21] => S3=>P26
+            [22] => S4=>P26
+            [23] => S10=>P26
+        )
+
+    [_raw_output] => 
+<<< setup
+
+0 0 -1 0 1 0,25 0,5 0,8 1 0 0 0 0 13
+1 9 0 2500 1 0,25 0,5 0,8 1 0 7000 700 1500 13
+2 4 1 900 1 0,25 0,5 0,8 1 0 3500 450 1500 13
+3 8 1 890 1 0,25 0,5 0,8 1 0 5500 550 1500 13
+4 5 1 910 1 0,25 0,5 0,8 1 0 2800 280 1500 13
+5 2 1 860 2 0,25 0,5 0,8 1 0 2350 235 1500 13
+6 8 2 880 3 0,25 0,5 0,8 1 0 2600 260 1500 13
+7 3 2 800 2 0,25 0,5 0,8 1 0 2900 290 1500 13
+8 6 2 780 1 0,25 0,5 0,8 1 0 1600 160 1500 13
+9 5 3 790 2 0,25 0,5 0,8 1 0 1250 125 1500 13
+10 9 3 750 3 0,25 0,5 0,8 1 0 1120 112 1500 13
+11 2 4 690 2 0,25 0,5 0,8 1 0 1200 120 1500 13
+12 1 4 660 3 0,25 0,5 0,8 1 0 1000 100 1500 13
+13 3 5 600 8 0,25 0,5 0,5 1 0 1100 110 1500 13
+14 1 5 640 6 0,25 0,5 0,5 1 0 1100 110 1500 13
+15 9 5 700 2 0,25 0,5 0,5 1 0 1100 110 1500 13
+16 9 6 660 9 0,25 0,5 0,5 1 0 2100 210 1500 13
+17 3 6 580 6 0,25 0,5 0,5 1 0 2000 200 1500 13
+18 7 7 550 2 0,25 0,5 0,5 1 0 2300 230 1500 13
+19 2 8 570 1 0,25 0,5 0,5 1 0 1200 120 1500 13
+20 9 8 600 2 0,25 0,5 0,5 1 0 1400 140 1500 13
+21 2 9 540 6 0,25 0,5 0,5 1 0 1150 115 1500 13
+22 6 9 510 4 0,25 0,5 0,5 1 0 1100 110 1500 13
+23 3 9 590 4 0,25 0,5 0,5 1 0 1050 105 1500 13
+24 6 10 400 3 0,25 0,5 0,5 1 0 950 95 1500 13
+25 7 11 490 2 0,25 0,5 0,5 1 0 1000 100 1500 13
+26 3 12 480 3 0,25 0,5 0,5 1 0 900 90 1500 13
+Node nums: [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26]
+xx-Data uploaded-xx
+	**** start init su array ...
+0 [0 0 0 0 0 0 0 0 0 0]
+1 [0 0 0 0 0 0 0 0 0 0]
+2 [0 0 0 0 0 0 0 0 0 0]
+3 [0 0 0 0 0 0 0 0 0 0]
+4 [0 0 0 0 0 0 0 0 0 0]
+5 [0 0 0 0 0 0 0 0 0 0]
+6 [0 0 0 0 0 0 0 0 0 0]
+7 [0 0 0 0 0 0 0 0 0 0]
+8 [0 0 0 0 0 0 0 0 0 0]
+9 [0 0 0 0 0 0 0 0 0 0]
+10 [0 0 0 0 0 0 0 0 0 0]
+11 [0 0 0 0 0 0 0 0 0 0]
+12 [0 0 0 0 0 0 0 0 0 0]
+13 [1 1 1 1 1 1 1 1 1 1]
+14 [1 1 1 1 1 1 1 1 1 1]
+15 [1 1 1 1 1 1 1 1 1 1]
+16 [1 1 1 1 1 1 1 1 1 1]
+17 [1 1 1 1 1 1 1 1 1 1]
+18 [1 1 1 1 1 1 1 1 1 1]
+19 [1 1 1 1 1 1 1 1 1 1]
+20 [1 1 1 1 1 1 1 1 1 1]
+21 [1 1 1 1 1 1 1 1 1 1]
+22 [1 1 1 1 1 1 1 1 1 1]
+23 [1 1 1 1 1 1 1 1 1 1]
+24 [1 1 1 1 1 1 1 1 1 1]
+25 [1 1 1 1 1 1 1 1 1 1]
+26 [1 1 1 1 1 1 1 1 1 1]
+	**** end init su array ...
+1 2 1 700 80 0.85 0.92 0.8 (9)9
+2 2 0.9 800 75 0.82 0.90 0.9 (9)9
+3 1 1.1 680 90 0.88 0.95 0.5 (9)9
+4 1 1 480 100 0.86 0.93 0.6 (9)9
+5 5 0.6 550 40 0.72 0.78 1.5 (9)9
+6 6 0.5 650 45 0.70 0.75 2.0 (9)9
+7 7 0.5 1100 40 0.68 0.72 2.5 (9)9
+8 5 0.3 700 30 0.65 0.70 1.8 (9)9
+9 9 0.2 1700 15 0.60 0.65 3.5 (9)9
+10 1 0.8 5800 40 0.80 0.88 0.7 (9)9
+
+<<< generate
+
+Version identifier: 20.1.0.0 | 2020-11-10 | 9bedb6d68
+CPXPARAM_TimeLimit                               1800
+Tried aggregator 2 times.
+MIP Presolve eliminated 3813 rows and 263 columns.
+MIP Presolve added 280 rows and 140 columns.
+MIP Presolve modified 283 coefficients.
+Aggregator did 2 substitutions.
+Reduced MIP has 689 rows, 496 columns, and 1852 nonzeros.
+Reduced MIP has 165 binaries, 191 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0,00 sec. (3,97 ticks)
+Probing time = 0,00 sec. (0,14 ticks)
+Cover probing fixed 0 vars, tightened 14 bounds.
+Tried aggregator 1 time.
+Detecting symmetries...
+MIP Presolve eliminated 182 rows and 0 columns.
+MIP Presolve modified 196 coefficients.
+Reduced MIP has 507 rows, 496 columns, and 1628 nonzeros.
+Reduced MIP has 165 binaries, 191 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0,00 sec. (1,24 ticks)
+Classifier predicts products in MIQP should be linearized.
+Probing time = 0,00 sec. (0,12 ticks)
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 20 threads.
+Root relaxation solution time = 0,00 sec. (1,31 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+      0     0  1371844,2877   124                1371844,2877      130         
+      0     0  1411619,0846   106                    Cuts: 95      204         
+      0     0  1422785,9322   151                    Cuts: 72      261         
+      0     0  1423676,8891   155                    Cuts: 13      274         
+      0     0  1424053,7153   156                    Cuts: 13      286         
+      0     0  1424156,1600   156                     Cuts: 5      290         
+Detecting symmetries...
+      0     0  1424156,1600   156                    Fract: 1      292         
+*     0+    0                      8874398,7600  1424156,1600            83,95%
+*     0+    0                      1638796,0000  1424156,1600            13,10%
+*     0+    0                      1636634,0000  1424156,1600            12,98%
+*     0+    0                      1628892,0000  1459678,2162            10,39%
+      0     0  -1,00000e+75     0  1628892,0000  1459678,2162      292   10,39%
+Detecting symmetries...
+      0     2  1424156,1600   154  1628892,0000  1459678,2162      292   10,39%
+Elapsed time = 0,09 sec. (59,57 ticks, tree = 0,02 MB, solutions = 4)
+*     9+    1                      1611928,0000  1459678,2162             9,45%
+*   158+   17                      1605404,0000  1459678,2162             9,08%
+*  2691  1004      integral     0  1593635,6000  1502542,5474    10847    5,72%
+*  3757   898      integral     0  1591358,0000  1526567,6693    18080    4,07%
+*  4279+  915                      1580364,0000  1529401,6940             3,22%
+
+Performing restart 1
+
+Repeating presolve.
+Tried aggregator 1 time.
+MIP Presolve eliminated 20 rows and 17 columns.
+MIP Presolve modified 331 coefficients.
+Reduced MIP has 487 rows, 479 columns, and 1562 nonzeros.
+Reduced MIP has 160 binaries, 189 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0,00 sec. (0,90 ticks)
+Tried aggregator 1 time.
+MIP Presolve modified 153 coefficients.
+Reduced MIP has 487 rows, 479 columns, and 1562 nonzeros.
+Reduced MIP has 160 binaries, 189 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0,00 sec. (1,14 ticks)
+Represolve time = 0,00 sec. (4,11 ticks)
+   8085     0  1443271,8242   143  1580364,0000     Cuts: 143    35631    2,04%
+   8085     0  1458344,7158   125  1580364,0000     Cuts: 113    35704    2,04%
+   8085     0  1478282,6362   146  1580364,0000      Cuts: 80    35779    2,04%
+   8085     0  1488272,7496   162  1580364,0000      Cuts: 98    35857    2,04%
+   8085     0  1496500,9615   148  1580364,0000     Cuts: 107    35927    2,04%
+   8085     0  1500423,0831   165  1580364,0000     Cuts: 109    36005    2,04%
+   8085     0  1503833,4330   174  1580364,0000      Cuts: 75    36064    2,04%
+   8085     0  1507196,3446   146  1580364,0000     Cuts: 130    36135    2,04%
+*  8085+    0                      1578884,0000  1548181,6998             1,94%
+
+Implied bound cuts applied:  12
+Flow cuts applied:  18
+Mixed integer rounding cuts applied:  97
+Zero-half cuts applied:  12
+Lift and project cuts applied:  11
+Gomory fractional cuts applied:  42
+
+Root node processing (before b&c):
+  Real time             =    0,09 sec. (59,35 ticks)
+Parallel b&c, 20 threads:
+  Real time             =    0,33 sec. (258,82 ticks)
+  Sync time (average)   =    0,08 sec.
+  Wait time (average)   =    0,00 sec.
+                          ------------
+Total (root+branch&cut) =    0,42 sec. (318,17 ticks)
+
+<<< solve
+
+
+OBJECTIVE: 1578884
+xxxx
+#Result <fct_obj, tot_cst, tot_ldt, Emiss>: <1.5789e+6 1.5786e+6 328 3.0521e+7>#TS:1578556#CS:968140#TaxCost:610416#A:[0,33,24,24,15,16,18,11,20,16,16,10,5,8,6,14,10,8,8,7,14,7,11,8,7,8,4]#X:[0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]#E: 30520800#Cap: 37416960#Tax: 0.02#DELIVER:
+S8=>P13
+S8=>P14
+S4=>P15
+S8=>P15
+S3=>P16
+S4=>P16
+S10=>P16
+S8=>P17
+S10=>P18
+S8=>P19
+S5=>P20
+S8=>P20
+S8=>P21
+S3=>P22
+S4=>P22
+S8=>P22
+S10=>P22
+S8=>P23
+S10=>P24
+S4=>P25
+S10=>P25
+S3=>P26
+S4=>P26
+S10=>P26
+xxxx
+
+<<< post process
+
+
+<<< done
+
+
+)

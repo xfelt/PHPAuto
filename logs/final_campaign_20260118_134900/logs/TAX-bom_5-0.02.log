@@ -1,0 +1,168 @@
+Array
+(
+    [CplexRunTime] => Total (root+branch&cut) =    0,17 sec
+    [Result] => Array
+        (
+            [Objective] => fct_obj.
+            [ServiceCost] => tot_cst.
+            [LateDeliveries] => tot_ldt.
+            [Emissions] => Emiss
+        )
+
+    [TS] => 90320
+    [A] => Array
+        (
+            [0] => 0
+            [1] => 2
+            [2] => 5
+            [3] => 6
+            [4] => 4
+            [5] => 6
+        )
+
+    [X] => Array
+        (
+            [0] => 0
+            [1] => 1
+            [2] => 1
+            [3] => 1
+            [4] => 1
+            [5] => 1
+        )
+
+    [E] => 1503000
+    [DELIVER] => Array
+        (
+            [0] => S10=>P2
+            [1] => S3=>P4
+            [2] => S4=>P4
+            [3] => S4=>P5
+        )
+
+    [_raw_output] => 
+<<< setup
+
+0 0 -1 0 0 0.25 0.5 0.8 1 0 0 0 0  14
+1 2 0 700 1 0.25 0.5 0.8 1 0 7000 700 1500  14
+2 4 1 165 1 0.25 0.5 0.8 1 0 5000 500 1500  14
+3 6 1 100 2 0.25 0.5 0.8 1 0 3500 350 1500  14
+4 3 3 25 6 0.25 0.5 0.8 1 0 3000 300 1500  14
+5 5 3 30 2 0.25 0.5 0.8 1 0 2500 250 1500  14
+Node nums: [0 1 2 3 4 5]
+xx-Data uploaded-xx
+	**** start init su array ...
+0 [0 0 0 0 0 0 0 0 0 0]
+1 [0 0 0 0 0 0 0 0 0 0]
+2 [1 1 1 1 1 1 1 1 1 1]
+3 [0 0 0 0 0 0 0 0 0 0]
+4 [1 1 1 1 1 1 1 1 1 1]
+5 [1 1 1 1 1 1 1 1 1 1]
+	**** end init su array ...
+1 2 1 100 80 0.85 0.92 0.8 (9)9
+2 2 0.9 60 75 0.82 0.90 0.9 (9)9
+3 1 1.1 80 90 0.88 0.95 0.5 (9)9
+4 1 1 80 100 0.86 0.93 0.6 (9)9
+5 5 0.6 50 40 0.72 0.78 1.5 (9)9
+6 6 0.5 60 45 0.70 0.75 2.0 (9)9
+7 7 0.5 80 40 0.68 0.72 2.5 (9)9
+8 5 0.3 25 30 0.65 0.70 1.8 (9)9
+9 9 0.2 250 15 0.60 0.65 3.5 (9)9
+10 1 0.8 30 40 0.80 0.88 0.7 (9)9
+
+<<< generate
+
+Version identifier: 20.1.0.0 | 2020-11-10 | 9bedb6d68
+CPXPARAM_TimeLimit                               1800
+Tried aggregator 2 times.
+MIP Presolve eliminated 233 rows and 63 columns.
+MIP Presolve added 60 rows and 30 columns.
+MIP Presolve modified 22 coefficients.
+Aggregator did 2 substitutions.
+Reduced MIP has 142 rows, 103 columns, and 340 nonzeros.
+Reduced MIP has 34 binaries, 39 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0,00 sec. (0,40 ticks)
+Found incumbent of value 2,0701034e+07 after 0,00 sec. (0,49 ticks)
+Probing time = 0,00 sec. (0,03 ticks)
+Cover probing fixed 0 vars, tightened 3 bounds.
+Tried aggregator 1 time.
+Detecting symmetries...
+MIP Presolve eliminated 39 rows and 0 columns.
+MIP Presolve modified 42 coefficients.
+Reduced MIP has 103 rows, 103 columns, and 292 nonzeros.
+Reduced MIP has 34 binaries, 39 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0,00 sec. (0,22 ticks)
+Classifier predicts products in MIQP should be linearized.
+Probing time = 0,00 sec. (0,02 ticks)
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 20 threads.
+Root relaxation solution time = 0,00 sec. (0,34 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                       2,07010e+07 -1915747,0000           109,25%
+*     0+    0                       2,05753e+07 -1915747,0000           109,31%
+*     0+    0                      8232587,2000 -1915747,0000           123,27%
+*     0+    0                       160048,2000 -1915747,0000              --- 
+*     0+    0                       159881,4000 -1915747,0000              --- 
+      0     0    71359,3132    30   159881,4000    71359,3132       59   55,37%
+*     0+    0                        96016,0000    71359,3132            25,68%
+      0     0    73520,9342    40    96016,0000      Cuts: 29       75   23,43%
+      0     0    76272,9318    36    96016,0000      Cuts: 35       97   20,56%
+      0     0    77053,7153    42    96016,0000      Cuts: 13      113   19,75%
+      0     0    77608,6034    43    96016,0000      Cuts: 14      124   19,17%
+      0     0    77954,0035    48    96016,0000       Cuts: 7      134   18,81%
+Detecting symmetries...
+      0     0    78162,5120    46    96016,0000       Cuts: 7      144   18,59%
+      0     0    78221,3197    48    96016,0000       Cuts: 4      148   18,53%
+      0     0    78310,1160    32    96016,0000       Cuts: 3      152   18,44%
+      0     0    78328,3328    34    96016,0000       Cuts: 3      155   18,42%
+      0     0    78655,9077    29    96016,0000       Cuts: 9      158   18,08%
+      0     0    78656,1577    29    96016,0000   ZeroHalf: 1      159   18,08%
+      0     0    78721,6577    33    96016,0000       Cuts: 2      160   18,01%
+      0     0    78732,0553    33    96016,0000   ZeroHalf: 1      161   18,00%
+      0     0    78759,3839    33    96016,0000   ZeroHalf: 2      163   17,97%
+      0     0    78812,5351    33    96016,0000       Cuts: 2      165   17,92%
+      0     0    78841,9077    30    96016,0000   ZeroHalf: 1      166   17,89%
+      0     0    78939,1501    32    96016,0000       Cuts: 3      169   17,79%
+      0     0    78951,2410    29    96016,0000   Impl Bds: 2      170   17,77%
+*     0+    0                        90343,0000    78951,2410            12,61%
+      0     0        cutoff          90343,0000    90343,0000      170    0,00%
+Elapsed time = 0,09 sec. (11,13 ticks, tree = 0,01 MB, solutions = 7)
+
+Implied bound cuts applied:  8
+Flow cuts applied:  1
+Mixed integer rounding cuts applied:  7
+Zero-half cuts applied:  5
+Lift and project cuts applied:  2
+Gomory fractional cuts applied:  8
+
+Root node processing (before b&c):
+  Real time             =    0,09 sec. (11,14 ticks)
+Parallel b&c, 20 threads:
+  Real time             =    0,00 sec. (0,00 ticks)
+  Sync time (average)   =    0,00 sec.
+  Wait time (average)   =    0,00 sec.
+                          ------------
+Total (root+branch&cut) =    0,09 sec. (11,14 ticks)
+
+<<< solve
+
+
+OBJECTIVE: 90343
+xxxx
+#Result <fct_obj, tot_cst, tot_ldt, Emiss>: <90343 90320 23 1.503e+6>#TS:90320#A:[0,2,5,6,4,6]#X:[0,1,1,1,1,1]#E: 1503000#DELIVER:
+S10=>P2
+S3=>P4
+S4=>P4
+S4=>P5
+xxxx
+
+<<< post process
+
+
+<<< done
+
+
+)

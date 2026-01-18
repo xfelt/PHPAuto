@@ -1,0 +1,11 @@
+{
+    "campaign_name": "Final Comprehensive Test Campaign",
+    "version": "1.0",
+    "started_at": "2026-01-18 13:49:00",
+    "results_directory": "C:\\Users\\Xfeltech\\OneDrive\\Documents\\GitHub\\PHPAuto\\config\/..\/logs\/final_campaign_20260118_134900\\",
+    "oplrun_path": "C:\\Program Files\\IBM\\ILOG\\CPLEX_Studio201\\opl\\bin\\x64_win64\\oplrun.exe",
+    "time_limit_sec": 1800,
+    "instance_registry_version": "1.0",
+    "php_version": "8.1.3",
+    "os": "WINNT"
+}

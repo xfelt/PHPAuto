@@ -1,0 +1,44 @@
+{
+    "ideal": {
+        "Cost": null,
+        "DIO": null,
+        "WIP": null,
+        "Emissions": null
+    },
+    "nadir": {
+        "Cost": null,
+        "DIO": null,
+        "WIP": null,
+        "Emissions": null
+    },
+    "all_solutions": [
+        {
+            "objective": 1,
+            "Cost": null,
+            "DIO": null,
+            "WIP": null,
+            "Emissions": null
+        },
+        {
+            "objective": 2,
+            "Cost": null,
+            "DIO": null,
+            "WIP": null,
+            "Emissions": null
+        },
+        {
+            "objective": 3,
+            "Cost": null,
+            "DIO": null,
+            "WIP": null,
+            "Emissions": null
+        },
+        {
+            "objective": 4,
+            "Cost": null,
+            "DIO": null,
+            "WIP": null,
+            "Emissions": null
+        }
+    ]
+}

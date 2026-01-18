@@ -1,0 +1,9 @@
+Array
+(
+    [_raw_output] => 
+<<< setup
+
+*** FATAL[PARSE_101] at 52:23-25 C:\Users\Xfeltech\OneDrive\Documents\GitHub\PHPAuto\data\COMP-BOM_26-EMISTAXE-NLM_RUNS_SupEmis_CP_NLM_Tax.mod: Séquence d'échappement non valide dans "\U".
+### OPL exception: Echec du traitement.
+
+)

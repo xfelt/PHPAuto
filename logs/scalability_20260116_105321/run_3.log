@@ -1,0 +1,128 @@
+Array
+(
+    [CplexRunTime] => Total (root+branch&cut) =    0,02 sec
+    [Result] => Array
+        (
+            [Objective] => fct_obj.
+            [ServiceCost] => tot_cst.
+            [LateDeliveries] => tot_ldt.
+            [Emissions] => Emiss
+        )
+
+    [TS] => 23600
+    [A] => Array
+        (
+            [0] => 0
+            [1] => 2
+            [2] => 5
+        )
+
+    [X] => Array
+        (
+            [0] => 0
+            [1] => 1
+            [2] => 1
+        )
+
+    [E] => 237400
+    [DELIVER] => Array
+        (
+            [0] => S10=>P2
+        )
+
+    [_raw_output] => 
+<<< setup
+
+0 0 -1 0 0 0.25 0.5 0.8 1 0 0 0 0  14
+1 2 0 650 1 0.25 0.5 0.8 1 0 6500 650 1500  14
+2 4 1 150 1 0.25 0.5 0.8 1 0 4500 450 1500  14
+Node nums: [0 1 2]
+xx-Data uploaded-xx
+	**** start init su array ...
+0 [0 0 0 0 0 0 0 0 0 0]
+1 [0 0 0 0 0 0 0 0 0 0]
+2 [1 1 1 1 1 1 1 1 1 1]
+	**** end init su array ...
+1 2 1 100 80 0.85 0.92 0.8 (9)9
+2 2 0.9 60 75 0.82 0.90 0.9 (9)9
+3 1 1.1 80 90 0.88 0.95 0.5 (9)9
+4 1 1 80 100 0.86 0.93 0.6 (9)9
+5 5 0.6 50 40 0.72 0.78 1.5 (9)9
+6 6 0.5 60 45 0.70 0.75 2.0 (9)9
+7 7 0.5 80 40 0.68 0.72 2.5 (9)9
+8 5 0.3 25 30 0.65 0.70 1.8 (9)9
+9 9 0.2 250 15 0.60 0.65 3.5 (9)9
+10 1 0.8 30 40 0.80 0.88 0.7 (9)9
+
+<<< generate
+
+Version identifier: 20.1.0.0 | 2020-11-10 | 9bedb6d68
+CPXPARAM_TimeLimit                               1800
+Tried aggregator 2 times.
+MIP Presolve eliminated 88 rows and 41 columns.
+MIP Presolve added 20 rows and 10 columns.
+MIP Presolve modified 13 coefficients.
+Aggregator did 1 substitutions.
+Reduced MIP has 50 rows, 37 columns, and 120 nonzeros.
+Reduced MIP has 13 binaries, 14 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0,00 sec. (0,15 ticks)
+Found incumbent of value 1,4685001e+07 after 0,00 sec. (0,28 ticks)
+Probing fixed 1 vars, tightened 0 bounds.
+Probing time = 0,00 sec. (0,40 ticks)
+Cover probing fixed 0 vars, tightened 1 bounds.
+Tried aggregator 2 times.
+Detecting symmetries...
+MIP Presolve eliminated 16 rows and 2 columns.
+MIP Presolve modified 14 coefficients.
+Aggregator did 1 substitutions.
+Reduced MIP has 33 rows, 34 columns, and 94 nonzeros.
+Reduced MIP has 11 binaries, 13 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0,00 sec. (0,10 ticks)
+Classifier predicts products in MIQP should be linearized.
+Probing time = 0,00 sec. (0,01 ticks)
+Clique table members: 1.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 20 threads.
+Root relaxation solution time = 0,02 sec. (0,09 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                       1,46850e+07        5,0000           100,00%
+*     0+    0                        39712,0000        5,0000            99,99%
+      0     0    18807,6107    15    39712,0000    18807,6107       15   52,64%
+*     0+    0                        23607,0000    18807,6107            20,33%
+      0     0    18876,3410    17    23607,0000       Cuts: 4       21   20,04%
+      0     0    19759,4444    12    23607,0000       Cuts: 9       32   16,30%
+      0     0        cutoff          23607,0000    23607,0000       32    0,00%
+Elapsed time = 0,02 sec. (1,41 ticks, tree = 0,01 MB, solutions = 4)
+
+Implied bound cuts applied:  4
+Gomory fractional cuts applied:  2
+
+Root node processing (before b&c):
+  Real time             =    0,02 sec. (1,41 ticks)
+Parallel b&c, 20 threads:
+  Real time             =    0,00 sec. (0,00 ticks)
+  Sync time (average)   =    0,00 sec.
+  Wait time (average)   =    0,00 sec.
+                          ------------
+Total (root+branch&cut) =    0,02 sec. (1,41 ticks)
+
+<<< solve
+
+
+OBJECTIVE: 23607
+xxxx
+#Result <fct_obj, tot_cst, tot_ldt, Emiss>: <23607 23600 7 2.374e+5>#TS:23600#A:[0,2,5]#X:[0,1,1]#E: 237400#DELIVER:
+S10=>P2
+xxxx
+
+<<< post process
+
+
+<<< done
+
+
+)

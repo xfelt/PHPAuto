@@ -1,0 +1,9 @@
+bom_id,supplier_variant,penalty_level,status,total_cost,total_emissions,suppliers_used,avg_quality,avg_reliability,supplier_concentration_index,delta_cost_vs_baseline,delta_emissions_vs_baseline,supplier_switch_rate,emissions_per_unit_cost,runtime_sec
+13,A,N/A,FEASIBLE,116448,29495946,8,,,0.53333333333333,,,,253.29714550701,20
+13,B,N/A,FEASIBLE,116448,29495946,8,0.78866666666667,0.85666666666667,0.53333333333333,0,0,0,253.29714550701,31
+13,C1,C1,FEASIBLE,117367.29,29496546,8,0.794375,0.8625,0.5,919.28999999999,600,0,251.3182846771,6
+13,C2,C2,FEASIBLE,121044.45,29496546,8,0.78866666666667,0.85666666666667,0.53333333333333,4596.45,600,0,243.68358896257,13
+50,A,N/A,INFEASIBLE,,,,,,,,,,,
+50,B,N/A,INFEASIBLE,,,,,,,,,,,
+50,C1,C1,INFEASIBLE,,,,,,,,,,,
+50,C2,C2,INFEASIBLE,,,,,,,,,,,

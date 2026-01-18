@@ -1,0 +1,150 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "created": "2026-01-18",
+    "description": "Instance registry for DDMRP Buffer Positioning, Supplier Selection, and Carbon Footprint Reduction study"
+  },
+  "bom_families": {
+    "simple": {
+      "description": "Simple single-chain BOMs (2-8 components)",
+      "complexity_class": "small",
+      "instances": [
+        {"id": "bom_2", "file": "bom_supemis_2.csv", "nodes": 2, "depth": 2, "topology": "chain"},
+        {"id": "bom_3", "file": "bom_supemis_3.csv", "nodes": 3, "depth": 3, "topology": "chain"},
+        {"id": "bom_4", "file": "bom_supemis_4.csv", "nodes": 4, "depth": 3, "topology": "chain"},
+        {"id": "bom_5", "file": "bom_supemis_5.csv", "nodes": 5, "depth": 3, "topology": "tree"},
+        {"id": "bom_6", "file": "bom_supemis_6.csv", "nodes": 6, "depth": 4, "topology": "tree"},
+        {"id": "bom_7", "file": "bom_supemis_7.csv", "nodes": 7, "depth": 4, "topology": "tree"},
+        {"id": "bom_8", "file": "bom_supemis_8.csv", "nodes": 8, "depth": 4, "topology": "tree"}
+      ]
+    },
+    "medium": {
+      "description": "Medium complexity BOMs (10-30 components)",
+      "complexity_class": "medium",
+      "instances": [
+        {"id": "bom_10", "file": "bom_supemis_10.csv", "nodes": 10, "depth": 4, "topology": "tree"},
+        {"id": "bom_13", "file": "bom_supemis_13.csv", "nodes": 13, "depth": 5, "topology": "tree"},
+        {"id": "bom_15", "file": "bom_supemis_15.csv", "nodes": 15, "depth": 5, "topology": "tree"},
+        {"id": "bom_20", "file": "bom_supemis_20.csv", "nodes": 20, "depth": 5, "topology": "tree"},
+        {"id": "bom_25", "file": "bom_supemis_25.csv", "nodes": 25, "depth": 6, "topology": "tree"},
+        {"id": "bom_26", "file": "bom_supemis_26.csv", "nodes": 26, "depth": 6, "topology": "tree"},
+        {"id": "bom_30", "file": "bom_supemis_30.csv", "nodes": 30, "depth": 6, "topology": "tree"}
+      ]
+    },
+    "complex": {
+      "description": "Complex industrial-scale BOMs (35-150 components)",
+      "complexity_class": "large",
+      "instances": [
+        {"id": "bom_35", "file": "bom_supemis_35.csv", "nodes": 35, "depth": 6, "topology": "tree"},
+        {"id": "bom_40", "file": "bom_supemis_40.csv", "nodes": 40, "depth": 7, "topology": "tree"},
+        {"id": "bom_50", "file": "bom_supemis_50.csv", "nodes": 50, "depth": 7, "topology": "tree"},
+        {"id": "bom_60", "file": "bom_supemis_60.csv", "nodes": 60, "depth": 8, "topology": "tree"},
+        {"id": "bom_80", "file": "bom_supemis_80.csv", "nodes": 80, "depth": 8, "topology": "tree"},
+        {"id": "bom_90", "file": "bom_supemis_90.csv", "nodes": 90, "depth": 9, "topology": "tree"},
+        {"id": "bom_100", "file": "bom_supemis_100.csv", "nodes": 100, "depth": 9, "topology": "tree"},
+        {"id": "bom_123", "file": "bom_supemis_123.csv", "nodes": 123, "depth": 10, "topology": "tree"},
+        {"id": "bom_150", "file": "bom_supemis_150.csv", "nodes": 150, "depth": 10, "topology": "tree"}
+      ]
+    },
+    "multi_level": {
+      "description": "Multi-level deep BOMs with controlled depth (M levels, N nodes)",
+      "complexity_class": "structural",
+      "instances": [
+        {"id": "bom_ml4_30", "file": "bom_supemis_ml4_30.csv", "nodes": 30, "depth": 4, "topology": "multi_level"},
+        {"id": "bom_ml4_55", "file": "bom_supemis_ml4_55.csv", "nodes": 55, "depth": 4, "topology": "multi_level"},
+        {"id": "bom_ml5_45", "file": "bom_supemis_ml5_45.csv", "nodes": 45, "depth": 5, "topology": "multi_level"},
+        {"id": "bom_ml5_65", "file": "bom_supemis_ml5_65.csv", "nodes": 65, "depth": 5, "topology": "multi_level"},
+        {"id": "bom_ml6_70", "file": "bom_supemis_ml6_70.csv", "nodes": 70, "depth": 6, "topology": "multi_level"}
+      ]
+    },
+    "parallel": {
+      "description": "Parallel branch BOMs (multiple branches feeding same final)",
+      "complexity_class": "structural",
+      "instances": [
+        {"id": "bom_par2", "file": "bom_supemis_par2.csv", "nodes": 9, "depth": 4, "topology": "parallel"},
+        {"id": "bom_par3", "file": "bom_supemis_par3.csv", "nodes": 11, "depth": 5, "topology": "parallel"},
+        {"id": "bom_par4", "file": "bom_supemis_par4.csv", "nodes": 10, "depth": 3, "topology": "parallel"},
+        {"id": "bom_par5", "file": "bom_supemis_par5.csv", "nodes": 18, "depth": 4, "topology": "parallel"},
+        {"id": "bom_par6", "file": "bom_supemis_par6.csv", "nodes": 24, "depth": 5, "topology": "parallel"}
+      ]
+    }
+  },
+  "supplier_configurations": {
+    "standard": {
+      "file": "supp_details_supeco.csv",
+      "description": "Standard supplier capacity",
+      "use_for": ["simple", "medium"]
+    },
+    "high_capacity": {
+      "file": "supp_details_supeco_grdCapacity.csv",
+      "description": "High capacity suppliers for large BOMs",
+      "use_for": ["complex"]
+    }
+  },
+  "carbon_strategies": {
+    "tax": {
+      "code": "EMISTAXE",
+      "description": "Carbon tax applied to emissions in objective function",
+      "parameters": {
+        "tax_rates": [0.0, 0.01, 0.02, 0.03, 0.05, 0.10],
+        "default_cap": 2500000
+      }
+    },
+    "cap": {
+      "code": "EMISCAP",
+      "description": "Hard emission cap constraint",
+      "parameters": {
+        "cap_percentages": [1.0, 0.95, 0.90, 0.85, 0.80, 0.75, 0.70],
+        "default_tax": 0.01
+      }
+    },
+    "hybrid": {
+      "code": "EMISHYBRID",
+      "description": "Combined tax and cap mechanism",
+      "parameters": {
+        "combinations": [
+          {"tax": 0.01, "cap_pct": 1.0},
+          {"tax": 0.01, "cap_pct": 0.90},
+          {"tax": 0.02, "cap_pct": 0.90},
+          {"tax": 0.01, "cap_pct": 0.80},
+          {"tax": 0.02, "cap_pct": 0.80},
+          {"tax": 0.03, "cap_pct": 0.80},
+          {"tax": 0.02, "cap_pct": 0.70},
+          {"tax": 0.03, "cap_pct": 0.70}
+        ]
+      }
+    }
+  },
+  "service_time_levels": {
+    "relaxed": {"value": 3, "description": "Relaxed service time"},
+    "standard": {"value": 1, "description": "Standard service time"},
+    "conservative": {"value": 0, "description": "Conservative (tight) service time"}
+  },
+  "model_types": {
+    "PLM": {
+      "description": "Pseudo-Linear Model (CPLEX)",
+      "models": {
+        "tax": "RUNS_SupEmis_Cplex_PLM_Tax.mod",
+        "cap": "RUNS_SupEmis_Cplex_PLM_Cap.mod",
+        "hybrid": "RUNS_SupEmis_Cplex_PLM_Hybrid.mod",
+        "multiobj": "RUNS_SupEmis_MultiObj_PLM.mod"
+      }
+    },
+    "NLM": {
+      "description": "Non-Linear Model (CP Optimizer)",
+      "models": {
+        "tax": "RUNS_SupEmis_CP_NLM_Tax.mod",
+        "cap": "RUNS_SupEmis_CP_NLM_Cap.mod",
+        "hybrid": "RUNS_SupEmis_CP_NLM_Hybrid.mod",
+        "multiobj": "RUNS_SupEmis_MultiObj_NLM.mod"
+      }
+    }
+  },
+  "representative_instances": {
+    "scalability_full": ["bom_2", "bom_5", "bom_10", "bom_13", "bom_20", "bom_26", "bom_35", "bom_50", "bom_80", "bom_100", "bom_123", "bom_150"],
+    "carbon_policy_analysis": ["bom_5", "bom_13", "bom_26", "bom_50"],
+    "structural_analysis": ["bom_ml4_30", "bom_ml5_45", "bom_ml6_70", "bom_par2", "bom_par4", "bom_par6"],
+    "multi_objective": ["bom_5", "bom_13", "bom_26"],
+    "service_time_sensitivity": ["bom_5", "bom_13", "bom_26", "bom_50"]
+  }
+}

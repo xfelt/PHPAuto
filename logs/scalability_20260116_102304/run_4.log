@@ -1,0 +1,36 @@
+Array
+(
+    [CplexRunTime] => Total (root+branch&cut) =    0,03 sec
+    [Result] => Array
+        (
+            [Objective] => fct_obj.
+            [ServiceCost] => tot_cst.
+            [LateDeliveries] => tot_ldt.
+            [Emissions] => Emiss
+        )
+
+    [TS] => 40920
+    [A] => Array
+        (
+            [0] => 0
+            [1] => 2
+            [2] => 5
+            [3] => 4
+        )
+
+    [X] => Array
+        (
+            [0] => 0
+            [1] => 1
+            [2] => 1
+            [3] => 1
+        )
+
+    [E] => 461840
+    [DELIVER] => Array
+        (
+            [0] => S10=>P2
+            [1] => S4=>P3
+        )
+
+)

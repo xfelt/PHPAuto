@@ -1,0 +1,11 @@
+run_id,instance_id,bom_file,strategy,model_type,service_time_promised,suppliers_available,tax_rate,cap_value,objective_value,total_cost_with_tax,total_cost_without_tax,procurement_cost,inventory_holding_cost,carbon_cost,achieved_service_time,service_constraint_binding,total_emissions,baseline_emissions,emission_reduction_pct,WIP,WIP_reduction_pct,DIO,DIO_improvement_pct,ITR,buffer_count,avg_decoupled_lead_time,suppliers_used,solver_status,runtime_sec,mip_gap
+TOPO-multi_level-bom_ml4_30,bom_ml4_30,bom_supemis_ml4_30.csv,EMISTAXE,PLM,1,10,0,2500000,fct_obj.,378440,,,,,0,0,13603260,,,,,290,,,3,9.3548387096774,4,OPTIMAL,0.3,
+TOPO-multi_level-bom_ml4_55,bom_ml4_55,bom_supemis_ml4_55.csv,EMISTAXE,PLM,1,10,0,2500000,fct_obj.,625892,,,,,0,0,20449523.6,,,,,452,,,10,8.0714285714286,3,OPTIMAL,44.7,
+TOPO-multi_level-bom_ml5_45,bom_ml5_45,bom_supemis_ml5_45.csv,EMISTAXE,PLM,1,10,0,2500000,fct_obj.,426068,,,,,0,0,21728460,,,,,459,,,3,9.9782608695652,5,OPTIMAL,1.27,
+TOPO-multi_level-bom_ml5_65,bom_ml5_65,bom_supemis_ml5_65.csv,EMISTAXE,PLM,1,10,0,2500000,fct_obj.,501452.8,,,,,0,0,29937037.2,,,,,684,,,18,10.363636363636,5,OPTIMAL,3.77,
+TOPO-multi_level-bom_ml6_70,bom_ml6_70,bom_supemis_ml6_70.csv,EMISTAXE,PLM,1,10,0,2500000,fct_obj.,583456,,,,,0,0,32567175,,,,,707,,,10,9.9577464788732,4,OPTIMAL,1.64,
+TOPO-parallel-bom_par2,bom_par2,bom_supemis_par2.csv,EMISTAXE,PLM,1,10,0,2500000,fct_obj.,98537,,,,,0,0,10080095,,,,,74,,,4,7.4,6,OPTIMAL,0.22,
+TOPO-parallel-bom_par3,bom_par3,bom_supemis_par3.csv,EMISTAXE,PLM,1,10,0,2500000,fct_obj.,78984,,,,,0,0,8148140,,,,,53,,,4,4.4166666666667,4,OPTIMAL,0.08,
+TOPO-parallel-bom_par4,bom_par4,bom_supemis_par4.csv,EMISTAXE,PLM,1,10,0,2500000,fct_obj.,169920,,,,,0,0,5939600,,,,,57,,,6,5.1818181818182,4,OPTIMAL,0.28,
+TOPO-parallel-bom_par5,bom_par5,bom_supemis_par5.csv,EMISTAXE,PLM,1,10,0,2500000,fct_obj.,220691,,,,,0,0,18512205,,,,,115,,,7,6.0526315789474,6,OPTIMAL,0.88,
+TOPO-parallel-bom_par6,bom_par6,bom_supemis_par6.csv,EMISTAXE,PLM,1,10,0,2500000,fct_obj.,275520,,,,,0,0,18894145,,,,,151,,,11,6.04,6,OPTIMAL,1.44,

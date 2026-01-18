@@ -1,0 +1,11 @@
+instance_id,family,M,N,runtime_sec,solver_status,objective_value,buffers_count,suppliers_used,total_emissions,total_cost
+bom_supemis_ml4_30,ML,4,30,0.44,OPTIMAL,378440,3,4,13603260,378440
+bom_supemis_ml4_55,ML,4,55,30.94,OPTIMAL,625892,10,3,20449523.6,625892
+bom_supemis_ml5_45,ML,5,45,1.56,OPTIMAL,426068,3,5,21728460,426068
+bom_supemis_ml5_65,ML,5,65,74.27,OPTIMAL,501452.8,18,5,29937037.2,501452.8
+bom_supemis_ml6_70,ML,6,70,20.66,OPTIMAL,583456,10,4,32567175,583456
+bom_supemis_par2,PAR,4,9,2.41,OPTIMAL,98537,4,6,10080095,98537
+bom_supemis_par3,PAR,5,11,0.44,OPTIMAL,78984,4,4,8148140,78984
+bom_supemis_par4,PAR,3,10,1.06,OPTIMAL,169920,6,4,5939600,169920
+bom_supemis_par5,PAR,4,18,0.67,OPTIMAL,220691,7,6,18512205,220691
+bom_supemis_par6,PAR,5,24,1.98,OPTIMAL,275520,11,6,18894145,275520

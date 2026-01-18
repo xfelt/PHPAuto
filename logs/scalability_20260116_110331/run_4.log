@@ -1,0 +1,11 @@
+Array
+(
+    [CplexRunTime] => -1 sec
+    [_raw_output] => 
+<<< setup
+
+*** FATAL[PARSE_101] at 51:23-25 C:\Users\Xfeltech\OneDrive\Documents\GitHub\PHPAuto\config\..\data\SCAL-004_RUNS_SupEmis_Cplex_PLM_Tax.mod: Séquence d'échappement non valide dans "\U".
+### OPL exception: Echec du traitement.
+
+    [_has_error_pattern] => 1
+)

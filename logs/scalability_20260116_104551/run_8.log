@@ -1,0 +1,180 @@
+Array
+(
+    [CplexRunTime] => Total (root+branch&cut) =    0,05 sec
+    [Result] => Array
+        (
+            [Objective] => fct_obj.
+            [ServiceCost] => tot_cst.
+            [LateDeliveries] => tot_ldt.
+            [Emissions] => Emiss
+        )
+
+    [TS] => 53084
+    [A] => Array
+        (
+            [0] => 0
+            [1] => 2
+            [2] => 10
+            [3] => 10
+            [4] => 6
+            [5] => 7
+            [6] => 6
+            [7] => 7
+        )
+
+    [X] => Array
+        (
+            [0] => 0
+            [1] => 1
+            [2] => 1
+            [3] => 1
+            [4] => 0
+            [5] => 0
+            [6] => 0
+            [7] => 0
+        )
+
+    [E] => 5587240
+    [DELIVER] => Array
+        (
+            [0] => S3=>P4
+            [1] => S4=>P4
+            [2] => S10=>P4
+            [3] => S4=>P5
+            [4] => S10=>P5
+            [5] => S2=>P6
+            [6] => S10=>P6
+            [7] => S2=>P7
+            [8] => S4=>P7
+            [9] => S10=>P7
+        )
+
+    [_raw_output] => 
+<<< setup
+
+0 0 -1 0 0 0.25 0.5 0.8 1 0 0 0 0  14
+1 2 0 760 1 0.25 0.5 0.8 1 0 7600 760 1500  14
+2 4 1 180 1 0.25 0.5 0.8 1 0 5600 560 1500  14
+3 3 1 115 2 0.25 0.5 0.8 1 0 3900 390 1500  14
+4 5 2 32 6 0.25 0.5 0.8 1 0 3400 340 1500  14
+5 6 3 40 2 0.25 0.5 0.8 1 0 3000 300 1500  14
+6 4 2 24 4 0.25 0.5 0.8 1 0 2900 290 1500  14
+7 5 3 28 3 0.25 0.5 0.8 1 0 2700 270 1500  14
+Node nums: [0 1 2 3 4 5 6 7]
+xx-Data uploaded-xx
+	**** start init su array ...
+0 [0 0 0 0 0 0 0 0 0 0]
+1 [0 0 0 0 0 0 0 0 0 0]
+2 [1 1 1 1 1 1 1 1 1 1]
+3 [0 0 0 0 0 0 0 0 0 0]
+4 [1 1 1 1 1 1 1 1 1 1]
+5 [1 1 1 1 1 1 1 1 1 1]
+6 [1 1 1 1 1 1 1 1 1 1]
+7 [1 1 1 1 1 1 1 1 1 1]
+	**** end init su array ...
+1 2 1 100 80 0.85 0.92 0.8 (9)9
+2 2 0.9 60 75 0.82 0.90 0.9 (9)9
+3 1 1.1 80 90 0.88 0.95 0.5 (9)9
+4 1 1 80 100 0.86 0.93 0.6 (9)9
+5 5 0.6 50 40 0.72 0.78 1.5 (9)9
+6 6 0.5 60 45 0.70 0.75 2.0 (9)9
+7 7 0.5 80 40 0.68 0.72 2.5 (9)9
+8 5 0.3 25 30 0.65 0.70 1.8 (9)9
+9 9 0.2 250 15 0.60 0.65 3.5 (9)9
+10 1 0.8 30 40 0.80 0.88 0.7 (9)9
+
+<<< generate
+
+Version identifier: 20.1.0.0 | 2020-11-10 | 9bedb6d68
+CPXPARAM_TimeLimit                               1800
+Tried aggregator 2 times.
+MIP Presolve eliminated 385 rows and 83 columns.
+MIP Presolve added 80 rows and 40 columns.
+MIP Presolve modified 19 coefficients.
+Aggregator did 2 substitutions.
+Reduced MIP has 192 rows, 139 columns, and 460 nonzeros.
+Reduced MIP has 46 binaries, 53 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0,00 sec. (0,58 ticks)
+Found incumbent of value 3,7942504e+07 after 0,00 sec. (1,06 ticks)
+Probing time = 0,00 sec. (0,04 ticks)
+Cover probing fixed 0 vars, tightened 4 bounds.
+Tried aggregator 1 time.
+Detecting symmetries...
+MIP Presolve eliminated 52 rows and 0 columns.
+MIP Presolve modified 56 coefficients.
+Reduced MIP has 140 rows, 139 columns, and 396 nonzeros.
+Reduced MIP has 46 binaries, 53 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0,00 sec. (0,30 ticks)
+Classifier predicts products in MIQP should be linearized.
+Probing time = 0,00 sec. (0,03 ticks)
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 20 threads.
+Root relaxation solution time = 0,00 sec. (0,50 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                       3,79425e+07    12193,0000            99,97%
+*     0+    0                       1,81820e+07    12193,0000            99,93%
+*     0+    0                       1,05024e+07    12193,0000            99,88%
+*     0+    0                       1,04706e+07    12193,0000            99,88%
+*     0+    0                       1,04389e+07    12193,0000            99,88%
+      0     0    47967,6365    56   1,04389e+07    47967,6365       62   99,54%
+      0     0    48563,7677    52   1,04389e+07      Cuts: 39      106   99,53%
+      0     0    48931,7813    44   1,04389e+07      Cuts: 29      130   99,53%
+      0     0    48977,2480    63   1,04389e+07       Cuts: 8      137   99,53%
+      0     0    49032,9754    68   1,04389e+07      Cuts: 10      149   99,53%
+      0     0    49047,4093    65   1,04389e+07       Cuts: 9      155   99,53%
+Detecting symmetries...
+      0     0    49081,6483    67   1,04389e+07      Cuts: 11      162   99,53%
+      0     0    49098,6495    68   1,04389e+07       Cuts: 7      168   99,53%
+      0     0    49099,3281    66   1,04389e+07       Cuts: 7      176   99,53%
+      0     0    49100,3614    69   1,04389e+07       Cuts: 9      181   99,53%
+*     0+    0                        65452,6000    49100,3614            24,98%
+*     0+    0                        62413,4000    49100,3614            21,33%
+*     0+    0                        53132,0000    49100,3614             7,59%
+      0     0        cutoff          53132,0000    53132,0000      181    0,00%
+Elapsed time = 0,05 sec. (14,56 ticks, tree = 0,01 MB, solutions = 8)
+
+Implied bound cuts applied:  17
+Flow cuts applied:  3
+Mixed integer rounding cuts applied:  5
+Zero-half cuts applied:  4
+Lift and project cuts applied:  4
+Gomory fractional cuts applied:  1
+
+Root node processing (before b&c):
+  Real time             =    0,05 sec. (14,57 ticks)
+Parallel b&c, 20 threads:
+  Real time             =    0,00 sec. (0,00 ticks)
+  Sync time (average)   =    0,00 sec.
+  Wait time (average)   =    0,00 sec.
+                          ------------
+Total (root+branch&cut) =    0,05 sec. (14,57 ticks)
+
+<<< solve
+
+
+OBJECTIVE: 53132
+xxxx
+#Result <fct_obj, tot_cst, tot_ldt, Emiss>: <53132 53084 48 5.5872e+6>#TS:53084#A:[0,2,10,10,6,7,6,7]#X:[0,1,1,1,0,0,0,0]#E: 5587240#DELIVER:
+S3=>P4
+S4=>P4
+S10=>P4
+S4=>P5
+S10=>P5
+S2=>P6
+S10=>P6
+S2=>P7
+S4=>P7
+S10=>P7
+xxxx
+
+<<< post process
+
+
+<<< done
+
+
+)

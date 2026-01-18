@@ -1,0 +1,211 @@
+Array
+(
+    [CplexRunTime] => Total (root+branch&cut) =    0,19 sec
+    [Result] => Array
+        (
+            [Objective] => fct_obj.
+            [ServiceCost] => tot_cst.
+            [LateDeliveries] => tot_ldt.
+            [Emissions] => Emiss
+        )
+
+    [TS] => 672592.51
+    [CS] => 330910
+    [TaxCost] => 341682.51
+    [A] => Array
+        (
+            [0] => 0
+            [1] => 2
+            [2] => 5
+            [3] => 7
+            [4] => 6
+            [5] => 4
+            [6] => 4
+            [7] => 4
+            [8] => 4
+            [9] => 4
+            [10] => 4
+            [11] => 5
+            [12] => 16
+            [13] => 13
+        )
+
+    [X] => Array
+        (
+            [0] => 0
+            [1] => 1
+            [2] => 1
+            [3] => 1
+            [4] => 1
+            [5] => 1
+            [6] => 1
+            [7] => 1
+            [8] => 1
+            [9] => 1
+            [10] => 1
+            [11] => 1
+            [12] => 1
+            [13] => 1
+        )
+
+    [E] => 11389417
+    [Cap] => 23596756
+    [Tax] => 0.03
+    [DELIVER] => Array
+        (
+            [0] => S10=>P7
+            [1] => S4=>P8
+            [2] => S4=>P9
+            [3] => S1=>P11
+            [4] => S4=>P11
+            [5] => S10=>P11
+            [6] => S6=>P12
+            [7] => S7=>P12
+            [8] => S8=>P12
+            [9] => S9=>P12
+            [10] => S1=>P13
+            [11] => S2=>P13
+            [12] => S4=>P13
+        )
+
+    [_raw_output] => 
+<<< setup
+
+0 0 -1 0 1 0,25 0,5 0,8 1 0 0 0 0  14
+1 2 0 1000 1 0,25 0,5 0,8 1 0 7000 700 1500  14
+2 5 1 120 1 0,25 0,5 0,8 1 0 3500 450 1500  14
+3 7 1 250 1 0,25 0,5 0,8 1 0 5500 550 1500  14
+4 6 1 100 3 0,25 0,5 0,8 1 0 2800 280 1500  14
+5 4 2 65 2 0,25 0,5 0,8 1 0 2350 235 1500  14
+6 4 3 80 5 0,25 0,5 0,8 1 0 2600 260 1500  14
+7 3 3 110 1 0,25 0,5 0,8 1 0 2900 290 1500  14
+8 3 4 40 3 0,25 0,5 0,8 1 0 1600 160 1500  14
+9 3 5 24 2 0,25 0,5 0,8 1 0 1250 125 1500  14
+10 4 5 16 2 0,25 0,5 0,8 1 0 1120 112 1500  14
+11 3 6 21 10 0,25 0,5 0,8 1 0 1200 120 1500  14
+12 7 6 27 20 0,25 0,5 0,8 1 0 1000 100 1500  14
+13 11 10 9 12 0,25 0,5 0,5 1 0 1100 110 1500  14
+Node nums: [0 1 2 3 4 5 6 7 8 9 10 11 12 13]
+xx-Data uploaded-xx
+	**** start init su array ...
+0 [0 0 0 0 0 0 0 0 0 0]
+1 [0 0 0 0 0 0 0 0 0 0]
+2 [0 0 0 0 0 0 0 0 0 0]
+3 [0 0 0 0 0 0 0 0 0 0]
+4 [0 0 0 0 0 0 0 0 0 0]
+5 [0 0 0 0 0 0 0 0 0 0]
+6 [0 0 0 0 0 0 0 0 0 0]
+7 [1 1 1 1 1 1 1 1 1 1]
+8 [1 1 1 1 1 1 1 1 1 1]
+9 [1 1 1 1 1 1 1 1 1 1]
+10 [0 0 0 0 0 0 0 0 0 0]
+11 [1 1 1 1 1 1 1 1 1 1]
+12 [1 1 1 1 1 1 1 1 1 1]
+13 [1 1 1 1 1 1 1 1 1 1]
+	**** end init su array ...
+1 2 1 100 80 0.85 0.92 0.8 (9)9
+2 2 0.9 60 75 0.82 0.90 0.9 (9)9
+3 1 1.1 80 90 0.88 0.95 0.5 (9)9
+4 1 1 80 100 0.86 0.93 0.6 (9)9
+5 5 0.6 50 40 0.72 0.78 1.5 (9)9
+6 6 0.5 60 45 0.70 0.75 2.0 (9)9
+7 7 0.5 80 40 0.68 0.72 2.5 (9)9
+8 5 0.3 25 30 0.65 0.70 1.8 (9)9
+9 9 0.2 250 15 0.60 0.65 3.5 (9)9
+10 1 0.8 30 40 0.80 0.88 0.7 (9)9
+
+<<< generate
+
+Version identifier: 20.1.0.0 | 2020-11-10 | 9bedb6d68
+CPXPARAM_TimeLimit                               1800
+Tried aggregator 2 times.
+MIP Presolve eliminated 1103 rows and 163 columns.
+MIP Presolve added 120 rows and 60 columns.
+MIP Presolve modified 88 coefficients.
+Aggregator did 2 substitutions.
+Reduced MIP has 301 rows, 217 columns, and 811 nonzeros.
+Reduced MIP has 72 binaries, 85 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0,00 sec. (1,46 ticks)
+Probing time = 0,00 sec. (0,06 ticks)
+Cover probing fixed 0 vars, tightened 19 bounds.
+Tried aggregator 1 time.
+Detecting symmetries...
+MIP Presolve eliminated 86 rows and 0 columns.
+MIP Presolve modified 68 coefficients.
+Reduced MIP has 215 rows, 217 columns, and 699 nonzeros.
+Reduced MIP has 72 binaries, 85 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0,00 sec. (0,52 ticks)
+Classifier predicts products in MIQP should be linearized.
+Probing time = 0,00 sec. (0,05 ticks)
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 20 threads.
+Root relaxation solution time = 0,00 sec. (0,84 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+      0     0   458983,7214    54                 458983,7214      123         
+      0     0   510163,8261    68                    Cuts: 64      169         
+      0     0   533697,8415    74                    Cuts: 31      192         
+*     0+    0                       802827,8600   533697,8415            33,52%
+      0     0   533884,6670    92   802827,8600       Cuts: 7      199   33,50%
+      0     0   533988,1341   104   802827,8600       Cuts: 4      205   33,49%
+      0     0   533996,8488   104   802827,8600    MIRcuts: 1      206   33,49%
+Detecting symmetries...
+*     0+    0                       742097,6600   533996,8488            28,04%
+*     0+    0                       683868,3100   533996,8488            21,92%
+*     0+    0                       680059,5100   620054,6561             8,82%
+      0     0  -1,00000e+75     0   680059,5100   620054,6561      206    8,82%
+Detecting symmetries...
+      0     2   533996,8488   104   680059,5100   620054,6561      206    8,82%
+Elapsed time = 0,05 sec. (16,99 ticks, tree = 0,02 MB, solutions = 4)
+*    18+    9                       673555,0600   620054,6561             7,94%
+*    21+    9                       673519,5100   620054,6561             7,94%
+*    32+   15                       673519,5100   620054,6561             7,94%
+*    49+    3                       672670,5100   620054,6561             7,82%
+*    52+    2                       672670,5100   620054,6561             7,82%
+
+Cover cuts applied:  23
+Implied bound cuts applied:  80
+Flow cuts applied:  3
+Mixed integer rounding cuts applied:  17
+Gomory fractional cuts applied:  25
+
+Root node processing (before b&c):
+  Real time             =    0,05 sec. (16,88 ticks)
+Parallel b&c, 20 threads:
+  Real time             =    0,08 sec. (35,56 ticks)
+  Sync time (average)   =    0,04 sec.
+  Wait time (average)   =    0,00 sec.
+                          ------------
+Total (root+branch&cut) =    0,13 sec. (52,44 ticks)
+
+<<< solve
+
+
+OBJECTIVE: 672670.5
+xxxx
+#Result <fct_obj, tot_cst, tot_ldt, Emiss>: <6.7267e+5 6.7259e+5 78 1.1389e+7>#TS:672592.51#CS:330910#TaxCost:341682.51#A:[0,2,5,7,6,4,4,4,4,4,4,5,16,13]#X:[0,1,1,1,1,1,1,1,1,1,1,1,1,1]#E: 11389417#Cap: 23596756#Tax: 0.03#DELIVER:
+S10=>P7
+S4=>P8
+S4=>P9
+S1=>P11
+S4=>P11
+S10=>P11
+S6=>P12
+S7=>P12
+S8=>P12
+S9=>P12
+S1=>P13
+S2=>P13
+S4=>P13
+xxxx
+
+<<< post process
+
+
+<<< done
+
+
+)

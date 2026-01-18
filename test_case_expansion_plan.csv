@@ -1,17 +1,273 @@
-;;Test Case Category;Current State;Proposed Expansion for Article;Expected Results to Report
-1;OK;Simple BOM Structure;3, 5, 6 component BOMs;Add 2, 4, 7, 8, 10 component variations;Identify BOM size thresholds for algorithm performance
-2;;Simple BOM Structure;Single parent, serial structure;Include parallel branches;Quantify impact of structure on buffer positioning
-3;;Simple BOM Structure;Basic supplier lists (10-20 suppliers);5-15 specialized suppliers per component type;Show supplier count vs solution quality trade-off
-4;OK;Medium Complexity BOM;13, 26 component BOMs;15, 20, 25, 35 component BOMs;Establish sweet spot for model applicability
-5;;Medium Complexity BOM;Some assembly nodes;Divergent and convergent structures;Demonstrate solution stability
-6;;Complex BOM Structure;30, 50, 80, 123 component BOMs;40, 60, 90, 100, 150 component BOMs;Prove polynomial-time solvability bounds
-7;;Complex BOM Structure;Multiple assembly levels;4-6 levels deep, realistic complexity;Report memory and runtime scalability
-8;Canceled;Supplier Configuration;10-20 suppliers per component;3-8 specialized suppliers per raw material;Optimal supplier pool size per component type
-9;;Supplier Configuration;Attributes: price, delivery, capacity, emissions;Add: quality scores, reliability, lead time variance;Quantify quality vs cost vs emissions trade-offs
-10;;Supplier Configuration;Same supplier pool for all components;Component-specific supplier pools;Reduced solution space, faster convergence
-11;;Carbon Strategy Scenarios;Tax strategy (ei = 0.01, 0.03);Combined tax+cap hybrid strategy;Cost of carbon reduction: $/ton CO2 saved
-12;;Carbon Strategy Scenarios;Cap limit strategy (customized ECap);Progressive cap tightening scenarios;Compliance pathway cost projections
-13;;Carbon Strategy Scenarios;250+ instances tested;Sensitivity analysis: 500+ instances;Confidence intervals for all KPIs
-14;;KPI-Oriented Scenarios;Focus on total cost minimization;Multi-objective: cost vs DIO vs WIP;Pareto fronts: cost-DIO, cost-WIP, cost-emissions
-15;;KPI-Oriented Scenarios;Service time constraint (SvT);Add inventory turnover constraints;Inventory efficiency frontier
-16;;KPI-Oriented Scenarios;Carbon emissions secondary;Primary objective: sustainable KPIs;S-ROI calculations with uncertainty ranges
+In order to Evaluate how BOM topology and depth affect:
+
++ inventory buffer positioning,
+
++ sourcing decisions,
+
++ total cost,
+
++ baseline carbon emissions,
+
+under a pure cost-optimization regime (no carbon tax, no emission cap).
+
+
+This unified scenario serves as:
+
+1. a structural sensitivity benchmark (serial / parallel / mixed),
+
+2. a realistic feasibility anchor for deep, industrial-scale BOMs,
+
+3. the baseline emissions reference for all subsequent carbon policy scenarios
+
+
+Your task is to execute a structured benchmark campaign combining multi-level structural BOMs and realistic large BOM instances, using the linearized CPLEX model, in order to analyze topology-driven effects on KPIs and establish robust baseline emissions.
+
+
+1) Scope: Two Complementary Instance Families (Same Scenario)
+
+
+This scenario includes two families of BOM instances, both already available.
+
+
+Family A — Multi-Level Structural BOMs (Controlled Depth & Size)
+
+These instances isolate the effect of BOM depth and topology.
+
+
+Naming convention (already added): bom_supemis_ml<M>_<N>.csv
+
+
+Where:
+
++ M = number of BOM levels (depth)
+
++ N = total number of nodes/components
+
+
+Topology rules:
+
++ include serial paths, convergent assemblies, and divergent branches,
+
++ same supplier pool logic across depths (no artificial supplier inflation).
+
+
+Family B — Realistic Large-Scale BOMs (Topology Variability)
+
+These instances represent realistic industrial BOMs, with heterogeneous topology.
+
+
+Naming convention (already added): bom_supemis_par<i>.csv
+
+
+Where:
+
+i = instance index (topology variation)
+
+
+Rules:
+
++ similar size range (?80–150 nodes),
+
++ different internal structures (assembly density, branching, depth),
+
++ realistic mix of raw materials and subassemblies.
+
+
+2) Input Data (Common to All Runs)
+
+For each instance (both families):
+
+
+BOM file:
+
++ bom_supemis_ml<M>_<N>.csv or
+
++ bom_supemis_par<i>.csv
+
+Supplier list:
+
++ size-matched supp_list_<N>.csv
+
+Supplier details:
+
++ supp_details_supeco.csv
+
+Use supp_details_supeco_grdCapacity.csv only if infeasibility appears due to capacity saturation (log this explicitly).
+
+
+3) Model and Solver Configuration
+
+
+Solver model:
+
+RUNS_SupEmis_Cplex_PLM_Tax.mod
+
+
+Carbon policy:
+
++ carbon tax = 0
+
++ no emission cap
+
++ emissions are computed but inactive in the objective
+
+
+Deterministic setup:
+
++ identical solver parameters across all runs
+
++ fixed seed (if applicable)
+
+
+Runtime limit:
+
+1800 seconds per instance
+
+
+4) Execution Protocol
+
+For each BOM instance:
+
+1. Load the BOM and corresponding supplier data.
+
+2. Run the CPLEX solver with identical settings.
+
+3. Capture solution status and KPIs.
+
+4. Store outputs in a unified results table.
+
+
+Do not stop on infeasibility:
+
++ log it,
+
++ continue with remaining instances.
+
+
+5) KPIs to Extract (Mandatory)
+
+For each run:
+
+
+Structural & Performance KPIs
+
++ instance_id
+
++ family ? {ML, PAR}
+
++ M (depth, if ML)
+
++ N (number of nodes)
+
++ runtime_sec
+
++ solver_status
+
++ objective_value
+
++ number_of_buffers
+
++ average_buffer_level (if available)
+
+
+Sourcing & Inventory KPIs
+
++ number_of_suppliers_used
+
++ average_lead_time (if computed)
+
++ total_inventory_cost (if separable)
+
+
+Baseline Sustainability KPI
+
++ total_CO2_emissions ? critical
+
+
+6) Output Artifacts
+
+1. Consolidated CSV:
+
+results_structural_realistic_baseline.csv
+
+
+Required columns:
+
+instance_id, family, M, N, runtime_sec, solver_status, objective_value, buffers_count, suppliers_used, total_emissions
+
+
+Logs:
+
+logs/structural_realistic/run_<instance_id>.log
+
+
+Summary markdown:
+
+results_structural_realistic_summary.md
+
+
+Include:
+
++ comparison of emissions across depths (ML),
+
++ emission dispersion across realistic topologies (PAR),
+
++ buffer positioning stability vs depth,
+
++ any infeasibility patterns.
+
+
+7) Interpretation Rule (Important)
+
+Treat all emissions computed here as baseline emissions (E?):
+
++ E?(M, N) for multi-level structural cases,
+
++ E?(i) for realistic topology cases.
+
+
+These values will be reused unchanged as reference points for:
+
++ emission cap tightening,
+
++ hybrid tax + cap scenarios,
+
++ marginal abatement cost analysis.
+
+
+Do not normalize or adjust emissions at this stage.
+
+
+8) Quality Control
+
+
+Before full execution:
+
+smoke-test:
+
++ one ml3_20,
+
++ one ml5_60,
+
++ one par1.
+
+
+Verify:
+
++ feasibility,
+
++ emissions extraction,
+
++ result logging.
+
+
+If OK, launch full batch.
+
+
+Deliverable Expectation (Article-Ready)
+
+
+This scenario must allow you to state clearly:
+
+
+“Before introducing any environmental regulation, emission levels are primarily driven by BOM topology and depth, even under identical cost-optimal sourcing rules.”
