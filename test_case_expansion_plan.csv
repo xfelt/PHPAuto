@@ -1,273 +1,70 @@
-In order to Evaluate how BOM topology and depth affect:
-
-+ inventory buffer positioning,
-
-+ sourcing decisions,
-
-+ total cost,
-
-+ baseline carbon emissions,
-
-under a pure cost-optimization regime (no carbon tax, no emission cap).
-
-
-This unified scenario serves as:
-
-1. a structural sensitivity benchmark (serial / parallel / mixed),
-
-2. a realistic feasibility anchor for deep, industrial-scale BOMs,
-
-3. the baseline emissions reference for all subsequent carbon policy scenarios
-
-
-Your task is to execute a structured benchmark campaign combining multi-level structural BOMs and realistic large BOM instances, using the linearized CPLEX model, in order to analyze topology-driven effects on KPIs and establish robust baseline emissions.
-
-
-1) Scope: Two Complementary Instance Families (Same Scenario)
-
-
-This scenario includes two families of BOM instances, both already available.
-
-
-Family A — Multi-Level Structural BOMs (Controlled Depth & Size)
-
-These instances isolate the effect of BOM depth and topology.
-
-
-Naming convention (already added): bom_supemis_ml<M>_<N>.csv
-
-
-Where:
-
-+ M = number of BOM levels (depth)
-
-+ N = total number of nodes/components
-
-
-Topology rules:
-
-+ include serial paths, convergent assemblies, and divergent branches,
-
-+ same supplier pool logic across depths (no artificial supplier inflation).
-
-
-Family B — Realistic Large-Scale BOMs (Topology Variability)
-
-These instances represent realistic industrial BOMs, with heterogeneous topology.
-
-
-Naming convention (already added): bom_supemis_par<i>.csv
-
-
-Where:
-
-i = instance index (topology variation)
-
-
-Rules:
-
-+ similar size range (?80–150 nodes),
-
-+ different internal structures (assembly density, branching, depth),
-
-+ realistic mix of raw materials and subassemblies.
-
-
-2) Input Data (Common to All Runs)
-
-For each instance (both families):
-
-
-BOM file:
-
-+ bom_supemis_ml<M>_<N>.csv or
-
-+ bom_supemis_par<i>.csv
-
-Supplier list:
-
-+ size-matched supp_list_<N>.csv
-
-Supplier details:
-
-+ supp_details_supeco.csv
-
-Use supp_details_supeco_grdCapacity.csv only if infeasibility appears due to capacity saturation (log this explicitly).
-
-
-3) Model and Solver Configuration
-
-
-Solver model:
-
-RUNS_SupEmis_Cplex_PLM_Tax.mod
-
-
-Carbon policy:
-
-+ carbon tax = 0
-
-+ no emission cap
-
-+ emissions are computed but inactive in the objective
-
-
-Deterministic setup:
-
-+ identical solver parameters across all runs
-
-+ fixed seed (if applicable)
-
-
-Runtime limit:
-
-1800 seconds per instance
-
-
-4) Execution Protocol
-
-For each BOM instance:
-
-1. Load the BOM and corresponding supplier data.
-
-2. Run the CPLEX solver with identical settings.
-
-3. Capture solution status and KPIs.
-
-4. Store outputs in a unified results table.
-
-
-Do not stop on infeasibility:
-
-+ log it,
-
-+ continue with remaining instances.
-
-
-5) KPIs to Extract (Mandatory)
-
-For each run:
-
-
-Structural & Performance KPIs
-
-+ instance_id
-
-+ family ? {ML, PAR}
-
-+ M (depth, if ML)
-
-+ N (number of nodes)
-
-+ runtime_sec
-
-+ solver_status
-
-+ objective_value
-
-+ number_of_buffers
-
-+ average_buffer_level (if available)
-
-
-Sourcing & Inventory KPIs
-
-+ number_of_suppliers_used
-
-+ average_lead_time (if computed)
-
-+ total_inventory_cost (if separable)
-
-
-Baseline Sustainability KPI
-
-+ total_CO2_emissions ? critical
-
-
-6) Output Artifacts
-
-1. Consolidated CSV:
-
-results_structural_realistic_baseline.csv
-
-
-Required columns:
-
-instance_id, family, M, N, runtime_sec, solver_status, objective_value, buffers_count, suppliers_used, total_emissions
-
-
-Logs:
-
-logs/structural_realistic/run_<instance_id>.log
-
-
-Summary markdown:
-
-results_structural_realistic_summary.md
-
-
-Include:
-
-+ comparison of emissions across depths (ML),
-
-+ emission dispersion across realistic topologies (PAR),
-
-+ buffer positioning stability vs depth,
-
-+ any infeasibility patterns.
-
-
-7) Interpretation Rule (Important)
-
-Treat all emissions computed here as baseline emissions (E?):
-
-+ E?(M, N) for multi-level structural cases,
-
-+ E?(i) for realistic topology cases.
-
-
-These values will be reused unchanged as reference points for:
-
-+ emission cap tightening,
-
-+ hybrid tax + cap scenarios,
-
-+ marginal abatement cost analysis.
-
-
-Do not normalize or adjust emissions at this stage.
-
-
-8) Quality Control
-
-
-Before full execution:
-
-smoke-test:
-
-+ one ml3_20,
-
-+ one ml5_60,
-
-+ one par1.
-
-
-Verify:
-
-+ feasibility,
-
-+ emissions extraction,
-
-+ result logging.
-
-
-If OK, launch full batch.
-
-
-Deliverable Expectation (Article-Ready)
-
-
-This scenario must allow you to state clearly:
-
-
-“Before introducing any environmental regulation, emission levels are primarily driven by BOM topology and depth, even under identical cost-optimal sourcing rules.”
+Colonne1;Colonne2;Colonne3;Colonne4;Colonne5
+jeudi 24 juillet 2025;-29,9;assistance juridique;C;to add
+lundi 29 septembre 2025;-17,63;chatgpt;C;to add
+samedi 18 octobre 2025;300;Treso;C;to add
+jeudi 30 octobre 2025;-17,63;cursor;C;to add
+mardi 4 novembre 2025;500;Treso;C;to add
+jeudi 6 novembre 2025;-14,45;parking part dieu;C;existant
+jeudi 13 novembre 2025;-39,6;restaurant lyon 1;T ;ok
+mardi 25 novembre 2025;-47,8;turc ;C;existant
+jeudi 27 novembre 2025;2500;Treso;C;to add
+dimanche 30 novembre 2025;-17,79;chatgpt;C;to add
+mardi 2 décembre 2025;-77,69;amazon;T;ok
+mardi 16 décembre 2025;-3,5;autoroute Nice;T;ok
+mercredi 17 décembre 2025;-53,51;essence;C;existant
+mercredi 17 décembre 2025;-2;parking part dieu;C;existant
+jeudi 15 janvier 2026;-35,8;china exepury;C;to add
+vendredi 16 janvier 2026;-3000;remboursement;T;to add
+mercredi 11 juin 2025;-13,16;network solutions;C;ok
+samedi 21 juin 2025;-100,98;legalplace pack créa;C;ok
+mercredi 25 juin 2025;-216;legalplace cpt bancaire;C;ok
+mercredi 25 juin 2025;-360;legalplace domiciliation;C;ok
+vendredi 27 juin 2025;-266,23;legal place greffe;C;ok
+vendredi 27 juin 2025;1000;SwiftEDI Capital;C;edit
+mercredi 2 juillet 2025;-28,11;network solutions;T;delete
+mardi 29 juillet 2025;-21,22;chatgpt;C;ok
+jeudi 21 août 2025;-267;swiftedi compta;T;delete
+vendredi 29 août 2025;-14,14;chatgpt;C;ok
+mercredi 10 septembre 2025;-222;amazon;C;ok
+mercredi 10 septembre 2025;-34,19;amazon;C;ok
+vendredi 12 septembre 2025;-9,93;amazon;C;ok
+samedi 13 septembre 2025;-263,83;songmics;T-perso;edit
+dimanche 14 septembre 2025;-73,68;amazon;C;ok
+mercredi 17 septembre 2025;-33,8;oceane;C;ok
+dimanche 21 septembre 2025;-267;swiftedi compta;T;delete
+mercredi 1 octobre 2025;-26;autoroute;T ;delete
+mercredi 1 octobre 2025;-8,77;parking;T ;delete
+mercredi 15 octobre 2025;-35,8;restaurant Lyon 2;T ;delete
+jeudi 16 octobre 2025;-24,78;linkedin premium;T;check
+vendredi 17 octobre 2025;-30;RC Pro;T ;delete
+mardi 21 octobre 2025;-267;swiftedi compta;T ;delete
+mercredi 29 octobre 2025;-17,63;chatgpt;C;ok
+mardi 4 novembre 2025;-121,54;darty;T ;delete
+dimanche 16 novembre 2025;-24,78;Linkedin;T;delete
+lundi 17 novembre 2025;-138;sncf;supp;delete
+lundi 17 novembre 2025;-154,94;SNCF+RATP+Uber;C;ok
+lundi 17 novembre 2025;-30,4;Coup Serensea;C;ok
+lundi 17 novembre 2025;-2,5;RATP;T;delete
+lundi 17 novembre 2025;-27,4;déjeuner;T;delete
+lundi 17 novembre 2025;-3,7;ptit-dej;T ;delete
+jeudi 20 novembre 2025;-20,21;RC Pro Kase;T;delete
+vendredi 21 novembre 2025;-267;swiftedi compta;T;delete
+dimanche 30 novembre 2025;-17,79;cursor;C;ok
+lundi 1 décembre 2025;-332,27;aliexpress;C;ok
+lundi 1 décembre 2025;-327,09;ldlc;C;ok
+lundi 1 décembre 2025;-1658,74;amazon;T ;delete
+lundi 1 décembre 2025;-92,1;amazon;T;delete
+mardi 2 décembre 2025;-16,99;amazon;T;delete
+mercredi 3 décembre 2025;-53,21;licence tonfotos;C;ok
+mardi 9 décembre 2025;-59,99;logitech;cancelled;delete
+samedi 19 décembre 2026;-75,6;schneider buffet;C;ok
+mardi 16 décembre 2025;-5,6;DriiveMe;C ;ok
+mardi 16 décembre 2025;-5,85;PAM;snacks;edit
+mardi 16 décembre 2025;-1,7;tramway Nice;C;ok
+mardi 16 décembre 2025;-45,7;Nice Lyon;C;ok
+mercredi 17 décembre 2025;-24,78;linkedin;T ;delete
+samedi 20 décembre 2025;-20,21;RC Pro Kase;cancelled;delete
+mardi 23 décembre 2025;-20,21;RC Pro Kase;T;delete
+lundi 29 décembre 2025;-17,47;chatgpt;C;ok
+mardi 30 décembre 2025;-17,48;Cursor;C;ok
+mardi 20 janvier 2026;-20,21;RC Pro Kase;T;delete

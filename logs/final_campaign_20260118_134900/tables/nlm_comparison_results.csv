@@ -1,7 +1,7 @@
 run_id,instance_id,bom_file,strategy,model_type,service_time_promised,suppliers_available,tax_rate,cap_value,objective_value,total_cost_with_tax,total_cost_without_tax,procurement_cost,inventory_holding_cost,carbon_cost,achieved_service_time,service_constraint_binding,total_emissions,baseline_emissions,emission_reduction_pct,WIP,WIP_reduction_pct,DIO,DIO_improvement_pct,ITR,buffer_count,avg_decoupled_lead_time,suppliers_used,solver_status,runtime_sec,mip_gap
-COMP-bom_5-EMISTAXE-NLM,bom_5,"C:\Users\Xfeltech\OneDrive\Documents\GitHub\PHPAuto/data/bom_supemis_5.csv",EMISTAXE,NLM,1,10,0.01,999999999,,,,,,,,0,,,,,,,,,0,0,0,UNKNOWN,-1,
-COMP-bom_5-EMISCAP-NLM,bom_5,"C:\Users\Xfeltech\OneDrive\Documents\GitHub\PHPAuto/data/bom_supemis_5.csv",EMISCAP,NLM,1,10,0,2500000,,,,,,,,0,,,,,,,,,0,0,0,UNKNOWN,-1,
-COMP-bom_13-EMISTAXE-NLM,bom_13,"C:\Users\Xfeltech\OneDrive\Documents\GitHub\PHPAuto/data/bom_supemis_13.csv",EMISTAXE,NLM,1,10,0.01,999999999,,,,,,,,0,,,,,,,,,0,0,0,UNKNOWN,-1,
-COMP-bom_13-EMISCAP-NLM,bom_13,"C:\Users\Xfeltech\OneDrive\Documents\GitHub\PHPAuto/data/bom_supemis_13.csv",EMISCAP,NLM,1,10,0,2500000,,,,,,,,0,,,,,,,,,0,0,0,UNKNOWN,-1,
-COMP-bom_26-EMISTAXE-NLM,bom_26,"C:\Users\Xfeltech\OneDrive\Documents\GitHub\PHPAuto/data/bom_supemis_26.csv",EMISTAXE,NLM,1,10,0.01,999999999,,,,,,,,0,,,,,,,,,0,0,0,UNKNOWN,-1,
-COMP-bom_26-EMISCAP-NLM,bom_26,"C:\Users\Xfeltech\OneDrive\Documents\GitHub\PHPAuto/data/bom_supemis_26.csv",EMISCAP,NLM,1,10,0,2500000,,,,,,,,0,,,,,,,,,0,0,0,UNKNOWN,-1,
+COMP-bom_5-EMISTAXE-NLM,bom_5,C:/Users/Xfeltech/OneDrive/Documents/GitHub/PHPAuto/data/bom_supemis_5.csv,EMISTAXE,NLM,1,10,0.01,999999999,74119,74092,51555,,,22537,0,0,2253700,,,,,27,,,4,4.5,3,OPTIMAL,0.08,
+COMP-bom_5-EMISCAP-NLM,bom_5,C:/Users/Xfeltech/OneDrive/Documents/GitHub/PHPAuto/data/bom_supemis_5.csv,EMISCAP,NLM,1,10,0,2500000,51582,51555,51555,,,0,0,0,2253700,,,,,27,,,4,4.5,3,OPTIMAL,0.05,
+COMP-bom_13-EMISTAXE-NLM,bom_13,C:/Users/Xfeltech/OneDrive/Documents/GitHub/PHPAuto/data/bom_supemis_13.csv,EMISTAXE,NLM,1,10,0.01,999999999,361060,360950,129211.28,,,231738.72,0,0,23174000,,,,,109,,,9,7.7857142857143,8,OPTIMAL,0.15,
+COMP-bom_13-EMISCAP-NLM,bom_13,C:/Users/Xfeltech/OneDrive/Documents/GitHub/PHPAuto/data/bom_supemis_13.csv,EMISCAP,NLM,1,10,0,2500000,,,,,,,,0,,,,,,,,,0,0,0,INFEASIBLE,-1,
+COMP-bom_26-EMISTAXE-NLM,bom_26,C:/Users/Xfeltech/OneDrive/Documents/GitHub/PHPAuto/data/bom_supemis_26.csv,EMISTAXE,NLM,1,10,0.01,999999999,1260600,1260200,896218,,,363982,0,0,36398000,,,,,376,,,1,13.925925925926,8,OPTIMAL,0.32,
+COMP-bom_26-EMISCAP-NLM,bom_26,C:/Users/Xfeltech/OneDrive/Documents/GitHub/PHPAuto/data/bom_supemis_26.csv,EMISCAP,NLM,1,10,0,2500000,,,,,,,,0,,,,,,,,,0,0,0,INFEASIBLE,-1,

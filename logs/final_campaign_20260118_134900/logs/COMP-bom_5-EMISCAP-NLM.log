@@ -127,7 +127,7 @@ xx-Data uploaded-xx
         52413.00    2 000          2   15         9 != a(5)
         52413.00    2 000         15   16   F     0 != z(2)(10)
         52413.00    2 000          1   17        78 != q(4)(1)
- ! Time = 0,08s, Average fail depth = 18, Memory usage = 18,5 MB
+ ! Time = 0,07s, Average fail depth = 18, Memory usage = 18,5 MB
  ! Current bound is 33296.99 (gap is 36,47%)
  !          Best Branches  Non-fixed    W       Branch decision
         52413.00    1 000          1   19   F     8  = a(2)
@@ -140,18 +140,18 @@ xx-Data uploaded-xx
         52413.00    2 000         14   12            -
         52413.00    2 000          2   14   F     0  = z(5)(2)
         52413.00    3 000          8   16   F     0 != q(4)(7)
- *      52215.00    1 203  0,11s        2      (gap is 36,23%)
+ *      52215.00    1 203  0,10s        2      (gap is 36,23%)
         52215.00    3 000          2    4   F     0 != z(4)(10)
         52215.00    1 918          8   11   F     0 != z(4)(1)
  + New bound is 43714.99 (gap is 16,28%)
         52215.00    2 000          8   11         0  = z(5)(6)
         52215.00    3 000          1   15         0  = z(2)(3)
- *      51757.00    2 828  0,11s       18      (gap is 15,54%)
+ *      51757.00    2 828  0,10s       18      (gap is 15,54%)
         51757.00    3 000          1   18   F    92  = q(4)(1)
         51757.00    2 000          1    2        17 != q(2)(4)
         51757.00    3 000         16    3   F     1  = z(2)(3)
         51757.00    3 000         16    5   F     1  = z(2)(3)
- ! Time = 0,13s, Average fail depth = 19, Memory usage = 19,3 MB
+ ! Time = 0,12s, Average fail depth = 19, Memory usage = 19,3 MB
  ! Current bound is 43714.99 (gap is 15,54%)
  !          Best Branches  Non-fixed    W       Branch decision
         51757.00    3 000          1    7   F    16  = a(2)
@@ -176,7 +176,7 @@ xx-Data uploaded-xx
         51757.00    4 000         20    8         2 != q(2)(1)
         51757.00    4 000          1    9        13 != q(4)(10)
         51757.00    4 000         11   10   F     2 != a(1)
- ! Time = 0,16s, Average fail depth = 19, Memory usage = 20,4 MB
+ ! Time = 0,15s, Average fail depth = 19, Memory usage = 20,4 MB
  ! Current bound is 49909.49 (gap is 3,57%)
  !          Best Branches  Non-fixed    W       Branch decision
         51757.00    3 000          3   11   F    11  = q(2)(3)
@@ -191,16 +191,16 @@ xx-Data uploaded-xx
         51757.00    3 080          9    2   F     0 != z(2)(5)
  + New bound is 50751.74 (gap is 1,94%)
         51757.00    5 000          2    4   F     0  = q(2)(10)
- *      51738.00    4 692  0,16s        6      (gap is 1,91%)
+ *      51738.00    4 692  0,15s        6      (gap is 1,91%)
         51738.00    4 000          1    7         0  = z(5)(4)
- *      51734.50    4 742  0,16s       12      (gap is 1,90%)
+ *      51734.50    4 742  0,15s       12      (gap is 1,90%)
         51734.50    3 000          1   13         0 != z(2)(8)
- *      51727.00    3 212  0,16s       13      (gap is 1,89%)
- *      51695.50    4 324  0,16s       15      (gap is 1,83%)
+ *      51727.00    3 212  0,15s       13      (gap is 1,89%)
+ *      51695.50    4 324  0,15s       15      (gap is 1,83%)
         51695.50    3 000          9   19         0  = z(5)(3)
         51695.50    5 000         14   20        42 != q(4)(1)
         51695.50    4 000          3    2   F     0  = z(5)(4)
- ! Time = 0,19s, Average fail depth = 19, Memory usage = 21,5 MB
+ ! Time = 0,18s, Average fail depth = 19, Memory usage = 21,5 MB
  ! Current bound is 50751.74 (gap is 1,83%)
  !          Best Branches  Non-fixed    W       Branch decision
         51695.50    5 000         16    3   F    20 != q(2)(10)
@@ -218,9 +218,9 @@ xx-Data uploaded-xx
         51695.50    5 000          8   17         5  = a(2)
         51695.50    5 000         22   18         1 != z(4)(3)
         51695.50    4 000          5   19         0  = z(5)(4)
- *      51638.00    5 276  0,19s        4      (gap is 1,72%)
- *      51602.00    5 297  0,19s        4      (gap is 1,65%)
- *      51582.00    5 331  0,19s        4      (gap is 1,61%)
+ *      51638.00    5 276  0,18s        4      (gap is 1,72%)
+ *      51602.00    5 297  0,18s        4      (gap is 1,65%)
+ *      51582.00    5 331  0,18s        4      (gap is 1,61%)
  ! ----------------------------------------------------------------------------
  ! Search completed, 18 solutions found.
  ! Best objective         : 51582.00 (optimal - effective tol. is 5,1582)
@@ -229,8 +229,8 @@ xx-Data uploaded-xx
  ! Number of branches     : 124 969
  ! Number of fails        : 59 858
  ! Total memory usage     : 22,0 MB (21,3 MB CP Optimizer + 0,6 MB Concert)
- ! Time spent in solve    : 0,22s (0,21s engine + 0,01s extraction)
- ! Search speed (br. / s) : 609 604,9
+ ! Time spent in solve    : 0,20s (0,20s engine + 0,01s extraction)
+ ! Search speed (br. / s) : 650 880,2
  ! ----------------------------------------------------------------------------
 
 <<< solve

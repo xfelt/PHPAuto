@@ -80,10 +80,13 @@ function parseOplOutput($output) {
     $solution = [];
     $normalizedOutput = str_replace(["\r\n", "\r"], "\n", $output);
     
-    // Extract runtime
+    // Extract runtime - try multiple formats
+    // CPLEX format: "Total (root+branch&cut) = 0.16 sec"
     if (preg_match('/Total \(root\+branch&cut\)\s*=\s*([\d.,]+)\s*sec/', $normalizedOutput, $m)) {
         $solution['CplexRunTime'] = 'Total (root+branch&cut) = ' . $m[1] . ' sec';
-    } elseif (preg_match('/! Time\s*=\s*([\d.,]+)/', $normalizedOutput, $m)) {
+    } 
+    // CP Optimizer format: "! Time = 0,16s" or "! Time             = 0,16s"
+    elseif (preg_match('/!\s*Time\s*=\s*([\d.,]+)s?/', $normalizedOutput, $m)) {
         $solution['CplexRunTime'] = 'CP Time = ' . $m[1];
     }
     
@@ -204,8 +207,20 @@ foreach ($instances as $instanceId) {
         echo "    Executing: $cmdLine\n";
         $rawOutput = shell_exec($cmdLine . ' 2>&1');
         
+        // Debug: show raw output length
+        echo "    Raw output length: " . strlen($rawOutput) . " bytes\n";
+        
         // Parse result
         $parsed = parseOplOutput($rawOutput);
+        
+        // Debug: show parsed keys
+        echo "    Parsed keys: " . implode(', ', array_keys($parsed)) . "\n";
+        if (isset($parsed['Result'])) {
+            echo "    Result.fctObj: " . ($parsed['Result']['fctObj'] ?? 'null') . "\n";
+        }
+        if (isset($parsed['E'])) {
+            echo "    E: " . $parsed['E'] . "\n";
+        }
         
         // Save log
         $logFile = $campaignDir . 'logs/' . $runId . '.log';

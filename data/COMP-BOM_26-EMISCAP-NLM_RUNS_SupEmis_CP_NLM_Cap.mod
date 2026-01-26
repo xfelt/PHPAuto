@@ -49,9 +49,9 @@ execute {
 // Program parameters
  int NB_NODE;      // 0..NB_NODE  = n
  int NB_SUPP = 10;    // 1..NB_SUPP
- string nodeFile = "C:\Users\Xfeltech\OneDrive\Documents\GitHub\PHPAuto/data/bom_supemis_26.csv";
- string nodeSuppFile = "C:\Users\Xfeltech\OneDrive\Documents\GitHub\PHPAuto/data/supp_list_26.csv";
- string suppDetailsFile = "C:\Users\Xfeltech\OneDrive\Documents\GitHub\PHPAuto/data/supp_details_10.csv";
+ string nodeFile = "C:/Users/Xfeltech/OneDrive/Documents/GitHub/PHPAuto/data/bom_supemis_26.csv";
+ string nodeSuppFile = "C:/Users/Xfeltech/OneDrive/Documents/GitHub/PHPAuto/data/supp_list_26.csv";
+ string suppDetailsFile = "C:/Users/Xfeltech/OneDrive/Documents/GitHub/PHPAuto/data/supp_details_supeco_grdCapacity.csv";
  int service_t = 1;
  int EmisCap = 2500000;
  float EmisTax = 0;

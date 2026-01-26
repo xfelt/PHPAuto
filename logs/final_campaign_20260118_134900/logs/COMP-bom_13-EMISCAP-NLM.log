@@ -51,7 +51,7 @@ xx-Data uploaded-xx
  ! --------------------------------------------------- CP Optimizer 20.1.0.0 --
  ! Minimization problem - 308 variables, 444 constraints
  ! TimeLimit            = 1 800
- ! Initial process time : 0,02s (0,02s extraction + 0,00s propagation)
+ ! Initial process time : 0,01s (0,01s extraction + 0,00s propagation)
  !  . Log search space  : 8 316,0 (before), 8 316,0 (after)
  !  . Memory usage      : 827,6 kB (before), 827,6 kB (after)
  ! Using parallel search with 20 workers.
@@ -64,7 +64,7 @@ xx-Data uploaded-xx
  ! Number of branches     : 0
  ! Number of fails        : 0
  ! Total memory usage     : 3,6 MB (2,9 MB CP Optimizer + 0,7 MB Concert)
- ! Time spent in solve    : 0,09s (0,08s engine + 0,02s extraction)
+ ! Time spent in solve    : 0,02s (0,01s engine + 0,01s extraction)
  ! Search speed (br. / s) : 0
  ! ----------------------------------------------------------------------------
 

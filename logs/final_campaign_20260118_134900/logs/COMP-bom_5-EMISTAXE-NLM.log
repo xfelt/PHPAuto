@@ -1,6 +1,6 @@
 Array
 (
-    [CplexRunTime] => CP Time = 0,12
+    [CplexRunTime] => CP Time = 0,10
     [Result] => Array
         (
             [fctObj] => 74119
@@ -76,7 +76,7 @@ xx-Data uploaded-xx
  ! Minimization problem - 132 variables, 187 constraints
  ! Presolve      : 3 extractables eliminated
  ! TimeLimit            = 1 800
- ! Initial process time : 0,03s (0,03s extraction + 0,00s propagation)
+ ! Initial process time : 0,01s (0,01s extraction + 0,00s propagation)
  !  . Log search space  : 408,5 (before), 408,5 (after)
  !  . Memory usage      : 509,9 kB (before), 509,9 kB (after)
  ! Using parallel search with 20 workers.
@@ -88,11 +88,11 @@ xx-Data uploaded-xx
  + New bound is 23609.99
                         0         71    1            -
  + New bound is 45799.84
- *      188500.0       35  0,12s        1      (gap is 75,70%)
- *      188397.3      121  0,12s        1      (gap is 75,69%)
- *      186945.5      161  0,12s        1      (gap is 75,50%)
- *      185142.8      192  0,12s        1      (gap is 75,26%)
- *      126323.0      247  0,12s        1      (gap is 63,74%)
+ *      188500.0       35  0,10s        1      (gap is 75,70%)
+ *      188397.3      121  0,10s        1      (gap is 75,69%)
+ *      186945.5      161  0,10s        1      (gap is 75,50%)
+ *      185142.8      192  0,10s        1      (gap is 75,26%)
+ *      126323.0      247  0,10s        1      (gap is 63,74%)
         126323.0    1 000          1    2            -
         126323.0    1 000          1    3   F    63  = q(4)(4)
         126323.0    1 000          1    4            -
@@ -101,11 +101,11 @@ xx-Data uploaded-xx
         126323.0    1 000          1    7            -
         126323.0    1 000          1    8            -
         126323.0    1 000          1    9            -
- *      96533.00      554  0,12s       10      (gap is 52,56%)
+ *      96533.00      554  0,10s       10      (gap is 52,56%)
         96533.00    1 000          1   10   F    71  = a(3)
         96533.00    1 000          1   11            -
         96533.00    1 000          1   12         0  = z(4)(6)
- ! Time = 0,12s, Average fail depth = 8, Memory usage = 10,9 MB
+ ! Time = 0,10s, Average fail depth = 8, Memory usage = 10,9 MB
  ! Current bound is 45799.84 (gap is 52,56%)
  !          Best Branches  Non-fixed    W       Branch decision
         96533.00    1 000          1   14   F     8 != q(2)(1)
@@ -120,7 +120,7 @@ xx-Data uploaded-xx
         96533.00    2 000         71   16            -
         96533.00    2 000         71   20            -
         96533.00    1 000          1    1       169 != a(3)
- *      81823.00    1 513  0,15s       10      (gap is 44,03%)
+ *      81823.00    1 513  0,12s       10      (gap is 44,03%)
         81823.00    2 000          2   10        87 != q(4)(9)
         81823.00    2 000          2   12   F     0  = x(5)
         81823.00    1 000          1   13            -
@@ -128,7 +128,7 @@ xx-Data uploaded-xx
         81823.00    1 000          1   15            -
         81823.00    2 000          1   17            -
         81823.00    2 000          2   18        86 != a(3)
- ! Time = 0,15s, Average fail depth = 13, Memory usage = 23,7 MB
+ ! Time = 0,12s, Average fail depth = 13, Memory usage = 23,7 MB
  ! Current bound is 45799.84 (gap is 44,03%)
  !          Best Branches  Non-fixed    W       Branch decision
         81823.00    1 000          1   19         2 != q(5)(7)
@@ -144,14 +144,14 @@ xx-Data uploaded-xx
         81823.00    2 000          1    7            -
         81823.00    2 000          1    9            -
         81823.00    2 000          1   11            -
- *      81708.40    3 002  0,18s       12      (gap is 43,95%)
- *      78913.90    2 483  0,18s       14      (gap is 41,96%)
+ *      81708.40    3 002  0,15s       12      (gap is 43,95%)
+ *      78913.90    2 483  0,15s       14      (gap is 41,96%)
         78913.90    3 000          2   14   F     0  = z(4)(3)
         78913.90    3 000         18   20   F    28  = q(4)(3)
         78913.90    4 000         13    3         0  = z(4)(3)
         78913.90    4 000         13    5         0  = z(4)(3)
         78913.90    3 000         14    6   F     0 != x(4)
- ! Time = 0,21s, Average fail depth = 16, Memory usage = 25,7 MB
+ ! Time = 0,18s, Average fail depth = 16, Memory usage = 25,7 MB
  ! Current bound is 45799.84 (gap is 41,96%)
  !          Best Branches  Non-fixed    W       Branch decision
         78913.90    3 000          4    7   F    37  = q(5)(2)
@@ -174,13 +174,13 @@ xx-Data uploaded-xx
         78913.90    4 000          1   17   F    77  = a(2)
         78913.90    4 000         27   18   F     9 != a(1)
         78913.90    2 000          2    1         0  = z(4)(5)
- ! Time = 0,24s, Average fail depth = 18, Memory usage = 27,1 MB
+ ! Time = 0,22s, Average fail depth = 18, Memory usage = 27,2 MB
  ! Current bound is 45799.84 (gap is 41,96%)
  !          Best Branches  Non-fixed    W       Branch decision
         78913.90    3 000          1    2        33 != a(2)
         78913.90    3 000          1   11         0  = z(4)(10)
         78913.90    3 000          2   13   F   145  = a(2)
- *      78488.00    4 242  0,25s       16      (gap is 41,65%)
+ *      78488.00    4 242  0,22s       16      (gap is 41,65%)
         78488.00    5 000         13   20         0  = z(2)(3)
         78488.00    5 000         18    3   F     0  = x(5)
         78488.00    5 000         18    5   F     0  = x(5)
@@ -189,15 +189,15 @@ xx-Data uploaded-xx
         78488.00    3 000          1   15   F    14  = q(2)(10)
         78488.00    5 000          2   16         0  = q(4)(6)
         78488.00    5 000         10   18         0 != x(3)
- *      78480.00    5 053  0,29s       20      (gap is 41,64%)
+ *      78480.00    5 053  0,26s       20      (gap is 41,64%)
         78480.00    3 000          1    1         1 != z(5)(7)
- *      78428.40    4 843  0,29s        6      (gap is 41,60%)
+ *      78428.40    4 843  0,26s        6      (gap is 41,60%)
         78428.40    5 000          1    6   F    86  = q(4)(1)
- *      77887.00    5 067  0,29s        8      (gap is 41,20%)
+ *      77887.00    5 067  0,26s        8      (gap is 41,20%)
         77887.00    3 000          1   19   F     0 != x(4)
         77887.00    6 000          3   20         9  = q(5)(10)
         77887.00    6 000         15    3            -
- ! Time = 0,33s, Average fail depth = 22, Memory usage = 30,6 MB
+ ! Time = 0,30s, Average fail depth = 22, Memory usage = 30,5 MB
  ! Current bound is 45799.84 (gap is 41,20%)
  !          Best Branches  Non-fixed    W       Branch decision
         77887.00    6 000         15    5            -
@@ -220,16 +220,16 @@ xx-Data uploaded-xx
         77887.00    7 000         15   10   F    30  = q(4)(10)
         77887.00    7 000         15   12        35 != q(4)(4)
         77887.00    7 000          3   14   F    86  = q(4)(9)
- ! Time = 0,37s, Average fail depth = 22, Memory usage = 31,3 MB
+ ! Time = 0,35s, Average fail depth = 22, Memory usage = 31,3 MB
  ! Current bound is 45799.84 (gap is 41,20%)
  !          Best Branches  Non-fixed    W       Branch decision
         77887.00    4 000          1   15        72 != a(2)
         77887.00    7 000         21   16   F     1 != x(4)
         77887.00    7 000         11   18   F    53  = q(4)(2)
- *      76356.80    7 685  0,37s        3      (gap is 40,02%)
+ *      76356.80    7 685  0,35s        3      (gap is 40,02%)
         76356.80    4 000          1    4         0  = z(4)(9)
         76356.80    5 000          7   11         0  = z(5)(2)
- *      75888.00    5 393  0,37s       11      (gap is 39,65%)
+ *      75888.00    5 393  0,35s       11      (gap is 39,65%)
         75888.00    5 000          2   19         1 != z(5)(4)
         75888.00    5 000          2    1   F     7  = a(3)
         75888.00    8 000          2    3         4  = q(2)(2)
@@ -242,8 +242,8 @@ xx-Data uploaded-xx
         75888.00    8 000          4   12   F     5  = a(5)
         75888.00    8 000         14   14   F     0  = q(4)(2)
         75888.00    8 000         13   18         0 != z(4)(4)
- *      75660.00    6 919  0,42s       20      (gap is 39,47%)
- ! Time = 0,42s, Average fail depth = 25, Memory usage = 32,7 MB
+ *      75660.00    6 919  0,39s       20      (gap is 39,47%)
+ ! Time = 0,39s, Average fail depth = 25, Memory usage = 32,7 MB
  ! Current bound is 45799.84 (gap is 39,47%)
  !          Best Branches  Non-fixed    W       Branch decision
         75660.00    7 000          2   20         5  = a(2)
@@ -251,7 +251,7 @@ xx-Data uploaded-xx
  + New bound is 62143.92 (gap is 17,86%)
         75660.00    5 000          1    4         0  = z(4)(6)
         75660.00    8 000          2    8   F     1 != x(4)
- *      75620.00    8 176  0,42s        8      (gap is 17,82%)
+ *      75620.00    8 176  0,39s        8      (gap is 17,82%)
         75620.00    5 000          1   13   F    36  = a(4)
         75620.00    5 000          5   15   F     5  = a(2)
         75620.00    5 000          2   17         0  = z(5)(2)
@@ -267,13 +267,13 @@ xx-Data uploaded-xx
         75620.00    8 000         19   16   F     4 != a(2)
         75620.00    9 000         10   18            -
         75620.00    5 000          1    2   F     0 != x(4)
- ! Time = 0,47s, Average fail depth = 25, Memory usage = 34,9 MB
+ ! Time = 0,44s, Average fail depth = 25, Memory usage = 34,9 MB
  ! Current bound is 62143.92 (gap is 17,82%)
  !          Best Branches  Non-fixed    W       Branch decision
         75620.00    6 000          1    9        20 != a(3)
         75620.00    7 000          2   11   F     9 != a(2)
         75620.00    9 000          1   12   F     0 != z(4)(10)
- *      75575.00    9 788  0,47s       14      (gap is 17,77%)
+ *      75575.00    9 788  0,44s       14      (gap is 17,77%)
         75575.00    6 000          1   17        38 != q(4)(4)
         75575.00    7 000          1   19   F    42  = q(4)(4)
         75575.00    9 000         15   20         0  = z(2)(7)
@@ -290,13 +290,13 @@ xx-Data uploaded-xx
         75575.00    6 000         11    2   F     0 != z(2)(2)
         75575.00    7 000          1    9         0  = z(5)(2)
         75575.00    8 000          2   11         8 != a(3)
- ! Time = 0,51s, Average fail depth = 25, Memory usage = 35,6 MB
+ ! Time = 0,48s, Average fail depth = 25, Memory usage = 35,6 MB
  ! Current bound is 62143.92 (gap is 17,77%)
  !          Best Branches  Non-fixed    W       Branch decision
- *      75553.80    9 575  0,51s       12      (gap is 17,75%)
+ *      75553.80    9 575  0,48s       12      (gap is 17,75%)
         75553.80   10 000          1   12   F     1  = z(4)(7)
         75553.80    6 000          1   13        21  = q(5)(2)
- *      75334.00    9 552  0,51s       16      (gap is 17,51%)
+ *      75334.00    9 552  0,48s       16      (gap is 17,51%)
         75334.00    7 000          2   17   F     6  = a(3)
         75334.00   10 000         19   20   F    62  = q(4)(4)
         75334.00    8 000         20    1   F     7  = a(2)
@@ -313,7 +313,7 @@ xx-Data uploaded-xx
         75334.00    8 000         28   17   F     4  = a(2)
         75334.00   11 000          7   18   F     0  = x(5)
         75334.00    8 000         12   19   F     4 != a(4)
- ! Time = 0,54s, Average fail depth = 25, Memory usage = 35,8 MB
+ ! Time = 0,51s, Average fail depth = 25, Memory usage = 35,8 MB
  ! Current bound is 62143.92 (gap is 17,51%)
  !          Best Branches  Non-fixed    W       Branch decision
         75334.00    8 000          1    9   F    63  = a(2)
@@ -332,11 +332,11 @@ xx-Data uploaded-xx
         75334.00    9 000          6   11         8 != a(2)
         75334.00   12 000          8   12   F     5  = q(4)(4)
         75334.00    7 000          2   13         1 != z(4)(3)
- *      75326.00   10 737  0,58s       20      (gap is 17,50%)
+ *      75326.00   10 737  0,55s       20      (gap is 17,50%)
         75326.00   11 000          2   20         1 != z(4)(5)
         75326.00    7 000          2    2   F     9  = a(2)
- *      75325.80   11 397  0,58s        8      (gap is 17,50%)
- ! Time = 0,58s, Average fail depth = 25, Memory usage = 36,2 MB
+ *      75325.80   11 397  0,55s        8      (gap is 17,50%)
+ ! Time = 0,55s, Average fail depth = 25, Memory usage = 36,2 MB
  ! Current bound is 62143.92 (gap is 17,50%)
  !          Best Branches  Non-fixed    W       Branch decision
         75325.80    9 000          2    9   F     6  = q(4)(4)
@@ -359,7 +359,7 @@ xx-Data uploaded-xx
         75325.80    8 000         12    2   F     2  = q(2)(5)
         75325.80    8 000          1    4         7 != a(2)
         75325.80    7 000          1    7   F     0 != z(4)(6)
- ! Time = 0,63s, Average fail depth = 25, Memory usage = 36,4 MB
+ ! Time = 0,59s, Average fail depth = 25, Memory usage = 36,4 MB
  ! Current bound is 62143.92 (gap is 17,50%)
  !          Best Branches  Non-fixed    W       Branch decision
         75325.80   14 000          9   14         0 != x(2)
@@ -383,7 +383,7 @@ xx-Data uploaded-xx
         75325.80   15 000         16   14         0 != z(5)(3)
         75325.80   10 000         11   15         6 != a(2)
         75325.80   14 000         10   16   F     2 != a(1)
- ! Time = 0,71s, Average fail depth = 24, Memory usage = 36,5 MB
+ ! Time = 0,67s, Average fail depth = 24, Memory usage = 36,5 MB
  ! Current bound is 68859.46 (gap is 8,58%)
  !          Best Branches  Non-fixed    W       Branch decision
         75325.80   11 000          1   17         3 != a(4)
@@ -400,13 +400,13 @@ xx-Data uploaded-xx
         75325.80   12 000         22   11         0  = q(4)(4)
         75325.80   15 000          5   12   F     4  = q(5)(4)
         75325.80   10 000          4   13   F     7  = a(5)
- *      74691.00   14 165  0,71s       16      (gap is 7,81%)
+ *      74691.00   14 165  0,67s       16      (gap is 7,81%)
         74691.00    8 000          2    7         7  = a(5)
         74691.00   16 000          9   14   F     0  = q(2)(8)
         74691.00   11 000         13   15   F     6 != a(4)
         74691.00   15 000          1   16   F     0 != z(5)(5)
         74691.00   12 000         17   17   F    15  = a(3)
- ! Time = 0,77s, Average fail depth = 24, Memory usage = 36,5 MB
+ ! Time = 0,72s, Average fail depth = 24, Memory usage = 36,5 MB
  ! Current bound is 68859.46 (gap is 7,81%)
  !          Best Branches  Non-fixed    W       Branch decision
         74691.00   16 000         16   18   F     7  = a(5)
@@ -421,7 +421,7 @@ xx-Data uploaded-xx
         74691.00   16 000          6   12         0  = z(5)(9)
         74691.00   10 000          1    4   F    26  = q(4)(10)
         74691.00   11 000          3    9   F    12  = a(4)
- *      74455.00   15 810  0,77s       10      (gap is 7,52%)
+ *      74455.00   15 810  0,72s       10      (gap is 7,52%)
         74455.00   16 000          2   10   F    84  = a(2)
         74455.00   17 000          3   14   F     0 != z(2)(8)
         74455.00   12 000         13   15   F    11  = a(5)
@@ -429,7 +429,7 @@ xx-Data uploaded-xx
         74455.00   13 000         14   17   F     0 != q(2)(10)
         74455.00   17 000          8   18        11 != q(4)(3)
         74455.00   14 000         15   19         0  = z(5)(7)
- ! Time = 0,80s, Average fail depth = 25, Memory usage = 36,8 MB
+ ! Time = 0,77s, Average fail depth = 25, Memory usage = 36,8 MB
  ! Current bound is 68859.46 (gap is 7,52%)
  !          Best Branches  Non-fixed    W       Branch decision
         74455.00   16 000         12   20            -
@@ -452,7 +452,7 @@ xx-Data uploaded-xx
         74455.00   12 000         11   13         5  = a(4)
         74455.00   18 000          9   14         0  = z(2)(2)
         74455.00   13 000         13   15   F     1 != x(5)
- ! Time = 0,85s, Average fail depth = 25, Memory usage = 36,9 MB
+ ! Time = 0,81s, Average fail depth = 25, Memory usage = 36,9 MB
  ! Current bound is 68859.46 (gap is 7,52%)
  !          Best Branches  Non-fixed    W       Branch decision
         74455.00   17 000         15   16   F     8 != a(1)
@@ -467,15 +467,15 @@ xx-Data uploaded-xx
         74455.00   18 000         13    5         0 != z(2)(10)
         74455.00   17 000         24    6   F     0  = x(4)
         74455.00   10 000          2    7   F     1  = q(5)(2)
- *      74362.40   18 251  0,85s       12      (gap is 7,40%)
- *      74359.00   18 293  0,85s        3      (gap is 7,40%)
+ *      74362.40   18 251  0,81s       12      (gap is 7,40%)
+ *      74359.00   18 293  0,81s        3      (gap is 7,40%)
         74359.00   17 000         11    8            -
         74359.00   15 000         13   11        15 != a(3)
         74359.00   13 000         11   13        11  = a(3)
         74359.00   14 000         14   15         0  = z(4)(7)
         74359.00   15 000         18   17        15 != a(3)
         74359.00   19 000         11   18         0  = z(2)(4)
- ! Time = 0,90s, Average fail depth = 25, Memory usage = 37,4 MB
+ ! Time = 0,86s, Average fail depth = 25, Memory usage = 37,4 MB
  ! Current bound is 68859.46 (gap is 7,40%)
  !          Best Branches  Non-fixed    W       Branch decision
         74359.00   16 000          6   19         5 != a(2)
@@ -485,7 +485,7 @@ xx-Data uploaded-xx
         74359.00   19 000          2    3         0  = z(2)(7)
         74359.00   12 000         13    4   F     0 != z(2)(10)
         74359.00   19 000          2    5         0  = z(2)(7)
- *      74351.00   17 878  0,90s        6      (gap is 7,39%)
+ *      74351.00   17 878  0,86s        6      (gap is 7,39%)
         74351.00   11 000          1    7   F     0  = q(2)(6)
         74351.00   14 000         14    9         0 != z(4)(1)
         74351.00   19 000         12   10   F     0 != z(5)(5)
@@ -498,7 +498,7 @@ xx-Data uploaded-xx
         74351.00   20 000         19   18        32 != a(2)
         74351.00   19 000         16   20        20 != a(3)
         74351.00   16 000          4    1        29 != q(4)(2)
- ! Time = 0,98s, Average fail depth = 25, Memory usage = 37,9 MB
+ ! Time = 0,94s, Average fail depth = 25, Memory usage = 37,9 MB
  ! Current bound is 68859.46 (gap is 7,39%)
  !          Best Branches  Non-fixed    W       Branch decision
         74351.00   14 000          9    2   F     0 != q(2)(6)
@@ -506,12 +506,12 @@ xx-Data uploaded-xx
         74351.00   18 000          3    6        17 != q(5)(3)
         74351.00   12 000         13    7   F     2  = q(5)(9)
         74351.00   18 000          3    8         0  = q(5)(1)
- *      74326.40   19 137  0,98s       10      (gap is 7,36%)
- *      74311.00   19 306  0,98s       10      (gap is 7,34%)
+ *      74326.40   19 137  0,94s       10      (gap is 7,36%)
+ *      74311.00   19 306  0,94s       10      (gap is 7,34%)
         74311.00   18 000          2   16         0 != z(4)(3)
- *      74186.20   16 527  0,98s       19      (gap is 7,18%)
- *      74121.40   16 888  0,98s       19      (gap is 7,10%)
- *      74119.00   16 911  0,98s       19      (gap is 7,10%)
+ *      74186.20   16 527  0,94s       19      (gap is 7,18%)
+ *      74121.40   16 888  0,94s       19      (gap is 7,10%)
+ *      74119.00   16 911  0,94s       19      (gap is 7,10%)
         74119.00   17 000          2   19        29 != q(4)(10)
         74119.00   20 000          1    3            -
         74119.00   20 000          1    5            -
@@ -521,7 +521,7 @@ xx-Data uploaded-xx
         74119.00   17 000         13   11         0 != z(2)(1)
         74119.00   20 000          3   12   F        -
         74119.00   15 000         11   13         7 != a(4)
- ! Time = 1,06s, Average fail depth = 25, Memory usage = 37,9 MB
+ ! Time = 1,00s, Average fail depth = 25, Memory usage = 37,9 MB
  ! Current bound is 68859.46 (gap is 7,10%)
  !          Best Branches  Non-fixed    W       Branch decision
         74119.00   20 000          3   14         4 != a(2)
@@ -544,7 +544,7 @@ xx-Data uploaded-xx
         74119.00   22 000         13    3   F     0 != z(4)(2)
         74119.00   15 000         13    4        30 != q(4)(10)
         74119.00   22 000         13    5   F     0 != z(4)(2)
- ! Time = 1,12s, Average fail depth = 25, Memory usage = 38,0 MB
+ ! Time = 1,08s, Average fail depth = 25, Memory usage = 38,0 MB
  ! Current bound is 68859.46 (gap is 7,10%)
  !          Best Branches  Non-fixed    W       Branch decision
         74119.00   20 000          5    6   F    72  = a(3)
@@ -567,7 +567,7 @@ xx-Data uploaded-xx
         74119.00   22 000          9   10   F    26  = q(4)(6)
         74119.00   19 000         13   11         3 != a(4)
         74119.00   22 000          3   12   F    70  = q(4)(4)
- ! Time = 1,21s, Average fail depth = 25, Memory usage = 38,2 MB
+ ! Time = 1,17s, Average fail depth = 25, Memory usage = 38,2 MB
  ! Current bound is 68859.46 (gap is 7,10%)
  !          Best Branches  Non-fixed    W       Branch decision
         74119.00   22 000          9   14   F     1  = x(4)
@@ -590,7 +590,7 @@ xx-Data uploaded-xx
         74119.00   20 000          5   11        22 != q(4)(3)
         74119.00   23 000          3   12   F    38  = q(4)(4)
         74119.00   17 000         13   13        78 != q(4)(1)
- ! Time = 1,29s, Average fail depth = 25, Memory usage = 38,3 MB
+ ! Time = 1,25s, Average fail depth = 25, Memory usage = 38,3 MB
  ! Current bound is 68859.46 (gap is 7,10%)
  !          Best Branches  Non-fixed    W       Branch decision
         74119.00   23 000         11   14   F     1  = z(2)(5)
@@ -613,7 +613,7 @@ xx-Data uploaded-xx
         74119.00   24 000         18   14         4 != q(2)(3)
         74119.00   19 000          5   15         7 != q(4)(10)
         74119.00   23 000         14   16            -
- ! Time = 1,34s, Average fail depth = 25, Memory usage = 38,3 MB
+ ! Time = 1,29s, Average fail depth = 25, Memory usage = 38,3 MB
  ! Current bound is 68859.46 (gap is 7,10%)
  !          Best Branches  Non-fixed    W       Branch decision
         74119.00   20 000          3   17   F    20  = q(2)(10)
@@ -636,7 +636,7 @@ xx-Data uploaded-xx
         74119.00   21 000          3   17         0  = q(2)(3)
         74119.00   26 000         16   18        20 != q(2)(5)
         74119.00   22 000          3   19         0  = z(5)(6)
- ! Time = 1,41s, Average fail depth = 25, Memory usage = 38,3 MB
+ ! Time = 1,36s, Average fail depth = 25, Memory usage = 38,3 MB
  ! Current bound is 68859.46 (gap is 7,10%)
  !          Best Branches  Non-fixed    W       Branch decision
         74119.00   22 000          3    1        32 != q(4)(4)
@@ -659,7 +659,7 @@ xx-Data uploaded-xx
         74119.00   23 000          4    1   F     1 != x(5)
         74119.00   21 000          3    2         0  = q(4)(9)
         74119.00   27 000         12    3        17 != q(4)(3)
- ! Time = 1,56s, Average fail depth = 25, Memory usage = 38,3 MB
+ ! Time = 1,48s, Average fail depth = 25, Memory usage = 38,3 MB
  ! Current bound is 68859.46 (gap is 7,10%)
  !          Best Branches  Non-fixed    W       Branch decision
         74119.00   20 000          3    4   F    20  = q(4)(10)
@@ -682,7 +682,7 @@ xx-Data uploaded-xx
         74119.00   22 000          6    2         0  = q(5)(8)
         74119.00   28 000         10    3         0  = z(5)(1)
         74119.00   21 000          2    4         1 != z(4)(10)
- ! Time = 1,63s, Average fail depth = 25, Memory usage = 38,3 MB
+ ! Time = 1,55s, Average fail depth = 25, Memory usage = 38,3 MB
  ! Current bound is 68859.46 (gap is 7,10%)
  !          Best Branches  Non-fixed    W       Branch decision
         74119.00   28 000         10    5         0  = z(5)(1)
@@ -705,7 +705,7 @@ xx-Data uploaded-xx
         74119.00   29 000         15    5   F    10  = q(2)(4)
         74119.00   20 000          3    7   F    39  = q(4)(4)
         74119.00   27 000          3    8        81 != q(4)(1)
- ! Time = 1,72s, Average fail depth = 25, Memory usage = 38,3 MB
+ ! Time = 1,63s, Average fail depth = 25, Memory usage = 38,3 MB
  ! Current bound is 68859.46 (gap is 7,10%)
  !          Best Branches  Non-fixed    W       Branch decision
         74119.00   23 000          3    9         1 != q(5)(1)
@@ -728,7 +728,7 @@ xx-Data uploaded-xx
         74119.00   29 000          5   10   F     0 != z(5)(1)
         74119.00   25 000          3   11        25  = q(4)(10)
         74119.00   23 000          3   13         5  = a(2)
- ! Time = 1,77s, Average fail depth = 25, Memory usage = 38,3 MB
+ ! Time = 1,69s, Average fail depth = 25, Memory usage = 38,3 MB
  ! Current bound is 68859.46 (gap is 7,10%)
  !          Best Branches  Non-fixed    W       Branch decision
         74119.00   29 000         15   14   F     1  = z(5)(6)
@@ -751,7 +751,7 @@ xx-Data uploaded-xx
         74119.00   24 000          3   13   F    74  = q(4)(3)
         74119.00   30 000          3   14        15 != q(5)(5)
         74119.00   26 000          5   15   F     0 != z(2)(3)
- ! Time = 1,84s, Average fail depth = 25, Memory usage = 38,3 MB
+ ! Time = 1,76s, Average fail depth = 25, Memory usage = 38,3 MB
  ! Current bound is 68859.46 (gap is 7,10%)
  !          Best Branches  Non-fixed    W       Branch decision
         74119.00   29 000          3   16   F     0 != z(2)(2)
@@ -774,7 +774,7 @@ xx-Data uploaded-xx
         74119.00   31 000          8   14   F    22  = a(3)
         74119.00   27 000          3   15   F    15  = q(4)(10)
         74119.00   30 000          3   16   F     7 != a(5)
- ! Time = 1,91s, Average fail depth = 25, Memory usage = 38,2 MB
+ ! Time = 1,83s, Average fail depth = 25, Memory usage = 38,2 MB
  ! Current bound is 68859.46 (gap is 7,10%)
  !          Best Branches  Non-fixed    W       Branch decision
         74119.00   28 000          3   17   F    17  = q(4)(3)
@@ -797,7 +797,7 @@ xx-Data uploaded-xx
         74119.00   28 000          3   15         0  = z(5)(8)
         74119.00   31 000         11   16   F     0 != z(5)(9)
         74119.00   29 000          3   17         0  = z(2)(9)
- ! Time = 1,96s, Average fail depth = 25, Memory usage = 38,2 MB
+ ! Time = 1,89s, Average fail depth = 25, Memory usage = 38,2 MB
  ! Current bound is 68859.46 (gap is 7,10%)
  !          Best Branches  Non-fixed    W       Branch decision
         74119.00   33 000         11   18         0  = z(2)(3)
@@ -820,7 +820,7 @@ xx-Data uploaded-xx
         74119.00   30 000         14   19         0  = z(5)(9)
         74119.00   32 000          5   20        42 != q(4)(4)
         74119.00   31 000          5    1         0  = q(5)(10)
- ! Time = 2,01s, Average fail depth = 25, Memory usage = 38,2 MB
+ ! Time = 1,94s, Average fail depth = 25, Memory usage = 38,2 MB
  ! Current bound is 68859.46 (gap is 7,10%)
  !          Best Branches  Non-fixed    W       Branch decision
         74119.00   30 477         21   19            -
@@ -833,8 +833,8 @@ xx-Data uploaded-xx
  ! Number of branches     : 628 908
  ! Number of fails        : 294 541
  ! Total memory usage     : 35,7 MB (35,0 MB CP Optimizer + 0,6 MB Concert)
- ! Time spent in solve    : 2,06s (2,04s engine + 0,03s extraction)
- ! Search speed (br. / s) : 309 502,0
+ ! Time spent in solve    : 1,99s (1,98s engine + 0,01s extraction)
+ ! Search speed (br. / s) : 317 790,8
  ! ----------------------------------------------------------------------------
 
 <<< solve

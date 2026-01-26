@@ -357,9 +357,16 @@ class KPICalculator {
         // Extract runtime
         if (isset($result['CplexRunTime'])) {
             $runtimeStr = $result['CplexRunTime'];
+            // CPLEX format: "Total (root+branch&cut) = 0.16 sec"
             if (preg_match('/([\d,\.]+)\s*sec/', $runtimeStr, $matches)) {
                 $runtime = (float)str_replace(',', '.', $matches[1]);
-            } elseif (is_numeric(str_replace(',', '.', $runtimeStr))) {
+            }
+            // CP Optimizer format: "CP Time = 0,16"
+            elseif (preg_match('/CP Time\s*=\s*([\d,\.]+)/', $runtimeStr, $matches)) {
+                $runtime = (float)str_replace(',', '.', $matches[1]);
+            }
+            // Just a number
+            elseif (is_numeric(str_replace(',', '.', $runtimeStr))) {
                 $runtime = (float)str_replace(',', '.', $runtimeStr);
             }
         }
