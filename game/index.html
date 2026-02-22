@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DDMRP Optimization Simulator</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Single-screen layout update: fixed header + compact 3-panel grid, no page scrolling -->
+    <a href="#main" class="skip-link">Skip to main content</a>
+    <div class="app-shell">
+      <header class="topbar" id="appHeader">
+        <div class="brand">
+          <div class="title">
+            <h1>Green Supplier Selection</h1>
+          </div>
+        </div>
+        <div id="scenarioPicker" class="scenario-picker" role="group" aria-label="Scenario selection">
+          <button class="scenario-btn" data-scenario="0">BOM A</button>
+          <button class="scenario-btn" data-scenario="1">BOM B</button>
+          <button class="scenario-btn" data-scenario="2">BOM C</button>
+        </div>
+        <div class="topbar-controls" aria-label="Global demand controls">
+          <label class="compact-label" for="demandRange">Demand</label>
+          <input id="demandRange" class="demand-slider" type="range" min="1" max="5000" step="1" value="1000" />
+          <input id="demandInput" class="demand-badge" type="number" min="1" max="5000" step="1" value="1000" aria-label="Final Product Demand" />
+          <label class="compact-label" for="periodDaysInput">Days</label>
+          <input id="periodDaysInput" class="days-input" type="number" min="1" max="365" step="1" value="30" />
+        </div>
+        <input id="nodeSearch" class="topbar-search" type="search" placeholder="Search node…" aria-label="Search node" />
+        <div class="topbar-actions">
+          <button id="tutorialBtn" class="btn secondary topbar-btn" type="button" aria-haspopup="dialog" aria-expanded="false">
+            <span class="tutorial-icon" aria-hidden="true">?</span><span>Tutorial</span>
+          </button>
+          <div id="tutorialPopover" class="tutorial-popover hidden" role="dialog" aria-label="Tutorial quick help">
+            <div class="tutorial-popover-title">Quick tutorial</div>
+            <div class="tutorial-popover-body">Use search to jump to a node, assign suppliers, then set buffers.</div>
+            <div class="tutorial-popover-actions">
+              <button id="startTourBtn" class="btn primary" type="button">Start guided tour</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main id="main" class="dashboard-grid">
+        <section id="bomPanel" class="panel bom-region" aria-label="BOM map">
+          <div class="bom-header">
+            <h3>BOM Map</h3>
+          <div class="bom-subtext" data-tip="Click any node to inspect DDMRP settings. Purchased nodes allow multi-sourcing." tabindex="0">
+              Select a node to tune sourcing + buffer positioning
+            </div>
+          </div>
+          <div class="map-buffer-card">
+            <div class="map-buffer-head">
+              <strong>Selected Node Buffer</strong>
+              <span id="mapLeadSummary">Commercial LT: -</span>
+            </div>
+            <div class="map-buffer-bar" aria-hidden="true">
+              <div id="mapBufferRed" class="map-buffer-seg red"></div>
+              <div id="mapBufferYellow" class="map-buffer-seg yellow"></div>
+              <div id="mapBufferGreen" class="map-buffer-seg green"></div>
+            </div>
+            <div id="mapBufferDetails" class="map-buffer-details">ADU 0 u/day · R/Y/G 0/0/0 · TOG 0 · NetFlow 0 (Pass-through)</div>
+          </div>
+          <div id="bomZoomControls" class="bom-zoom-controls" aria-label="BOM zoom controls">
+            <button id="zoomInBtn" class="zoom-btn" type="button" aria-label="Zoom in">+</button>
+            <button id="zoomOutBtn" class="zoom-btn" type="button" aria-label="Zoom out">−</button>
+            <button id="zoomResetBtn" class="zoom-btn" type="button" aria-label="Reset zoom">Reset</button>
+          </div>
+          <svg id="bomSvg" viewBox="0 0 920 440" role="img" aria-label="BOM graph with nodes and links"></svg>
+          <div id="actionRow" class="action-row">
+            <button id="startRoundBtn" class="btn primary" type="button">Start Round</button>
+            <button id="endRoundBtn" class="btn secondary" type="button" disabled>End Round</button>
+            <button id="optimizeBtn" class="btn secondary" type="button" disabled>Optimize</button>
+          </div>
+        </section>
+
+        <section id="supplierPanel" class="panel inspector-region" aria-label="Supplier and node controls">
+          <div id="supplierChoicesBlock" class="supplier-choices-block">
+            <div class="section-head">
+              <h2>Supplier choices</h2>
+              <div class="hint" data-tip="Supplier assignment is contextual: select a purchased node in BOM, then assign a supplier." tabindex="0" role="note">Contextual</div>
+            </div>
+            <p class="panel-subtext hidden" id="scenarioSummary"></p>
+            <div class="selection-summary">
+              <div>Supplied SKUs: <span id="selectedCount">0</span>/<span id="purchasedCount">0</span></div>
+            </div>
+            <div id="supplierList" class="supplier-list" aria-live="polite"></div>
+          </div>
+          <div id="supplierInlineHint" class="supplier-inline-hint hidden">Select a supplied SKU node to assign suppliers.</div>
+          <section id="nodeInspector" class="node-inspector" aria-label="Node inspector">
+            <h3 class="inspector-title">
+              <span>Node Inspector</span>
+              <button id="inspectorAccordion" class="inspector-accordion" type="button" aria-label="Collapse inspector" aria-expanded="true">▾</button>
+            </h3>
+            <div id="inspectorBufferSummary" class="buffer-summary hidden">
+              <div id="inspectorBufferSummaryText" class="buffer-summary-text">Buffer ON · ADU 0.0 u/day · R/Y/G 0/0/0 · TOG 0</div>
+              <div class="buffer-summary-bar" aria-hidden="true">
+                <div id="inspectorSummaryRed" class="buffer-summary-seg red"></div>
+                <div id="inspectorSummaryYellow" class="buffer-summary-seg yellow"></div>
+                <div id="inspectorSummaryGreen" class="buffer-summary-seg green"></div>
+              </div>
+            </div>
+            <div id="nodeInspectorEmpty" class="inspector-empty">Select a node in the BOM map.</div>
+            <div id="nodeInspectorBody" class="hidden">
+              <div class="inspector-grid">
+                <div><span>Node</span><strong id="inspectorName">-</strong></div>
+                <div><span>Type</span><strong id="inspectorType">-</strong></div>
+                <div><span>Req Qty</span><strong id="inspectorDemand">-</strong></div>
+                <div><span>Lead Time</span><strong id="inspectorLead">-</strong></div>
+              </div>
+              <div class="buffer-controls">
+                <label class="buffer-toggle-row" data-tip="Buffer positioned here creates a decoupling point. DLT is computed automatically from BOM critical paths." tabindex="0">
+                  <span>Buffer positioned here</span>
+                  <input id="inspectorBuffered" type="checkbox" />
+                </label>
+                <label>
+                  On-Hand
+                  <div class="micro-slider-row">
+                    <input id="inspectorOnHand" type="range" min="0" max="200" step="5" />
+                    <span id="inspectorOnHandValue">100%</span>
+                  </div>
+                </label>
+                <label>
+                  Open Supply
+                  <div class="micro-slider-row">
+                    <input id="inspectorOpenSupply" type="range" min="0" max="200" step="5" />
+                    <span id="inspectorOpenSupplyValue">0%</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <section id="dashboardPanel" class="panel dashboard-region" aria-label="Optimization dashboard">
+          <div class="dashboard-header">
+            <h2>Optimization dashboard</h2>
+            <div id="roundStatus" class="round-status not-started" aria-live="polite">Round: Not started</div>
+            <div class="optimizer-indicator hidden" id="optimizerIndicator" aria-live="polite">
+              <span class="spinner"></span> Optimizing&hellip;
+            </div>
+            <div
+              class="scorebox"
+              data-tip="Score combines normalized cost, emissions, inventory emissions, reliability, and service lead time vs scenario targets."
+              tabindex="0"
+            >
+              <div class="score-label">Score</div>
+              <div class="score-value" id="scoreValue">0</div>
+              <div class="stars" id="scoreStars" aria-label="Star rating">☆☆☆☆☆</div>
+              <div class="progress-meter"><div class="progress-fill" id="progressFill"></div></div>
+              <div class="board-badge needs-review" id="boardBadge" aria-label="Board approval status">
+                Needs Review
+              </div>
+            </div>
+          </div>
+
+          <div class="metrics-grid">
+            <div class="metric-card" data-tip="Total procurement plus buffer holding cost." tabindex="0">
+              <div class="metric-label">
+                <span>Cost</span>
+                <span class="metric-delta" id="deltaCost"></span>
+              </div>
+              <div class="metric-values-row">
+                <div class="metric-value" id="metricCost">$0</div>
+                <div class="metric-value-opt hidden" id="metricCostOpt"></div>
+              </div>
+              <div class="metric-target-row">
+                <span class="metric-target-text">Target: <span id="targetCostInline">$0</span></span>
+                <span id="costTargetPill" class="metric-pill neutral">Select suppliers</span>
+              </div>
+              <div class="metric-bar" aria-hidden="true">
+                <div id="costTargetFill" class="metric-bar-fill"></div>
+              </div>
+            </div>
+            <div class="metric-card" data-tip="Total CO₂ emitted from selected suppliers." tabindex="0">
+              <div class="metric-label">
+                <span>Emissions</span>
+                <span class="metric-delta" id="deltaEmissions"></span>
+              </div>
+              <div class="metric-values-row">
+                <div class="metric-value" id="metricEmissions">0 kg CO₂</div>
+                <div class="metric-value-opt hidden" id="metricEmissionsOpt"></div>
+              </div>
+              <div class="metric-target-row">
+                <span class="metric-target-text">Target: <span id="targetEmissionsInline">0 kg CO₂</span></span>
+                <span id="emissionsTargetPill" class="metric-pill neutral">Select suppliers</span>
+              </div>
+              <div class="metric-bar" aria-hidden="true">
+                <div id="emissionsTargetFill" class="metric-bar-fill green"></div>
+              </div>
+            </div>
+            <div class="metric-card" data-tip="Higher reliability reduces disruption risk." tabindex="0">
+              <div class="metric-label"><span>Reliability</span></div>
+              <div class="metric-values-row">
+                <div class="metric-value" id="metricReliability">0%</div>
+                <div class="metric-value-opt hidden" id="metricReliabilityOpt"></div>
+              </div>
+            </div>
+            <div class="metric-card" data-tip="Order-to-delivery time for FG. If FG is buffered, service lead time is 0." tabindex="0">
+              <div class="metric-label"><span>Service Lead Time</span></div>
+              <div class="metric-values-row">
+                <div class="metric-value" id="metricLead">0 days</div>
+                <div class="metric-value-opt hidden" id="metricLeadOpt"></div>
+              </div>
+            </div>
+            <div class="metric-card" data-tip="CO₂ emissions associated with holding buffered inventory." tabindex="0">
+              <div class="metric-label"><span>Inventory Emissions</span></div>
+              <div class="metric-values-row">
+                <div class="metric-value" id="metricInvEmissions">0 kg CO₂</div>
+                <div class="metric-value-opt hidden" id="metricInvEmissionsOpt"></div>
+              </div>
+            </div>
+            <div class="metric-card" data-tip="Inventory cost from positioned DDMRP buffers only." tabindex="0">
+              <div class="metric-label"><span>Inventory Cost</span></div>
+              <div class="metric-values-row">
+                <div class="metric-value" id="metricInventory">$0</div>
+                <div class="metric-value-opt hidden" id="metricInventoryOpt"></div>
+              </div>
+            </div>
+          </div>
+
+          <div id="bufferPanel" class="buffers">
+            <h3>Buffer Posture</h3>
+            <div class="buffer-note" data-tip="Green/yellow/red quantities summarize total inventory posture from all node buffers." tabindex="0">
+              Buffered nodes: <span id="bufferCount">0</span> · Posture: <span id="inventoryPosture">Balanced</span>
+            </div>
+            <div id="postureBar" class="posture-bar" aria-hidden="true">
+              <div id="postureRed" class="posture-seg red"></div>
+              <div id="postureYellow" class="posture-seg yellow"></div>
+              <div id="postureGreen" class="posture-seg green"></div>
+            </div>
+          </div>
+
+          <div class="charts">
+            <div class="chart-card">
+              <div style="display:flex;align-items:center;margin-bottom:2px;">
+                <h4>Cost trend</h4>
+                <div class="chart-legend">
+                  <span class="legend-item"><span class="legend-swatch current"></span>Current</span>
+                  <span class="legend-item"><span class="legend-swatch optimized"></span>Opt</span>
+                </div>
+              </div>
+              <svg id="costChart" viewBox="0 0 300 120" role="img" aria-label="Cost trend chart">
+                <line class="chart-baseline" x1="0" y1="110" x2="300" y2="110" />
+                <polyline id="costLine" points="" />
+                <polyline id="costLineOptimized" points="" />
+              </svg>
+            </div>
+            <div class="chart-card">
+              <div style="display:flex;align-items:center;margin-bottom:2px;">
+                <h4>Emissions trend</h4>
+                <div class="chart-legend">
+                  <span class="legend-item"><span class="legend-swatch current"></span>Current</span>
+                  <span class="legend-item"><span class="legend-swatch optimized"></span>Opt</span>
+                </div>
+              </div>
+              <svg id="emissionsChart" viewBox="0 0 300 120" role="img" aria-label="Emissions trend chart">
+                <line class="chart-baseline" x1="0" y1="110" x2="300" y2="110" />
+                <polyline id="emissionsLine" points="" />
+                <polyline id="emissionsLineOptimized" points="" />
+              </svg>
+            </div>
+          </div>
+
+          <div id="advisorCard" class="advisor-card" aria-live="polite">
+            <div class="advisor-header">
+              <div class="advisor-title" data-tip="Deterministic in-browser optimizer using greedy local improvement across supplier choices and buffer placements.">
+                Optimizer suggestion
+              </div>
+              <label class="advisor-toggle">
+                <input type="checkbox" id="advisorToggle" checked />
+                <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                Show
+              </label>
+            </div>
+            <div id="advisorThinking" class="advisor-thinking hidden">
+              <span class="spinner"></span> Thinking&hellip;
+            </div>
+            <div id="advisorBody" class="advisor-body">
+              <div class="advisor-empty">Start the round to see guidance.</div>
+            </div>
+          </div>
+          <div id="optimizedKpiBlock" class="optimized-kpi-block hidden" aria-live="polite">
+            <div class="optimized-kpi-head">
+              <span>Optimized score: <strong id="optScore">-</strong></span>
+              <button id="applyOptimizedBtn" class="btn primary apply-optimized-btn" type="button">Apply optimized setup</button>
+            </div>
+          </div>
+
+          <section id="validityPanel" class="validity-panel hidden" aria-label="DDMRP validity checks">
+            <h3>DDMRP Validity Checks (test mode)</h3>
+            <div id="validityBody" class="validity-body"></div>
+            <div class="validity-actions">
+              <button id="runTestsBtn" class="btn secondary" type="button">Run deterministic tests</button>
+            </div>
+            <div id="testResults" class="test-results"></div>
+          </section>
+        </section>
+
+        <aside id="insightsPanel" class="panel right" aria-label="Insights" hidden>
+          <h2>Insights / tooltips</h2>
+          <div class="insight-box" id="hoverInsight">Hover on an element to learn what it does.</div>
+          <div class="insight-log" id="insightLog" aria-live="polite"></div>
+        </aside>
+      </main>
+    </div>
+
+    <div id="tooltip" class="tooltip" role="tooltip"></div>
+
+    <!-- Guided tutorial overlay -->
+    <div id="tour" class="tour hidden" role="dialog" aria-modal="true" aria-labelledby="tourTitle">
+      <div class="tour-dim"></div>
+      <div id="tourHighlight" class="tour-highlight" aria-hidden="true"></div>
+      <div id="tourCard" class="tour-card">
+        <div class="tour-step" id="tourStep">Step 1 of 6</div>
+        <h3 id="tourTitle">Welcome</h3>
+        <p id="tourBody"></p>
+        <div class="tour-actions">
+          <button id="tourBack" class="btn secondary" type="button">Back</button>
+          <button id="tourNext" class="btn primary" type="button">Next</button>
+          <button id="tourSkip" class="btn secondary" type="button">Skip</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-card">
+        <h3 id="modalTitle"></h3>
+        <p id="modalBody"></p>
+        <div class="modal-actions">
+          <button id="modalSecondary" class="btn secondary hidden">Cancel</button>
+          <button id="modalPrimary" class="btn primary">Continue</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="scenarioModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="scenarioTitle">
+      <div class="modal-card">
+        <h3 id="scenarioTitle">Choose a scenario</h3>
+        <p>Pick the BOM scenario you want to optimize.</p>
+        <div class="modal-actions">
+          <button class="scenario-btn modal-scenario" data-scenario="0">BOM A</button>
+          <button class="scenario-btn modal-scenario" data-scenario="1">BOM B</button>
+          <button class="scenario-btn modal-scenario" data-scenario="2">BOM C</button>
+        </div>
+        <div class="modal-actions">
+          <button id="scenarioClose" class="btn secondary">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

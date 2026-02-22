@@ -1,0 +1,135 @@
+{
+  "tooltips": [
+    {
+      "id": "cost_metric",
+      "element": "Total Cost metric card",
+      "text": "Total cost = procurement + buffer holding. Lower is better, but watch emissions and reliability."
+    },
+    {
+      "id": "emissions_metric",
+      "element": "Emissions metric card",
+      "text": "Total CO₂ from selected suppliers. Cheaper suppliers often emit more. Buffers don't affect emissions directly."
+    },
+    {
+      "id": "reliability_metric",
+      "element": "Reliability metric card",
+      "text": "Average supplier reliability. Higher = fewer disruptions. Buffers boost this by 2.5% each."
+    },
+    {
+      "id": "lead_time_metric",
+      "element": "Lead Time metric card",
+      "text": "Average lead time across suppliers. Each buffer cuts this by ~1.2 days but adds $3,500 holding cost."
+    },
+    {
+      "id": "buffer_positioning",
+      "element": "Buffer checkboxes",
+      "text": "Buffers decouple variability: they reduce lead time and boost reliability, but increase holding cost."
+    },
+    {
+      "id": "optimization_score",
+      "element": "Optimization Score box",
+      "text": "Composite score: 40% cost efficiency, 40% emissions reduction, 20% reliability. Target 700+ for 4 stars."
+    },
+    {
+      "id": "supplier_card",
+      "element": "Individual supplier cards",
+      "text": "Each supplier offers a trade-off. Low cost often means high emissions or low reliability. Choose three."
+    },
+    {
+      "id": "why_three",
+      "element": "Why three? hint",
+      "text": "Three suppliers balance diversification and simplicity. Real supply chains use multi-sourcing for resilience."
+    },
+    {
+      "id": "scenario_picker",
+      "element": "Scenario buttons (header)",
+      "text": "Each scenario has different target thresholds and supplier pools. Test your optimization strategy across all three."
+    },
+    {
+      "id": "star_rating",
+      "element": "Star display",
+      "text": "★★★★★ = Expert (850+), ★★★★ = Proficient (700+), ★★★ = Competent (550+), ★★ = Developing (400+), ★ = Needs work."
+    }
+  ],
+  "popups": [
+    {
+      "id": "first_improvement",
+      "trigger": "Score increases from previous state",
+      "title": "First Improvement",
+      "short": "Nice move. Your latest selection improves the overall optimization score.",
+      "long": "Your changes reduced total cost or emissions while maintaining balance. Keep experimenting with supplier combinations and buffer placements to push your score higher."
+    },
+    {
+      "id": "target_reached",
+      "trigger": "Cost and emissions both under scenario targets",
+      "title": "Target Reached",
+      "short": "You met both the cost and emissions targets. Try to improve reliability next.",
+      "long": "Congratulations -you've hit the cost and emissions thresholds for this scenario. Now see if you can boost reliability above 80% without breaking your targets. Buffers help."
+    },
+    {
+      "id": "tradeoff_warning",
+      "trigger": "Cost decreases but emissions increase",
+      "title": "Trade-off Warning",
+      "short": "Costs went down, but emissions increased. Consider a greener supplier or add a buffer.",
+      "long": "You've reduced costs, but at the expense of higher emissions. This is a classic supply chain trade-off. Try swapping in a mid-range supplier or using buffers to decouple lead time without sacrificing green performance."
+    },
+    {
+      "id": "selection_limit",
+      "trigger": "User tries to select a 4th supplier",
+      "title": "Selection Limit",
+      "short": "You can only select three suppliers at once. Remove one to add another.",
+      "long": "The game constrains you to three suppliers to simulate multi-sourcing with manageable complexity. Deselect a current supplier before adding a new one."
+    },
+    {
+      "id": "first_buffer",
+      "trigger": "User toggles their first buffer",
+      "title": "DDMRP Buffer Added",
+      "short": "Buffers decouple upstream variability. They reduce lead time and boost reliability, but add holding cost.",
+      "long": "You've positioned a DDMRP buffer. Buffers absorb demand and supply variability, cutting effective lead time by ~1.2 days and improving reliability by 2.5%. Each buffer costs $3,500/period in holding expense. Use them strategically."
+    },
+    {
+      "id": "high_emissions_warning",
+      "trigger": "Emissions > 1.3x scenario target",
+      "title": "Emissions Alert",
+      "short": "Your emissions are 30% above target. Swap in lower-emission suppliers to hit your green goals.",
+      "long": "Current emissions are significantly above the scenario threshold. Look for suppliers with <10 kg CO₂ per unit. Yes, they cost more -but that's the optimization challenge. Buffers won't fix emissions; supplier choice will."
+    },
+    {
+      "id": "low_reliability_warning",
+      "trigger": "Reliability < 65%",
+      "title": "Reliability Risk",
+      "short": "Your network reliability is below 65%. Add buffers or choose more reliable suppliers to reduce disruption risk.",
+      "long": "Low reliability increases the chance of supply disruptions. Either select suppliers with reliability scores above 75%, or position buffers to absorb variability. A balanced network targets 75%+ reliability."
+    },
+    {
+      "id": "optimal_balance",
+      "trigger": "Score > 800 and all metrics in green zone",
+      "title": "Optimal Balance Achieved",
+      "short": "Excellent work. You've balanced cost, emissions, and reliability at a high level. This is expert-level optimization.",
+      "long": "You've achieved a rare trifecta: low cost, low emissions, and high reliability. Your supply chain is resilient, sustainable, and cost-effective. This level of performance is what real supply chain managers aim for."
+    }
+  ],
+  "end_summaries": [
+    {
+      "id": "excellent",
+      "score_range": "700+",
+      "title": "Expert Optimizer",
+      "stars": 4,
+      "summary": "Outstanding performance. You balanced cost, emissions, and reliability with precision. Your supplier choices and buffer placements reflect advanced supply chain thinking. In a real organization, this plan would earn executive approval and deliver sustainable competitive advantage."
+    },
+    {
+      "id": "good",
+      "score_range": "400–699",
+      "title": "Competent Performance",
+      "stars": 3,
+      "summary": "Solid work. You understood the core trade-offs and made reasonable decisions. There's room to improve -experiment with different supplier combinations and consider adding buffers to reduce lead time. A few more iterations could push you into expert territory."
+    },
+    {
+      "id": "needs_improvement",
+      "score_range": "0–399",
+      "title": "Needs Refinement",
+      "stars": 1,
+      "summary": "Your plan has gaps. Either costs are too high, emissions are excessive, or reliability is too low. Review each supplier's attributes carefully. Remember: cheap suppliers often emit more; buffers improve reliability but cost money. Try again with a focus on balance."
+    }
+  ]
+}
