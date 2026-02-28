@@ -103,163 +103,59 @@
    - these are implemented here as the simulation teaching layer.
 */
 
+import {
+  FIXED_LTF,
+  FIXED_VF,
+  INVENTORY_EMISSIONS_FACTOR,
+  BOM_BASE_VIEWBOX,
+  ZOOM_MIN,
+  ZOOM_MAX,
+  ZOOM_STEP,
+  ANIM_DURATION,
+  ADVISOR_DELAY,
+  BOM_SCENARIOS
+} from "./src/data.js";
+import {
+  computeADU,
+  computeBuffers,
+  computeNetFlowStatus,
+  computeAvgInventory,
+  explodeBomDemand,
+  expectedReqFromParents,
+  computeDltMap,
+  buildParentMap,
+  buildIndegreeMap,
+  topoOrderFromRoot,
+  computeSegLtMap,
+  summarizeSuppliersForNode,
+  getNodeInventoryEmissionFactor
+} from "./src/ddmrp.js";
+import {
+  state,
+  getScenario,
+  getNodesById,
+  getSuppliersById,
+  getPurchasedNodes,
+  isPurchasedSelected,
+  nodeMatchesQuery,
+  graphChildren,
+  buildWorkingConfig,
+  cloneConfig,
+  cloneCurrentConfig
+} from "./src/state.js";
+import {
+  calculateTotals,
+  computeScore,
+  runOptimizer,
+  evaluateConfig,
+  starRating,
+  boardApproval
+} from "./src/engine.js";
+import tooltipsData from "./src/tooltips.js";
+
 const URL_PARAMS = new URLSearchParams(window.location.search);
 const TEST_MODE = URL_PARAMS.get("test") === "1";
-
-const FIXED_LTF = 1.0;
-const FIXED_VF = 0.35;
-const INVENTORY_EMISSIONS_FACTOR = 0.2;
-const BOM_BASE_VIEWBOX = { x: 0, y: 0, w: 920, h: 440 };
-const ZOOM_MIN = 0.7;
-const ZOOM_MAX = 2.4;
-const ZOOM_STEP = 0.2;
-
-const SUPPLIER_LIBRARY = [
-  { id: "s_speed", name: "SpeedElite", unitCost: 16.0, unitEmissions: 4.0, reliability: 95, leadTime: 3, capacity: 100000 },
-  { id: "s_budget", name: "BudgetBulk", unitCost: 6.5, unitEmissions: 8.0, reliability: 68, leadTime: 8, capacity: 300000 },
-  { id: "s_green", name: "GreenPrime", unitCost: 19.0, unitEmissions: 1.2, reliability: 92, leadTime: 8, capacity: 70000 },
-  { id: "s_bal", name: "BalancePro", unitCost: 10.5, unitEmissions: 3.5, reliability: 86, leadTime: 5, capacity: 180000 },
-  { id: "s_local", name: "LocalSwift", unitCost: 12.5, unitEmissions: 3.0, reliability: 89, leadTime: 4, capacity: 120000 },
-  { id: "s_eco", name: "EcoValue", unitCost: 9.0, unitEmissions: 2.5, reliability: 80, leadTime: 9, capacity: 150000 },
-  { id: "s_mega", name: "MegaCorp", unitCost: 7.5, unitEmissions: 6.5, reliability: 73, leadTime: 8, capacity: 250000 },
-  { id: "s_prem", name: "PremiumGreen", unitCost: 15.0, unitEmissions: 1.8, reliability: 93, leadTime: 6, capacity: 90000 }
-];
-
-const BOM_SCENARIOS = [
-  {
-    name: "BOM A (Simple)",
-    description: "8-node BOM. Learn decoupling points and supplier trade-offs.",
-    fgId: "FG_A",
-    fgDemand: 1250,
-    targetCost: 165000,
-    targetEmissions: 48000,
-    targetInventoryEmissions: 4800,
-    serviceTarget: 16,
-    objective: { cost: 420, emissions: 220, inventoryEmissions: 90, reliability: 2.4, service: 2.2 },
-    nodes: [
-      { id: "FG_A", name: "City Bike", type: "FG", leadTime: 4, holdingRate: 1.2, internalEmission: 0.9, x: 70, y: 160 },
-      { id: "SUB_A1", name: "Frame Assembly", type: "SUB", leadTime: 3, holdingRate: 0.8, internalEmission: 0.5, x: 280, y: 100 },
-      { id: "SUB_A2", name: "Power Assembly", type: "SUB", leadTime: 3, holdingRate: 0.85, internalEmission: 0.45, x: 280, y: 230 },
-      { id: "P_A4", name: "Aluminum Shell", type: "PURCHASED", leadTime: 5, holdingRate: 0.5, internalEmission: 0, x: 525, y: 60 },
-      { id: "P_A3", name: "Battery", type: "PURCHASED", leadTime: 8, holdingRate: 0.7, internalEmission: 0, x: 525, y: 145 },
-      { id: "P_A1", name: "Motor", type: "PURCHASED", leadTime: 7, holdingRate: 0.6, internalEmission: 0, x: 525, y: 210 },
-      { id: "P_A2", name: "Control Board", type: "PURCHASED", leadTime: 6, holdingRate: 0.55, internalEmission: 0, x: 525, y: 280 },
-      { id: "P_A5", name: "Fastener Kit", type: "PURCHASED", leadTime: 4, holdingRate: 0.35, internalEmission: 0, x: 780, y: 160 }
-    ],
-    edges: [
-      { parent: "FG_A", child: "SUB_A1", qty: 1 },
-      { parent: "FG_A", child: "SUB_A2", qty: 1 },
-      { parent: "FG_A", child: "P_A3", qty: 1 },
-      { parent: "FG_A", child: "P_A5", qty: 4 },
-      { parent: "SUB_A1", child: "P_A4", qty: 1 },
-      { parent: "SUB_A2", child: "P_A1", qty: 1 },
-      { parent: "SUB_A2", child: "P_A2", qty: 1 }
-    ],
-    supplierIds: ["s_speed", "s_budget", "s_bal", "s_local", "s_eco"]
-  },
-  {
-    name: "BOM B (Medium)",
-    description: "14-node BOM, 2 levels deep. Position buffers where flow bottlenecks appear.",
-    fgId: "FG_B",
-    fgDemand: 980,
-    targetCost: 220000,
-    targetEmissions: 23000,
-    targetInventoryEmissions: 6200,
-    serviceTarget: 18,
-    objective: { cost: 250, emissions: 390, inventoryEmissions: 110, reliability: 2.2, service: 2.1 },
-    nodes: [
-      { id: "FG_B", name: "Smart Pump", type: "FG", leadTime: 4, holdingRate: 1.3, internalEmission: 1.1, x: 60, y: 180 },
-      { id: "SUB_B1", name: "Hydraulic Block", type: "SUB", leadTime: 3, holdingRate: 0.9, internalEmission: 0.7, x: 245, y: 60 },
-      { id: "SUB_B2", name: "Control Block", type: "SUB", leadTime: 3, holdingRate: 0.95, internalEmission: 0.6, x: 245, y: 180 },
-      { id: "SUB_B3", name: "Housing Block", type: "SUB", leadTime: 2, holdingRate: 0.85, internalEmission: 0.45, x: 245, y: 300 },
-      { id: "P_B1", name: "Rotor", type: "PURCHASED", leadTime: 8, holdingRate: 0.65, internalEmission: 0, x: 470, y: 15 },
-      { id: "P_B2", name: "Seal Kit", type: "PURCHASED", leadTime: 5, holdingRate: 0.4, internalEmission: 0, x: 470, y: 60 },
-      { id: "P_B8", name: "Valve", type: "PURCHASED", leadTime: 6, holdingRate: 0.45, internalEmission: 0, x: 470, y: 105 },
-      { id: "P_B3", name: "Sensor", type: "PURCHASED", leadTime: 6, holdingRate: 0.45, internalEmission: 0, x: 470, y: 155 },
-      { id: "P_B4", name: "Microcontroller", type: "PURCHASED", leadTime: 9, holdingRate: 0.6, internalEmission: 0, x: 470, y: 200 },
-      { id: "P_B5", name: "Wiring Loom", type: "PURCHASED", leadTime: 4, holdingRate: 0.35, internalEmission: 0, x: 470, y: 245 },
-      { id: "P_B9", name: "Actuator", type: "PURCHASED", leadTime: 8, holdingRate: 0.55, internalEmission: 0, x: 710, y: 200 },
-      { id: "P_B6", name: "Casting", type: "PURCHASED", leadTime: 7, holdingRate: 0.5, internalEmission: 0, x: 470, y: 295 },
-      { id: "P_B7", name: "Cover Plate", type: "PURCHASED", leadTime: 5, holdingRate: 0.35, internalEmission: 0, x: 470, y: 340 },
-      { id: "P_B10", name: "Connector Set", type: "PURCHASED", leadTime: 4, holdingRate: 0.32, internalEmission: 0, x: 710, y: 320 }
-    ],
-    edges: [
-      { parent: "FG_B", child: "SUB_B1", qty: 1 },
-      { parent: "FG_B", child: "SUB_B2", qty: 1 },
-      { parent: "FG_B", child: "SUB_B3", qty: 1 },
-      { parent: "SUB_B1", child: "P_B1", qty: 1 },
-      { parent: "SUB_B1", child: "P_B2", qty: 2 },
-      { parent: "SUB_B1", child: "P_B8", qty: 2 },
-      { parent: "SUB_B2", child: "P_B3", qty: 2 },
-      { parent: "SUB_B2", child: "P_B4", qty: 1 },
-      { parent: "SUB_B2", child: "P_B5", qty: 1 },
-      { parent: "SUB_B2", child: "P_B9", qty: 1 },
-      { parent: "SUB_B3", child: "P_B6", qty: 1 },
-      { parent: "SUB_B3", child: "P_B7", qty: 1 },
-      { parent: "SUB_B3", child: "P_B10", qty: 3 }
-    ],
-    supplierIds: ["s_speed", "s_green", "s_bal", "s_local", "s_eco", "s_prem"]
-  },
-  {
-    name: "BOM C (Max 20)",
-    description: "20-node BOM, 3 levels. Keep responsiveness while controlling inventory cost.",
-    fgId: "FG_C",
-    fgDemand: 820,
-    targetCost: 240000,
-    targetEmissions: 33500,
-    targetInventoryEmissions: 7600,
-    serviceTarget: 22,
-    objective: { cost: 330, emissions: 320, inventoryEmissions: 120, reliability: 2.3, service: 2.2 },
-    nodes: [
-      { id: "FG_C", name: "Autonomous Cart", type: "FG", leadTime: 5, holdingRate: 1.35, internalEmission: 1.3, x: 45, y: 185 },
-      { id: "SUB_C1", name: "Drive Train", type: "SUB", leadTime: 3, holdingRate: 0.95, internalEmission: 0.8, x: 200, y: 60 },
-      { id: "SUB_C2", name: "Control Core", type: "SUB", leadTime: 4, holdingRate: 1.0, internalEmission: 0.85, x: 200, y: 150 },
-      { id: "SUB_C3", name: "Body Frame", type: "SUB", leadTime: 3, holdingRate: 0.9, internalEmission: 0.7, x: 200, y: 240 },
-      { id: "SUB_C4", name: "Battery Pack", type: "SUB", leadTime: 3, holdingRate: 0.95, internalEmission: 0.75, x: 200, y: 330 },
-      { id: "SUB_C5", name: "Motor Module", type: "SUB", leadTime: 2, holdingRate: 0.75, internalEmission: 0.45, x: 390, y: 25 },
-      { id: "SUB_C6", name: "Wheel Module", type: "SUB", leadTime: 2, holdingRate: 0.7, internalEmission: 0.4, x: 390, y: 95 },
-      { id: "SUB_C7", name: "PCB Module", type: "SUB", leadTime: 2, holdingRate: 0.75, internalEmission: 0.48, x: 390, y: 165 },
-      { id: "SUB_C8", name: "Enclosure Module", type: "SUB", leadTime: 2, holdingRate: 0.7, internalEmission: 0.35, x: 390, y: 245 },
-      { id: "P_C1", name: "Copper Coil", type: "PURCHASED", leadTime: 8, holdingRate: 0.58, internalEmission: 0, x: 590, y: 5 },
-      { id: "P_C2", name: "Magnet Set", type: "PURCHASED", leadTime: 7, holdingRate: 0.54, internalEmission: 0, x: 590, y: 45 },
-      { id: "P_C3", name: "Gear Kit", type: "PURCHASED", leadTime: 6, holdingRate: 0.48, internalEmission: 0, x: 590, y: 85 },
-      { id: "P_C4", name: "Wheel Set", type: "PURCHASED", leadTime: 5, holdingRate: 0.45, internalEmission: 0, x: 590, y: 125 },
-      { id: "P_C5", name: "Sensor PCB", type: "PURCHASED", leadTime: 8, holdingRate: 0.52, internalEmission: 0, x: 590, y: 165 },
-      { id: "P_C6", name: "CPU Board", type: "PURCHASED", leadTime: 9, holdingRate: 0.66, internalEmission: 0, x: 590, y: 205 },
-      { id: "P_C7", name: "Aluminum Panel", type: "PURCHASED", leadTime: 6, holdingRate: 0.43, internalEmission: 0, x: 590, y: 245 },
-      { id: "P_C8", name: "Polymer Cover", type: "PURCHASED", leadTime: 5, holdingRate: 0.4, internalEmission: 0, x: 590, y: 285 },
-      { id: "P_C9", name: "Cell Module", type: "PURCHASED", leadTime: 8, holdingRate: 0.62, internalEmission: 0, x: 430, y: 310 },
-      { id: "P_C10", name: "BMS Chip", type: "PURCHASED", leadTime: 9, holdingRate: 0.6, internalEmission: 0, x: 430, y: 350 },
-      { id: "P_C11", name: "Harness Set", type: "PURCHASED", leadTime: 4, holdingRate: 0.36, internalEmission: 0, x: 430, y: 390 }
-    ],
-    edges: [
-      { parent: "FG_C", child: "SUB_C1", qty: 1 },
-      { parent: "FG_C", child: "SUB_C2", qty: 1 },
-      { parent: "FG_C", child: "SUB_C3", qty: 1 },
-      { parent: "FG_C", child: "SUB_C4", qty: 1 },
-      { parent: "SUB_C1", child: "SUB_C5", qty: 1 },
-      { parent: "SUB_C1", child: "SUB_C6", qty: 2 },
-      { parent: "SUB_C2", child: "SUB_C7", qty: 1 },
-      { parent: "SUB_C3", child: "SUB_C8", qty: 1 },
-      { parent: "SUB_C5", child: "P_C1", qty: 1 },
-      { parent: "SUB_C5", child: "P_C2", qty: 2 },
-      { parent: "SUB_C5", child: "P_C3", qty: 1 },
-      { parent: "SUB_C6", child: "P_C4", qty: 2 },
-      { parent: "SUB_C7", child: "P_C5", qty: 2 },
-      { parent: "SUB_C7", child: "P_C6", qty: 1 },
-      { parent: "SUB_C8", child: "P_C7", qty: 2 },
-      { parent: "SUB_C8", child: "P_C8", qty: 2 },
-      { parent: "SUB_C4", child: "P_C9", qty: 4 },
-      { parent: "SUB_C4", child: "P_C10", qty: 1 },
-      { parent: "SUB_C4", child: "P_C11", qty: 2 }
-    ],
-    supplierIds: ["s_speed", "s_budget", "s_green", "s_bal", "s_local", "s_eco", "s_mega", "s_prem"]
-  }
-];
-
-const ANIM_DURATION = 700;
 const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-const ADVISOR_DELAY = 350;
 
 const $ = (id) => document.getElementById(id);
 const fmt = (v) => v.toLocaleString("en-US", { maximumFractionDigits: 1 });
@@ -368,234 +264,6 @@ const el = {
 
 const scenarioButtons = document.querySelectorAll(".scenario-btn[data-scenario]");
 
-const state = {
-  scenarioIndex: 0,
-  selectedNodeId: null,
-  supplierAssignments: {},
-  buffers: {},
-  netFlowInputs: {},
-  finalDemand: 1000,
-  periodDays: 30,
-  history: {
-    cost: { current: [], opt: [] },
-    emissions: { current: [], opt: [] }
-  },
-  lastTotals: null,
-  lastScore: 0,
-  optimized: null,
-  roundActive: false,
-  animFrames: {},
-  modalHandlers: { primary: null, secondary: null },
-  tipFlags: {
-    firstBufferChange: false,
-    firstSupplierChoice: false,
-    flowImproved: false,
-    inventorySpike: false
-  },
-  bomRefs: {},
-  advisor: {
-    enabled: true,
-    timer: 0
-  },
-  layout: {
-    userInspectorChoice: false,
-    inspectorCollapsed: false
-  },
-  ui: {
-    nodeSearchQuery: "",
-    zoomLevel: 1,
-    panX: 0,
-    panY: 0,
-    bomDragStart: null,
-    bomDidPan: false
-  }
-};
-
-const getScenario = () => BOM_SCENARIOS[state.scenarioIndex];
-const getNodesById = () => {
-  const map = {};
-  getScenario().nodes.forEach((n) => { map[n.id] = n; });
-  return map;
-};
-const getSuppliersById = () => {
-  const ids = new Set(getScenario().supplierIds);
-  const map = {};
-  SUPPLIER_LIBRARY.forEach((s) => { if (ids.has(s.id)) map[s.id] = s; });
-  return map;
-};
-const getPurchasedNodes = () => getScenario().nodes.filter((n) => n.type === "PURCHASED");
-const isPurchasedSelected = () => {
-  const nodes = getNodesById();
-  return !!state.selectedNodeId && nodes[state.selectedNodeId]?.type === "PURCHASED";
-};
-const nodeMatchesQuery = (node, query) => {
-  const q = query.trim().toLowerCase();
-  if (!q) return false;
-  return node.name.toLowerCase().includes(q) || node.id.toLowerCase().includes(q);
-};
-
-// ---------- Pure DDMRP functions ----------
-function computeADU(reqQty, periodDays) {
-  const p = Math.max(1, periodDays);
-  return reqQty / p;
-}
-
-function computeBuffers(adu, dlt, ltf, vf) {
-  const DLT = Math.max(0, dlt);
-  const LTF = Math.max(0, ltf);
-  const VF = Math.max(0, vf);
-  const redBase = adu * DLT * LTF;
-  const redSafety = redBase * VF;
-  const red = redBase + redSafety;
-  const yellow = adu * DLT;
-  const green = yellow;
-  const topOfGreen = red + yellow + green;
-  return { redBase, redSafety, red, yellow, green, topOfGreen };
-}
-
-function computeNetFlowStatus(netFlowPosition, red, yellow, topOfGreen) {
-  if (netFlowPosition < red) return "Red";
-  if (netFlowPosition < red + yellow) return "Yellow";
-  if (netFlowPosition < topOfGreen) return "Green";
-  return "Above Green";
-}
-
-function computeAvgInventory(bufferResult) {
-  return bufferResult.topOfGreen / 2;
-}
-
-function explodeBomDemand(nodes, edges, fgId, finalDemand) {
-  const children = {};
-  const indegree = {};
-  nodes.forEach((n) => {
-    children[n.id] = [];
-    indegree[n.id] = 0;
-  });
-  edges.forEach((e) => {
-    children[e.parent].push(e);
-    indegree[e.child] += 1;
-  });
-
-  const req = {};
-  nodes.forEach((n) => { req[n.id] = 0; });
-  req[fgId] = finalDemand;
-
-  const q = [];
-  Object.keys(indegree).forEach((id) => { if (indegree[id] === 0) q.push(id); });
-  while (q.length) {
-    const id = q.shift();
-    const base = req[id] || 0;
-    children[id].forEach((e) => {
-      req[e.child] += base * e.qty;
-      indegree[e.child] -= 1;
-      if (indegree[e.child] === 0) q.push(e.child);
-    });
-  }
-  return req;
-}
-
-function expectedReqFromParents(nodeId, req, edges, fgId, finalDemand) {
-  if (nodeId === fgId) return finalDemand;
-  return edges
-    .filter((e) => e.child === nodeId)
-    .reduce((sum, e) => sum + (req[e.parent] || 0) * e.qty, 0);
-}
-
-function computeDltMap(nodeIds, childrenMap, leadByNode, buffered) {
-  const memo = {};
-  const dfs = (id) => {
-    if (memo[id] != null) return memo[id];
-    let maxChild = 0;
-    const children = childrenMap[id] || [];
-    for (let i = 0; i < children.length; i += 1) {
-      const childId = children[i].child;
-      if (buffered[childId]) continue;
-      maxChild = Math.max(maxChild, dfs(childId));
-    }
-    memo[id] = Math.max(0, leadByNode[id] || 0) + maxChild;
-    return memo[id];
-  };
-  nodeIds.forEach((id) => dfs(id));
-  return memo;
-}
-
-function buildParentMap(nodeIds, edges) {
-  const parents = {};
-  nodeIds.forEach((id) => { parents[id] = []; });
-  edges.forEach((e) => {
-    if (!parents[e.child]) parents[e.child] = [];
-    parents[e.child].push(e.parent);
-  });
-  return parents;
-}
-
-function buildIndegreeMap(nodeIds, edges) {
-  const indegree = {};
-  nodeIds.forEach((id) => { indegree[id] = 0; });
-  edges.forEach((e) => { indegree[e.child] = (indegree[e.child] || 0) + 1; });
-  return indegree;
-}
-
-function topoOrderFromRoot(fgId, childrenMap, indegree) {
-  const order = [];
-  const indeg = { ...indegree };
-  const q = [fgId];
-  const seen = new Set();
-  while (q.length) {
-    const id = q.shift();
-    if (seen.has(id)) continue;
-    seen.add(id);
-    order.push(id);
-    const children = childrenMap[id] || [];
-    children.forEach((e) => {
-      const childId = e.child;
-      indeg[childId] -= 1;
-      if (indeg[childId] === 0) q.push(childId);
-    });
-  }
-  return order;
-}
-
-function computeSegLtMap(order, parentsMap, effLT, buffered, fgId) {
-  const segLT = {};
-  order.forEach((id) => {
-    if (id === fgId) {
-      segLT[id] = Math.max(0, effLT[id] || 0);
-      return;
-    }
-    const parents = parentsMap[id] || [];
-    let maxParent = 0;
-    parents.forEach((p) => {
-      const parentSeg = segLT[p] ?? 0;
-      const candidate = buffered[p] ? 0 : parentSeg;
-      if (candidate > maxParent) maxParent = candidate;
-    });
-    segLT[id] = Math.max(0, effLT[id] || 0) + maxParent;
-  });
-  return segLT;
-}
-
-function summarizeSuppliersForNode(selected, suppliersById) {
-  const supplierRows = selected.map((sid) => suppliersById[sid]).filter(Boolean);
-  if (!supplierRows.length) {
-    return {
-      valid: false,
-      selectedCount: 0,
-      effCost: 18,
-      effEmissions: 7,
-      effLeadTime: 12,
-      effReliability: 50
-    };
-  }
-  const n = supplierRows.length;
-  const inv = 1 / n;
-  const effCost = supplierRows.reduce((sum, s) => sum + s.unitCost * inv, 0);
-  const effEmissions = supplierRows.reduce((sum, s) => sum + s.unitEmissions * inv, 0);
-  const effLeadTime = supplierRows.reduce((mx, s) => Math.max(mx, s.leadTime), 0);
-  const effReliability = supplierRows.reduce((mn, s) => Math.min(mn, s.reliability), 100);
-  return { valid: true, selectedCount: n, effCost, effEmissions, effLeadTime, effReliability };
-}
-
 const animateValue = (key, from, to, duration, onUpdate) => {
   if (state.animFrames[key]) cancelAnimationFrame(state.animFrames[key]);
   if (REDUCED_MOTION || duration <= 0 || Math.abs(to - from) < 0.2) {
@@ -638,181 +306,7 @@ const closeModal = () => {
 };
 const openInfoModal = (title, body) => openModal({ title, body });
 
-const graphChildren = () => {
-  const children = {};
-  getScenario().nodes.forEach((n) => { children[n.id] = []; });
-  getScenario().edges.forEach((e) => { children[e.parent].push(e); });
-  return children;
-};
-
-const getNodeInventoryEmissionFactor = (node) => {
-  if (Number.isFinite(node.invEmisFactor)) return node.invEmisFactor;
-  return Math.max(0.01, (node.holdingRate || 0.2) * INVENTORY_EMISSIONS_FACTOR);
-};
-
-const buildWorkingConfig = (override = null) => {
-  if (override) return override;
-  return {
-    supplierAssignments: state.supplierAssignments,
-    buffers: state.buffers,
-    netFlowInputs: state.netFlowInputs,
-    finalDemand: state.finalDemand,
-    periodDays: state.periodDays
-  };
-};
-
-const calculateTotals = (overrideConfig = null) => {
-  const sc = getScenario();
-  const cfg = buildWorkingConfig(overrideConfig);
-  const suppliersById = getSuppliersById();
-  const children = graphChildren();
-  const nodeIds = sc.nodes.map((n) => n.id);
-  const required = explodeBomDemand(sc.nodes, sc.edges, sc.fgId, cfg.finalDemand);
-
-  let purchasedCost = 0;
-  let inventoryCost = 0;
-  let purchasedEmissions = 0;
-  let internalEmissions = 0;
-  let inventoryEmissions = 0;
-  let reliabilityWeighted = 0;
-  let reliabilityWeightBase = 0;
-  let bufferCount = 0;
-  let postureRed = 0;
-  let postureYellow = 0;
-  let postureGreen = 0;
-  let invalidSupplierNodes = 0;
-
-  const leadByNode = {};
-  const nodeStats = {};
-  const supplierSummary = {};
-  const bufferedFlags = {};
-
-  sc.nodes.forEach((node) => {
-    bufferedFlags[node.id] = !!cfg.buffers[node.id]?.buffered;
-    let lead = node.leadTime;
-    if (node.type === "PURCHASED") {
-      const selected = cfg.supplierAssignments[node.id] || [];
-      const summary = summarizeSuppliersForNode(selected, suppliersById);
-      supplierSummary[node.id] = summary;
-      lead = node.leadTime + summary.effLeadTime; // additive: processing LT + supplier delivery LT
-    }
-    leadByNode[node.id] = lead;
-  });
-
-  const parentsMap = buildParentMap(nodeIds, sc.edges);
-  const indegreeMap = buildIndegreeMap(nodeIds, sc.edges);
-  const topoOrder = topoOrderFromRoot(sc.fgId, children, indegreeMap);
-  const segLtByNode = computeSegLtMap(topoOrder, parentsMap, leadByNode, bufferedFlags, sc.fgId);
-  const segLtUnbuffered = computeSegLtMap(topoOrder, parentsMap, leadByNode, {}, sc.fgId);
-
-  const rawDltByNode = computeDltMap(nodeIds, children, leadByNode, {});
-  const effDltByNode = computeDltMap(nodeIds, children, leadByNode, bufferedFlags);
-
-  sc.nodes.forEach((node) => {
-    const req = required[node.id];
-    const adu = computeADU(req, cfg.periodDays);
-    const dlt = effDltByNode[node.id] || 0;
-    const isBuffered = !!bufferedFlags[node.id];
-    let zones = { redBase: 0, redSafety: 0, red: 0, yellow: 0, green: 0, topOfGreen: 0 };
-    if (isBuffered) {
-      zones = computeBuffers(adu, dlt, FIXED_LTF, FIXED_VF);
-      bufferCount += 1;
-      inventoryCost += computeAvgInventory(zones) * node.holdingRate;
-      postureRed += zones.red;
-      postureYellow += zones.yellow;
-      postureGreen += zones.green;
-    }
-    const avgInv = computeAvgInventory(zones);
-    const nf = cfg.netFlowInputs[node.id] || { onHandPct: 100, openSupplyPct: 0 };
-    const qd = isBuffered ? adu * Math.min(cfg.periodDays, dlt) : 0;
-    const onHand = (nf.onHandPct / 100) * zones.topOfGreen;
-    const openSupply = (nf.openSupplyPct / 100) * zones.topOfGreen;
-    const netFlowPosition = onHand + openSupply - qd;
-    const status = isBuffered
-      ? computeNetFlowStatus(netFlowPosition, zones.red, zones.yellow, zones.topOfGreen)
-      : "Pass-through";
-
-    if (node.type === "PURCHASED") {
-      const s = supplierSummary[node.id];
-      purchasedCost += req * s.effCost;
-      purchasedEmissions += req * s.effEmissions;
-      reliabilityWeighted += s.effReliability * req;
-      reliabilityWeightBase += req;
-      if (!s.valid) invalidSupplierNodes += 1;
-    } else {
-      internalEmissions += req * (node.internalEmission || 0);
-    }
-    if (isBuffered) inventoryEmissions += avgInv * getNodeInventoryEmissionFactor(node);
-
-    nodeStats[node.id] = {
-      req,
-      adu,
-      dlt,
-      rawDlt: rawDltByNode[node.id] || 0,
-      buffered: isBuffered,
-      ...zones,
-      avgInv,
-      onHand,
-      openSupply,
-      qualifiedDemand: qd,
-      netFlowPosition,
-      status,
-      invEmisFactor: getNodeInventoryEmissionFactor(node)
-    };
-  });
-
-  const reliability = reliabilityWeightBase > 0 ? reliabilityWeighted / reliabilityWeightBase : 0;
-  const segLtValues = topoOrder.map((id) => segLtByNode[id] || 0);
-  const segLtUnbufferedValues = topoOrder.map((id) => segLtUnbuffered[id] || 0);
-  const rawLead = segLtUnbufferedValues.length ? Math.max(...segLtUnbufferedValues) : 0;
-  const serviceLead = bufferedFlags[sc.fgId] ? 0 : (segLtValues.length ? Math.max(...segLtValues) : 0);
-  const flowResponsiveness = rawLead > 0 ? clamp(((rawLead - serviceLead) / rawLead) * 100, 0, 95) : 0;
-  const penaltyCost =
-    Math.max(0, 76 - reliability) * 130 +
-    Math.max(0, serviceLead - (sc.serviceTarget || 12)) * 350 +
-    invalidSupplierNodes * 20000;
-  const emissions = purchasedEmissions + internalEmissions + inventoryEmissions;
-
-  return {
-    cost: purchasedCost + inventoryCost + penaltyCost,
-    emissions,
-    reliability,
-    serviceLead,
-    rawLead,
-    flowResponsiveness,
-    bufferCount,
-    purchasedCost,
-    inventoryCost,
-    postureRed,
-    postureYellow,
-    postureGreen,
-    inventoryEmissions,
-    required,
-    nodeStats,
-    supplierSummary,
-    invalidSupplierNodes
-  };
-};
-
-const computeScore = (totals) => {
-  const sc = getScenario();
-  if (totals.cost <= 0 || totals.emissions <= 0) return 0;
-  const nc = clamp(totals.cost / sc.targetCost, 0, 2);
-  const ne = clamp(totals.emissions / sc.targetEmissions, 0, 2);
-  const ni = clamp(totals.inventoryEmissions / Math.max(1, sc.targetInventoryEmissions || 1), 0, 2);
-  const w = sc.objective || { cost: 330, emissions: 320, inventoryEmissions: 120, reliability: 2.3, service: 4.4 };
-  const raw =
-    1000 -
-    (nc * w.cost) -
-    (ne * w.emissions) -
-    (ni * w.inventoryEmissions) +
-    (totals.reliability * w.reliability) -
-    (totals.serviceLead * w.service);
-  return Math.round(clamp(raw, 0, 1000));
-};
-const starRating = (s) => (s >= 850 ? 5 : s >= 700 ? 4 : s >= 550 ? 3 : s >= 400 ? 2 : 1);
 const renderStars = (c) => "★".repeat(c) + "☆".repeat(5 - c);
-const boardApproval = (score) => (score >= 700 ? { label: "Approved", cls: "approved" } : score >= 500 ? { label: "Needs Review", cls: "needs-review" } : { label: "Rejected", cls: "rejected" });
 
 const setTargetBar = ({ fillEl, pillEl, current, target }) => {
   const barEl = fillEl.parentElement;
@@ -925,7 +419,7 @@ const applySearchHighlights = () => {
     const node = nodes.find((n) => n.id === id);
     state.bomRefs[id].group.classList.toggle("search-match", !!q && !!node && nodeMatchesQuery(node, q));
   });
-  const rows = el.supplierList.querySelectorAll(".supplier-row[data-supplier-name]");
+  const rows = el.supplierList?.querySelectorAll(".supplier-row[data-supplier-name]") ?? [];
   rows.forEach((row) => {
     const name = row.dataset.supplierName || "";
     row.classList.toggle("search-match", !!q && name.includes(q));
@@ -1158,11 +652,13 @@ const runDeterministicTests = () => {
   add("Lead-time monotonicity with added buffer", dltWithBuffer.FG <= dltNoBuffer.FG, `before=${dltNoBuffer.FG}, after=${dltWithBuffer.FG}`);
 
   // 4) FG buffered => service lead time == 0
-  const oldFg = state.buffers[getScenario().fgId].buffered;
-  state.buffers[getScenario().fgId].buffered = true;
+  const fgId = getScenario().fgId;
+  if (!state.buffers[fgId]) state.buffers[fgId] = { buffered: false };
+  const oldFg = state.buffers[fgId].buffered;
+  state.buffers[fgId].buffered = true;
   const fgBufferedTotals = calculateTotals();
   add("FG buffered implies service lead time 0", fgBufferedTotals.serviceLead === 0, `serviceLead=${fgBufferedTotals.serviceLead}`);
-  state.buffers[getScenario().fgId].buffered = oldFg;
+  state.buffers[fgId].buffered = oldFg;
 
   // 5) demand scaling scales buffers linearly
   const req1 = explodeBomDemand([{ id: "FG" }, { id: "A" }], [{ parent: "FG", child: "A", qty: 2 }], "FG", 100);
@@ -1727,124 +1223,10 @@ const onScenarioChange = (idx) => {
   updateAll();
 };
 
-const cloneConfig = (config) => ({
-  supplierAssignments: Object.fromEntries(Object.entries(config.supplierAssignments).map(([k, v]) => [k, [...v]])),
-  buffers: Object.fromEntries(Object.entries(config.buffers).map(([k, v]) => [k, { ...v }])),
-  netFlowInputs: Object.fromEntries(Object.entries(config.netFlowInputs).map(([k, v]) => [k, { ...v }])),
-  finalDemand: config.finalDemand,
-  periodDays: config.periodDays
-});
-
-const cloneCurrentConfig = () => cloneConfig({
-  supplierAssignments: state.supplierAssignments,
-  buffers: state.buffers,
-  netFlowInputs: state.netFlowInputs,
-  finalDemand: state.finalDemand,
-  periodDays: state.periodDays
-});
-
 const clearOptimizedResult = () => {
   state.optimized = null;
   state.history.cost.opt = [];
   state.history.emissions.opt = [];
-};
-
-const ensureFeasibleSupplierCoverage = (config) => {
-  const sc = getScenario();
-  const fallback = sc.supplierIds[0];
-  sc.nodes.forEach((node) => {
-    if (node.type !== "PURCHASED") return;
-    const arr = config.supplierAssignments[node.id] || [];
-    if (!arr.length && fallback) config.supplierAssignments[node.id] = [fallback];
-  });
-};
-
-const evaluateConfig = (config) => {
-  const totals = calculateTotals(config);
-  const score = computeScore(totals);
-  return { totals, score };
-};
-
-const enumerateMoves = (config) => {
-  const sc = getScenario();
-  const moves = [];
-  sc.nodes.forEach((node) => {
-    const currentBuffered = !!config.buffers[node.id]?.buffered;
-    moves.push({ key: `B|${node.id}|${currentBuffered ? "off" : "on"}`, kind: "buffer", nodeId: node.id, buffered: !currentBuffered });
-    if (node.type !== "PURCHASED") return;
-    const selected = config.supplierAssignments[node.id] || [];
-    sc.supplierIds.forEach((sid) => {
-      const has = selected.includes(sid);
-      if (has && selected.length <= 1) return;
-      moves.push({
-        key: `S|${node.id}|${sid}|${has ? "remove" : "add"}`,
-        kind: "supplier",
-        nodeId: node.id,
-        sid,
-        op: has ? "remove" : "add"
-      });
-    });
-  });
-  moves.sort((a, b) => a.key.localeCompare(b.key));
-  return moves;
-};
-
-const applyMove = (config, move) => {
-  if (move.kind === "buffer") {
-    config.buffers[move.nodeId] = { ...(config.buffers[move.nodeId] || { buffered: false }), buffered: move.buffered };
-    return;
-  }
-  if (move.kind === "supplier") {
-    const cur = [...(config.supplierAssignments[move.nodeId] || [])];
-    if (move.op === "add" && !cur.includes(move.sid)) cur.push(move.sid);
-    if (move.op === "remove" && cur.includes(move.sid) && cur.length > 1) cur.splice(cur.indexOf(move.sid), 1);
-    config.supplierAssignments[move.nodeId] = cur;
-  }
-};
-
-const runOptimizer = (baseConfig) => {
-  const MAX_ITERS = 18;
-  let current = cloneConfig(baseConfig);
-  ensureFeasibleSupplierCoverage(current);
-  let currentEval = evaluateConfig(current);
-  let best = { config: cloneConfig(current), ...currentEval };
-
-  for (let iter = 0; iter < MAX_ITERS; iter += 1) {
-    const moves = enumerateMoves(current);
-    let moveBest = null;
-    let moveBestEval = currentEval;
-    moves.forEach((move) => {
-      const candidate = cloneConfig(current);
-      applyMove(candidate, move);
-      ensureFeasibleSupplierCoverage(candidate);
-      const candidateEval = evaluateConfig(candidate);
-      if (
-        candidateEval.score > moveBestEval.score ||
-        (candidateEval.score === moveBestEval.score && moveBest && move.key < moveBest.key)
-      ) {
-        moveBestEval = candidateEval;
-        moveBest = { ...move, config: candidate };
-      }
-    });
-    if (!moveBest || moveBestEval.score <= currentEval.score) break;
-    current = moveBest.config;
-    currentEval = moveBestEval;
-    if (currentEval.score > best.score) best = { config: cloneConfig(current), ...currentEval };
-  }
-  return {
-    config: best.config,
-    totals: best.totals,
-    score: best.score,
-    optimizedKPIs: {
-      cost: best.totals.cost,
-      emissions: best.totals.emissions,
-      reliability: best.totals.reliability,
-      serviceLT: best.totals.serviceLead,
-      inventoryCost: best.totals.inventoryCost,
-      inventoryEmissions: best.totals.inventoryEmissions,
-      score: best.score
-    }
-  };
 };
 
 const applyOptimalPlan = () => {
@@ -1901,7 +1283,7 @@ const setControlsEnabled = (enabled) => {
   el.endRoundBtn.disabled = !enabled;
   el.optimizeBtn.disabled = !enabled;
   el.startRoundBtn.disabled = false;
-  el.supplierList.querySelectorAll("input[data-supplier]").forEach((b) => { b.disabled = !enabled; });
+  el.supplierList?.querySelectorAll("input[data-supplier]").forEach((b) => { b.disabled = !enabled; });
   const controls = [
     el.inspectorBuffered,
     el.inspectorOnHand,
@@ -1948,13 +1330,19 @@ const endRound = () => {
 };
 
 const initTooltips = () => {
+  const tooltipMap = {};
+  if (tooltipsData?.tooltips) {
+    tooltipsData.tooltips.forEach((tt) => { tooltipMap[tt.id] = tt.text; });
+  }
   let target = null;
   document.body.addEventListener("pointerover", (e) => {
-    const t = e.target.closest("[data-tip]");
+    const t = e.target.closest("[data-tip], [data-tooltip-id]");
     if (!t || t === target) return;
     if (t.closest("#supplierList")) return;
     target = t;
-    el.tooltip.textContent = t.getAttribute("data-tip");
+    const tipId = t.getAttribute("data-tooltip-id");
+    const text = (tipId && tooltipMap[tipId]) || t.getAttribute("data-tip");
+    el.tooltip.textContent = text || "";
     el.tooltip.classList.add("visible");
   });
   document.body.addEventListener("pointermove", (e) => {
@@ -1963,7 +1351,7 @@ const initTooltips = () => {
     el.tooltip.style.top = `${e.clientY + 14}px`;
   });
   document.body.addEventListener("pointerout", (e) => {
-    if (!e.target.closest("[data-tip]")) return;
+    if (!e.target.closest("[data-tip], [data-tooltip-id]")) return;
     target = null;
     el.tooltip.classList.remove("visible");
   });

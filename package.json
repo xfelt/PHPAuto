@@ -1,0 +1,10 @@
+{
+  "name": "phpauto",
+  "private": true,
+  "scripts": {
+    "build": "npm run build --prefix game",
+    "build:game": "npm run build --prefix game",
+    "preview": "npm run preview --prefix game",
+    "preview:game": "npm run preview --prefix game"
+  }
+}

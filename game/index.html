@@ -16,7 +16,7 @@
             <h1>Green Supplier Selection</h1>
           </div>
         </div>
-        <div id="scenarioPicker" class="scenario-picker" role="group" aria-label="Scenario selection">
+        <div id="scenarioPicker" class="scenario-picker" role="group" aria-label="Scenario selection" data-tooltip-id="scenario_picker" data-tip="Each scenario has different target thresholds and supplier pools.">
           <button class="scenario-btn" data-scenario="0">BOM A</button>
           <button class="scenario-btn" data-scenario="1">BOM B</button>
           <button class="scenario-btn" data-scenario="2">BOM C</button>
@@ -111,7 +111,7 @@
                 <div><span>Lead Time</span><strong id="inspectorLead">-</strong></div>
               </div>
               <div class="buffer-controls">
-                <label class="buffer-toggle-row" data-tip="Buffer positioned here creates a decoupling point. DLT is computed automatically from BOM critical paths." tabindex="0">
+                <label class="buffer-toggle-row" data-tooltip-id="buffer_positioning" data-tip="Buffer positioned here creates a decoupling point. DLT is computed automatically from BOM critical paths." tabindex="0">
                   <span>Buffer positioned here</span>
                   <input id="inspectorBuffered" type="checkbox" />
                 </label>
@@ -143,12 +143,12 @@
             </div>
             <div
               class="scorebox"
-              data-tip="Score combines normalized cost, emissions, inventory emissions, reliability, and service lead time vs scenario targets."
+              data-tooltip-id="optimization_score" data-tip="Score combines normalized cost, emissions, inventory emissions, reliability, and service lead time vs scenario targets."
               tabindex="0"
             >
               <div class="score-label">Score</div>
               <div class="score-value" id="scoreValue">0</div>
-              <div class="stars" id="scoreStars" aria-label="Star rating">☆☆☆☆☆</div>
+              <div class="stars" id="scoreStars" aria-label="Star rating" data-tooltip-id="star_rating">☆☆☆☆☆</div>
               <div class="progress-meter"><div class="progress-fill" id="progressFill"></div></div>
               <div class="board-badge needs-review" id="boardBadge" aria-label="Board approval status">
                 Needs Review
@@ -157,7 +157,7 @@
           </div>
 
           <div class="metrics-grid">
-            <div class="metric-card" data-tip="Total procurement plus buffer holding cost." tabindex="0">
+            <div class="metric-card" data-tooltip-id="cost_metric" data-tip="Total procurement plus buffer holding cost." tabindex="0">
               <div class="metric-label">
                 <span>Cost</span>
                 <span class="metric-delta" id="deltaCost"></span>
@@ -174,7 +174,7 @@
                 <div id="costTargetFill" class="metric-bar-fill"></div>
               </div>
             </div>
-            <div class="metric-card" data-tip="Total CO₂ emitted from selected suppliers." tabindex="0">
+            <div class="metric-card" data-tooltip-id="emissions_metric" data-tip="Total CO₂ emitted from selected suppliers." tabindex="0">
               <div class="metric-label">
                 <span>Emissions</span>
                 <span class="metric-delta" id="deltaEmissions"></span>
@@ -191,14 +191,14 @@
                 <div id="emissionsTargetFill" class="metric-bar-fill green"></div>
               </div>
             </div>
-            <div class="metric-card" data-tip="Higher reliability reduces disruption risk." tabindex="0">
+            <div class="metric-card" data-tooltip-id="reliability_metric" data-tip="Higher reliability reduces disruption risk." tabindex="0">
               <div class="metric-label"><span>Reliability</span></div>
               <div class="metric-values-row">
                 <div class="metric-value" id="metricReliability">0%</div>
                 <div class="metric-value-opt hidden" id="metricReliabilityOpt"></div>
               </div>
             </div>
-            <div class="metric-card" data-tip="Order-to-delivery time for FG. If FG is buffered, service lead time is 0." tabindex="0">
+            <div class="metric-card" data-tooltip-id="lead_time_metric" data-tip="Order-to-delivery time for FG. If FG is buffered, service lead time is 0." tabindex="0">
               <div class="metric-label"><span>Service Lead Time</span></div>
               <div class="metric-values-row">
                 <div class="metric-value" id="metricLead">0 days</div>
@@ -351,6 +351,6 @@
       </div>
     </div>
 
-    <script src="app.js"></script>
+    <script src="dist/game.js"></script>
   </body>
 </html>
