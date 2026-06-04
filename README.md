@@ -84,7 +84,7 @@ This project is designed to run optimization models for supplier selection under
     - **service_times:** Service time required by the client.
     - **strategy:** Either `EMISCAP` (emission cap) or `EMISTAXE` (emission tax).
     - **model_type:** Either `PLM` (Pseudo Linear Model) or `NLM` (Non-Linear Model).
-    - **strategy_values:** Comma-separated values for parameters (e.g., `"2500000,2200000"` or `"0.01,0.02"`).
+    - **strategy_values:** Comma-separated values for parameters (e.g., `"2500000,2200000"` or `"50,100"` currency/tCO2).
     - **max_capacity:** A flag (0 for default or 1 for high capacity) to select the appropriate supplier details file.
 
 ### **src Folder**
@@ -217,7 +217,7 @@ S10=>P5
      - **service_times:** Service time requirement.
      - **strategy:** Either `EMISCAP` or `EMISTAXE`.
      - **model_type:** Either `PLM` (Pseudo Linear Model) or `NLM` (Non-Linear Model).
-     - **strategy_values:** Comma-separated list of parameter values (e.g., `"2500000,2200000"` or `"0.01,0.02"`).
+     - **strategy_values:** Comma-separated list of parameter values (e.g., `"2500000,2200000"` or `"50,100"` currency/tCO2).
      - **max_capacity:** 0 for default supplier details, 1 for high capacity supplier details.
 
 2. **Ensure Required Files Exist:**

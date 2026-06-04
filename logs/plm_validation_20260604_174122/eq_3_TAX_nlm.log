@@ -1,0 +1,77 @@
+
+<<< setup
+
+0 0 -1 0 0 0.25 0.5 0.8 1 0 0 0 0  14
+1 2 0 650 1 0.25 0.5 0.8 1 0 6500 650 1500  14
+2 4 1 150 1 0.25 0.5 0.8 1 0 4500 450 1500  14
+Node nums: [0 1 2]
+xx-Data uploaded-xx
+	**** start init su array ...
+0 [0 0 0 0 0 0 0 0 0 0]
+1 [0 0 0 0 0 0 0 0 0 0]
+2 [1 1 1 1 1 1 1 1 1 1]
+	**** end init su array ...
+1 2 1 700 80 0.85 0.92 0.8 (9)9
+2 2 0.9 800 75 0.82 0.90 0.9 (9)9
+3 1 1.1 680 90 0.88 0.95 0.5 (9)9
+4 1 1 480 100 0.86 0.93 0.6 (9)9
+5 5 0.6 550 40 0.72 0.78 1.5 (9)9
+6 6 0.5 650 45 0.70 0.75 2.0 (9)9
+7 7 0.5 1100 40 0.68 0.72 2.5 (9)9
+8 5 0.3 700 30 0.65 0.70 1.8 (9)9
+9 9 0.2 1700 15 0.60 0.65 3.5 (9)9
+10 1 0.8 5800 40 0.80 0.88 0.7 (9)9
+
+<<< generate
+
+ ! --------------------------------------------------- CP Optimizer 20.1.0.0 --
+ ! Minimization problem - 66 variables, 151 constraints
+ ! Presolve      : 1 extractable eliminated
+ ! TimeLimit            = 60
+ ! Initial process time : 0,01s (0,01s extraction + 0,00s propagation)
+ !  . Log search space  : 114,2 (before), 114,2 (after)
+ !  . Memory usage      : 336,3 kB (before), 336,3 kB (after)
+ ! Using parallel search with 20 workers.
+ ! ----------------------------------------------------------------------------
+ !          Best Branches  Non-fixed    W       Branch decision
+                        0         66                 -
+ + New bound is 3909.999
+                        0         25                 -
+ + New bound is 14439.99
+                        0         25    1            -
+ + New bound is 23648.66
+ *      56122.00       13  0,04s        1      (gap is 57,86%)
+ *      54672.40       23  0,04s        1      (gap is 56,74%)
+ *      52103.00       90  0,04s        1      (gap is 54,61%)
+ *      51211.00       97  0,04s        1      (gap is 53,82%)
+ *      49534.00      109  0,04s        1      (gap is 52,26%)
+ *      48887.00      115  0,04s        1      (gap is 51,63%)
+ *      30179.00      127  0,04s        1      (gap is 21,64%)
+ *      28356.00      146  0,04s        1      (gap is 16,60%)
+ ! ----------------------------------------------------------------------------
+ ! Search completed, 8 solutions found.
+ ! Best objective         : 28356.00 (optimal - effective tol. is 2,8356)
+ ! Best bound             : 23648.66
+ ! ----------------------------------------------------------------------------
+ ! Number of branches     : 28 346
+ ! Number of fails        : 8 432
+ ! Total memory usage     : 17,8 MB (17,2 MB CP Optimizer + 0,6 MB Concert)
+ ! Time spent in solve    : 0,05s (0,05s engine + 0,01s extraction)
+ ! Search speed (br. / s) : 659 209,3
+ ! ----------------------------------------------------------------------------
+
+<<< solve
+
+
+OBJECTIVE: 28356
+xxxx
+#Result <fct_obj, tot_cst, tot_ldt, Emiss>: <28356 28348 8 2.374e+5>#TS:28348#A:[1,2,5]#X:[0,1,1]#E: 237400#RT:0.047
+#DELIVER:
+S10=>P2
+xxxx
+
+<<< post process
+
+
+<<< done
+

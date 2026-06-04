@@ -11,6 +11,7 @@ string CSV_SEPARATOR = ";";
 string COMMENT_SEPARATOR = "#";
 
 // Multi-objective parameters (epsilon constraints)
+float epsilon_Cost = _EPSILON_COST_;    // Constraint on economic cost
 float epsilon_DIO = _EPSILON_DIO_;      // Constraint on DIO (sum of decoupled lead times)
 float epsilon_WIP = _EPSILON_WIP_;       // Constraint on WIP (inventory value)
 float epsilon_Emis = _EPSILON_EMIS_;     // Constraint on Emissions
@@ -62,8 +63,8 @@ execute {
  string nodeSuppFile = "_NODE_SUPP_FILE_";
  string suppDetailsFile = "_SUPP_DETAILS_FILE_";
  int service_t = _SERVICE_T_;
- int EmisCap = _EMISCAP_;
- float EmisTax = _EMISTAXE_;
+ float EmisCap = _EMISCAP_;
+ float EmisTax = _EMISTAXE_; // Carbon price in currency/tCO2
 
  execute {
      // init NB_NODE NB_SUPP
@@ -206,7 +207,8 @@ execute {
  dexpr float Emis = Emis_supp + sum(i in N)(facility_emis[i]*x[i]+((inventory_emis[i]+((1/buff_trsp_coef)-1)*trsp_emis[i])*x[i]+trsp_emis[i])*a[i]*(1.5 + var_factor[i] ) * lt_factor[i] * rqtf[i] * adup );
  dexpr float RawMCost = sum(i in N)( unit_price[i]*sum(j in S)(q[i][j]*sup[j][2]) ); // raw material cost
  dexpr float InventCost = adup*sum(i in N)( aih_cost[i]*(1.5+var_factor[i])*lt_factor[i]*unit_price[i]*(1+sum(j in S)(z[i][j]*su[i][j]*sup[j][2]))*rqtf[i]*a[i]*x[i] );
- dexpr float EmisCost = EmisTax * Emis;
+ dexpr float EmisTonnes = Emis / 1000000.0; // Emis is calculated in gCO2
+ dexpr float EmisCost = EmisTax * EmisTonnes;
  dexpr float TotalCostCS = RawMCost + InventCost;
  dexpr float TotalCostTS = EmisCost + TotalCostCS;
  
@@ -247,14 +249,17 @@ execute {
  	ct10: Emis<=EmisCap;
  	
  	// Epsilon constraints for Pareto front generation
+ 	ct_epsilon_Cost: TotalCostCS <= epsilon_Cost; // Constraint on economic cost
  	ct_epsilon_DIO: DIO <= epsilon_DIO;      // Constraint on DIO
  	ct_epsilon_WIP: WIP <= epsilon_WIP;       // Constraint on WIP
  	ct_epsilon_Emis: Emis <= epsilon_Emis;     // Constraint on Emissions
  	
 	forall (i in N){
 		forall (j in S){
-			ct11: q[i][j] <= z[i][j]*sup[j][3];
+			ct11: q[i][j] <= z[i][j]*su[i][j]*sup[j][3];
 			ct12: z[i][j]*(index_par[i]==1) == 0;
+			ct13: z[i][j] <= su[i][j];
+			ct14: q[i][j] >= z[i][j];
 		}	
 	}
  }

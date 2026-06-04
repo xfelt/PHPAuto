@@ -86,7 +86,7 @@
       "code": "EMISTAXE",
       "description": "Carbon tax applied to emissions in objective function",
       "parameters": {
-        "tax_rates": [0.0, 0.01, 0.02, 0.03, 0.05, 0.10],
+        "tax_rates": [0.0, 15.0, 50.0, 75.0, 100.0],
         "default_cap": 2500000
       }
     },
@@ -95,23 +95,15 @@
       "description": "Hard emission cap constraint",
       "parameters": {
         "cap_percentages": [1.0, 0.95, 0.90, 0.85, 0.80, 0.75, 0.70],
-        "default_tax": 0.01
+        "default_tax": 0.0
       }
     },
     "hybrid": {
       "code": "EMISHYBRID",
-      "description": "Combined tax and cap mechanism",
+      "description": "Full factorial combined carbon-price-and-cap scenario",
       "parameters": {
-        "combinations": [
-          {"tax": 0.01, "cap_pct": 1.0},
-          {"tax": 0.01, "cap_pct": 0.90},
-          {"tax": 0.02, "cap_pct": 0.90},
-          {"tax": 0.01, "cap_pct": 0.80},
-          {"tax": 0.02, "cap_pct": 0.80},
-          {"tax": 0.03, "cap_pct": 0.80},
-          {"tax": 0.02, "cap_pct": 0.70},
-          {"tax": 0.03, "cap_pct": 0.70}
-        ]
+        "tax_rates": [0.0, 15.0, 50.0, 75.0, 100.0],
+        "cap_levels": ["none", 1.0, 0.95, 0.90, 0.85, 0.80, 0.75, 0.70]
       }
     }
   },

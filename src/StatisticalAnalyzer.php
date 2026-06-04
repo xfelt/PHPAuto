@@ -13,6 +13,26 @@ class StatisticalAnalyzer {
     public function __construct(string $outputDir) {
         $this->outputDir = rtrim($outputDir, '/\\') . DIRECTORY_SEPARATOR;
     }
+
+    private function isComparisonAdmissible(array $row): bool {
+        if (array_key_exists('comparison_admissible', $row)
+            && $row['comparison_admissible'] !== '') {
+            return in_array(
+                strtolower(trim((string)$row['comparison_admissible'])),
+                ['1', 'true', 'yes'],
+                true
+            );
+        }
+
+        $status = strtoupper(trim((string)($row['status'] ?? $row['solver_status'] ?? '')));
+        if ($status === 'OPTIMAL') {
+            return true;
+        }
+        return $status === 'FEASIBLE'
+            && isset($row['mip_gap'])
+            && is_numeric($row['mip_gap'])
+            && (float)$row['mip_gap'] <= 1.0;
+    }
     
     /**
      * Analyze scalability data and generate statistical report
@@ -25,7 +45,7 @@ class StatisticalAnalyzer {
             if (empty($results)) continue;
             
             $optimal = array_filter($results, function($r) {
-                return isset($r['status']) && $r['status'] === 'OPTIMAL';
+                return $this->isComparisonAdmissible($r);
             });
             
             if (empty($optimal)) continue;
@@ -298,9 +318,9 @@ class StatisticalAnalyzer {
             'Buffers_Count', 'Status', 'Phase'
         ]);
         
-        // Write data (only optimal solutions)
+        // Write data (only comparison-admissible solutions)
         foreach ($results as $r) {
-            if (isset($r['status']) && $r['status'] === 'OPTIMAL') {
+            if ($this->isComparisonAdmissible($r)) {
                 fputcsv($file, [
                     $r['N'] ?? '',
                     $r['runtime_sec'] ?? '',

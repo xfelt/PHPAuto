@@ -154,7 +154,7 @@ foreach ($instances as $instanceId) {
         // Get model file based on strategy
         if ($strategy === 'EMISTAXE') {
             $modelFile = 'RUNS_SupEmis_CP_NLM_Tax.mod';
-            $taxRate = 0.01;
+            $taxRate = 50.0;
             $capValue = 999999999;
         } else {
             $modelFile = 'RUNS_SupEmis_CP_NLM_Cap.mod';

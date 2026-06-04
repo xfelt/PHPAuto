@@ -18,6 +18,14 @@ class KPICalculator {
     private $baseline_costs = [];
     private $baseline_wip = [];
     private $baseline_dio = [];
+    private $comparisonGapThresholdPct;
+
+    public function __construct(float $comparisonGapThresholdPct = 1.0) {
+        if ($comparisonGapThresholdPct < 0) {
+            throw new InvalidArgumentException('Comparison gap threshold must be non-negative');
+        }
+        $this->comparisonGapThresholdPct = $comparisonGapThresholdPct;
+    }
     
     /**
      * Set baseline values for relative calculations
@@ -52,6 +60,7 @@ class KPICalculator {
             'suppliers_available' => $runConfig['_NBSUPP_'] ?? 10,
             'tax_rate' => $runConfig['_EMISTAXE_'] ?? 0.0,
             'cap_value' => $runConfig['_EMISCAP_'] ?? 2500000,
+            'cap_level' => $runConfig['CAP_LEVEL'] ?? null,
             
             // Cost KPIs
             'cost' => $this->computeCostKPIs($result, $runConfig),
@@ -112,12 +121,13 @@ class KPICalculator {
         }
         
         // Get emissions and tax rate for calculating carbon cost
-        $emissions = $this->extractNumeric($result, ['E', 'Emis']);
+        $emissions = $this->extractTotalEmissions($result);
         $taxRate = (float)($runConfig['_EMISTAXE_'] ?? 0.0);
         
         // Calculate carbon cost if not directly available
         if ($emisCost === null && $emissions !== null && $taxRate > 0) {
-            $emisCost = $taxRate * $emissions;
+            // Model emissions are in gCO2; EmisTax is currency/tCO2.
+            $emisCost = $taxRate * ($emissions / 1000000.0);
         }
         
         // If we have TS (total with tax) but not CS (cost without tax), calculate CS
@@ -177,23 +187,7 @@ class KPICalculator {
         // emissions to a 32-bit int on that write, clamping to 2^31-1 (2147483647) for big
         // instances. The "#Result" values vector keeps the correct (float) emissions, so we
         // fall back to it whenever #E is missing or hit the overflow sentinel.
-        $eField = $this->extractNumeric($result, ['E', 'Emis']);
-
-        $resultVecEmis = null;
-        if (isset($result['Result']) && is_array($result['Result'])) {
-            $candidate = $result['Result']['Emissions'] ?? $result['Result']['Emiss'] ?? $result['Result']['emiss'] ?? null;
-            if (is_numeric($candidate)) {
-                $resultVecEmis = (float)$candidate;
-            }
-        }
-
-        if ($eField !== null && $eField < 2147483647) {
-            $totalEmissions = $eField;
-        } elseif ($resultVecEmis !== null) {
-            $totalEmissions = $resultVecEmis;
-        } else {
-            $totalEmissions = $eField; // may be null or the overflow sentinel as a last resort
-        }
+        $totalEmissions = $this->extractTotalEmissions($result);
         
         // Calculate emission reduction vs baseline
         $reductionAbs = null;
@@ -409,11 +403,32 @@ class KPICalculator {
         } elseif ($runtime >= 1795) { // Near time limit
             $status = 'TIMEOUT';
         }
+
+        if (isset($result['mip_gap']) && is_numeric($result['mip_gap'])) {
+            $mipGap = (float)$result['mip_gap'];
+        }
+
+        $comparisonAdmissible = $status === 'OPTIMAL'
+            || ($status === 'FEASIBLE'
+                && $mipGap !== null
+                && $mipGap <= $this->comparisonGapThresholdPct);
+
+        if ($comparisonAdmissible) {
+            $comparisonExclusionReason = null;
+        } elseif ($status === 'FEASIBLE' && $mipGap === null) {
+            $comparisonExclusionReason = 'FEASIBLE_WITHOUT_REPORTED_GAP';
+        } elseif ($status === 'FEASIBLE') {
+            $comparisonExclusionReason = 'GAP_ABOVE_THRESHOLD';
+        } else {
+            $comparisonExclusionReason = 'STATUS_NOT_COMPARISON_ADMISSIBLE';
+        }
         
         return [
             'solver_status' => $status,
             'runtime_sec' => $runtime,
-            'mip_gap' => $mipGap
+            'mip_gap' => $mipGap,
+            'comparison_admissible' => $comparisonAdmissible,
+            'comparison_exclusion_reason' => $comparisonExclusionReason
         ];
     }
     
@@ -442,6 +457,23 @@ class KPICalculator {
         
         return null;
     }
+
+    /**
+     * Extract emissions while avoiding OPL's 32-bit clamp on the explicit #E field.
+     */
+    private function extractTotalEmissions(array $result): ?float {
+        $eField = $this->extractNumeric($result, ['E', 'Emis']);
+        $resultVecEmis = $this->extractNumeric($result, [
+            'Result.Emissions',
+            'Result.Emiss',
+            'Result.emiss'
+        ]);
+
+        if ($eField !== null && $eField < 2147483647) {
+            return $eField;
+        }
+        return $resultVecEmis ?? $eField;
+    }
     
     /**
      * Flatten KPIs for CSV export
@@ -457,6 +489,7 @@ class KPICalculator {
             'suppliers_available' => $kpis['suppliers_available'],
             'tax_rate' => $kpis['tax_rate'],
             'cap_value' => $kpis['cap_value'],
+            'cap_level' => $kpis['cap_level'],
             
             // Cost
             'objective_value' => $kpis['cost']['objective_value'],
@@ -492,7 +525,9 @@ class KPICalculator {
             // Computational
             'solver_status' => $kpis['computational']['solver_status'],
             'runtime_sec' => $kpis['computational']['runtime_sec'],
-            'mip_gap' => $kpis['computational']['mip_gap']
+            'mip_gap' => $kpis['computational']['mip_gap'],
+            'comparison_admissible' => $kpis['computational']['comparison_admissible'] ? 1 : 0,
+            'comparison_exclusion_reason' => $kpis['computational']['comparison_exclusion_reason']
         ];
         
         return $flat;
@@ -504,7 +539,7 @@ class KPICalculator {
     public static function getCSVHeaders(): array {
         return [
             'run_id', 'instance_id', 'bom_file', 'strategy', 'model_type',
-            'service_time_promised', 'suppliers_available', 'tax_rate', 'cap_value',
+            'service_time_promised', 'suppliers_available', 'tax_rate', 'cap_value', 'cap_level',
             'objective_value', 'total_cost_with_tax', 'total_cost_without_tax',
             'procurement_cost', 'inventory_holding_cost', 'carbon_cost',
             'achieved_service_time', 'service_constraint_binding',
@@ -512,7 +547,8 @@ class KPICalculator {
             'WIP', 'WIP_reduction_pct', 'DIO', 'DIO_improvement_pct', 'ITR',
             'buffer_count', 'avg_decoupled_lead_time',
             'suppliers_used',
-            'solver_status', 'runtime_sec', 'mip_gap'
+            'solver_status', 'runtime_sec', 'mip_gap',
+            'comparison_admissible', 'comparison_exclusion_reason'
         ];
     }
     
@@ -532,11 +568,11 @@ class KPICalculator {
         }
         
         // Environmental returns: monetized emission reduction
-        $carbonPrice = $sroiParams['carbon_price_per_ton'] ?? 50; // $/ton CO2
+        $carbonPrice = $sroiParams['carbon_price_per_ton'] ?? 50; // currency/tCO2
         $emissionReduction = $kpis['carbon']['emission_reduction_absolute'] ?? 0;
         if ($emissionReduction > 0) {
-            // Convert emission units to tons if needed (assuming kg CO2)
-            $emissionReductionTons = $emissionReduction / 1000;
+            // Model emissions are in gCO2.
+            $emissionReductionTons = $emissionReduction / 1000000.0;
             $environmentalReturns = $emissionReductionTons * $carbonPrice;
         }
         

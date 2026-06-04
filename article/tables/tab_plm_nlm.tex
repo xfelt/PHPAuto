@@ -1,17 +1,14 @@
 \begin{table}[!htbp]\centering\small
-\caption{Pseudo-linear (PLM) versus non-linear (NLM) model: cost and runtime. The NLM solve time is bounded to 300\,s.}\label{tab:plmnlm}
-\begin{tabular}{llcccc}
+\caption{Corrected-unit formulation validation under a 60\,s limit. Matching counts include only jointly optimal PLM/NLM pairs.}\label{tab:plmnlm}
+\begin{tabular}{lrrrr}
 \toprule
- & & \multicolumn{2}{c}{PLM} & \multicolumn{2}{c}{NLM}\\
-\cmidrule(lr){3-4}\cmidrule(lr){5-6}
-Instance & Strategy & Cost & RT (s) & Cost & RT (s)\\
+Scenario & Jointly optimal & Matching & PLM stress optimal & Max PLM RT (s)\\
 \midrule
-bom\_5 & EMISCAP & 50\,264 & 0.05 & 50\,264 & 0.29 \\
-bom\_5 & EMISTAXE & 82\,380 & 0.05 & 82\,380 & 1.26 \\
-bom\_13 & EMISCAP & 105\,510 & 0.11 & 105\,510 & 300.02 \\
-bom\_13 & EMISTAXE & 346\,417 & 0.09 & 346\,417 & 22.95 \\
-bom\_26 & EMISCAP & 909\,180 & 0.95 & 913\,300 & 300.04 \\
-bom\_26 & EMISTAXE & 1\,578\,556 & 1.20 & 1\,578\,556 & 300.05 \\
+Carbon price & 4 & 4 & 5/5 & 1.58\\
+Emissions cap & 6 & 6 & 5/5 & 1.55\\
+Combined price and cap & 6 & 6 & 5/5 & 1.31\\
+\midrule
+Total & 16 & 16 & 15/15 & 1.58\\
 \bottomrule
 \end{tabular}
 \end{table}

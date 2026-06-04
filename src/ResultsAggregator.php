@@ -19,6 +19,26 @@ class ResultsAggregator {
             mkdir($this->outputDir, 0755, true);
         }
     }
+
+    private function isComparisonAdmissible(array $row): bool {
+        if (array_key_exists('comparison_admissible', $row)
+            && $row['comparison_admissible'] !== '') {
+            return in_array(
+                strtolower(trim((string)$row['comparison_admissible'])),
+                ['1', 'true', 'yes'],
+                true
+            );
+        }
+
+        $status = strtoupper(trim((string)($row['status'] ?? $row['solver_status'] ?? '')));
+        if ($status === 'OPTIMAL') {
+            return true;
+        }
+        return $status === 'FEASIBLE'
+            && isset($row['mip_gap'])
+            && is_numeric($row['mip_gap'])
+            && (float)$row['mip_gap'] <= 1.0;
+    }
     
     /**
      * Aggregate all available test results
@@ -70,11 +90,11 @@ class ResultsAggregator {
         }
         
         $validResults = array_filter($results, function($r) {
-            return isset($r['status']) && $r['status'] === 'OPTIMAL';
+            return $this->isComparisonAdmissible($r);
         });
         
         if (empty($validResults)) {
-            return ['error' => 'No optimal solutions found'];
+            return ['error' => 'No comparison-admissible solutions found'];
         }
         
         $runtimes = array_column($validResults, 'runtime_sec');
@@ -91,7 +111,10 @@ class ResultsAggregator {
         
         return [
             'total_instances' => count($results),
-            'optimal_solutions' => count($validResults),
+            'optimal_solutions' => count(array_filter($results, function($r) {
+                return strtoupper(trim((string)($r['status'] ?? $r['solver_status'] ?? ''))) === 'OPTIMAL';
+            })),
+            'comparison_admissible_solutions' => count($validResults),
             'runtime_stats' => [
                 'min' => !empty($runtimes) ? min($runtimes) : null,
                 'max' => !empty($runtimes) ? max($runtimes) : null,
@@ -264,6 +287,10 @@ class ResultsAggregator {
                 $report .= "### Key Findings\n\n";
                 $report .= sprintf("- Total instances tested: %d\n", $summary['total_instances'] ?? 0);
                 $report .= sprintf("- Optimal solutions found: %d\n", $summary['optimal_solutions'] ?? 0);
+                $report .= sprintf(
+                    "- Comparison-admissible solutions: %d\n",
+                    $summary['comparison_admissible_solutions'] ?? 0
+                );
                 $report .= sprintf("- BOM size range: %d - %d items\n", 
                     $summary['bom_size_range']['min'] ?? 0,
                     $summary['bom_size_range']['max'] ?? 0
@@ -324,9 +351,9 @@ class ResultsAggregator {
             return "% No scalability results available\n";
         }
         
-        // Filter optimal solutions and select representative samples
+        // Filter comparison-admissible solutions and select representative samples
         $optimal = array_filter($results, function($r) {
-            return isset($r['status']) && $r['status'] === 'OPTIMAL';
+            return $this->isComparisonAdmissible($r);
         });
         
         // Select representative samples (small, medium, large)

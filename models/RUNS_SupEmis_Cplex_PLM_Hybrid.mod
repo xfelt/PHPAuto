@@ -55,8 +55,8 @@ execute {
  string nodeSuppFile = "_NODE_SUPP_FILE_";
  string suppDetailsFile = "_SUPP_DETAILS_FILE_";
  int service_t = _SERVICE_T_;
- int EmisCap = _EMISCAP_;      // Emissions cap constraint (active)
- float EmisTax = _EMISTAXE_;   // Emissions tax rate (used in objective)
+ float EmisCap = _EMISCAP_;      // Emissions cap constraint (active)
+ float EmisTax = _EMISTAXE_;   // Carbon price in currency/tCO2
 
  execute {
      // init NB_NODE NB_SUPP
@@ -193,13 +193,16 @@ execute {
  dvar int y[N]; //linearization var a*x 
  dvar boolean z[N][S]; //chosen supplier
  dvar int+ q[N][S]; //oder quantity per supplier
+ dvar int+ v[N][S]; //linearization var y*z
+ float bigM = sum(i in N) t_process[i] + max(j in S) sup[j][1];
  
  //expressions
  dexpr float Emis_supp = sum (i in N)(sum (j in S) q[i][j]*sup[j][4]); //emissions des fournisseurs par produit englobant le transport et la  
  dexpr float Emis = Emis_supp + sum(i in N)(facility_emis[i]*x[i]+((inventory_emis[i]+((1/buff_trsp_coef)-1)*trsp_emis[i])*y[i]+trsp_emis[i]* a[i])*(1.5 + var_factor[i] ) * lt_factor[i] * rqtf[i] * adup );
  dexpr float RawMCost = sum(i in N)( unit_price[i]*sum(j in S)(q[i][j]*sup[j][2]) ); // somme des achat selon fournisseur
- dexpr float InventCost = adup*sum(i in N)( aih_cost[i]*(1.5+var_factor[i])*lt_factor[i]*unit_price[i]*(1+sum(j in S)(z[i][j]*su[i][j]*sup[j][2]))*rqtf[i]*y[i] );
- dexpr float EmisCost = EmisTax * Emis;  // Tax cost component
+ dexpr float InventCost = adup*sum(i in N)( aih_cost[i]*(1.5+var_factor[i])*lt_factor[i]*unit_price[i]*rqtf[i]*(y[i]+sum(j in S)(su[i][j]*sup[j][2]*v[i][j])) );
+ dexpr float EmisTonnes = Emis / 1000000.0; // Emis is calculated in gCO2
+ dexpr float EmisCost = EmisTax * EmisTonnes;  // Tax cost component
  dexpr float TotalCostCS = RawMCost + InventCost;  // Cost without tax
  dexpr float TotalCostTS = EmisCost + TotalCostCS; // Total cost including tax
  //control expressions
@@ -225,10 +228,11 @@ execute {
 	}
  	ct3: a[0]<=service_t;
  	forall (i in N){
+ 		ct4a: a[i] <= bigM;
  		ct4: y[i] <= a[i];
  		ct5: y[i] >= 0;
- 		ct6: y[i] >= (a[i] - 1000*(1-x[i]));
- 		ct7: y[i] <= 1000 * x[i];
+ 		ct6: y[i] >= (a[i] - bigM*(1-x[i]));
+ 		ct7: y[i] <= bigM * x[i];
  	}
  	forall (i in N){
  		ct8: numSupp[i]*(index_par[i]==0)>=(index_par[i]==0);
@@ -237,9 +241,13 @@ execute {
  	ct9: Emis<=EmisCap;  // Emissions cap constraint (active in hybrid)
 	forall (i in N){
 		forall (j in S){
-			ct11: q[i][j] <= z[i][j]*sup[j][3];
+			ct11: q[i][j] <= z[i][j]*su[i][j]*sup[j][3];
 			ct12: z[i][j]*(index_par[i]==1) == 0;
-			//ct13: z[i][j]*(su[i][j]==0) <= su[i][j];
+			ct13: z[i][j] <= su[i][j];
+			ct14: q[i][j] >= z[i][j];
+			ct15: v[i][j] <= y[i];
+			ct16: v[i][j] <= bigM*z[i][j];
+			ct17: v[i][j] >= y[i]-bigM*(1-z[i][j]);
 		}	
 	}
  }

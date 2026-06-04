@@ -78,15 +78,15 @@ function generateConfigurationsFromCSV(array $baseConfig) {
             // Add strategy-specific parameters
             if ($strategy === "EMISCAP") {
                 $tabRun["_EMISCAP_"] = (int)$value;
-                $tabRun["_EMISTAXE_"] = 0.01; // Default for EMISCAP
+                $tabRun["_EMISTAXE_"] = 0.0; // Inactive for EMISCAP
             } elseif ($strategy === "EMISTAXE") {
                 $tabRun["_EMISCAP_"] = 2500000; // Default for EMISTAXE
                 $tabRun["_EMISTAXE_"] = (float)$value;
             } elseif ($strategy === "EMISHYBRID") {
-                // For hybrid strategy, value should be in format "tax,cap" (e.g., "0.01,2500000")
+                // For hybrid strategy, value should be in format "tax:cap" (e.g., "50:2500000")
                 $parts = explode(':', $value); // Use colon as separator for tax:cap pairs
                 if (count($parts) !== 2) {
-                    throw new Exception("Invalid hybrid strategy value format: '$value'. Expected format: 'tax:cap' (e.g., '0.01:2500000')");
+                    throw new Exception("Invalid hybrid strategy value format: '$value'. Expected format: 'tax:cap' (e.g., '50:2500000')");
                 }
                 $tax = trim($parts[0]);
                 $cap = trim($parts[1]);

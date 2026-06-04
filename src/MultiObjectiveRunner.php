@@ -55,6 +55,7 @@ class MultiObjectiveRunner {
         for ($obj = 1; $obj <= 4; $obj++) {
             $run = $baseRun;
             $run['_OBJ_PRIMARY_'] = $obj;
+            $run['_EPSILON_COST_'] = $largeValue;
             $run['_EPSILON_DIO_'] = $largeValue;
             $run['_EPSILON_WIP_'] = $largeValue;
             $run['_EPSILON_EMIS_'] = $largeValue;
@@ -151,6 +152,7 @@ class MultiObjectiveRunner {
         foreach ($epsilonValues as $idx => $epsilonDIO) {
             $run = $baseRun;
             $run['_OBJ_PRIMARY_'] = 1; // Minimize cost
+            $run['_EPSILON_COST_'] = $largeValue;
             $run['_EPSILON_DIO_'] = $epsilonDIO;
             $run['_EPSILON_WIP_'] = $largeValue; // No constraint on WIP
             $run['_EPSILON_EMIS_'] = $largeValue; // No constraint on emissions
@@ -208,6 +210,7 @@ class MultiObjectiveRunner {
         foreach ($epsilonValues as $idx => $epsilonWIP) {
             $run = $baseRun;
             $run['_OBJ_PRIMARY_'] = 1; // Minimize cost
+            $run['_EPSILON_COST_'] = $largeValue;
             $run['_EPSILON_DIO_'] = $largeValue; // No constraint on DIO
             $run['_EPSILON_WIP_'] = $epsilonWIP;
             $run['_EPSILON_EMIS_'] = $largeValue; // No constraint on emissions
@@ -265,6 +268,7 @@ class MultiObjectiveRunner {
         foreach ($epsilonValues as $idx => $epsilonEmis) {
             $run = $baseRun;
             $run['_OBJ_PRIMARY_'] = 1; // Minimize cost
+            $run['_EPSILON_COST_'] = $largeValue;
             $run['_EPSILON_DIO_'] = $largeValue; // No constraint on DIO
             $run['_EPSILON_WIP_'] = $largeValue; // No constraint on WIP
             $run['_EPSILON_EMIS_'] = $epsilonEmis;

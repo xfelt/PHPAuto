@@ -175,7 +175,7 @@ function generateKPISummary(array $allResults, string $outputDir): string {
     }
     
     $summary .= "## Notes for Article\n\n";
-    $summary .= "- All KPIs are calculated from optimal solutions only\n";
+    $summary .= "- Behavioral KPIs use proven-optimal solutions and feasible incumbents with final gap <= 1%; all runs remain reported\n";
     $summary .= "- Runtime includes both root node and branch-and-cut phases\n";
     $summary .= "- Emissions are total CO₂ equivalent across the supply chain\n";
     $summary .= "- Buffer counts represent decoupling points in the supply network\n";

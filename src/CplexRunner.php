@@ -65,6 +65,7 @@ class CplexRunner {
 
             $runtimeSection = $sections[0] ?? '';
             $solution["CplexRunTime"] = self::extractCplexTime($runtimeSection) . " sec";
+            $solution = array_merge($solution, self::extractSolverMetadata($normalizedOutput));
 
             if (count($sections) < 2) {
                 return $solution;
@@ -209,5 +210,54 @@ class CplexRunner {
             // Catch and rethrow exceptions with additional context
             throw new Exception("Error extracting CPLEX runtime: " . $e->getMessage());
         }
+    }
+
+    /**
+     * Extract termination status and optimality gap from CPLEX/CP Optimizer output.
+     *
+     * A returned incumbent is not necessarily optimal: CP Optimizer prints the incumbent
+     * after a time-limit termination, so status must be derived from the solver trace.
+     */
+    private static function extractSolverMetadata(string $output): array {
+        $metadata = [
+            'status' => 'UNKNOWN',
+            'termination_reason' => 'UNKNOWN',
+            'mip_gap' => null,
+        ];
+
+        if (preg_match_all('/gap is\s*([\d,.]+)%/i', $output, $gapMatches) && !empty($gapMatches[1])) {
+            $lastGap = end($gapMatches[1]);
+            $metadata['mip_gap'] = (float)str_replace(',', '.', $lastGap);
+        }
+
+        $hasSolution = preg_match('/^\s*OBJECTIVE\s*:/mi', $output) === 1
+            || preg_match('/#Result\s*</i', $output) === 1;
+
+        if (preg_match('/Search terminated by limit|time limit (?:exceeded|reached)|time limit abort/i', $output)) {
+            $metadata['status'] = $hasSolution ? 'FEASIBLE' : 'TIMEOUT';
+            $metadata['termination_reason'] = 'TIME_LIMIT';
+            return $metadata;
+        }
+
+        if (preg_match('/Infeasibility|\binfeasible\b|model has no solution|\bno solution\b|integer infeasible/i', $output)) {
+            $metadata['status'] = 'INFEASIBLE';
+            $metadata['termination_reason'] = 'INFEASIBLE';
+            return $metadata;
+        }
+
+        if (preg_match('/Best objective\s*:.*\(optimal\b|integer optimal solution|optimal solution found/i', $output)
+            || ($hasSolution && preg_match('/Total \(root\+branch&cut\)/i', $output))) {
+            $metadata['status'] = 'OPTIMAL';
+            $metadata['termination_reason'] = 'OPTIMAL';
+            $metadata['mip_gap'] = 0.0;
+            return $metadata;
+        }
+
+        if ($hasSolution) {
+            $metadata['status'] = 'FEASIBLE';
+            $metadata['termination_reason'] = 'SOLUTION_RETURNED';
+        }
+
+        return $metadata;
     }
 }

@@ -93,6 +93,20 @@ class GraphGenerator:
             print(f"Loaded {filename}: {len(df)} rows")
             return df
         return None
+
+    @staticmethod
+    def comparison_admissible(df: pd.DataFrame) -> pd.DataFrame:
+        """Keep proven-optimal rows and feasible incumbents with a final gap <= 1%."""
+        if 'comparison_admissible' in df.columns:
+            values = df['comparison_admissible'].astype(str).str.strip().str.lower()
+            return df[values.isin(['1', '1.0', 'true', 'yes'])].copy()
+
+        status = df['solver_status'].astype(str).str.strip().str.upper()
+        if 'mip_gap' in df.columns:
+            gap = pd.to_numeric(df['mip_gap'], errors='coerce')
+        else:
+            gap = pd.Series(np.nan, index=df.index)
+        return df[(status == 'OPTIMAL') | ((status == 'FEASIBLE') & (gap <= 1.0))].copy()
     
     def generate_all_figures(self):
         """Generate all publication figures"""
@@ -143,10 +157,10 @@ class GraphGenerator:
     def plot_scalability_runtime(self):
         """Figure 1: Runtime vs BOM Size"""
         df = self.scalability_df.copy()
-        df = df[df['solver_status'] == 'OPTIMAL']
+        df = self.comparison_admissible(df)
         
         if df.empty:
-            print("No optimal solutions for scalability runtime plot")
+            print("No comparison-admissible solutions for scalability runtime plot")
             return
         
         fig, ax = plt.subplots(figsize=(8, 5))
@@ -181,7 +195,7 @@ class GraphGenerator:
     def plot_scalability_emissions(self):
         """Figure 2: Baseline Emissions vs BOM Size"""
         df = self.scalability_df.copy()
-        df = df[df['solver_status'] == 'OPTIMAL']
+        df = self.comparison_admissible(df)
         
         if df.empty or 'total_emissions' not in df.columns:
             return
@@ -207,7 +221,7 @@ class GraphGenerator:
     def plot_scalability_buffers(self):
         """Figure 3: Buffer Count vs BOM Size"""
         df = self.scalability_df.copy()
-        df = df[df['solver_status'] == 'OPTIMAL']
+        df = self.comparison_admissible(df)
         
         if df.empty or 'buffer_count' not in df.columns:
             return
@@ -238,7 +252,7 @@ class GraphGenerator:
     def plot_tax_sweep(self):
         """Figure 4: Emissions and Cost vs Carbon Tax Rate"""
         df = self.tax_sweep_df.copy()
-        df = df[df['solver_status'] == 'OPTIMAL']
+        df = self.comparison_admissible(df)
         
         if df.empty:
             return
@@ -261,12 +275,12 @@ class GraphGenerator:
                 axes[1].plot(inst_df['tax_rate'], inst_df['total_cost_with_tax'] / 1e3,
                            marker='s', label=instance, color=colors[i], linewidth=2, markersize=6)
         
-        axes[0].set_xlabel('Carbon Tax Rate ($/unit)')
+        axes[0].set_xlabel('EmisTax (currency/tCO₂)')
         axes[0].set_ylabel('Total Emissions (Tonnes CO₂)')
         axes[0].set_title('Emissions Response to Carbon Tax')
         axes[0].legend(loc='best', fontsize=8)
         
-        axes[1].set_xlabel('Carbon Tax Rate ($/unit)')
+        axes[1].set_xlabel('EmisTax (currency/tCO₂)')
         axes[1].set_ylabel('Total Cost (Thousand $)')
         axes[1].set_title('Cost Impact of Carbon Tax')
         axes[1].legend(loc='best', fontsize=8)
@@ -280,7 +294,7 @@ class GraphGenerator:
     def plot_cap_sweep(self):
         """Figure 5: Cost vs Emission Cap Tightening"""
         df = self.cap_sweep_df.copy()
-        df = df[df['solver_status'] == 'OPTIMAL']
+        df = self.comparison_admissible(df)
         
         if df.empty:
             return
@@ -316,7 +330,7 @@ class GraphGenerator:
     def plot_hybrid_strategy(self):
         """Figure 6: Hybrid Tax+Cap Strategy Comparison"""
         df = self.hybrid_df.copy()
-        df = df[df['solver_status'] == 'OPTIMAL']
+        df = self.comparison_admissible(df)
         
         if df.empty:
             return
@@ -351,7 +365,7 @@ class GraphGenerator:
                 ax.set_ylabel('Total Cost (Thousand $)')
                 ax.set_title(f'Hybrid Strategy Trade-offs: {instance}')
                 
-                plt.colorbar(scatter, ax=ax, label='Tax Rate')
+                plt.colorbar(scatter, ax=ax, label='EmisTax (currency/tCO₂)')
         
         plt.tight_layout()
         plt.savefig(self.figures_dir / 'fig6_hybrid_strategy.png')
@@ -362,7 +376,7 @@ class GraphGenerator:
     def plot_cost_emissions_pareto(self):
         """Figure 7: Cost-Emissions Trade-off by Strategy"""
         df = self.consolidated_df.copy()
-        df = df[df['solver_status'] == 'OPTIMAL']
+        df = self.comparison_admissible(df)
         
         if df.empty or 'strategy' not in df.columns:
             return
@@ -394,7 +408,7 @@ class GraphGenerator:
     def plot_strategy_comparison(self):
         """Figure 8: Strategy Comparison Box Plots"""
         df = self.consolidated_df.copy()
-        df = df[df['solver_status'] == 'OPTIMAL']
+        df = self.comparison_admissible(df)
         
         if df.empty or 'strategy' not in df.columns:
             return
@@ -454,7 +468,7 @@ class GraphGenerator:
     def plot_inventory_kpis(self):
         """Figure 9: Inventory KPIs (DIO, WIP) by Strategy"""
         df = self.consolidated_df.copy()
-        df = df[df['solver_status'] == 'OPTIMAL']
+        df = self.comparison_admissible(df)
         
         if df.empty or 'DIO' not in df.columns:
             return
@@ -488,7 +502,7 @@ class GraphGenerator:
     def plot_service_time_sensitivity(self):
         """Figure 10: Service Time Sensitivity Analysis"""
         df = self.svt_df.copy()
-        df = df[df['solver_status'] == 'OPTIMAL']
+        df = self.comparison_admissible(df)
         
         if df.empty:
             return
@@ -523,7 +537,7 @@ class GraphGenerator:
     def plot_topology_comparison(self):
         """Figure 11: Topology Comparison (ML vs PAR)"""
         df = self.topology_df.copy()
-        df = df[df['solver_status'] == 'OPTIMAL']
+        df = self.comparison_admissible(df)
         
         if df.empty:
             return
@@ -565,7 +579,7 @@ class GraphGenerator:
     def plot_plm_nlm_comparison(self):
         """Figure 12: PLM vs NLM Model Comparison"""
         df = self.nlm_comparison_df.copy()
-        df = df[df['solver_status'] == 'OPTIMAL']
+        df = self.comparison_admissible(df)
         
         if df.empty or 'model_type' not in df.columns:
             return

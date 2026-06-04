@@ -55,8 +55,10 @@ class FinalCampaignRunner {
         $campaignFile = __DIR__ . '/../config/final_campaign_config.json';
         $this->campaignConfig = json_decode(file_get_contents($campaignFile), true);
         
-        // Initialize KPI calculator
-        $this->kpiCalculator = new KPICalculator();
+        // Initialize KPI calculator with the reporting threshold, expressed in percentage points.
+        $comparisonGapThresholdPct =
+            $this->campaignConfig['analysis_settings']['comparison_gap_threshold_pct'] ?? 1.0;
+        $this->kpiCalculator = new KPICalculator((float)$comparisonGapThresholdPct);
         
         // Create results directories
         $timestamp = date('Ymd_His');
@@ -197,7 +199,7 @@ class FinalCampaignRunner {
                 'EXPERIMENT' => 'scalability'
             ];
             
-            $result = $this->executeSingleRun($runConfig, $instanceId);
+            $result = $this->executeLexicographicBaseline($runConfig, $instanceId);
             
             // Store baseline emissions
             if ($taxRate == 0.0 && isset($result['kpis']['carbon']['total_emissions'])) {
@@ -268,7 +270,7 @@ class FinalCampaignRunner {
                     'TOPOLOGY' => $family
                 ];
                 
-                $result = $this->executeSingleRun($runConfig, $instanceId);
+                $result = $this->executeLexicographicBaseline($runConfig, $instanceId);
                 
                 // Store baseline
                 if (isset($result['kpis']['carbon']['total_emissions'])) {
@@ -375,7 +377,7 @@ class FinalCampaignRunner {
             }
             
             // Get baseline emissions for this instance
-            $baselineEmis = $this->baselineEmissions[$instanceId] ?? 2500000;
+            $baselineEmis = $this->requireBaselineEmissions($instanceId);
             
             $suppDetailsFile = ($instance['nodes'] >= 25) ? 
                 "supp_details_supeco_grdCapacity.csv" : 
@@ -392,7 +394,7 @@ class FinalCampaignRunner {
                     '_NBSUPP_' => $expConfig['suppliers'],
                     '_SERVICE_T_' => $expConfig['service_time'],
                     '_EMISCAP_' => $capValue,
-                    '_EMISTAXE_' => 0.01,
+                    '_EMISTAXE_' => 0.0,
                     'MODEL_FILE' => 'RUNS_SupEmis_Cplex_PLM_Cap.mod',
                     'MODEL_TYPE' => 'PLM',
                     'EXPERIMENT' => 'carbon_cap_sweep',
@@ -417,10 +419,11 @@ class FinalCampaignRunner {
      * Run hybrid strategy tests
      */
     private function runHybridStrategyTests(array $expConfig): void {
-        $combinations = $expConfig['combinations'];
+        $taxRates = $expConfig['tax_rates'];
+        $capLevels = $expConfig['cap_levels'];
         $instances = $expConfig['representative_instances'];
         
-        echo "Testing " . count($combinations) . " hybrid combinations\n";
+        echo "Testing " . (count($taxRates) * count($capLevels)) . " full factorial combined scenarios\n";
         echo "Instances: " . implode(', ', $instances) . "\n";
         
         foreach ($instances as $instanceId) {
@@ -433,40 +436,44 @@ class FinalCampaignRunner {
             
             if (!file_exists($this->dataDir . $bomFile)) continue;
             
-            $baselineEmis = $this->baselineEmissions[$instanceId] ?? 2500000;
+            $baselineEmis = $this->requireBaselineEmissions($instanceId);
             $suppDetailsFile = ($instance['nodes'] >= 25) ? 
                 "supp_details_supeco_grdCapacity.csv" : 
                 "supp_details_supeco.csv";
             
-            foreach ($combinations as $combo) {
-                $tax = $combo['tax'];
-                $capPct = $combo['cap_pct'];
-                $label = $combo['label'];
-                $capValue = (int)($baselineEmis * $capPct);
+            foreach ($taxRates as $tax) {
+                foreach ($capLevels as $capLevel) {
+                    $hasCap = $capLevel !== 'none';
+                    $capPct = $hasCap ? (float)$capLevel : null;
+                    $capLabel = $hasCap ? sprintf("%g", $capPct * 100) : 'none';
+                    $label = sprintf("tax_%g_cap_%s", $tax, $capLabel);
+                    $capValue = $hasCap ? (float)($baselineEmis * $capPct) : 1.0e30;
                 
-                $runConfig = [
-                    'PREFIXE' => "HYB-{$instanceId}-{$label}",
-                    '_NODE_FILE_' => $bomFile,
-                    '_NODE_SUPP_FILE_' => $suppListFile,
-                    '_SUPP_DETAILS_FILE_' => $suppDetailsFile,
-                    '_NBSUPP_' => $expConfig['suppliers'],
-                    '_SERVICE_T_' => $expConfig['service_time'],
-                    '_EMISCAP_' => $capValue,
-                    '_EMISTAXE_' => $tax,
-                    'MODEL_FILE' => 'RUNS_SupEmis_Cplex_PLM_Hybrid.mod',
-                    'MODEL_TYPE' => 'PLM',
-                    'EXPERIMENT' => 'carbon_hybrid',
-                    'HYBRID_LABEL' => $label,
-                    'TAX_RATE' => $tax,
-                    'CAP_PERCENTAGE' => $capPct,
-                    'CAP_VALUE' => $capValue
-                ];
+                    $runConfig = [
+                        'PREFIXE' => "HYB-{$instanceId}-{$label}",
+                        '_NODE_FILE_' => $bomFile,
+                        '_NODE_SUPP_FILE_' => $suppListFile,
+                        '_SUPP_DETAILS_FILE_' => $suppDetailsFile,
+                        '_NBSUPP_' => $expConfig['suppliers'],
+                        '_SERVICE_T_' => $expConfig['service_time'],
+                        '_EMISCAP_' => $capValue,
+                        '_EMISTAXE_' => $tax,
+                        'MODEL_FILE' => 'RUNS_SupEmis_Cplex_PLM_Hybrid.mod',
+                        'MODEL_TYPE' => 'PLM',
+                        'EXPERIMENT' => 'carbon_hybrid',
+                        'HYBRID_LABEL' => $label,
+                        'TAX_RATE' => $tax,
+                        'CAP_PERCENTAGE' => $capPct,
+                        'CAP_LEVEL' => $hasCap ? $capLabel . '%' : 'none',
+                        'CAP_VALUE' => $capValue
+                    ];
                 
-                $result = $this->executeSingleRun($runConfig, $instanceId);
+                    $result = $this->executeSingleRun($runConfig, $instanceId);
                 
-                echo "  {$instanceId}, {$label}: " .
-                     "Status={$result['kpis']['computational']['solver_status']}, " .
-                     "Cost=" . ($result['kpis']['cost']['total_cost_with_tax'] ?? 'N/A') . "\n";
+                    echo "  {$instanceId}, {$label}: " .
+                         "Status={$result['kpis']['computational']['solver_status']}, " .
+                         "Cost=" . ($result['kpis']['cost']['total_cost_with_tax'] ?? 'N/A') . "\n";
+                }
             }
         }
         
@@ -499,7 +506,7 @@ class FinalCampaignRunner {
             $suppDetailsFile = ($instance['nodes'] >= 25) ? 
                 "supp_details_supeco_grdCapacity.csv" : 
                 "supp_details_supeco.csv";
-            $baselineEmis = $this->baselineEmissions[$instanceId] ?? 2500000;
+            $baselineEmis = $this->requireBaselineEmissions($instanceId);
             
             foreach ($strategies as $strategy) {
                 foreach ($serviceTimes as $svt) {
@@ -510,7 +517,7 @@ class FinalCampaignRunner {
                     $capValue = ($strategy === 'EMISCAP') ? 
                         (int)($baselineEmis * $expConfig['cap_percentage']) : 2500000;
                     $taxRate = ($strategy === 'EMISTAXE') ? 
-                        $expConfig['tax_rate'] : 0.01;
+                        $expConfig['tax_rate'] : 0.0;
                     
                     $runConfig = [
                         'PREFIXE' => "SVT-{$instanceId}-{$strategy}-SvT{$svt}",
@@ -651,7 +658,7 @@ class FinalCampaignRunner {
             if (!file_exists($this->dataDir . $bomFile)) continue;
             
             $suppDetailsFile = "supp_details_supeco_grdCapacity.csv";
-            $baselineEmis = $this->baselineEmissions[$instanceId] ?? 2500000;
+            $baselineEmis = $this->requireBaselineEmissions($instanceId);
             
             foreach ($strategies as $strategy) {
                 foreach (['PLM', 'NLM'] as $modelType) {
@@ -660,7 +667,7 @@ class FinalCampaignRunner {
                             'RUNS_SupEmis_Cplex_PLM_Cap.mod' : 
                             'RUNS_SupEmis_CP_NLM_Cap.mod';
                         $capValue = (int)($baselineEmis * $expConfig['cap_percentage']);
-                        $taxRate = 0.01;
+                        $taxRate = 0.0;
                     } else {
                         $modelFile = ($modelType === 'PLM') ? 
                             'RUNS_SupEmis_Cplex_PLM_Tax.mod' : 
@@ -699,9 +706,78 @@ class FinalCampaignRunner {
     }
     
     /**
+     * Establish a reproducible baseline by minimizing cost first, then emissions
+     * while retaining the optimal economic cost.
+     */
+    private function executeLexicographicBaseline(array $runConfig, string $instanceId): array {
+        $originalPrefix = $runConfig['PREFIXE'];
+        $originalExperiment = $runConfig['EXPERIMENT'] ?? 'baseline';
+
+        $costRun = $runConfig;
+        $costRun['PREFIXE'] = $originalPrefix . '-COST-STAGE';
+        $costRun['EXPERIMENT'] = $originalExperiment . '_cost_stage';
+        $costRun['CAP_LEVEL'] = 'none';
+
+        $economicResult = $this->executeSingleRun($costRun, $instanceId, false);
+        $economicStatus = $economicResult['kpis']['computational']['solver_status'] ?? 'UNKNOWN';
+        $optimalCost = $economicResult['kpis']['cost']['total_cost_without_tax'] ?? null;
+
+        if ($economicStatus !== 'OPTIMAL' || $optimalCost === null) {
+            throw new RuntimeException(
+                "Cannot establish lexicographic baseline for {$instanceId}: " .
+                "economic-cost stage status={$economicStatus}"
+            );
+        }
+
+        $tolerance = (float)($this->campaignConfig['baseline_references']['economic_cost_tolerance_abs_eur'] ?? 0.001);
+        $largeValue = 1.0e30;
+        $emissionsRun = $runConfig;
+        $emissionsRun['PREFIXE'] = $originalPrefix . '-LEX-EMIS';
+        $emissionsRun['MODEL_FILE'] = 'RUNS_SupEmis_MultiObj_PLM.mod';
+        $emissionsRun['MODEL_TYPE'] = 'PLM';
+        $emissionsRun['_EMISCAP_'] = $largeValue;
+        $emissionsRun['_EMISTAXE_'] = 0.0;
+        $emissionsRun['_OBJ_PRIMARY_'] = 4;
+        $emissionsRun['_EPSILON_COST_'] = $optimalCost + $tolerance;
+        $emissionsRun['_EPSILON_DIO_'] = $largeValue;
+        $emissionsRun['_EPSILON_WIP_'] = $largeValue;
+        $emissionsRun['_EPSILON_EMIS_'] = $largeValue;
+        $emissionsRun['EXPERIMENT'] = $originalExperiment;
+        $emissionsRun['CAP_LEVEL'] = 'none';
+        $emissionsRun['BASELINE_METHOD'] = 'LEXICOGRAPHIC_COST_THEN_EMISSIONS';
+        $emissionsRun['BASELINE_COST_OPTIMUM'] = $optimalCost;
+        $emissionsRun['BASELINE_COST_TOLERANCE'] = $tolerance;
+
+        $baselineResult = $this->executeSingleRun($emissionsRun, $instanceId);
+        $baselineStatus = $baselineResult['kpis']['computational']['solver_status'] ?? 'UNKNOWN';
+        if ($baselineStatus !== 'OPTIMAL') {
+            throw new RuntimeException(
+                "Cannot establish lexicographic baseline for {$instanceId}: " .
+                "emissions tie-break stage status={$baselineStatus}"
+            );
+        }
+
+        return $baselineResult;
+    }
+
+    /**
+     * Return the established lexicographic emissions baseline or stop the campaign.
+     */
+    private function requireBaselineEmissions(string $instanceId): float {
+        if (!isset($this->baselineEmissions[$instanceId])) {
+            throw new RuntimeException(
+                "Missing lexicographic emissions baseline for {$instanceId}; " .
+                "cap-based scenarios cannot be generated."
+            );
+        }
+
+        return (float)$this->baselineEmissions[$instanceId];
+    }
+
+    /**
      * Execute a single optimization run
      */
-    private function executeSingleRun(array $runConfig, string $instanceId): array {
+    private function executeSingleRun(array $runConfig, string $instanceId, bool $storeResult = true): array {
         $this->runCounter++;
         
         $modelPath = $this->modelDir . $runConfig['MODEL_FILE'];
@@ -746,7 +822,9 @@ class FinalCampaignRunner {
             'result' => $result,
             'kpis' => $kpis
         ];
-        $this->allResults[] = $fullResult;
+        if ($storeResult) {
+            $this->allResults[] = $fullResult;
+        }
         
         // Clean up
         if (file_exists($preparedModel)) {
@@ -883,6 +961,11 @@ class FinalCampaignRunner {
         foreach ($byStatus as $status => $count) {
             $summary .= "- {$status}: {$count} runs\n";
         }
+
+        $comparisonAdmissible = count(array_filter($this->allResults, function($r) {
+            return ($r['kpis']['computational']['comparison_admissible'] ?? false) === true;
+        }));
+        $summary .= "- Comparison-admissible: {$comparisonAdmissible} runs\n";
         
         // Compute aggregate statistics
         $summary .= "\n## Aggregate KPIs\n\n";
@@ -955,12 +1038,20 @@ class FinalCampaignRunner {
         $checklist .= "- Missing emissions data: {$missingEmissions} runs\n";
         $checklist .= "- Missing cost data: {$missingCosts} runs\n";
         
-        // Check for failures
+        // Infeasible policy combinations are meaningful outcomes, not execution failures.
+        $infeasibleScenarios = count(array_filter($this->allResults, function($r) {
+            return ($r['kpis']['computational']['solver_status'] ?? '') === 'INFEASIBLE';
+        }));
         $failures = count(array_filter($this->allResults, function($r) {
             $status = $r['kpis']['computational']['solver_status'] ?? '';
-            return in_array($status, ['ERROR', 'INFEASIBLE', 'TIMEOUT']);
+            return in_array($status, ['ERROR', 'TIMEOUT']);
         }));
-        $checklist .= "- Solver failures: {$failures} runs\n";
+        $checklist .= "- Infeasible policy scenarios: {$infeasibleScenarios} runs\n";
+        $checklist .= "- Solver execution failures: {$failures} runs\n";
+        $comparisonExcluded = count(array_filter($this->allResults, function($r) {
+            return !($r['kpis']['computational']['comparison_admissible'] ?? false);
+        }));
+        $checklist .= "- Retained but excluded from behavioral comparisons: {$comparisonExcluded} runs\n";
         
         $checklist .= "\n## Deliverables\n\n";
         $checklist .= "- [✅] Consolidated results CSV\n";
@@ -983,6 +1074,8 @@ class FinalCampaignRunner {
             'results_directory' => $this->resultsDir,
             'oplrun_path' => $this->oplRunPath,
             'time_limit_sec' => $this->timeLimitSec,
+            'comparison_gap_threshold_pct' =>
+                $this->campaignConfig['analysis_settings']['comparison_gap_threshold_pct'] ?? 1.0,
             'instance_registry_version' => $this->instanceRegistry['metadata']['version'],
             'php_version' => PHP_VERSION,
             'os' => PHP_OS

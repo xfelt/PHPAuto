@@ -1,0 +1,106 @@
+
+<<< setup
+
+0 0 -1 0 0 0.25 0.5 0.8 1 0 0 0 0  14
+1 2 0 680 1 0.25 0.5 0.8 1 0 6800 680 1500  14
+2 4 1 160 1 0.25 0.5 0.8 1 0 4800 480 1500  14
+3 3 1 95 2 0.25 0.5 0.8 1 0 3200 320 1500  14
+Node nums: [0 1 2 3]
+xx-Data uploaded-xx
+	**** start init su array ...
+0 [0 0 0 0 0 0 0 0 0 0]
+1 [0 0 0 0 0 0 0 0 0 0]
+2 [1 1 1 1 1 1 1 1 1 1]
+3 [1 1 1 1 1 1 1 1 1 1]
+	**** end init su array ...
+1 2 1 700 80 0.85 0.92 0.8 (9)9
+2 2 0.9 800 75 0.82 0.90 0.9 (9)9
+3 1 1.1 680 90 0.88 0.95 0.5 (9)9
+4 1 1 480 100 0.86 0.93 0.6 (9)9
+5 5 0.6 550 40 0.72 0.78 1.5 (9)9
+6 6 0.5 650 45 0.70 0.75 2.0 (9)9
+7 7 0.5 1100 40 0.68 0.72 2.5 (9)9
+8 5 0.3 700 30 0.65 0.70 1.8 (9)9
+9 9 0.2 1700 15 0.60 0.65 3.5 (9)9
+10 1 0.8 5800 40 0.80 0.88 0.7 (9)9
+
+<<< generate
+
+Version identifier: 20.1.0.0 | 2020-11-10 | 9bedb6d68
+CPXPARAM_TimeLimit                               60
+Tried aggregator 2 times.
+MIP Presolve eliminated 242 rows and 61 columns.
+MIP Presolve modified 23 coefficients.
+Aggregator did 3 substitutions.
+Reduced MIP has 134 rows, 68 columns, and 342 nonzeros.
+Reduced MIP has 24 binaries, 44 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0,00 sec. (0,42 ticks)
+Found incumbent of value 502344,500000 after 0,00 sec. (0,79 ticks)
+Probing fixed 1 vars, tightened 0 bounds.
+Probing time = 0,00 sec. (0,07 ticks)
+Cover probing fixed 0 vars, tightened 2 bounds.
+Tried aggregator 2 times.
+Detecting symmetries...
+MIP Presolve eliminated 9 rows and 2 columns.
+MIP Presolve modified 28 coefficients.
+Aggregator did 1 substitutions.
+Reduced MIP has 124 rows, 65 columns, and 320 nonzeros.
+Reduced MIP has 22 binaries, 43 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0,00 sec. (0,30 ticks)
+Probing time = 0,00 sec. (0,04 ticks)
+Clique table members: 2.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 20 threads.
+Root relaxation solution time = 0,00 sec. (0,40 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                       502343,5000   -15391,0000           103,06%
+*     0+    0                       430998,5000   -15391,0000           103,57%
+*     0+    0                        50309,5000   -15391,0000           130,59%
+*     0+    0                        49571,0000   -15391,0000           131,05%
+*     0+    0                        49390,0000   -15391,0000           131,16%
+*     0+    0                        49313,5000   -15391,0000           131,21%
+      0     0    29045,5994    29    49313,5000    29045,5994       41   41,10%
+      0     0    29575,5561    33    49313,5000      Cuts: 21       57   40,03%
+      0     0    30116,3391    35    49313,5000      Cuts: 30       84   38,93%
+      0     0    30158,7181    36    49313,5000       Cuts: 6       90   38,84%
+      0     0    30160,8362    36    49313,5000    MIRcuts: 2       92   38,84%
+      0     0    30198,3714    37    49313,5000    MIRcuts: 1       95   38,76%
+Detecting symmetries...
+      0     0    30199,3446    37    49313,5000   ZeroHalf: 1       96   38,76%
+*     0+    0                        38955,0000    30199,3446            22,48%
+      0     0        cutoff          38955,0000    38955,0000       96    0,00%
+Elapsed time = 0,64 sec. (7,59 ticks, tree = 0,01 MB, solutions = 8)
+
+Implied bound cuts applied:  13
+Mixed integer rounding cuts applied:  3
+Zero-half cuts applied:  4
+Gomory fractional cuts applied:  2
+
+Root node processing (before b&c):
+  Real time             =    0,64 sec. (7,61 ticks)
+Parallel b&c, 20 threads:
+  Real time             =    0,00 sec. (0,00 ticks)
+  Sync time (average)   =    0,00 sec.
+  Wait time (average)   =    0,00 sec.
+                          ------------
+Total (root+branch&cut) =    0,64 sec. (7,61 ticks)
+
+<<< solve
+
+
+OBJECTIVE: 38955
+xxxx
+#Result <fct_obj, tot_cst, tot_ldt, Emiss>: <38955 38944 11 4.5944e+5>#TS:38944#A:[0,2,5,4]#X:[0,1,1,1]#E: 459440#DELIVER:
+S10=>P2
+S10=>P3
+xxxx
+
+<<< post process
+
+
+<<< done
+

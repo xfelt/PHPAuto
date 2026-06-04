@@ -1,0 +1,111 @@
+
+<<< setup
+
+0 0 -1 0 0 0.25 0.5 0.8 1 0 0 0 0  14
+1 2 0 740 1 0.25 0.5 0.8 1 0 7400 740 1500  14
+2 4 1 175 1 0.25 0.5 0.8 1 0 5400 540 1500  14
+3 3 1 110 2 0.25 0.5 0.8 1 0 3800 380 1500  14
+4 5 2 30 6 0.25 0.5 0.8 1 0 3300 330 1500  14
+5 6 3 38 2 0.25 0.5 0.8 1 0 2900 290 1500  14
+6 4 2 22 4 0.25 0.5 0.8 1 0 2800 280 1500  14
+Node nums: [0 1 2 3 4 5 6]
+xx-Data uploaded-xx
+	**** start init su array ...
+0 [0 0 0 0 0 0 0 0 0 0]
+1 [0 0 0 0 0 0 0 0 0 0]
+2 [1 1 1 1 1 1 1 1 1 1]
+3 [0 0 0 0 0 0 0 0 0 0]
+4 [1 1 1 1 1 1 1 1 1 1]
+5 [1 1 1 1 1 1 1 1 1 1]
+6 [1 1 1 1 1 1 1 1 1 1]
+	**** end init su array ...
+1 2 1 700 80 0.85 0.92 0.8 (9)9
+2 2 0.9 800 75 0.82 0.90 0.9 (9)9
+3 1 1.1 680 90 0.88 0.95 0.5 (9)9
+4 1 1 480 100 0.86 0.93 0.6 (9)9
+5 5 0.6 550 40 0.72 0.78 1.5 (9)9
+6 6 0.5 650 45 0.70 0.75 2.0 (9)9
+7 7 0.5 1100 40 0.68 0.72 2.5 (9)9
+8 5 0.3 700 30 0.65 0.70 1.8 (9)9
+9 9 0.2 1700 15 0.60 0.65 3.5 (9)9
+10 1 0.8 5800 40 0.80 0.88 0.7 (9)9
+
+<<< generate
+
+Version identifier: 20.1.0.0 | 2020-11-10 | 9bedb6d68
+CPXPARAM_TimeLimit                               60
+Tried aggregator 2 times.
+MIP Presolve eliminated 552 rows and 123 columns.
+MIP Presolve modified 64 coefficients.
+Aggregator did 5 substitutions.
+Reduced MIP has 204 rows, 103 columns, and 555 nonzeros.
+Reduced MIP has 35 binaries, 68 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0,00 sec. (0,90 ticks)
+Probing time = 0,00 sec. (0,08 ticks)
+Cover probing fixed 0 vars, tightened 3 bounds.
+Tried aggregator 1 time.
+Detecting symmetries...
+MIP Presolve eliminated 9 rows and 0 columns.
+MIP Presolve modified 42 coefficients.
+Reduced MIP has 195 rows, 103 columns, and 537 nonzeros.
+Reduced MIP has 35 binaries, 68 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0,00 sec. (0,36 ticks)
+Probing time = 0,00 sec. (0,08 ticks)
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 20 threads.
+Root relaxation solution time = 0,00 sec. (0,68 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+      0     0    89173,8242    17                  89173,8242       84         
+*     0+    0                       118965,4000    89173,8242            25,04%
+      0     0    91603,0451    51   118965,4000      Cuts: 27      107   23,00%
+      0     0    92379,3601    41   118965,4000      Cuts: 18      112   22,35%
+      0     0    96124,5733    48   118965,4000      Cuts: 30      149   19,20%
+      0     0    96960,7152    50   118965,4000      Cuts: 11      167   18,50%
+      0     0    97084,0497    52   118965,4000       Cuts: 9      174   18,39%
+Detecting symmetries...
+      0     0    97543,9280    43   118965,4000      Cuts: 12      185   18,01%
+      0     0    97646,3150    44   118965,4000   Impl Bds: 3      190   17,92%
+      0     0    97689,0188    46   118965,4000   Impl Bds: 3      193   17,88%
+      0     0    98118,3587    30   118965,4000       Cuts: 5      199   17,52%
+      0     0    98616,4142    33   118965,4000   ZeroHalf: 4      208   17,10%
+      0     0    99620,6476    53   118965,4000       Cuts: 5      215   16,26%
+      0     0   100191,9395    48   118965,4000      Cuts: 10      221   15,78%
+      0     0   100526,7294    44   118965,4000   ZeroHalf: 4      232   15,50%
+      0     0   100559,9072    37   118965,4000   ZeroHalf: 1      233   15,47%
+*     0+    0                       102318,2000   100559,9072             1,72%
+      0     0        cutoff         102318,2000   102318,2000      233    0,00%
+Elapsed time = 0,08 sec. (16,15 ticks, tree = 0,01 MB, solutions = 2)
+
+Implied bound cuts applied:  20
+Zero-half cuts applied:  14
+Gomory fractional cuts applied:  9
+
+Root node processing (before b&c):
+  Real time             =    0,08 sec. (16,17 ticks)
+Parallel b&c, 20 threads:
+  Real time             =    0,00 sec. (0,00 ticks)
+  Sync time (average)   =    0,00 sec.
+  Wait time (average)   =    0,00 sec.
+                          ------------
+Total (root+branch&cut) =    0,08 sec. (16,17 ticks)
+
+<<< solve
+
+
+OBJECTIVE: 102318.2
+xxxx
+#Result <fct_obj, tot_cst, tot_ldt, Emiss>: <1.0232e+5 1.0229e+5 27 2.2259e+6>#TS:102291.2#CS:57772.8#TaxCost:44518.4#A:[0,2,4,3,6,7,5]#X:[0,1,1,1,1,1,1]#E: 2225920#Cap: 3652100#Tax: 0.02#DELIVER:
+S10=>P4
+S10=>P5
+S10=>P6
+xxxx
+
+<<< post process
+
+
+<<< done
+

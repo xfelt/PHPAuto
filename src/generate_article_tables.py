@@ -82,6 +82,20 @@ def n_of(instance_id):
     digits = ''.join(ch for ch in str(instance_id).split('_')[-1] if ch.isdigit())
     return int(digits) if digits else 0
 
+def comparison_admissible(rows):
+    """Keep rows eligible to support behavioral comparisons."""
+    if rows.empty:
+        return rows
+    if 'comparison_admissible' in rows.columns:
+        values = rows['comparison_admissible'].astype(str).str.strip().str.lower()
+        return rows[values.isin(['1', '1.0', 'true', 'yes'])].copy()
+    status = rows['solver_status'].astype(str).str.strip().str.upper()
+    if 'mip_gap' in rows.columns:
+        gap = pd.to_numeric(rows['mip_gap'], errors='coerce')
+    else:
+        gap = pd.Series(float('nan'), index=rows.index)
+    return rows[(status == 'OPTIMAL') | ((status == 'FEASIBLE') & (gap <= 1.0))].copy()
+
 # ================================================================ 1. SCALABILITY
 scal = df[df['experiment'] == 'scalability'].copy()
 if not scal.empty:
@@ -106,12 +120,12 @@ if not scal.empty:
     write('tab_scalability.tex', tex)
 
 # ================================================================ 2. TAX SWEEP
-tax = df[df['experiment'] == 'carbon_tax_sweep'].copy()
+tax = comparison_admissible(df[df['experiment'] == 'carbon_tax_sweep'].copy())
 if not tax.empty:
     tax['tax_rate'] = tax['tax_rate'].astype(float)
     rates = sorted(tax['tax_rate'].unique())
     insts = sorted(tax['instance_id'].unique(), key=n_of)
-    header = "Instance & " + " & ".join(f"$e={r:g}$" for r in rates) + " & Red.\\,\\%\\\\"
+    header = "Instance & " + " & ".join(f"$EmisTax={r:g}$" for r in rates) + " & Red.\\,\\%\\\\"
     rows = []
     for inst in insts:
         sub = tax[tax['instance_id'] == inst]
@@ -136,7 +150,7 @@ if not tax.empty:
     tex = (
         "\\begin{table*}[!htbp]\\centering\\small\n"
         "\\caption{Carbon tax sweep: total emissions (t\\,CO$_2$) per instance as the "
-        "tax rate $e$ increases, and the emission reduction at the highest tax.}"
+        "carbon price $EmisTax$ (currency/tCO$_2$) increases, and the emission reduction at the highest price.}"
         "\\label{tab:tax}\n"
         f"\\begin{{tabular}}{{{colspec}}}\n\\toprule\n" + header + "\n\\midrule\n" +
         body + "\n\\bottomrule\n\\end{tabular}\n\\end{table*}\n"
@@ -144,7 +158,7 @@ if not tax.empty:
     write('tab_tax_sweep.tex', tex)
 
 # ================================================================ 3. CAP SWEEP
-cap = df[df['experiment'] == 'carbon_cap_sweep'].copy()
+cap = comparison_admissible(df[df['experiment'] == 'carbon_cap_sweep'].copy())
 if not cap.empty:
     # cap level expressed as % of baseline; recover from cap_value vs baseline_emissions
     insts = sorted(cap['instance_id'].unique(), key=n_of)
@@ -187,18 +201,22 @@ hyb = df[df['experiment'] == 'carbon_hybrid'].copy()
 if not hyb.empty:
     rows = []
     for _, r in hyb.sort_values(['instance_id', 'tax_rate', 'cap_value']).iterrows():
+        cap_level = str(r.get('cap_level', '')).strip().lower()
+        cap_display = "No cap" if cap_level == "none" else fmt_emis(r['cap_value'])
+        status = str(r.get('solver_status', 'UNKNOWN')).strip().upper().replace('_', '\\_')
+        buffer_count = fmt_num(r.get('buffer_count'), 0)
         rows.append(
             f"{str(r['instance_id']).replace('_',chr(92)+'_')} & {fmt_num(r['tax_rate'],2)} & "
-            f"{fmt_emis(r['cap_value'])} & {fmt_emis(r['total_emissions'])} & "
-            f"{fmt_cost(r['total_cost_with_tax'])} & {int(r['buffer_count'])} \\\\"
+            f"{cap_display} & {fmt_emis(r['total_emissions'])} & "
+            f"{fmt_cost(r['total_cost_with_tax'])} & {buffer_count} & {status} \\\\"
         )
     body = "\n".join(rows)
     tex = (
         "\\begin{table*}[!htbp]\\centering\\small\n"
         "\\caption{Full results of the hybrid strategy across all tested instances, for every "
-        "combination of carbon tax $e$ and emission cap.}\\label{tab:hybridfull}\n"
-        "\\begin{tabular}{lccccc}\n\\toprule\n"
-        "Instance & $e$ & Cap (t\\,CO$_2$) & Emissions (t\\,CO$_2$) & Cost & Buffers\\\\\n"
+        "combination of carbon price $EmisTax$ (currency/tCO$_2$) and emission cap.}\\label{tab:hybridfull}\n"
+        "\\begin{tabular}{lcccccc}\n\\toprule\n"
+        "Instance & $EmisTax$ & Cap level & Emissions (t\\,CO$_2$) & Cost & Buffers & Status\\\\\n"
         "\\midrule\n" + body + "\n\\bottomrule\n\\end{tabular}\n\\end{table*}\n"
     )
     write('tab_hybrid.tex', tex)
@@ -248,7 +266,7 @@ pareto_table('cost_dio', 'DIO', lambda x: f"{float(x):.0f}", 'DIO (days)',
              'tab:paretodio', 'tab_pareto_dio.tex')
 
 # ================================================================ 5. PLM vs NLM
-nlm = df[df['experiment'] == 'nlm_comparison'].copy()
+nlm = comparison_admissible(df[df['experiment'] == 'nlm_comparison'].copy())
 if not nlm.empty:
     insts = sorted(nlm['instance_id'].unique(), key=n_of)
     rows = []

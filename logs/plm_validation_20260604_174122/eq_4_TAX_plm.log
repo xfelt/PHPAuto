@@ -1,0 +1,118 @@
+
+<<< setup
+
+0 0 -1 0 0 0.25 0.5 0.8 1 0 0 0 0  14
+1 2 0 680 1 0.25 0.5 0.8 1 0 6800 680 1500  14
+2 4 1 160 1 0.25 0.5 0.8 1 0 4800 480 1500  14
+3 3 1 95 2 0.25 0.5 0.8 1 0 3200 320 1500  14
+Node nums: [0 1 2 3]
+xx-Data uploaded-xx
+	**** start init su array ...
+0 [0 0 0 0 0 0 0 0 0 0]
+1 [0 0 0 0 0 0 0 0 0 0]
+2 [1 1 1 1 1 1 1 1 1 1]
+3 [1 1 1 1 1 1 1 1 1 1]
+	**** end init su array ...
+1 2 1 700 80 0.85 0.92 0.8 (9)9
+2 2 0.9 800 75 0.82 0.90 0.9 (9)9
+3 1 1.1 680 90 0.88 0.95 0.5 (9)9
+4 1 1 480 100 0.86 0.93 0.6 (9)9
+5 5 0.6 550 40 0.72 0.78 1.5 (9)9
+6 6 0.5 650 45 0.70 0.75 2.0 (9)9
+7 7 0.5 1100 40 0.68 0.72 2.5 (9)9
+8 5 0.3 700 30 0.65 0.70 1.8 (9)9
+9 9 0.2 1700 15 0.60 0.65 3.5 (9)9
+10 1 0.8 5800 40 0.80 0.88 0.7 (9)9
+
+<<< generate
+
+Version identifier: 20.1.0.0 | 2020-11-10 | 9bedb6d68
+CPXPARAM_TimeLimit                               60
+Tried aggregator 2 times.
+MIP Presolve eliminated 242 rows and 61 columns.
+MIP Presolve modified 23 coefficients.
+Aggregator did 3 substitutions.
+Reduced MIP has 134 rows, 68 columns, and 342 nonzeros.
+Reduced MIP has 24 binaries, 44 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0,00 sec. (0,42 ticks)
+Found incumbent of value 546955,700000 after 0,00 sec. (0,78 ticks)
+Probing fixed 1 vars, tightened 0 bounds.
+Probing time = 0,00 sec. (0,07 ticks)
+Cover probing fixed 0 vars, tightened 2 bounds.
+Tried aggregator 2 times.
+Detecting symmetries...
+MIP Presolve eliminated 9 rows and 2 columns.
+MIP Presolve modified 28 coefficients.
+Aggregator did 1 substitutions.
+Reduced MIP has 124 rows, 65 columns, and 320 nonzeros.
+Reduced MIP has 22 binaries, 43 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0,00 sec. (0,30 ticks)
+Probing time = 0,00 sec. (0,04 ticks)
+Clique table members: 2.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 20 threads.
+Root relaxation solution time = 0,00 sec. (0,39 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                       546954,7000    -3009,0000           100,55%
+*     0+    0                       464214,8000    -3009,0000           100,65%
+*     0+    0                        71937,7000    -3009,0000           104,18%
+*     0+    0                        71179,8000    -3009,0000           104,23%
+*     0+    0                        70991,7000    -3009,0000           104,24%
+*     0+    0                        70911,0000    -3009,0000           104,24%
+      0     0    38377,1574    22    70911,0000    38377,1574       48   45,88%
+      0     0    39580,6226    34    70911,0000      Cuts: 23       64   44,18%
+      0     0    40338,9682    25    70911,0000      Cuts: 26       81   43,11%
+      0     0    40673,3670    27    70911,0000      Cuts: 10       89   42,64%
+      0     0    40883,8244    25    70911,0000       Cuts: 8      100   42,34%
+      0     0    41056,5688    25    70911,0000      Cuts: 14      108   42,10%
+Detecting symmetries...
+      0     0    41100,1607    23    70911,0000   ZeroHalf: 4      114   42,04%
+      0     0    41150,9104    23    70911,0000       Cuts: 6      119   41,97%
+      0     0    41214,5007    21    70911,0000       Cuts: 3      126   41,88%
+      0     0    41241,8681    21    70911,0000   ZeroHalf: 3      131   41,84%
+      0     0    41324,6419    21    70911,0000       Cuts: 5      137   41,72%
+      0     0    41376,3134    22    70911,0000       Cuts: 6      141   41,65%
+      0     0    41441,5561    20    70911,0000       Cuts: 7      147   41,56%
+      0     0    41661,9208    20    70911,0000       Cuts: 5      157   41,25%
+      0     0    41700,5153    20    70911,0000       Cuts: 2      160   41,19%
+      0     0    41712,7562    20    70911,0000       Cuts: 3      161   41,18%
+      0     0    41721,2098    22    70911,0000       Cuts: 2      162   41,16%
+*     0+    0                        65192,6000    41721,2098            36,00%
+*     0+    0                        48143,8000    41721,2098            13,34%
+      0     0        cutoff          48143,8000    48143,8000      162    0,00%
+Elapsed time = 0,67 sec. (10,99 ticks, tree = 0,01 MB, solutions = 9)
+
+Implied bound cuts applied:  5
+Mixed integer rounding cuts applied:  1
+Zero-half cuts applied:  9
+Lift and project cuts applied:  1
+Gomory fractional cuts applied:  13
+
+Root node processing (before b&c):
+  Real time             =    0,67 sec. (11,00 ticks)
+Parallel b&c, 20 threads:
+  Real time             =    0,00 sec. (0,00 ticks)
+  Sync time (average)   =    0,00 sec.
+  Wait time (average)   =    0,00 sec.
+                          ------------
+Total (root+branch&cut) =    0,67 sec. (11,00 ticks)
+
+<<< solve
+
+
+OBJECTIVE: 48143.8
+xxxx
+#Result <fct_obj, tot_cst, tot_ldt, Emiss>: <48144 48133 11 4.5944e+5>#TS:48132.8#A:[0,2,5,4]#X:[0,1,1,1]#E: 459440#DELIVER:
+S10=>P2
+S10=>P3
+xxxx
+
+<<< post process
+
+
+<<< done
+

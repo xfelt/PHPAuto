@@ -51,7 +51,7 @@ function generateMultiObjConfigurations(array $baseConfig, int $numParetoPoints 
             "NUM_PARETO_POINTS" => $numParetoPoints,
             // Default emission parameters (can be overridden)
             "_EMISCAP_" => 2500000,
-            "_EMISTAXE_" => 0.01
+            "_EMISTAXE_" => 0.0
         ];
 
         $tabRuns[] = $tabRun;

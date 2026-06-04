@@ -66,6 +66,30 @@ class SynthesisGenerator {
         }
         return $data;
     }
+
+    /**
+     * Determine whether a solution may support behavioral comparisons.
+     */
+    private function isComparisonAdmissible(array $row): bool {
+        if (array_key_exists('comparison_admissible', $row)
+            && $row['comparison_admissible'] !== '') {
+            return in_array(
+                strtolower(trim((string)$row['comparison_admissible'])),
+                ['1', 'true', 'yes'],
+                true
+            );
+        }
+
+        $status = strtoupper(trim((string)($row['solver_status'] ?? '')));
+        if ($status === 'OPTIMAL') {
+            return true;
+        }
+
+        return $status === 'FEASIBLE'
+            && isset($row['mip_gap'])
+            && is_numeric($row['mip_gap'])
+            && (float)$row['mip_gap'] <= 1.0;
+    }
     
     /**
      * Generate the full synthesis document
@@ -107,10 +131,17 @@ class SynthesisGenerator {
         $optimalRuns = count(array_filter($this->consolidatedData, function($r) {
             return ($r['solver_status'] ?? '') === 'OPTIMAL';
         }));
-        $successRate = $totalRuns > 0 ? round(($optimalRuns / $totalRuns) * 100, 1) : 0;
+        $infeasibleRuns = count(array_filter($this->consolidatedData, function($r) {
+            return ($r['solver_status'] ?? '') === 'INFEASIBLE';
+        }));
+        $comparisonAdmissibleRuns = count(array_filter(
+            $this->consolidatedData,
+            function($r) { return $this->isComparisonAdmissible($r); }
+        ));
         
         $summary .= "This synthesis presents results from a comprehensive numerical campaign comprising **{$totalRuns} optimization runs** ";
-        $summary .= "with an overall success rate of **{$successRate}%** achieving optimal solutions.\n\n";
+        $summary .= "with **{$optimalRuns} optimal solutions**, **{$comparisonAdmissibleRuns} comparison-admissible solutions**, ";
+        $summary .= "and **{$infeasibleRuns} reported infeasible policy scenarios**.\n\n";
         
         $summary .= "**Key Findings:**\n\n";
         
@@ -215,7 +246,7 @@ class SynthesisGenerator {
         $section .= "Baseline emissions (with zero carbon tax) scale with BOM complexity:\n\n";
         
         // Sample emissions data
-        $section .= "| BOM Size | Emissions (kg CO₂) | Buffers |\n";
+        $section .= "| BOM Size | Emissions (g CO₂) | Buffers |\n";
         $section .= "|----------|-------------------|----------|\n";
         
         $sampleSizes = [5, 13, 26, 50, 100];
@@ -245,7 +276,7 @@ class SynthesisGenerator {
         
         if (isset($this->experimentData['carbon_tax_sweep'])) {
             $taxData = array_filter($this->experimentData['carbon_tax_sweep'], function($r) {
-                return ($r['solver_status'] ?? '') === 'OPTIMAL';
+                return $this->isComparisonAdmissible($r);
             });
             
             if (!empty($taxData)) {
@@ -257,7 +288,7 @@ class SynthesisGenerator {
                 }
                 
                 $section .= "Carbon tax policy analysis across representative instances:\n\n";
-                $section .= "| Instance | Tax=0.00 | Tax=0.02 | Tax=0.05 | Emissions Δ |\n";
+                $section .= "| Instance | EmisTax=0 | EmisTax=50 | EmisTax=100 | Emissions Δ |\n";
                 $section .= "|----------|----------|----------|----------|-------------|\n";
                 
                 foreach ($byInstance as $inst => $rows) {
@@ -275,8 +306,8 @@ class SynthesisGenerator {
                         $emis = (float)($r['total_emissions'] ?? 0);
                         
                         if ($tax == 0) $baseline = $emis;
-                        elseif ($tax == 0.02) $tax02 = $emis;
-                        elseif ($tax == 0.05) $tax05 = $emis;
+                        elseif ($tax == 50.0) $tax02 = $emis;
+                        elseif ($tax == 100.0) $tax05 = $emis;
                     }
                     
                     $delta = ($baseline && $tax05) ? 
@@ -297,7 +328,7 @@ class SynthesisGenerator {
         
         if (isset($this->experimentData['carbon_cap_sweep'])) {
             $capData = array_filter($this->experimentData['carbon_cap_sweep'], function($r) {
-                return ($r['solver_status'] ?? '') === 'OPTIMAL';
+                return $this->isComparisonAdmissible($r);
             });
             
             $section .= "Emission cap tightening analysis reveals the compliance cost curve:\n\n";
@@ -313,8 +344,12 @@ class SynthesisGenerator {
         $section .= "### 2.3 Hybrid Strategy\n\n";
         
         if (isset($this->experimentData['carbon_hybrid'])) {
-            $hybridData = array_filter($this->experimentData['carbon_hybrid'], function($r) {
-                return ($r['solver_status'] ?? '') === 'OPTIMAL';
+            $allHybridData = $this->experimentData['carbon_hybrid'];
+            $hybridData = array_filter($allHybridData, function($r) {
+                return $this->isComparisonAdmissible($r);
+            });
+            $infeasibleHybrid = array_filter($allHybridData, function($r) {
+                return ($r['solver_status'] ?? '') === 'INFEASIBLE';
             });
             
             $section .= "The hybrid tax+cap strategy combines the benefits of both mechanisms:\n\n";
@@ -322,9 +357,9 @@ class SynthesisGenerator {
             $section .= "2. **Tax provides incentive:** Financial motivation for beyond-compliance reductions\n";
             $section .= "3. **Flexibility:** Multiple policy combinations tested\n\n";
             
-            if (!empty($hybridData)) {
-                $section .= "Total hybrid scenarios tested: " . count($hybridData) . "\n\n";
-            }
+            $section .= "Total combined scenarios tested: " . count($allHybridData) . "\n";
+            $section .= "Comparison-admissible scenarios: " . count($hybridData) . "\n";
+            $section .= "Infeasible policy scenarios: " . count($infeasibleHybrid) . "\n\n";
         }
         
         return $section;
@@ -340,7 +375,7 @@ class SynthesisGenerator {
         
         // Extract buffer statistics from all data
         $optimalData = array_filter($this->consolidatedData, function($r) {
-            return ($r['solver_status'] ?? '') === 'OPTIMAL';
+            return $this->isComparisonAdmissible($r);
         });
         
         if (!empty($optimalData)) {
@@ -373,7 +408,7 @@ class SynthesisGenerator {
         
         if (isset($this->experimentData['service_time_sensitivity'])) {
             $svtData = array_filter($this->experimentData['service_time_sensitivity'], function($r) {
-                return ($r['solver_status'] ?? '') === 'OPTIMAL';
+                return $this->isComparisonAdmissible($r);
             });
             
             if (!empty($svtData)) {
@@ -467,11 +502,11 @@ class SynthesisGenerator {
             $nlmData = $this->experimentData['nlm_comparison'];
             
             $plmData = array_filter($nlmData, function($r) {
-                return ($r['model_type'] ?? '') === 'PLM' && ($r['solver_status'] ?? '') === 'OPTIMAL';
+                return ($r['model_type'] ?? '') === 'PLM' && $this->isComparisonAdmissible($r);
             });
             
             $nlmOnly = array_filter($nlmData, function($r) {
-                return ($r['model_type'] ?? '') === 'NLM' && ($r['solver_status'] ?? '') === 'OPTIMAL';
+                return ($r['model_type'] ?? '') === 'NLM' && $this->isComparisonAdmissible($r);
             });
             
             if (!empty($plmData) && !empty($nlmOnly)) {
@@ -502,8 +537,13 @@ class SynthesisGenerator {
         $optimalRuns = count(array_filter($this->consolidatedData, function($r) {
             return ($r['solver_status'] ?? '') === 'OPTIMAL';
         }));
+        $comparisonAdmissibleRuns = count(array_filter(
+            $this->consolidatedData,
+            function($r) { return $this->isComparisonAdmissible($r); }
+        ));
         
-        $section .= "This comprehensive numerical campaign ({$totalRuns} runs, {$optimalRuns} optimal) demonstrates that:\n\n";
+        $section .= "This comprehensive numerical campaign ({$totalRuns} runs, {$optimalRuns} optimal, ";
+        $section .= "{$comparisonAdmissibleRuns} comparison-admissible) demonstrates that:\n\n";
         
         $section .= "1. **The integrated DDMRP-supplier-carbon model is computationally tractable** for industrial-scale supply chains\n\n";
         $section .= "2. **Carbon policy effectiveness varies by mechanism:**\n";
