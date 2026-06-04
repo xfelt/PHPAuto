@@ -575,7 +575,11 @@ class FinalCampaignRunner {
                 '_SUPP_DETAILS_FILE_' => $suppDetailsFile,
                 '_NBSUPP_' => $expConfig['suppliers'],
                 '_SERVICE_T_' => $expConfig['service_time'],
-                '_EMISCAP_' => 2500000,
+                // The multi-objective model enforces both ct9 (Emis <= EmisCap) and the epsilon
+                // constraints. A tight 2.5M cap is binding (baselines run 3M-42M) and made the
+                // ideal/nadir runs infeasible, yielding empty Pareto fronts. Keep the hard cap
+                // non-binding (just under INT32_MAX) so only the epsilon constraints shape the front.
+                '_EMISCAP_' => 2000000000,
                 '_EMISTAXE_' => 0.0
             ];
             
@@ -598,25 +602,21 @@ class FinalCampaignRunner {
             $costDIOPareto = MultiObjectiveRunner::generateCostDIOPareto(
                 $baseRun, $modelFile, $this->dataDir, $this->oplRunPath, $idealNadir, $numPoints
             );
-            
-            // Generate Cost-WIP Pareto front
-            echo "    Generating Cost-WIP Pareto front...\n";
-            $costWIPPareto = MultiObjectiveRunner::generateCostWIPPareto(
-                $baseRun, $modelFile, $this->dataDir, $this->oplRunPath, $idealNadir, $numPoints
-            );
-            
+
+            // Cost-WIP front is skipped: the WIP epsilon-constraint is non-convex (bilinear z*y)
+            // and disabled in the model, so varying epsilon_WIP would yield a degenerate front.
+            // WIP is still reported as an output column on the Cost-Emissions/Cost-DIO points.
+            $costWIPPareto = [];
+
             // Save Pareto fronts
             $paretoDir = $this->resultsDir . 'pareto' . DIRECTORY_SEPARATOR;
             if (!is_dir($paretoDir)) mkdir($paretoDir, 0755, true);
-            
+
             MultiObjectiveRunner::exportParetoToCSV(
                 $costEmisPareto, $paretoDir . "{$instanceId}_cost_emissions_pareto.csv", 'Cost-Emissions'
             );
             MultiObjectiveRunner::exportParetoToCSV(
                 $costDIOPareto, $paretoDir . "{$instanceId}_cost_dio_pareto.csv", 'Cost-DIO'
-            );
-            MultiObjectiveRunner::exportParetoToCSV(
-                $costWIPPareto, $paretoDir . "{$instanceId}_cost_wip_pareto.csv", 'Cost-WIP'
             );
             
             // Save ideal/nadir
@@ -717,9 +717,11 @@ class FinalCampaignRunner {
         try {
             $cmdLine = '"' . $this->oplRunPath . '" ' . escapeshellarg($preparedModel);
             $rawOutput = shell_exec($cmdLine);
-            
+
             if ($rawOutput) {
-                $result = CplexRunner::run($preparedModel, $this->oplRunPath);
+                // Parse the already-captured output instead of re-running oplrun (which doubled
+                // the campaign runtime by executing every instance twice).
+                $result = CplexRunner::parse($rawOutput);
                 $result['_raw_output'] = $rawOutput;
             } else {
                 $result = ['status' => 'ERROR', 'error' => 'No output'];

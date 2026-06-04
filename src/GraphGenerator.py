@@ -194,7 +194,7 @@ class GraphGenerator:
         ax.bar(df['bom_size'].astype(str), df['total_emissions'] / 1e6, color='#E94F37', alpha=0.7, edgecolor='black')
         
         ax.set_xlabel('BOM Size (number of components)')
-        ax.set_ylabel('Baseline Emissions (Million kg CO₂)')
+        ax.set_ylabel('Baseline Emissions (Tonnes CO₂)')
         ax.set_title('Baseline Carbon Emissions by BOM Complexity')
         
         plt.xticks(rotation=45, ha='right')
@@ -262,7 +262,7 @@ class GraphGenerator:
                            marker='s', label=instance, color=colors[i], linewidth=2, markersize=6)
         
         axes[0].set_xlabel('Carbon Tax Rate ($/unit)')
-        axes[0].set_ylabel('Total Emissions (Million kg CO₂)')
+        axes[0].set_ylabel('Total Emissions (Tonnes CO₂)')
         axes[0].set_title('Emissions Response to Carbon Tax')
         axes[0].legend(loc='best', fontsize=8)
         
@@ -347,7 +347,7 @@ class GraphGenerator:
                     ax.annotate(label, (row['total_emissions']/1e6, row['total_cost_with_tax']/1e3),
                               fontsize=7, xytext=(5, 5), textcoords='offset points')
                 
-                ax.set_xlabel('Total Emissions (Million kg CO₂)')
+                ax.set_xlabel('Total Emissions (Tonnes CO₂)')
                 ax.set_ylabel('Total Cost (Thousand $)')
                 ax.set_title(f'Hybrid Strategy Trade-offs: {instance}')
                 
@@ -380,7 +380,7 @@ class GraphGenerator:
                       c=color, s=60, alpha=0.6, label=strategy,
                       edgecolors='black', linewidths=0.3)
         
-        ax.set_xlabel('Total Emissions (Million kg CO₂)')
+        ax.set_xlabel('Total Emissions (Tonnes CO₂)')
         ax.set_ylabel('Total Cost (Thousand $)')
         ax.set_title('Cost-Emissions Trade-offs by Carbon Policy Strategy')
         ax.legend(title='Strategy', loc='best')
@@ -433,7 +433,7 @@ class GraphGenerator:
         for patch, color in zip(bp2['boxes'], colors):
             patch.set_facecolor(color)
             patch.set_alpha(0.7)
-        axes[1].set_ylabel('Total Emissions (Million kg CO₂)')
+        axes[1].set_ylabel('Total Emissions (Tonnes CO₂)')
         axes[1].set_title('Emissions Distribution by Strategy')
         
         # Buffer count comparison
@@ -544,7 +544,7 @@ class GraphGenerator:
         for patch, color in zip(bp1['boxes'], colors):
             patch.set_facecolor(color)
             patch.set_alpha(0.7)
-        axes[0].set_ylabel('Total Emissions (Million kg CO₂)')
+        axes[0].set_ylabel('Total Emissions (Tonnes CO₂)')
         axes[0].set_title('Emissions by BOM Topology')
         
         # Buffers by topology
@@ -625,7 +625,7 @@ class GraphGenerator:
                     ax.plot(df['Emissions'] / 1e6, df['Cost'] / 1e3, 
                            marker='o', label=instance, linewidth=2, markersize=6)
             
-            ax.set_xlabel('Total Emissions (Million kg CO₂)')
+            ax.set_xlabel('Total Emissions (Tonnes CO₂)')
             ax.set_ylabel('Total Cost (Thousand $)')
             ax.set_title('Cost-Emissions Pareto Front')
             ax.legend(loc='best')

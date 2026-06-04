@@ -1,0 +1,17 @@
+\begin{table}[!htbp]\centering\small
+\caption{Pseudo-linear (PLM) versus non-linear (NLM) model: cost and runtime. The NLM solve time is bounded to 300\,s.}\label{tab:plmnlm}
+\begin{tabular}{llcccc}
+\toprule
+ & & \multicolumn{2}{c}{PLM} & \multicolumn{2}{c}{NLM}\\
+\cmidrule(lr){3-4}\cmidrule(lr){5-6}
+Instance & Strategy & Cost & RT (s) & Cost & RT (s)\\
+\midrule
+bom\_5 & EMISCAP & 50\,264 & 0.05 & 50\,264 & 0.29 \\
+bom\_5 & EMISTAXE & 82\,380 & 0.05 & 82\,380 & 1.26 \\
+bom\_13 & EMISCAP & 105\,510 & 0.11 & 105\,510 & 300.02 \\
+bom\_13 & EMISTAXE & 346\,417 & 0.09 & 346\,417 & 22.95 \\
+bom\_26 & EMISCAP & 909\,180 & 0.95 & 913\,300 & 300.04 \\
+bom\_26 & EMISTAXE & 1\,578\,556 & 1.20 & 1\,578\,556 & 300.05 \\
+\bottomrule
+\end{tabular}
+\end{table}

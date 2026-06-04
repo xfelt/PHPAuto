@@ -100,10 +100,15 @@ class KPICalculator {
         $emisCost = $this->extractNumeric($result, ['EmisCost', 'TaxCost']);
         $objective = $this->extractNumeric($result, ['Result.fctObj', 'Result.Objective']);
         
-        // If Result is an array, extract from it
+        // The Result vector is rounded to ~6 significant figures, so only use it as a fallback
+        // when the full-precision explicit fields (#TS, objective) are unavailable.
         if (isset($result['Result']) && is_array($result['Result'])) {
-            $objective = $result['Result']['fctObj'] ?? $result['Result']['Objective'] ?? $objective;
-            $totalCostTS = $result['Result']['StCosts'] ?? $result['Result']['TotalCost'] ?? $totalCostTS;
+            if ($objective === null) {
+                $objective = $result['Result']['fctObj'] ?? $result['Result']['Objective'] ?? null;
+            }
+            if ($totalCostTS === null) {
+                $totalCostTS = $result['Result']['StCosts'] ?? $result['Result']['TotalCost'] ?? null;
+            }
         }
         
         // Get emissions and tax rate for calculating carbon cost
@@ -168,10 +173,26 @@ class KPICalculator {
      * Compute carbon/environmental KPIs
      */
     private function computeCarbonKPIs(array $result, string $instanceId): array {
-        $totalEmissions = $this->extractNumeric($result, ['E', 'Emis', 'Result.emiss', 'Result.Emiss']);
-        
+        // The explicit "#E:" field carries full precision, but OPL coerces the large float
+        // emissions to a 32-bit int on that write, clamping to 2^31-1 (2147483647) for big
+        // instances. The "#Result" values vector keeps the correct (float) emissions, so we
+        // fall back to it whenever #E is missing or hit the overflow sentinel.
+        $eField = $this->extractNumeric($result, ['E', 'Emis']);
+
+        $resultVecEmis = null;
         if (isset($result['Result']) && is_array($result['Result'])) {
-            $totalEmissions = $result['Result']['emiss'] ?? $result['Result']['Emiss'] ?? $totalEmissions;
+            $candidate = $result['Result']['Emissions'] ?? $result['Result']['Emiss'] ?? $result['Result']['emiss'] ?? null;
+            if (is_numeric($candidate)) {
+                $resultVecEmis = (float)$candidate;
+            }
+        }
+
+        if ($eField !== null && $eField < 2147483647) {
+            $totalEmissions = $eField;
+        } elseif ($resultVecEmis !== null) {
+            $totalEmissions = $resultVecEmis;
+        } else {
+            $totalEmissions = $eField; // may be null or the overflow sentinel as a last resort
         }
         
         // Calculate emission reduction vs baseline
@@ -353,9 +374,15 @@ class KPICalculator {
         $runtime = -1;
         $status = 'UNKNOWN';
         $mipGap = null;
-        
-        // Extract runtime
-        if (isset($result['CplexRunTime'])) {
+
+        // Prefer the explicit solver-reported solve time when available. The CP Optimizer
+        // (NLM) models print "#RT:<cp.info.SolveTime>", which is far more reliable than
+        // pattern-matching the CP log (whose format previously produced spurious values).
+        if (isset($result['RT']) && is_numeric($result['RT'])) {
+            $runtime = (float)$result['RT'];
+        }
+        // Extract runtime from the CPLEX/CP log as a fallback (PLM models).
+        elseif (isset($result['CplexRunTime'])) {
             $runtimeStr = $result['CplexRunTime'];
             // CPLEX format: "Total (root+branch&cut) = 0.16 sec"
             if (preg_match('/([\d,\.]+)\s*sec/', $runtimeStr, $matches)) {

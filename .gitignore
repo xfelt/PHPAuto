@@ -1,1 +1,12 @@
 config/settings.local.php
+
+# Prepared CPLEX/CP model files generated per run from the templates in models/.
+# These are regenerable intermediates (named <PREFIX>_RUNS_SupEmis_*.mod in data/).
+data/*_RUNS_SupEmis_*.mod
+
+# Temporary campaign console logs
+logs/campaign_rerun*_console.log
+
+# Python cache
+__pycache__/
+*.pyc

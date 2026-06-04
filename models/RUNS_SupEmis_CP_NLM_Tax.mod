@@ -56,6 +56,11 @@ execute {
  int EmisCap = _EMISCAP_;
  float EmisTax = _EMISTAXE_;
 
+ // CP Optimizer time limit (seconds) to bound the non-linear solve time.
+ execute {
+     cp.param.TimeLimit = 180;
+ }
+
  execute {
      // init NB_NODE NB_SUPP
      var nbItems = getNbItemsFromFile(nodeSuppFile,1);
@@ -262,6 +267,7 @@ execute {
     }
     write("]");
     write("#E: ",Emis);
+	writeln("#RT:", cp.info.SolveTime);
 	writeln("#DELIVER:");
 	for (var i in N){
 		for (var j in S){

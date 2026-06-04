@@ -37,6 +37,20 @@ class CplexRunner {
     }
 
     /**
+     * Parses raw oplrun output that has already been captured, without re-running CPLEX.
+     * Use this when the caller has already executed oplrun and holds the output string.
+     *
+     * @param string $output Raw output previously captured from oplrun
+     * @return array Parsed results
+     */
+    public static function parse($output) {
+        if (!$output) {
+            return [];
+        }
+        return self::parseOutput($output);
+    }
+
+    /**
      * Parses the raw output from oplrun to extract meaningful results.
      *
      * @param string $output Raw output from oplrun
@@ -72,14 +86,29 @@ class CplexRunner {
                         continue;
                     }
 
-                    if ($key === 'Result' && preg_match('/<([^>]+)>/', $rawValue, $vectorMatch)) {
-                        $components = preg_split('/\s+/', trim(str_replace(',', '.', $vectorMatch[1])));
-                        $labels = ['Objective', 'ServiceCost', 'LateDeliveries', 'Emissions'];
+                    if ($key === 'Result' && preg_match_all('/<([^>]+)>/', $rawValue, $vectorMatches)) {
+                        // The Result line is "#Result <labels>: <values>". The first <...> is the
+                        // textual label list (fct_obj, tot_cst, ...); the numeric values live in the
+                        // last <...> group. Always parse the values vector, never the label.
+                        $vector = end($vectorMatches[1]);
+                        $components = preg_split('/\s+/', trim(str_replace(',', '.', $vector)));
+                        // Positional labels depend on the model: the multi-objective model emits a
+                        // 5-field vector (fctObj, TotalCost, DIO, WIP, Emiss) while the tax/cap models
+                        // emit 4 fields (fctObj, TotalCost, leadTime, Emiss). Emissions are always last.
+                        if (count($components) >= 5) {
+                            $labels = ['Objective', 'TotalCost', 'DIO', 'WIP', 'Emissions'];
+                        } else {
+                            $labels = ['Objective', 'TotalCost', 'LeadTime', 'Emissions'];
+                        }
                         $resultData = [];
                         foreach ($labels as $index => $label) {
                             if (isset($components[$index])) {
                                 $resultData[$label] = self::normalizeScalar($components[$index]);
                             }
+                        }
+                        // Emissions always come from the final component, regardless of arity.
+                        if (!empty($components)) {
+                            $resultData['Emissions'] = self::normalizeScalar(end($components));
                         }
                         if (!empty($resultData)) {
                             $solution['Result'] = $resultData;

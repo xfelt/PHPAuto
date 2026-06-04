@@ -253,9 +253,15 @@ execute {
  	}
  	ct9: Emis<=EmisCap;
  	
- 	// Epsilon constraints for Pareto front generation
+ 	// Epsilon constraints for Pareto front generation.
+ 	// DIO (sum of decoupled lead times) and Emis are linear, so their epsilon constraints are
+ 	// convex and accepted by CPLEX. WIP contains a bilinear z*y term (non-convex): CPLEX
+ 	// auto-linearizes such binary*integer products in the OBJECTIVE but rejects them inside a
+ 	// quadratic constraint (Error 5002 'not convex'). The Cost-WIP front is therefore generated
+ 	// by minimizing WIP directly (obj_primary=3); WIP is still reported as an output at every
+ 	// Pareto point, but it is not epsilon-constrained here.
  	ct_epsilon_DIO: DIO <= epsilon_DIO;      // Constraint on DIO
- 	ct_epsilon_WIP: WIP <= epsilon_WIP;       // Constraint on WIP
+ 	// ct_epsilon_WIP: WIP <= epsilon_WIP;   // disabled: non-convex (see note above)
  	ct_epsilon_Emis: Emis <= epsilon_Emis;     // Constraint on Emissions
  	
 	forall (i in N){

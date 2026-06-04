@@ -1,0 +1,645 @@
+%% 
+%% Copyright 2007-2020 Elsevier Ltd
+%% 
+%% This file is part of the 'Elsarticle Bundle'.
+%% ---------------------------------------------
+%% 
+%% It may be distributed under the conditions of the LaTeX Project Public
+%% License, either version 1.2 of this license or (at your option) any
+%% later version.  The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.2 or later is part of all distributions of LaTeX
+%% version 1999/12/01 or later.
+%% 
+%% The list of all files belonging to the 'Elsarticle Bundle' is
+%% given in the file `manifest.txt'.
+%% 
+%% Template article for Elsevier's document class `elsarticle'
+%% with harvard style bibliographic references
+
+\documentclass[preprint,12pt,authoryear]{elsarticle}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{cleveref}
+
+%% Use the option review to obtain double line spacing
+%% \documentclass[authoryear,preprint,review,12pt]{elsarticle}
+
+%% Use the options 1p,twocolumn; 3p; 3p,twocolumn; 5p; or 5p,twocolumn
+%% for a journal layout:
+%% \documentclass[final,1p,times,authoryear]{elsarticle}
+%% \documentclass[final,1p,times,twocolumn,authoryear]{elsarticle}
+%% \documentclass[final,3p,times,authoryear]{elsarticle}
+%% \documentclass[final,3p,times,twocolumn,authoryear]{elsarticle}
+%% \documentclass[final,5p,times,authoryear]{elsarticle}
+%% \documentclass[final,5p,times,twocolumn,authoryear]{elsarticle}
+
+%% For including figures, graphicx.sty has been loaded in
+%% elsarticle.cls. If you prefer to use the old commands
+%% please give \usepackage{epsfi.g}
+
+%% The amssymb package provides various useful mathematical symbols
+\usepackage{amssymb}
+%% The amsthm package provides extended theorem environments
+%% \usepackage{amsthm}
+
+%% The lineno packages adds line numbers. Start line numbering with
+%% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
+%% for the whole article with \linenumbers.
+%% \usepackage{lineno}
+
+\journal{Journal of Cleaner Production}
+
+\begin{document}
+
+\begin{frontmatter}
+
+%% Title, authors and addresses
+
+%% use the tnoteref command within \title for footnotes;
+%% use the tnotetext command for theassociated footnote;
+%% use the fnref command within \author or \affiliation for footnotes;
+%% use the fntext command for theassociated footnote;
+%% use the corref command within \author for corresponding author footnotes;
+%% use the cortext command for theassociated footnote;
+%% use the ead command for the email address,
+%% and the form \ead[url] for the home page:
+%% \title{Title\tnoteref{label1}}
+%% \tnotetext[label1]{}
+%% \author{Name\corref{cor1}\fnref{label2}}
+%% \ead{email address}
+%% \ead[url]{home page}
+%% \fntext[label2]{}
+%% \cortext[cor1]{}
+%% \affiliation{organization={},
+%%            addressline={}, 
+%%            city={},
+%%            postcode={}, 
+%%            state={},
+%%            country={}}
+%% \fntext[label3]{}
+
+\title{Demand Driven MRP buffer positioning and inventory allocation with suppliers selection considering carbon emissions for a green supply chain}
+
+%% use optional labels to link authors explicitly to addresses:
+%% \author[label1,label2]{}
+%% \affiliation[label1]{organization={},
+%%             addressline={},
+%%             city={},
+%%             postcode={},
+%%             state={},
+%%             country={}}
+%%
+%% \affiliation[label2]{organization={},
+%%             addressline={},
+%%             city={},
+%%             postcode={},
+%%             state={},
+%%             country={}}
+
+\author[1]{ACHERGUI Abdelhalim}
+\author[1]{ALLAOUI Hamid}
+\author[1]{HSU Tienté}
+
+\affiliation[1]{organization={LGI2A - UR 3926, Université d'Artois},%Department and Organization
+            city={Béthune},
+            postcode={62400}, 
+            country={France}}
+
+\begin{abstract}
+%With recent chaotic changes in the supply world, decision makers face more complex constraints and rigorous policies to operate their supply chains. This work presents a new approach to the Demand Driven Material Requirements Planning (DDMRP) to make it resilient to sourcing risks and compliant with ecological criteria. As imposed by the multi-echelon aspect, inventories must be designed and positioned taking into consideration other echelons like supply and transportation. We do so by modeling the different emissions of storing and transporting activities and including them under two ecological strategies in a Mixed Integer Quadratically Constrained Program for positioning DDMRP stocks with suppliers selection. Deterministic lead times are considered for a single product manufacturing process with multiple suppliers in a guaranteed service setup with all the DDMRP conditions to solve the problem. The model is solved using the CPLEX solver for multiple instances under a wide range of parameters, exploring the sensibility of the proposed strategies. The results provide an assessment of the correlation of DDMRP buffers with supplier selection under ecological restrictions.%
+In the face of recent turbulence in global supply chains, decision-makers are grappling with increasingly complex challenges and stringent regulations. This study presents an innovative approach to enhance the robustness of Demand Driven Material Requirements Planning (DDMRP) while aligning with ecological sustainability criteria. Our focus lies in the intricate landscape of multi-echelon supply chains, where inventory strategies need to account for various tiers, including supply and transportation.
+To achieve this, we've developed a comprehensive model that considers the environmental impact of warehousing, transportation and supply activities. This environmental perspective is integrated into three ecological strategies, a carbon tax, an emission cap and a hybrid combination of both, within a Mixed Integer Quadratically Constrained Program, allowing for the strategic positioning of DDMRP buffers alongside supplier selection. Our research considers deterministic lead times in the context of a single-product manufacturing process involving multiple suppliers, within a framework of guaranteed service that adheres to the core principles of DDMRP. A pseudo-linearization of the model enables the CPLEX solver to efficiently address this complex problem, matching the solution quality of the non-linear formulation while remaining tractable for instances of up to 150 components. Through extensive experimentation across a range of parameters, we've gained valuable insights into the sensitivity and effectiveness of our proposed ecological strategies within the DDMRP framework.
+Our findings shed light on the intricate relationship between buffer placement and supplier choices, all within the context of ecological constraints. This research contributes to the ongoing discourse on sustainable supply chain management by offering a systematic approach to integrating environmental considerations into DDMRP decision-making. Our aim is to provide practical guidance to supply chain practitioners as they navigate the delicate balance between operational efficiency, risk management, and ecological responsibility in today's dynamic supply chain landscape.
+
+\end{abstract}
+
+%%Graphical abstract
+%\begin{graphicalabstract}
+%\includegraphics{grabs}
+%\end{graphicalabstract}
+
+%%Research highlights
+%\begin{highlights}
+%\item Research highlight 1
+%\item Research highlight 2
+%\end{highlights}
+
+\begin{keyword}
+%% keywords here, in the form: keyword \sep keyword
+DDMRP \sep Inventory positioning \sep Supplier selection \sep Carbon footprint
+%% PACS codes here, in the form: \PACS code \sep code
+
+%% MSC codes here, in the form: \MSC code \sep code
+%% or \MSC[2008] code \sep code (2000 is the default)
+
+\end{keyword}
+
+\end{frontmatter}
+
+%% \linenumbers
+
+%% main text
+\section{Introduction}\label{Intro}
+The industry world knows a new era after the recent pandemic. More complex constraints and rigorous policies are imposed on the actual supply chain network. Different approaches emerged to face the sourcing risks and remain as sustainable as possible. With it came the need for tools and methods to help managers and decision makers make the right decisions in the most optimal way. Client satisfaction and cost minimization remain, for now, the main objectives of good supply chain management. Although, the reduction of the carbon footprint is becoming a major concern to save the earth's resources. Shifting to a more ecological and sustainable mode of operation is now more than ever a necessity.
+
+The main challenge in this article is to look into the strategic level of the supply chain for a better scope of application of DDMRP in a green ecological approach. To do so, a multi-criteria decision analysis is conducted to investigate the different aspects of cost, delivery time, and carbon emissions. First, an evaluation model is presented to evaluate the quantity of CO2 produced by the operations. These considered emissions are mainly due to storage and transportation activities. Second, three ecological strategies are considered to deal with the carbon footprint: the carbon emissions tax, the carbon emissions cap limit, and a hybrid strategy combining both mechanisms. The DDMRP inventory positioning and supplier selection model would then take into account the ecological impact of both the warehouse and supply echelons. This is developed by combining the inventory positioning model and the suppliers selection process with new constraints related to the amount of CO2 emitted.
+
+Demand Driven Material Requirements Planning emerged as a practitioner-driven evolution of MRP \citep{ptak2019}, and recent studies have assessed its performance and applicability in increasingly complex manufacturing settings \citep{miclo2019,velasco2020}. While the standard DDMRP guidance for strategic buffer positioning remains largely qualitative, a stream of optimization-based formulations has been proposed to support these decisions, including our own earlier work on strategic buffer positioning for hybrid MTO/MTS systems \citep{achergui1}, its optimization and linearization \citep{achergui2}, its extension to carbon emissions \citep{achergui3}, and its coupling with supplier selection \citep{ACHERGUI4}. In parallel, the operations management literature has extensively studied the integration of carbon considerations into supply chain planning, from carbon-aware lot sizing \citep{absi2013} to the analysis of cost--emission trade-offs under carbon prices and caps \citep{benjaafar2013,Choi2013}. The present article unifies these two threads by jointly optimizing DDMRP buffer positioning and supplier selection while explicitly modeling and constraining the carbon footprint of the storage, transportation and supply echelons.
+
+In Section 2, the problem definition is presented by explaining the correlation of inventory positioning and supplier selection with carbon emissions. In this section, some assumptions and considerations are also to allow for a reliable modeling of the real industrial problem. Section 3 explains how to deal with these emissions and how the problem is integrated to formulate the final model. The solution approach to solve the new problem is introduced in Section 4. Section 5 presents the computational experiments and the analysis of the results. Finally, Section 6 concludes the work studied in this article.
+
+\section{Problem definition}\label{sec2}
+\subsection{DDMRP method}
+Demand Driven Material Requirements Planning (DDMRP) is a multi-echelon planning and execution method that blends elements of MRP, Distribution Requirements Planning, lean and the theory of constraints to protect and promote the flow of materials and information \cite{ptak2019}. Its central idea is to decouple the supply chain by placing strategically positioned inventory buffers that absorb demand and supply variability and compress the cumulative lead time seen by the customer. The method is organised around five sequential components: (i) strategic inventory positioning, which decides where buffers should be placed along the bill of materials (BOM); (ii) buffer profiles and levels, which size the buffers; (iii) dynamic adjustments, which adapt buffers to changing conditions; (iv) demand-driven planning, which generates replenishment orders; and (v) visible and collaborative execution.
+
+Each buffer is described by three cumulative zones. The red zone provides safety against variability, the yellow zone covers demand over the decoupled lead time, and the green zone controls the replenishment frequency and order size. These zones are computed from the average daily usage ($adu$), the decoupled lead time of the node, a lead time factor $ltf_{i}$ and a variability factor $varf_{i}$. Replenishment is then governed by the net flow equation, where the net flow position equals on-hand plus on-order inventory minus the qualified demand; an order is launched whenever this position drops into the yellow zone. The first component, strategic inventory positioning, is the most strategic decision and the one addressed in this work, since it conditions the decoupled lead times and therefore the size, cost and carbon footprint of every buffer.
+
+\subsection{Strategic inventory positioning}
+The placement of the decoupling points dictates the decoupled lead time $a_{i}$ of every node of the BOM and, consequently, the average on-hand inventory $aoi_{i}$, the holding cost and the emissions of each potential buffer. Positioning too many buffers inflates the holding cost and the capital immobilization, whereas positioning too few lengthens the lead time exposed to the customer and jeopardizes the service commitment. Strategic inventory positioning therefore consists in selecting the subset of BOM nodes to buffer so that the promised customer service time $SvT$ is honoured at the lowest possible cost.
+
+We adopt the guaranteed service model (GSM) framework \cite{graves2000}, in which every node quotes a guaranteed service time to its successors and is itself replenished within its decoupled lead time, so that demand is always fully satisfied. A buffered node decouples its predecessors and resets the lead time accumulation, while an unbuffered node propagates the lead time of its components. The qualitative DDMRP positioning factors, such as the customer tolerance time, the external variability, the inventory leverage and flexibility, and the protection of critical operations, indicate which nodes are natural buffer candidates. In this work these guidelines are cast as a formal optimization over binary buffer-placement variables $x_{i}$, which is then coupled with the supplier selection decision and extended with the carbon emissions of each echelon, as detailed next.
+
+\subsection{DDMRP inventory positioning with multi-sourcing considering carbon emissions}\label{ss:ddmrp}
+A multi-echelon supply chain network environment is considered for this study. A final product $i=1$ with its components $i\in N-\{0,1\}$, represented by a BOM, is joined by a list of pre-selected suppliers $S$ for the replenishment and delivery of raw materials and outsourced parts $i\in Dm$ to be delivered in a service time $SvT$ to a certain client $i=0$. All the conditions for a DDMRP implementation are provided. The deterministic aspect of manufacturing lead times and delivery times is compensated for by the lead time factor included in the DDMRP equations. The approach of the guaranteed service model is considered to ensure the full satisfaction of the demand. Production and storage capacity are supposed to be infinite, whereas the capacity of suppliers is limited. Although a component may be part of a different final product, in this work, it serves only one downstream component, and a new BOM is considered for the new final product.
+
+The models developed in \cite{ACHERGUI4}, which couples the buffer positioning with supplier selection, and in \cite{achergui3}, which introduces carbon emissions into the buffer positioning problem, are considered as a basis to expand the problem and jointly account for supplier selection and carbon emissions of different stages of the supply chain. The objective function minimizes the total costs of replenishment and storage along the BOM. Constraints of delivery time and supply capacity are set to push the model to find the optimal solution to the problem. Taking into account the carbon footprint would require quantifying the amount of CO2 emitted by the different operations that occur during the operations. Then to integrate this value into our model, we got two options: either in the objective function or in the problem constraints. We proceed by proposing two complementary strategies, one for each option, together with a hybrid strategy that activates both simultaneously.
+\subsubsection{Carbon emissions modeling}\label{ss:co2}
+This modeling presented by a function is introduced to quantify the carbon emissions generated by the supply chain. Specifying the different sources of CO2 allows a clear simulation of the real world. For the environment considered, the emissions are mainly due to transportation and inventory setup. And since companies are now obliged to include their scope 3 emissions, they would also be considered in the model as supply emissions \citep{huang2009categorization}. It is more efficient to focus on these three main sources, as they are directly affected by the positions of inventories and the suppliers selection decision. We will go on later in detail about this impact. The carbon emissions function $E$ is then the sum of transportation emissions $TE$ and storage emissions $WE$ for every middle component plus the supply emissions $SE$ of the delivered materials. The supply emissions are considered null for non-deliverable materials. Then this function would be formulated as below, with $X=\{x_{i}\},\quad \forall i\in N$ the decision variable for inventory positioning.
+\begin{equation}
+    E(X,Q) = \sum_{\forall i\in N}\sum_{\forall j\in S} E(x_{i},q_{i,j}) = \sum_{\forall i\in N} [TE(x_{i}) + WE(x_{i}) + \sum_{\forall j\in S} SE(q_{i,j})]
+\end{equation}
+\textbf{Transportation emissions}\\
+Getting products from point A to point B is the main line of flow management. Internal between sites or external between echelons of the supply chain, transportation ensures this mission by a multi-modal service provision.
+Emissions related to external inventory movements by selected suppliers would be included in supply emissions $SE$ detailed later in this section. On a strategic level, this study focuses on internal transportation between the sites that handle the BOM elements. The listing of every replenishment order would be complicated at this level of analysis. For simplification purposes, internal transportation emissions are considered for the average on hand inventory where each item i has a quantity of emissions $\beta_{i}$.
+
+It is observed by the results of the inventory positioning models developed previously that decoupling points allow a reduction of replenishment orders frequency compared to non-decoupled points that had no inventory. This is related to the need for daily deliveries to compensate for the lack of stored parts. The carbon emissions emitted by replenishment activity are then reduced by a factor $R$ for parts with buffers. This factor is related to the dimensions of the buffer, as it covers the maximum lead time of the product's components by which the replenishment is received. Based on previous simulations and the average lead time of the instances studied, for this work, we consider the factor to be equal to $R=3$. The transportation emissions will then be equal to $\beta^{*}=\beta/R$, for the parts where an inventory is positioned. The transportation emissions of an item $i$ are expressed as follows:
+\begin{equation}
+    TE(x_{i}) = \beta^{*} \cdot aoi_{i} \cdot x_{i} + \beta \cdot aoi_{i} \cdot (1-x_{i}),\quad \forall i\in N\label{eq:TE}
+\end{equation}
+\textbf{Storing emissions}\\
+These emissions occur in the event that a component is stored along the BOM. Setting up an inventory produces two sources of emissions: constant and variable emissions.
+\begin{equation}
+    WE(x_{i}) = CWE(x_{i}) + VWE(x_{i}), \quad \forall i\in N\label{eq:WE}
+\end{equation}
+Constant emissions $\alpha^{*}$ are due to fixed operating resources in the storage facility, such as the energy consumed and the human resources needed. It could be product-specific in the case of condition-sensitive products, as they require special storage facilities. For this work, its amount is supposed to be the same for all items, as we consider the same storing conditions.
+\begin{equation}
+    CWE(x_{i}) = \alpha^{*} \cdot x_{i}, \quad \forall i\in N
+\end{equation}
+The variable emissions $\alpha_{i}$ are related to the amount of products stored in the facility. Each product represents a fraction of potential waste as it has a risk of fading or deterioration during its handling operations, which all contributes to its carbon footprint.
+\begin{equation}
+    VWE(x_{i}) = \alpha_{i} \cdot aoi_{i} \cdot x_{i}, \quad \forall i\in N
+\end{equation}
+\textbf{Supply emissions}\\
+As defined by the United States Environmental Protection Agency \cite{epa_2022}, the Scope 3 emissions are ".. the result of activities from assets not owned or controlled by the reporting organization, but that the organization indirectly impacts in its value chain". We then consider, to evaluate the emissions emitted by the selected suppliers, a fixed quantity of carbon emissions $sup\_Emis$ per ordered quantity communicated by every supplier. Furthermore, this would be a competitive factor in which suppliers with a better carbon footprint could be selected despite their higher price tag to satisfy ecological constraints. With $Z=\{z_{i,j}\}$ the supplier selection decision variable and $q_{i,j}$ the ordered quantity decision variable, the supply emissions are formulated as follows:
+\begin{equation}
+    SE(Q) = \sum_{\forall i\in Dm} \sum_{\forall j\in S} z_{i,j} \cdot q_{i,j} \cdot sup\_Emis(j)\label{eq:SE}
+\end{equation}
+\subsubsection{Carbon reduction strategies}\label{ss:strat}
+Ecological constraints are approached differently along the supply chain network. Many initiatives can be taken to try to improve the carbon footprint of a company both on the strategic and tactical level. In the scope of the work presented in this article, the focus would be to include the carbon emissions formulated above in the inventory positioning and suppliers selection model. We do so in a way to reduce it while having the optimal ecological combination of positioned inventories and selected suppliers. To proceed with this approach, three strategies are presented: a carbon tax, a carbon cap limit, and a hybrid strategy that combines both mechanisms.
+
+\textbf{The carbon tax strategy} consists in simulating government CO2 tax rates. Their costs come as compensation to allow firms to adapt their facilities for better performance. This allows translating the amount of emissions into a cost expression to be added to the objective function \citep{Choi2013}. To do so, we consider an average tax compensation price $e_{i}$ for every amount of gCO2 of carbon emissions per component resulting from the activities of the supply chain network.
+
+\textbf{The carbon cap limit strategy} consists in simulating the regulation of emission target caps. Carbon emissions resulting from an activity cycle are limited, and it is up to the company to adapt its operational mode to respect them \citep{Matthews2008}. It could be by choosing more environmentally friendly but also expensive suppliers or simply investing in better machinery. To keep carbon emissions below this limit $ECap$, a constraint is added to the model that restricts the emission function. This could be considered as an emissions buffer for product's BOM.
+
+\textbf{The hybrid strategy} combines the two mechanisms above by simultaneously activating the carbon tax in the objective function and the carbon cap limit as a hard constraint. This configuration mirrors regulatory regimes in which a mandatory emission ceiling coexists with a carbon price, such as cap-and-trade systems. The cap guarantees regulatory compliance by enforcing an upper bound on emissions, while the tax provides a continuous financial incentive to reduce emissions beyond the ceiling whenever it is economically attractive. The hybrid strategy therefore offers a richer decision space, where the operating point is shaped jointly by the stringency of the cap and the level of the tax.
+\section{Problem formulation}\label{sec3}
+The inventory positioning with supplier selection problem is a multi-decision problem that tends to be very complex in real case scenarios, as well as mathematically. With the new addition to the objective function and the new constraint, the decision variable would require more computational capacities. In this section, the mixed integer quadratically constrained program is developed to optimize the problem in question while taking into account the carbon footprint of different echelons of the supply chain network. Linearization is proposed to reduce complexity and enhance the efficiency of numerical resolution.
+
+The developed model answers the following three questions at once:
+\begin{itemize}
+    \item Select the set of suppliers that deliver the required amount of raw materials and outsourced parts to produce the final product. The cost and delay aspects are crucial in this decision.
+    \item Position inventories along the components of the BOM, in a combination where it does not cost much and does synchronize with supply capacities.
+    \item Depending on the chosen strategy, the objective would be to reduce the amount of emissions emitted by different activities, and hence the cost of the tax penalties. Or it would be limiting the amount of CO2 emissions and obliging the model to choose more ecological alternatives.
+\end{itemize}
+In the following, all the notation used for the mathematical formulation of the developed model is given in Table \ref{tabNot3}.
+%+++++++++++++++++++++++++++++++++++++++---////----+++++++++++++++
+\begin{longtable}[c]{| c | c |}
+\caption{The supplier selection model notations.}\label{tabNot3}\\
+
+ \hline\hline
+Sets &  Signification\\
+ \hline
+ \endfirsthead
+
+ \hline
+ \multicolumn{2}{|c|}{Continuation of Table \ref{tabNot3}}\\
+ \hline
+ \endhead
+
+ \hline
+ \endfoot
+
+ \hline\hline
+ \endlastfoot
+
+    $\bm{N}$ & Set of BOM nodes representing parts $i\in N$\\
+    $\bm{Dm}$ & Set of delivered materials and outsourced parts, $d\in Dm$\\
+    $\bm{Comp_{i}}$ & Components list of the $i^{th}$ part, $k\in Comp_{i}$\\
+    $\bm{S}$ & Set of preselected suppliers for the BOM\\
+    $\bm{SL_{d}}$ & Set of accepted suppliers for the part $d$, $j\in SL_{d}\subseteq S$\\
+\hline
+Parameters &  Signification\\
+\hline
+    $\bm{t_{i}}$ & Processing time of the $i^{th}$ part\\
+    $\bm{ltf_{i}}$ & Lead time factor of $i^{th}$ part\\
+    $\bm{varf_{i}}$ & Variability factor of $i^{th}$ part\\
+    $\bm{adu}$ & Average daily usage of the final product\\
+    $\bm{rqtf_{i}}$ & Required quantity of the $i^{th}$ part to produce the final product\\
+    $\bm{up_{i}}$ & Unit price of the $i^{th}$ part\\
+    $\bm{pc_{d}}$ & Processing costs of delivered material $d$\\
+    $\bm{aihc_{i}}$ & Average inventory holding cost rate of the $i^{th}$ part\\
+    $\bm{sup\_Price_{d,j}}$ & Unit price of the $j^{th}$ supplier for the part $d$\\
+    $\bm{sup\_Deliv_{d,j}}$ & Delivery time of the $j^{th}$ supplier for the part $d$\\
+    $\bm{sup\_Cap_{d,j}}$ & Delivering capacity of the $j^{th}$ supplier for the part $d$\\
+    $\bm{sup\_Emis_{d,j}}$ & Emissions of the $j^{th}$ supplier for the part $d$\\
+    $\bm{\alpha^{*}}$ & Warehousing facilities emissions\\
+    $\bm{\alpha_{i}}$ & Storing emissions of the part $i$\\
+    $\bm{\beta_{i}}$ & Transportation emissions of the part $i$\\
+    $\bm{R}$ & Replenishment emissions reduction factor\\
+    $\bm{SvT}$ & Promised customer service time\\
+    $\bm{ECap}$ & Emissions cap limit\\
+    $\bm{e_{i}}$ & Emissions tax rate of the $i^{th}$ part\\
+    $\bm{\tau}$ & Tax strategy indicator ($1$ if the carbon tax is active)\\
+    $\bm{\kappa}$ & Cap strategy indicator ($1$ if the carbon cap is active)\\
+\hline
+Decision Variables &  Signification\\
+\hline
+    $\bm{x_{i}}$ & Buffer status for the $i^{th}$ part\\
+    $\bm{a_{i}}$ & Lead time of the $i^{th}$ part\\
+    $\bm{z_{d,j}}$ & Supplier $j$ status for the $d^{th}$ part\\
+    $\bm{q_{d,j}}$ & Ordered quantity of the $d^{th}$ part from the supplier $j$\\
+\hline
+Decision Expressions &  Signification\\
+\hline
+    $\bm{SvT_{0}}$ & Actual service time\\
+    $\bm{aoi_{i}}$ & Average on hand inventory of of the $i^{th}$ part\\
+        $\bm{yz_{i}}$ & Buffer yellow zone of the $i^{th}$ part\\
+    $\bm{gz_{i}}$ & Buffer green zone of the $i^{th}$ part\\
+    $\bm{rz_{i}}$ & Buffer red zone of the $i^{th}$ part\\
+    $\bm{StC_{i}}$ & Storing cost of the $i^{th}$ part\\
+    $\bm{RawMC_{d,j}}$ & Raw material cost of the $d^{th}$ part from the supplier $j$\\
+    $\bm{TC}$ & Total of Storing costs\\
+    $\bm{E}$ & Total carbon emissions of the BOM\\
+    $\bm{TE}$ & Transportation emissions\\
+    $\bm{WE}$ & Warehousing emissions\\
+    $\bm{SE}$ & Supply emissions\\
+\hline
+ \end{longtable}
+The output of the developed model are the inventory positions, the suppliers selection, and the amount of carbon emissions emitted $E$. Its final expression is formulated using the Equation \ref{eq:TE}, Equation \ref{eq:WE} and Equation \ref{eq:SE} as follows :
+\begin{equation}
+     E(X,Q) = \sum_{\forall i\in N} [[\alpha^{*} + (\alpha_{i}+ \beta_{i}^{*}-\beta_{i})\cdot aoi_{i}]\cdot x_{i} + \beta_{i}\cdot aoi_{i} + \sum_{\forall j\in S} q_{i,j}\cdot sup\_Emis_{j}]\label{eq:emissions}
+\end{equation}
+For the \textbf{Carbon emissions Tax} strategy, the emissions compensation cost is added to the objective function. It would be minimized in parallel to storing costs and purchasing costs of raw materials. The model in this case is formulated as follows:
+
+\begin{gather}
+    \min TC = RawMCost + \sum_{\forall i\in N} StC_{i} + e_{i} \cdot \sum_{\forall j\in S} E(x_{i},q_{i,j})\\
+    \nonumber S.T.\\
+    \nonumber SvT_{0} \leq SvT\\
+    \nonumber a_{i} = t_{i} + \max_{k\in comp_{i}}[(1-x_{k})\cdot a_{k}],\quad \forall i \in N\setminus Dm \\
+    \nonumber a_{d} = t_{d} + \max_{j\in SL_{d}} z_{d,j}\cdot sup\_Deliv_{d,j},\quad \forall d \in Dm
+\end{gather}
+
+\textbf{The Carbon cap limit} strategy holds the total emissions at the limit of $ECap$ which is added as a second hard constraint to the model in addition to the service time. This limit is considered a reasonable cap to allow some maneuverability in managing the different operations. The model for this strategy is expressed as follows:
+
+\begin{gather}
+    \min TC = RawMCost + \sum_{\forall i\in N} StC_{i}\\
+    \nonumber S.T.\\
+    \nonumber SvT_{0} \leq SvT\\
+    \nonumber E(X,Q) \leq ECap\\
+    \nonumber a_{i} = t_{i} + \max_{k\in comp_{i}}[(1-x_{k})\cdot a_{k}],\quad \forall i \in N\setminus Dm \\
+    \nonumber a_{d} = t_{d} + \max_{j\in SL_{d}} z_{d,j}\cdot sup\_Deliv_{d,j},\quad \forall d \in Dm
+\end{gather}
+\section{Solution approach}
+In this section, we present the adopted resolution method for positioning the DDMRP inventory with supplier selection considering the problem of carbon footprint. To do so, a pseudo-linearization of the model presented in the previous section is proposed, following the linearization approach we adopted for the inventory positioning model in \cite{achergui2}. The model is formulated as a nonlinear minimization problem subject to nonlinear constraints, which makes it also a Mixed Integer Quadratically Constrained Program. The new terms of the carbon emissions function, wherever they are added, represent a quadratic expression. This results from the expression of the average on-hand inventory that includes the decoupled lead time $a_{i}, \forall i\in N$. The overall complexity of the problem is then still complex and difficult to solve with exact resolution methods.
+
+The pseudo-linearization makes it possible to obtain feasible solutions of quality in more reasonable run-times by lowering the quadratic aspect. The big M method is used to exchange the terms: $a_{i} \cdot x_{i}$ with $y_{i}$ and $z_{i,j}\cdot q_{i,j}$ with $w_{i,j}$. The objective function is non-convex, using the CPLEX parameter "Optimality target", globally optimal solutions are given by the solver. In addition to the constraint needed for the big M method and replacing the $max$ function, two binary strategy indicators control which carbon mechanism is active: $\tau$ activates the carbon tax term in the objective function, and $\kappa$ activates the carbon cap constraint. The three strategies are recovered as special cases of a single unified model:
+\begin{gather}
+    (\tau,\kappa)=
+    \begin{cases}
+      (1,0), & \text{Tax strategy}\\
+      (0,1), & \text{Cap limit strategy}\\
+      (1,1), & \text{Hybrid strategy}
+    \end{cases}
+\end{gather}
+The proposed pseudo-linearized model is then formulated, using the emissions equation \ref{eq:emissions} and the buffer positioning with supplier selection model, as follows :
+\begin{gather}
+    \min \, TC = \sum_{\forall d \in Dm} \sum_{\forall j \in SL_{d}} w_{d,j} \cdot sup\_price_{j}\\
+    \nonumber + \sum_{\forall i \in N\setminus Dm} u\_p_{i} \cdot aihc_{i} \cdot (1.5+var\_f_{i})\cdot lt\_f_{i}\cdot adu\cdot rqtf_{i}\cdot y_{i}\\
+    \nonumber + \sum_{\forall d \in Dm} [pc_{d}\cdot adu\cdot rqtf_{d}+ \sum_{\forall j \in SL_{d}} w_{d,j} \cdot sup\_price_{d,j}]\\
+    \nonumber \cdot aihc_{d} \cdot (1.5+var\_f_{d})\cdot lt\_f_{d}\cdot y_{d} \\
+    \nonumber + \tau\cdot e_{i}\cdot \sum_{\forall i\in N} [[\alpha^{*} + (\alpha_{i}+ \beta_{i}^{*}-\beta_{i})\cdot aoi_{i}]\cdot x_{i}\\
+    \nonumber + \beta_{i}\cdot aoi_{i} +\sum_{\forall j\in S} q_{i,j}\cdot sup\_Emis_{j}]\\
+\nonumber \textbf{S.t.}\\
+    SvT_{0} \leq SvT\\
+    \kappa \cdot E(X,Q) \leq ECap\\
+    0 \leq y_{i},\quad \forall i \in N\\
+    y_{i} \leq a_{i},\quad \forall i \in N\\
+    y_{i} \leq M \cdot x_{i},\quad \forall i \in N\\
+    y_{i} \geq a_{i}- M \cdot (1-x_{i}),\quad \forall i \in N\\
+    0 \leq w_{d,j},\quad \forall d \in Dm, \forall j\in SLd\\
+    w_{d,j} \leq q_{d,j},\quad \forall d \in Dm, \forall j\in SLd\\
+    w_{d,j} \leq M \cdot z_{d,j},\quad \forall d \in Dm, \forall j\in SLd\\
+    w_{d,j} \geq q_{d,j}- M \cdot (1-z_{d,j}),\quad \forall d \in Dm, \forall j\in SLd\\
+    \forall d\in Dm, \sum_{\forall j \in SL_{d}} w_{d,j} = adu \cdot rqtf_{d}\\
+    \forall d\in Dm, \forall j \in SL_{d},\quad q_{d,j} \leq sup\_cap_{d,j}\\
+    a_{i} \geq t_{i} + (1-x_{k}) \cdot a_{k}, \quad \forall i \in N\setminus Dm, \quad \forall k \in comp_{i}\\
+    a_{d} \geq t_{d} + z_{d,j}\cdot sup\_deliv_{d,j}, \quad \forall d \in Dm
+\end{gather}
+We maintain throughout this work the same resolution strategy as used in our previous models \cite{achergui2,ACHERGUI4}. The proposed model is solved in parallel with its non-linear version. This solution approach allows a benchmark of the results obtained by the pseudo-linearization. The behavior of the model around different types of BOMs is also a key data for future perspectives of this research work.
+
+\section{Experimentation}
+For an extensive testing of the developed model, a comprehensive numerical campaign of 179 optimization runs organized in seven experiment families is conducted. The campaign covers a computational scalability sweep, the three carbon strategies (tax, cap and hybrid), a service-time sensitivity analysis, a topology analysis over multi-level and parallel BOMs, a multi-objective Pareto study, and a benchmark of the pseudo-linear model against its non-linear counterpart. A PHP script is developed to automate the experimentation procedure. The problem is resolved using version 20.1.0 of the CPLEX solver, with the CP Optimizer for the non-linear model, on a machine with an Intel i7-12700K 3.61 GHz with 32GB of RAM, running Windows 10. A solving time limit of 300 seconds is imposed on every run, and the solver is set to return globally optimal solutions for the non-convex objective. Throughout this section, total carbon emissions are reported in tonnes of CO$_2$ ($1\,\text{t}=10^{6}\,$gCO$_2$).
+\subsection{Benchmark instances and simulation scenarios}
+The supply chain network environment considered previously is kept to ensure the accuracy of the generated instances. The benchmark set spans BOM sizes from $N=2$ to $N=150$ components and includes both tree-structured assemblies and dedicated multi-level and parallel-branch topologies. The simulation scenarios test the three ecological strategies to reduce carbon emissions for the BOMs considered. The carbon tax is swept over $e\in\{0,0.01,0.02,0.03,0.05,0.10\}$, and the emission cap $ECap$ is tightened progressively from $100\%$ down to $70\%$ of the baseline emissions obtained without any carbon policy. A reasonable value of $ECap$ is always retained to allow an operating margin for companies, while remaining low enough to challenge the models.
+The same suppliers details seen previously are considered with the same adaptation for their capacities to accommodate the higher demand of complex BOMs. A supply emissions quantity per product is added to these details as discussed in the previous section. Their details are updated and presented in \cref{tab:suppdet2}.
+
+We assume that internal trips are made on the factory premises using the same vehicle. For an average travel distance, we fix the amount of transportation emissions generated in a whole activity cycle to $\beta = 1500 gCO2/unit$. Supply emissions include the transportation emissions of the selected suppliers until the unloading dock. These emissions are not correlated with the price tag of the suppliers contrary to their delivery time, which is correlated. For simplification purposes, the pre-selected suppliers $S$ are the same for all the components of the BOMs, and all supplier related detail for a non-delivery material is null.
+
+\begin{table*}[t]\small
+\begin{center}
+\caption{Details of the Suppliers list}
+\label{tab:suppdet2}
+ \begin{tabular}{||c||c|c|c|c|c|c|c|c|c|c||}
+ \toprule
+ $s$ & 1&2&3&4&5&6&7&8&9&10\tabularnewline
+ \midrule
+ $sup\_deliv_{d,j}$ & 2&2&1&1&5&6&7&5&9&1\tabularnewline
+ $sup\_price_{d,j} (\%)$ & 100&90&110&100&60&50&50&30&20&80\tabularnewline
+ $sup\_cap_{d,j}$ simp.&100&60&80&80&50&60&80&25&250&30 \tabularnewline
+ $sup\_cap_{d,j}$ comp.&700&800&680&480&550&650&1100&700&1700&5800 \tabularnewline
+ $sup\_Emis_{d,j}$ & 80&75&90&100&40&45&40&30&15&40\tabularnewline
+ \midrule\midrule
+ $s$ &11&12&13&14&15&16&17&18&19&20\tabularnewline
+ \midrule
+ $sup\_deliv_{d,j}$&10&2&1&3&5&6&7&4&9&10\tabularnewline
+ $sup\_price_{d,j} (\%)$ &20&60&80&35&30&40&15&30&20&10\tabularnewline
+ $sup\_cap_{d,j}$ simp.&300&60&50&35&50&20&100&80&150&300 \tabularnewline
+ $sup\_cap_{d,j}$ comp. &1800&400&300&250&350&550&1000&450&950&1400 \tabularnewline
+ $sup\_Emis_{d,j}$ & 15&50&80&60&30&5&30&40&30&80\tabularnewline
+\bottomrule
+\end{tabular}
+\end{center}
+\end{table*}
+
+\subsection{Results and analysis}
+The numerical campaign is analyzed in this subsection along its seven experiment families. All 179 runs were solved to proven optimality within the 300-second time limit. The key evaluation outputs reported are the actual service time $SvT_{0}$, the total cost $TC$, the total carbon emissions $E$ (in tonnes of CO$_2$), the number of positioned buffers, the days of inventory outstanding (DIO, computed as the sum of the decoupled lead times), and the computational time $RT$.
+
+\subsubsection{Computational scalability}
+Table~\ref{tab:scal} reports the behavior of the pseudo-linear model on a baseline scenario (no carbon policy) for BOM sizes ranging from $N=2$ to $N=150$ components. All instances are solved to optimality, and the solving time remains below one second across the whole range, the largest instance ($N=150$) being solved in $0.14$ seconds. This confirms that the pseudo-linearization keeps the integrated positioning and supplier-selection problem tractable at an industrial scale, well within the time windows required for strategic and tactical planning. As illustrated in Figure~\ref{fig:scalrt}, the runtime does not grow monotonically with $N$: it is driven by the combinatorial structure of each BOM (its depth, branching and the resulting supplier-selection sub-problem) rather than by the node count alone.
+
+\input{tables/tab_scalability.tex}
+
+The number of positioned buffers and the resulting DIO grow with BOM complexity (Figure~\ref{fig:scalbuf}), from a single buffer for the smallest chains up to 57 buffers for the largest assembly. Here again the relation is not strictly monotonic in $N$: instances with a flatter or more parallel structure concentrate the decoupling on very few nodes, whereas deeper assemblies require more buffers to protect the promised service time. The baseline emissions reported in Table~\ref{tab:scal} and visualized in Figure~\ref{fig:scalemis} follow the same structural dependence; they are governed by the quantities flowing through the BOM and by the selected suppliers, so they scale with complexity while varying between instances of comparable size.
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.75\linewidth]{figures/fig1_scalability_runtime.pdf}
+  \caption{Computational time of the pseudo-linear model across BOM sizes.}
+  \label{fig:scalrt}
+\end{figure}
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.75\linewidth]{figures/fig3_scalability_buffers.pdf}
+  \caption{Number of positioned DDMRP buffers across BOM sizes.}
+  \label{fig:scalbuf}
+\end{figure}
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.75\linewidth]{figures/fig2_scalability_emissions.pdf}
+  \caption{Baseline carbon emissions (no carbon policy) by BOM complexity.}
+  \label{fig:scalemis}
+\end{figure}
+
+\subsubsection{Carbon tax strategy}
+Under the carbon tax strategy, the monetized emissions are added to the objective function, so the model trades off purchasing and holding costs against the emission penalty. Table~\ref{tab:tax} reports the total emissions obtained for a set of representative instances as the tax rate $e$ is increased from $0$ to $0.10$, and Figure~\ref{fig:tax} displays the corresponding emission and cost trajectories. Raising the tax consistently steers the model towards lower-emission solutions, mainly by shifting the supplier mix towards cleaner suppliers and by relocating buffers to nodes with a lower carbon intensity. The achieved reduction at the highest tax ranges from $47\%$ for the simplest instance up to $77\%$ for the $50$-component assembly.
+
+\input{tables/tab_tax_sweep.tex}
+
+A clear pattern of diminishing returns emerges. For the smaller instances the emissions reach a floor already at $e=0.02$ (for example bom\_5 stabilizes at $1.50$\,t and bom\_13 at $11.4$\,t), beyond which a higher tax only inflates the cost without further environmental benefit. Larger instances, which offer a richer set of supplier alternatives, keep reducing their footprint up to $e=0.10$. This confirms that a moderate tax captures most of the achievable abatement, while very high tax rates are economically inefficient once the cleaner alternatives have been exhausted.
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.85\linewidth]{figures/fig4_tax_sweep.pdf}
+  \caption{Emissions and cost as a function of the carbon tax rate $e$.}
+  \label{fig:tax}
+\end{figure}
+
+\subsubsection{Carbon cap strategy}
+Under the cap strategy, a hard constraint forces the total emissions below a ceiling $ECap$, expressed as a percentage of the baseline emissions. Table~\ref{tab:cap} reports the total cost as the cap is tightened from $100\%$ down to $70\%$ of the baseline, and Figure~\ref{fig:cap} shows the resulting compliance-cost curves. As expected, the cost increases monotonically with the stringency of the cap, since the model is forced to adopt cleaner but more expensive suppliers and to reposition buffers to meet the emission target. The compliance cost is markedly non-linear: it remains modest for caps down to about $85\%$ of the baseline and rises sharply for the tightest caps. Over the tested instances, the cost premium at the $70\%$ cap ranges from roughly $8\%$ to $46\%$, the steepest curves corresponding to the instances whose baseline solution is already close to their cleanest feasible configuration.
+
+\input{tables/tab_cap_sweep.tex}
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.85\linewidth]{figures/fig5_cap_sweep.pdf}
+  \caption{Compliance cost as the emission cap is tightened from $100\%$ to $70\%$ of the baseline.}
+  \label{fig:cap}
+\end{figure}
+
+\subsubsection{Hybrid strategy}
+The hybrid strategy activates the tax in the objective and the cap as a constraint simultaneously. Table~\ref{tab:hybrid} illustrates its behavior on the $26$-component instance for several combinations of tax level and cap, and Figure~\ref{fig:hybrid} summarizes the resulting operating points. The interplay of the two mechanisms is clearly visible: when the cap is loose it is non-binding and the operating point is driven by the tax (for instance, at $e=0.02$ the emissions settle at $30.5$\,t for caps of $33.3$\,t and above), whereas a tight cap becomes binding and forces an additional reduction beyond what the tax alone would achieve (at $e=0.02$ and a cap of $29.1$\,t the emissions drop to $28.6$\,t). The hybrid policy therefore guarantees regulatory compliance through the cap while the tax continues to reward beyond-compliance reductions, yielding a richer and more controllable decision space than either mechanism used alone.
+
+\begin{table*}[!htbp]\centering\small
+\caption{Hybrid strategy on the $26$-component instance: emissions, cost and buffers for combinations of carbon tax $e$ and emission cap.}\label{tab:hybrid}
+\begin{tabular}{ccccc}
+\toprule
+$e$ & Cap (t\,CO$_2$) & Emissions (t\,CO$_2$) & Cost & Buffers\\
+\midrule
+0.01 & 33.3 & 32.9 & 1\,261\,894 & 1 \\
+0.01 & 37.4 & 36.4 & 1\,260\,242 & 1 \\
+0.01 & 41.6 & 36.4 & 1\,260\,242 & 1 \\
+0.02 & 29.1 & 28.6 & 1\,586\,588 & 1 \\
+0.02 & 33.3 & 30.5 & 1\,578\,556 & 1 \\
+0.02 & 37.4 & 30.5 & 1\,578\,556 & 1 \\
+0.03 & 29.1 & 27.0 & 1\,859\,974 & 2 \\
+0.03 & 33.3 & 27.0 & 1\,859\,974 & 2 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.85\linewidth]{figures/fig6_hybrid_strategy.pdf}
+  \caption{Hybrid strategy: cost and emissions for combinations of tax and cap.}
+  \label{fig:hybrid}
+\end{figure}
+
+\subsubsection{Strategy comparison and cost--emissions trade-off}
+Figure~\ref{fig:stratcomp} compares the three strategies on common instances. For a comparable level of emission reduction, the tax strategy provides a smooth, gradual control, the cap strategy guarantees a target but with a higher cost variance, and the hybrid strategy combines the assurance of the cap with the marginal incentive of the tax. Beyond cost and emissions, the carbon policies also reshape the inventory profile: as reported in Figure~\ref{fig:diostrat}, all three strategies reduce the average days of inventory outstanding with respect to the baseline, the hybrid strategy achieving the largest DIO improvement by combining cleaner supplier choices with a leaner buffer placement. The multi-objective study makes the underlying trade-off explicit. Using the $\varepsilon$-constraint method on the total cost and the total emissions, the Pareto fronts of Figure~\ref{fig:pareto} are obtained for three representative instances. The fronts are convex and exhibit the characteristic ``low-hanging fruit'' region: the first emission reductions are obtained at a small cost increase, after which the marginal abatement cost rises steeply. A similar convex trade-off appears between cost and the days of inventory outstanding (Figure~\ref{fig:paretodio}), confirming that leaner inventories come at an increasing marginal cost. This quantifies, for a given BOM, the cost of decarbonization and of inventory reduction, and supports the choice of an operating point aligned with the firm's environmental ambition.
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.85\linewidth]{figures/fig8_strategy_comparison.pdf}
+  \caption{Comparison of the tax, cap and hybrid strategies.}
+  \label{fig:stratcomp}
+\end{figure}
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.85\linewidth]{figures/fig9_inventory_kpis.pdf}
+  \caption{Average days of inventory outstanding (DIO) and its improvement over the baseline, per carbon strategy.}
+  \label{fig:diostrat}
+\end{figure}
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.8\linewidth]{figures/fig13_pareto_cost_emissions.pdf}
+  \caption{Cost--emissions Pareto fronts obtained by the $\varepsilon$-constraint method.}
+  \label{fig:pareto}
+\end{figure}
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.8\linewidth]{figures/fig14_pareto_cost_dio.pdf}
+  \caption{Cost--DIO Pareto fronts obtained by the $\varepsilon$-constraint method.}
+  \label{fig:paretodio}
+\end{figure}
+
+\subsubsection{Service-time and topology sensitivity}
+The promised service time $SvT$ directly conditions the buffering effort. Figure~\ref{fig:svt} reports the effect of relaxing $SvT$ on the average number of buffers and on the total cost: tighter service commitments require more decoupling points and a higher inventory investment, whereas a relaxed service time lets the model remove buffers and lower the cost. The topology analysis of Figure~\ref{fig:topo} confirms that the model correctly handles different BOM structures: across the multi-level and parallel-branch families, the baseline emissions and the buffer placement adapt to the depth and the branching of the BOM rather than to its size alone, and all topologies remain solved to optimality within the time limit.
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.8\linewidth]{figures/fig10_service_time_sensitivity.pdf}
+  \caption{Sensitivity of buffers and cost to the promised service time.}
+  \label{fig:svt}
+\end{figure}
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.8\linewidth]{figures/fig11_topology_comparison.pdf}
+  \caption{Baseline emissions across multi-level and parallel BOM topologies.}
+  \label{fig:topo}
+\end{figure}
+
+\subsubsection{Pseudo-linear versus non-linear model}
+Finally, the pseudo-linear model (PLM) is benchmarked against the non-linear formulation (NLM) solved with the CP Optimizer, under a common $300$-second time limit. Table~\ref{tab:plmnlm} and Figure~\ref{fig:plmnlm} report the cost and the runtime for both formulations on representative instances. For every instance the PLM matches the NLM objective, and it does so in a fraction of the time: the PLM returns optimal solutions in at most $1.2$ seconds, while the CP Optimizer already exhausts the whole time budget on the $13$-component instance under the cap strategy and on both $26$-component instances. In the latter case the PLM even returns a strictly better solution ($909\,180$ against $913\,300$) than the NLM, which is unable to close the gap within the time limit. These results demonstrate that the pseudo-linearization preserves solution quality while making the integrated problem solvable at a speed compatible with operational use, the non-linear formulation becoming intractable as soon as the BOM grows.
+
+\input{tables/tab_plm_nlm.tex}
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.8\linewidth]{figures/fig12_plm_nlm_comparison.pdf}
+  \caption{Pseudo-linear versus non-linear model: cost and runtime.}
+  \label{fig:plmnlm}
+\end{figure}
+
+
+\section{Conclusion} \label{vrptwsynexact:sec:end}
+%=====================================================================
+In this article, a new ecological approach to the DDMRP methodology is proposed with three strategies to reduce the carbon footprint of operations: a carbon tax, a carbon cap limit, and a hybrid strategy combining both mechanisms. In the context of the selected strategy, decisions about inventory positioning and suppliers selection must be in accordance with the restriction value of the designated strategy. The problem is formulated in the logic to select the best options in terms of cost while fulfilling the client promise and the ecological target. To do so, we first evaluate the different sources of emissions along the supply chain network. A modeling approach is proposed to formulate the general emission equation in terms of all carbon emission sources. 
+
+Second, the formulated emission function is integrated following the three suggested strategies in the problem formulation developed in the previous sections. The Tax strategy expresses the emissions as a cost according to a defined tax $e$, which is added to the objective function and minimized with the total costs of operations. The Cap limit strategy includes the emission function as a constraint where operations emissions are required to remain below a defined level $ECap$. The Hybrid strategy activates both mechanisms at once, enforcing the cap while still pricing residual emissions through the tax to incentivize reductions beyond the regulatory threshold. The developed decision support framework takes into consideration the ecological impact of each supply echelon and adapts its outputs to the targeted objective set by the chosen strategy.
+
+The general problem is translated to a Mixed Integer Quadratically Constrained Program which is referred to as the non-linear model and is solved with the CP Optimizer. The complexity of the problem require much more computation capacities, making it necessary to look for other less consuming resolution approaches. A pseudo-linearization is proposed replacing the quadratic terms in the non-linear model using the big M method and other expressions to avoid having the max function. Feasible and good quality results are obtained by the pseudo-linear model, which is close and sometimes better than the non-linear model in even shorter computational times.
+
+A potential improvement of the results obtained is expected if longer run times are allowed, as was found by a benchmark instance simulated with no time limit. However, this cannot be considered as companies have tight calculation windows where decisions need to be made to stay on the schedule. The new solution approach can perhaps be enhanced through approximate resolution methods, such as matheuristics, building on the linearization techniques we developed for the inventory positioning model \cite{achergui2}, which can be adapted to solve the new inventory positioning problem with suppliers selection considering carbon emissions. The hybrid strategy studied here already exploits the complementarity of the tax and cap mechanisms, and a promising extension would be to optimize jointly the tax level and the cap stringency to trace the most cost-effective decarbonization pathway for a given supply chain.
+
+%% The Appendices part is started with the command \appendix;
+%% appendix sections are then done as normal sections
+\appendix
+\section{Detailed numerical results}\label{app:results}
+This appendix gathers the complete results that complement the representative samples discussed in Section~\ref{sec3} and the results subsections.
+
+\subsection{Full hybrid strategy results}
+Table~\ref{tab:hybridfull} reports the hybrid strategy for every tested instance and every combination of carbon tax $e$ and emission cap, extending the condensed view of Table~\ref{tab:hybrid}.
+
+\input{tables/tab_hybrid.tex}
+
+\subsection{Multi-objective Pareto fronts}
+The cost--emissions and cost--DIO Pareto fronts plotted in Figures~\ref{fig:pareto} and~\ref{fig:paretodio} are tabulated in Tables~\ref{tab:paretoemis} and~\ref{tab:paretodio}. Figure~\ref{fig:globalpareto} additionally shows the cost--emissions outcomes of all campaign runs grouped by carbon strategy, illustrating that the policy instruments populate the same efficient region from different directions.
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.8\linewidth]{figures/fig7_cost_emissions_pareto.pdf}
+  \caption{Cost--emissions outcomes of all campaign runs, grouped by carbon strategy.}
+  \label{fig:globalpareto}
+\end{figure}
+
+\input{tables/tab_pareto_emis.tex}
+\input{tables/tab_pareto_dio.tex}
+
+%% If you have bibdatabase file and want bibtex to generate the
+%% bibitems, please use
+%%
+%%  \bibliographystyle{elsarticle-harv} 
+%%  \bibliography{<your bibdatabase>}
+
+%% else use the following coding to input the bibitems directly in the
+%% TeX file.
+
+\begin{thebibliography}{00}
+
+\bibitem[Absi et al.(2013)]{absi2013}
+Absi, N., Dauz\`ere-P\'er\`es, S., Kedad-Sidhoum, S., Penz, B., Rapine, C., 2013.
+Lot sizing with carbon emission constraints. European Journal of Operational
+Research 227 (1), 55--61.
+
+\bibitem[Achergui et al.(2020)]{achergui1}
+Achergui, A., Allaoui, H., Hsu, T., 2020. Strategic DDMRP's buffer positioning for
+hybrid MTO/MTS manufacturing, in: 2020 IEEE International Conference on Technology
+Management, Operations and Decisions (ICTMOD), pp. 1--8.
+doi:10.1109/ICTMOD49425.2020.9380588.
+
+\bibitem[Achergui et al.(2021a)]{achergui2}
+Achergui, A., Allaoui, H., Hsu, T., 2021a. Optimisation of the automated buffer
+positioning model under DDMRP logic. IFAC-PapersOnLine 54 (1), 582--588.
+doi:10.1016/j.ifacol.2021.08.067.
+
+\bibitem[Achergui et al.(2021b)]{achergui3}
+Achergui, A., Allaoui, H., Hsu, T., 2021b. Demand Driven Material Requirements Planning
+buffer positioning considering carbon emissions, in: Advances in Production Management
+Systems. Artificial Intelligence for Sustainable and Resilient Production Systems.
+Springer International Publishing, Cham, pp. 460--468.
+
+\bibitem[Achergui et al.(2022)]{ACHERGUI4}
+Achergui, A., Allaoui, H., Hsu, T., 2022. Demand Driven MRP with supplier selection.
+IFAC-PapersOnLine 55 (10), 257--262. doi:10.1016/j.ifacol.2022.09.398.
+
+\bibitem[Benjaafar et al.(2013)]{benjaafar2013}
+Benjaafar, S., Li, Y., Daskin, M., 2013. Carbon footprint and the management of
+supply chains: Insights from simple models. IEEE Transactions on Automation Science
+and Engineering 10 (1), 99--116.
+
+\bibitem[Choi(2013)]{Choi2013}
+Choi, T.-M., 2013. Local sourcing and fashion quick response system: The impacts of
+carbon footprint tax. Transportation Research Part E: Logistics and Transportation
+Review 55, 43--54.
+
+\bibitem[Graves and Willems(2000)]{graves2000}
+Graves, S.C., Willems, S.P., 2000. Optimizing strategic safety stock placement in
+supply chains. Manufacturing \& Service Operations Management 2 (1), 68--83.
+
+\bibitem[Huang et al.(2009)]{huang2009categorization}
+Huang, Y.A., Weber, C.L., Matthews, H.S., 2009. Categorization of Scope 3 emissions
+for streamlined enterprise carbon footprinting. Environmental Science \& Technology
+43 (22), 8509--8515.
+
+\bibitem[Matthews et al.(2008)]{Matthews2008}
+Matthews, H.S., Hendrickson, C.T., Weber, C.L., 2008. The importance of carbon
+footprint estimation boundaries. Environmental Science \& Technology 42 (16),
+5839--5842.
+
+\bibitem[Miclo et al.(2019)]{miclo2019}
+Miclo, R., Lauras, M., Fontanili, F., Lamothe, J., Melnyk, S.A., 2019. Demand Driven
+MRP: assessment of a new approach to materials management. International Journal of
+Production Research 57 (1), 166--181.
+
+\bibitem[Ptak and Smith(2019)]{ptak2019}
+Ptak, C., Smith, C., 2019. Demand Driven Material Requirements Planning (DDMRP),
+Version 3. Industrial Press, South Norwalk, CT.
+
+\bibitem[U.S. EPA(2022)]{epa_2022}
+U.S. Environmental Protection Agency, 2022. Scope 3 Inventory Guidance. URL:
+\url{https://www.epa.gov/climateleadership/scope-3-inventory-guidance}.
+
+\bibitem[Velasco Acosta et al.(2020)]{velasco2020}
+Velasco Acosta, A.P., Mascle, C., Baptiste, P., 2020. Applicability of Demand-Driven
+MRP in a complex manufacturing environment. International Journal of Production
+Research 58 (14), 4233--4245.
+
+\end{thebibliography}
+\end{document}
+
+\endinput
+%%
+%% End of file `elsarticle-template-harv.tex'.

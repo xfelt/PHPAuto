@@ -6,7 +6,7 @@
     "created": "2026-01-18"
   },
   "solver_settings": {
-    "time_limit_sec": 1800,
+    "time_limit_sec": 300,
     "optimality_gap": 0.01,
     "threads": 4
   },
