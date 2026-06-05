@@ -274,6 +274,22 @@ execute {
        if(i<NB_NODE)write(",");
     }
     write("]");
+    write("#Z:[");
+    for (var i in N) {
+        for (var j in S) {
+            write(z[i][j]);
+            if(i<NB_NODE || j<NB_SUPP)write(",");
+        }
+    }
+    write("]");
+    write("#Q:[");
+    for (var i in N) {
+        for (var j in S) {
+            write(q[i][j]);
+            if(i<NB_NODE || j<NB_SUPP)write(",");
+        }
+    }
+    write("]");
 	write("#E: ",Emis);
 	writeln("#DELIVER:");
 	for (var i in N){

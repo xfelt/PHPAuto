@@ -1,0 +1,296 @@
+Array
+(
+    [CplexRunTime] => Total (root+branch&cut) =    0,05 sec
+    [status] => OPTIMAL
+    [termination_reason] => OPTIMAL
+    [mip_gap] => 0
+    [Result] => Array
+        (
+            [Objective] => 51695
+            [TotalCost] => 51668
+            [LeadTime] => 27
+            [Emissions] => 2253700
+        )
+
+    [TS] => 51667.685
+    [CS] => 51555
+    [TaxCost] => 112.685
+    [A] => Array
+        (
+            [0] => 0
+            [1] => 2
+            [2] => 5
+            [3] => 10
+            [4] => 4
+            [5] => 6
+        )
+
+    [X] => Array
+        (
+            [0] => 0
+            [1] => 1
+            [2] => 1
+            [3] => 1
+            [4] => 0
+            [5] => 1
+        )
+
+    [Z] => Array
+        (
+            [0] => 0
+            [1] => 0
+            [2] => 0
+            [3] => 0
+            [4] => 0
+            [5] => 0
+            [6] => 0
+            [7] => 0
+            [8] => 0
+            [9] => 0
+            [10] => 0
+            [11] => 0
+            [12] => 0
+            [13] => 0
+            [14] => 0
+            [15] => 0
+            [16] => 0
+            [17] => 0
+            [18] => 0
+            [19] => 0
+            [20] => 0
+            [21] => 0
+            [22] => 0
+            [23] => 0
+            [24] => 0
+            [25] => 0
+            [26] => 0
+            [27] => 0
+            [28] => 0
+            [29] => 1
+            [30] => 0
+            [31] => 0
+            [32] => 0
+            [33] => 0
+            [34] => 0
+            [35] => 0
+            [36] => 0
+            [37] => 0
+            [38] => 0
+            [39] => 0
+            [40] => 0
+            [41] => 0
+            [42] => 1
+            [43] => 1
+            [44] => 0
+            [45] => 0
+            [46] => 0
+            [47] => 0
+            [48] => 0
+            [49] => 1
+            [50] => 0
+            [51] => 0
+            [52] => 0
+            [53] => 1
+            [54] => 0
+            [55] => 0
+            [56] => 0
+            [57] => 0
+            [58] => 0
+            [59] => 0
+        )
+
+    [Q] => Array
+        (
+            [0] => 0
+            [1] => 0
+            [2] => 0
+            [3] => 0
+            [4] => 0
+            [5] => 0
+            [6] => 0
+            [7] => 0
+            [8] => 0
+            [9] => 0
+            [10] => 0
+            [11] => 0
+            [12] => 0
+            [13] => 0
+            [14] => 0
+            [15] => 0
+            [16] => 0
+            [17] => 0
+            [18] => 0
+            [19] => 0
+            [20] => 0
+            [21] => 0
+            [22] => 0
+            [23] => 0
+            [24] => 0
+            [25] => 0
+            [26] => 0
+            [27] => 0
+            [28] => 0
+            [29] => 20
+            [30] => 0
+            [31] => 0
+            [32] => 0
+            [33] => 0
+            [34] => 0
+            [35] => 0
+            [36] => 0
+            [37] => 0
+            [38] => 0
+            [39] => 0
+            [40] => 0
+            [41] => 0
+            [42] => 10
+            [43] => 80
+            [44] => 0
+            [45] => 0
+            [46] => 0
+            [47] => 0
+            [48] => 0
+            [49] => 30
+            [50] => 0
+            [51] => 0
+            [52] => 0
+            [53] => 40
+            [54] => 0
+            [55] => 0
+            [56] => 0
+            [57] => 0
+            [58] => 0
+            [59] => 0
+        )
+
+    [E] => 2253700
+    [Cap] => 2345760
+    [Tax] => 50
+    [DELIVER] => Array
+        (
+            [0] => S10=>P2
+            [1] => S3=>P4
+            [2] => S4=>P4
+            [3] => S10=>P4
+            [4] => S4=>P5
+        )
+
+    [_raw_output] => 
+<<< setup
+
+0 0 -1 0 0 0.25 0.5 0.8 1 0 0 0 0  14
+1 2 0 700 1 0.25 0.5 0.8 1 0 7000 700 1500  14
+2 4 1 165 1 0.25 0.5 0.8 1 0 5000 500 1500  14
+3 6 1 100 2 0.25 0.5 0.8 1 0 3500 350 1500  14
+4 3 3 25 6 0.25 0.5 0.8 1 0 3000 300 1500  14
+5 5 3 30 2 0.25 0.5 0.8 1 0 2500 250 1500  14
+Node nums: [0 1 2 3 4 5]
+xx-Data uploaded-xx
+	**** start init su array ...
+0 [0 0 0 0 0 0 0 0 0 0]
+1 [0 0 0 0 0 0 0 0 0 0]
+2 [1 1 1 1 1 1 1 1 1 1]
+3 [0 0 0 0 0 0 0 0 0 0]
+4 [1 1 1 1 1 1 1 1 1 1]
+5 [1 1 1 1 1 1 1 1 1 1]
+	**** end init su array ...
+1 2 1 100 80 0.85 0.92 0.8 (9)9
+2 2 0.9 60 75 0.82 0.90 0.9 (9)9
+3 1 1.1 80 90 0.88 0.95 0.5 (9)9
+4 1 1 80 100 0.86 0.93 0.6 (9)9
+5 5 0.6 50 40 0.72 0.78 1.5 (9)9
+6 6 0.5 60 45 0.70 0.75 2.0 (9)9
+7 7 0.5 80 40 0.68 0.72 2.5 (9)9
+8 5 0.3 25 30 0.65 0.70 1.8 (9)9
+9 9 0.2 250 15 0.60 0.65 3.5 (9)9
+10 1 0.8 30 40 0.80 0.88 0.7 (9)9
+
+<<< generate
+
+Version identifier: 20.1.0.0 | 2020-11-10 | 9bedb6d68
+CPXPARAM_TimeLimit                               300
+Tried aggregator 2 times.
+MIP Presolve eliminated 419 rows and 93 columns.
+MIP Presolve modified 119 coefficients.
+Aggregator did 5 substitutions.
+Reduced MIP has 200 rows, 100 columns, and 542 nonzeros.
+Reduced MIP has 34 binaries, 66 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0,00 sec. (1,24 ticks)
+Probing time = 0,00 sec. (0,07 ticks)
+Cover probing fixed 0 vars, tightened 3 bounds.
+Tried aggregator 1 time.
+Detecting symmetries...
+MIP Presolve eliminated 9 rows and 0 columns.
+MIP Presolve modified 108 coefficients.
+Reduced MIP has 191 rows, 100 columns, and 524 nonzeros.
+Reduced MIP has 34 binaries, 66 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0,00 sec. (0,50 ticks)
+Probing time = 0,00 sec. (0,07 ticks)
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 20 threads.
+Root relaxation solution time = 0,00 sec. (0,71 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+      0     0    41468,6728    53                  41468,6728       62         
+      0     0    41853,1742    60                    Cuts: 39       95         
+      0     0    42317,8672    64                    Cuts: 24      116         
+      0     0    42460,9905    48                    Cuts: 21      130         
+      0     0    42505,3187    62                     Cuts: 9      146         
+      0     0    42512,6640    62                     Cuts: 8      154         
+Detecting symmetries...
+      0     0    42523,3128    62                     Cuts: 3      158         
+      0     0    42527,9153    60                 ZeroHalf: 2      163         
+      0     0    42553,1450    60                     Cuts: 4      167         
+      0     0    42681,4928    60                     Cuts: 4      171         
+      0     0    42922,4864    60                 ZeroHalf: 3      176         
+      0     0    43006,1792    56                     Cuts: 6      185         
+      0     0    43130,2028    56                     Cuts: 3      190         
+      0     0    43191,9230    52                     Cuts: 4      192         
+      0     0    43205,4723    56                 ZeroHalf: 1      193         
+      0     0    43238,9675    58                 ZeroHalf: 2      197         
+      0     0    43248,1256    58                 ZeroHalf: 1      199         
+      0     0    43254,4583    56                 ZeroHalf: 1      201         
+      0     0    43254,4583    56                 ZeroHalf: 1      202         
+*     0+    0                        61197,8920    43254,4583            29,32%
+*     0+    0                        51694,6850    43254,4583            16,33%
+      0     0        cutoff          51694,6850    51694,6850      202    0,00%
+Elapsed time = 0,05 sec. (25,90 ticks, tree = 0,01 MB, solutions = 2)
+
+Implied bound cuts applied:  15
+Flow cuts applied:  2
+Mixed integer rounding cuts applied:  6
+Zero-half cuts applied:  11
+Gomory fractional cuts applied:  4
+
+Root node processing (before b&c):
+  Real time             =    0,05 sec. (25,91 ticks)
+Parallel b&c, 20 threads:
+  Real time             =    0,00 sec. (0,00 ticks)
+  Sync time (average)   =    0,00 sec.
+  Wait time (average)   =    0,00 sec.
+                          ------------
+Total (root+branch&cut) =    0,05 sec. (25,91 ticks)
+
+<<< solve
+
+
+OBJECTIVE: 51694.68
+xxxx
+#Result <fct_obj, tot_cst, tot_ldt, Emiss>: <51695 51668 27 2.2537e+6>#TS:51667.685#CS:51555#TaxCost:112.685#A:[0,2,5,10,4,6]#X:[0,1,1,1,0,1]#Z:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0]#Q:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,10,80,0,0,0,0,0,30,0,0,0,40,0,0,0,0,0,0]#E: 2253700#Cap: 2345760#Tax: 50#DELIVER:
+S10=>P2
+S3=>P4
+S4=>P4
+S10=>P4
+S4=>P5
+xxxx
+
+<<< post process
+
+
+<<< done
+
+
+)

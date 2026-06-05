@@ -1,0 +1,44 @@
+{
+    "ideal": {
+        "Cost": 116448,
+        "DIO": 74,
+        "WIP": 250360,
+        "Emissions": 9864941.999999998
+    },
+    "nadir": {
+        "Cost": 532787.5,
+        "DIO": 135,
+        "WIP": 1341216,
+        "Emissions": 29497521
+    },
+    "all_solutions": [
+        {
+            "objective": 1,
+            "Cost": 116448,
+            "DIO": 135,
+            "WIP": 250360,
+            "Emissions": 29495946
+        },
+        {
+            "objective": 2,
+            "Cost": 532787.5,
+            "DIO": 74,
+            "WIP": 1341216,
+            "Emissions": 9869316.999999998
+        },
+        {
+            "objective": 3,
+            "Cost": 116664,
+            "DIO": 135,
+            "WIP": 250360,
+            "Emissions": 29497521
+        },
+        {
+            "objective": 4,
+            "Cost": 531079.9,
+            "DIO": 75,
+            "WIP": 1326680,
+            "Emissions": 9864941.999999998
+        }
+    ]
+}

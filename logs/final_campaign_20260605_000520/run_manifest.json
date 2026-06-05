@@ -1,0 +1,3326 @@
+{
+    "generated_at": "2026-06-05 00:05:20",
+    "consolidated_runs": [
+        {
+            "run_id": "CAP-bom_13-100",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_13",
+            "cap_percentage": 1
+        },
+        {
+            "run_id": "CAP-bom_13-70",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_13",
+            "cap_percentage": 0.7
+        },
+        {
+            "run_id": "CAP-bom_13-75",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_13",
+            "cap_percentage": 0.75
+        },
+        {
+            "run_id": "CAP-bom_13-80",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_13",
+            "cap_percentage": 0.8
+        },
+        {
+            "run_id": "CAP-bom_13-85",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_13",
+            "cap_percentage": 0.85
+        },
+        {
+            "run_id": "CAP-bom_13-90",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_13",
+            "cap_percentage": 0.9
+        },
+        {
+            "run_id": "CAP-bom_13-95",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_13",
+            "cap_percentage": 0.95
+        },
+        {
+            "run_id": "CAP-bom_26-100",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_26",
+            "cap_percentage": 1
+        },
+        {
+            "run_id": "CAP-bom_26-70",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_26",
+            "cap_percentage": 0.7
+        },
+        {
+            "run_id": "CAP-bom_26-75",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_26",
+            "cap_percentage": 0.75
+        },
+        {
+            "run_id": "CAP-bom_26-80",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_26",
+            "cap_percentage": 0.8
+        },
+        {
+            "run_id": "CAP-bom_26-85",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_26",
+            "cap_percentage": 0.85
+        },
+        {
+            "run_id": "CAP-bom_26-90",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_26",
+            "cap_percentage": 0.9
+        },
+        {
+            "run_id": "CAP-bom_26-95",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_26",
+            "cap_percentage": 0.95
+        },
+        {
+            "run_id": "CAP-bom_5-100",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_5",
+            "cap_percentage": 1
+        },
+        {
+            "run_id": "CAP-bom_5-70",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_5",
+            "cap_percentage": 0.7
+        },
+        {
+            "run_id": "CAP-bom_5-75",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_5",
+            "cap_percentage": 0.75
+        },
+        {
+            "run_id": "CAP-bom_5-80",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_5",
+            "cap_percentage": 0.8
+        },
+        {
+            "run_id": "CAP-bom_5-85",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_5",
+            "cap_percentage": 0.85
+        },
+        {
+            "run_id": "CAP-bom_5-90",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_5",
+            "cap_percentage": 0.9
+        },
+        {
+            "run_id": "CAP-bom_5-95",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_5",
+            "cap_percentage": 0.95
+        },
+        {
+            "run_id": "CAP-bom_50-100",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_50",
+            "cap_percentage": 1
+        },
+        {
+            "run_id": "CAP-bom_50-70",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_50",
+            "cap_percentage": 0.7
+        },
+        {
+            "run_id": "CAP-bom_50-75",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_50",
+            "cap_percentage": 0.75
+        },
+        {
+            "run_id": "CAP-bom_50-80",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_50",
+            "cap_percentage": 0.8
+        },
+        {
+            "run_id": "CAP-bom_50-85",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_50",
+            "cap_percentage": 0.85
+        },
+        {
+            "run_id": "CAP-bom_50-90",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_50",
+            "cap_percentage": 0.9
+        },
+        {
+            "run_id": "CAP-bom_50-95",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_50",
+            "cap_percentage": 0.95
+        },
+        {
+            "run_id": "CAP-bom_ml4_30-100",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_ml4_30",
+            "cap_percentage": 1
+        },
+        {
+            "run_id": "CAP-bom_ml4_30-70",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_ml4_30",
+            "cap_percentage": 0.7
+        },
+        {
+            "run_id": "CAP-bom_ml4_30-75",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_ml4_30",
+            "cap_percentage": 0.75
+        },
+        {
+            "run_id": "CAP-bom_ml4_30-80",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_ml4_30",
+            "cap_percentage": 0.8
+        },
+        {
+            "run_id": "CAP-bom_ml4_30-85",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_ml4_30",
+            "cap_percentage": 0.85
+        },
+        {
+            "run_id": "CAP-bom_ml4_30-90",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_ml4_30",
+            "cap_percentage": 0.9
+        },
+        {
+            "run_id": "CAP-bom_ml4_30-95",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_ml4_30",
+            "cap_percentage": 0.95
+        },
+        {
+            "run_id": "CAP-bom_par4-100",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_par4",
+            "cap_percentage": 1
+        },
+        {
+            "run_id": "CAP-bom_par4-70",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_par4",
+            "cap_percentage": 0.7
+        },
+        {
+            "run_id": "CAP-bom_par4-75",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_par4",
+            "cap_percentage": 0.75
+        },
+        {
+            "run_id": "CAP-bom_par4-80",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_par4",
+            "cap_percentage": 0.8
+        },
+        {
+            "run_id": "CAP-bom_par4-85",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_par4",
+            "cap_percentage": 0.85
+        },
+        {
+            "run_id": "CAP-bom_par4-90",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_par4",
+            "cap_percentage": 0.9
+        },
+        {
+            "run_id": "CAP-bom_par4-95",
+            "experiment": "carbon_cap_sweep",
+            "instance_id": "bom_par4",
+            "cap_percentage": 0.95
+        },
+        {
+            "run_id": "COMP-bom_13-EMISCAP-NLM",
+            "experiment": "nlm_comparison",
+            "instance_id": "bom_13",
+            "strategy": "EMISCAP",
+            "model_type": "NLM"
+        },
+        {
+            "run_id": "COMP-bom_13-EMISCAP-PLM",
+            "experiment": "nlm_comparison",
+            "instance_id": "bom_13",
+            "strategy": "EMISCAP",
+            "model_type": "PLM"
+        },
+        {
+            "run_id": "COMP-bom_13-EMISTAXE-NLM",
+            "experiment": "nlm_comparison",
+            "instance_id": "bom_13",
+            "strategy": "EMISTAXE",
+            "model_type": "NLM"
+        },
+        {
+            "run_id": "COMP-bom_13-EMISTAXE-PLM",
+            "experiment": "nlm_comparison",
+            "instance_id": "bom_13",
+            "strategy": "EMISTAXE",
+            "model_type": "PLM"
+        },
+        {
+            "run_id": "COMP-bom_26-EMISCAP-NLM",
+            "experiment": "nlm_comparison",
+            "instance_id": "bom_26",
+            "strategy": "EMISCAP",
+            "model_type": "NLM"
+        },
+        {
+            "run_id": "COMP-bom_26-EMISCAP-PLM",
+            "experiment": "nlm_comparison",
+            "instance_id": "bom_26",
+            "strategy": "EMISCAP",
+            "model_type": "PLM"
+        },
+        {
+            "run_id": "COMP-bom_26-EMISTAXE-NLM",
+            "experiment": "nlm_comparison",
+            "instance_id": "bom_26",
+            "strategy": "EMISTAXE",
+            "model_type": "NLM"
+        },
+        {
+            "run_id": "COMP-bom_26-EMISTAXE-PLM",
+            "experiment": "nlm_comparison",
+            "instance_id": "bom_26",
+            "strategy": "EMISTAXE",
+            "model_type": "PLM"
+        },
+        {
+            "run_id": "COMP-bom_5-EMISCAP-NLM",
+            "experiment": "nlm_comparison",
+            "instance_id": "bom_5",
+            "strategy": "EMISCAP",
+            "model_type": "NLM"
+        },
+        {
+            "run_id": "COMP-bom_5-EMISCAP-PLM",
+            "experiment": "nlm_comparison",
+            "instance_id": "bom_5",
+            "strategy": "EMISCAP",
+            "model_type": "PLM"
+        },
+        {
+            "run_id": "COMP-bom_5-EMISTAXE-NLM",
+            "experiment": "nlm_comparison",
+            "instance_id": "bom_5",
+            "strategy": "EMISTAXE",
+            "model_type": "NLM"
+        },
+        {
+            "run_id": "COMP-bom_5-EMISTAXE-PLM",
+            "experiment": "nlm_comparison",
+            "instance_id": "bom_5",
+            "strategy": "EMISTAXE",
+            "model_type": "PLM"
+        },
+        {
+            "run_id": "HYB-bom_13-tax_0_cap_100",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 0,
+            "cap_level": 1
+        },
+        {
+            "run_id": "HYB-bom_13-tax_0_cap_70",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 0,
+            "cap_level": 0.7
+        },
+        {
+            "run_id": "HYB-bom_13-tax_0_cap_75",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 0,
+            "cap_level": 0.75
+        },
+        {
+            "run_id": "HYB-bom_13-tax_0_cap_80",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 0,
+            "cap_level": 0.8
+        },
+        {
+            "run_id": "HYB-bom_13-tax_0_cap_85",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 0,
+            "cap_level": 0.85
+        },
+        {
+            "run_id": "HYB-bom_13-tax_0_cap_90",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 0,
+            "cap_level": 0.9
+        },
+        {
+            "run_id": "HYB-bom_13-tax_0_cap_95",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 0,
+            "cap_level": 0.95
+        },
+        {
+            "run_id": "HYB-bom_13-tax_0_cap_none",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 0,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "HYB-bom_13-tax_100_cap_100",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 100,
+            "cap_level": 1
+        },
+        {
+            "run_id": "HYB-bom_13-tax_100_cap_70",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 100,
+            "cap_level": 0.7
+        },
+        {
+            "run_id": "HYB-bom_13-tax_100_cap_75",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 100,
+            "cap_level": 0.75
+        },
+        {
+            "run_id": "HYB-bom_13-tax_100_cap_80",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 100,
+            "cap_level": 0.8
+        },
+        {
+            "run_id": "HYB-bom_13-tax_100_cap_85",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 100,
+            "cap_level": 0.85
+        },
+        {
+            "run_id": "HYB-bom_13-tax_100_cap_90",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 100,
+            "cap_level": 0.9
+        },
+        {
+            "run_id": "HYB-bom_13-tax_100_cap_95",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 100,
+            "cap_level": 0.95
+        },
+        {
+            "run_id": "HYB-bom_13-tax_100_cap_none",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 100,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "HYB-bom_13-tax_15_cap_100",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 15,
+            "cap_level": 1
+        },
+        {
+            "run_id": "HYB-bom_13-tax_15_cap_70",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 15,
+            "cap_level": 0.7
+        },
+        {
+            "run_id": "HYB-bom_13-tax_15_cap_75",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 15,
+            "cap_level": 0.75
+        },
+        {
+            "run_id": "HYB-bom_13-tax_15_cap_80",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 15,
+            "cap_level": 0.8
+        },
+        {
+            "run_id": "HYB-bom_13-tax_15_cap_85",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 15,
+            "cap_level": 0.85
+        },
+        {
+            "run_id": "HYB-bom_13-tax_15_cap_90",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 15,
+            "cap_level": 0.9
+        },
+        {
+            "run_id": "HYB-bom_13-tax_15_cap_95",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 15,
+            "cap_level": 0.95
+        },
+        {
+            "run_id": "HYB-bom_13-tax_15_cap_none",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 15,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "HYB-bom_13-tax_50_cap_100",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 50,
+            "cap_level": 1
+        },
+        {
+            "run_id": "HYB-bom_13-tax_50_cap_70",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 50,
+            "cap_level": 0.7
+        },
+        {
+            "run_id": "HYB-bom_13-tax_50_cap_75",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 50,
+            "cap_level": 0.75
+        },
+        {
+            "run_id": "HYB-bom_13-tax_50_cap_80",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 50,
+            "cap_level": 0.8
+        },
+        {
+            "run_id": "HYB-bom_13-tax_50_cap_85",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 50,
+            "cap_level": 0.85
+        },
+        {
+            "run_id": "HYB-bom_13-tax_50_cap_90",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 50,
+            "cap_level": 0.9
+        },
+        {
+            "run_id": "HYB-bom_13-tax_50_cap_95",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 50,
+            "cap_level": 0.95
+        },
+        {
+            "run_id": "HYB-bom_13-tax_50_cap_none",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 50,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "HYB-bom_13-tax_75_cap_100",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 75,
+            "cap_level": 1
+        },
+        {
+            "run_id": "HYB-bom_13-tax_75_cap_70",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 75,
+            "cap_level": 0.7
+        },
+        {
+            "run_id": "HYB-bom_13-tax_75_cap_75",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 75,
+            "cap_level": 0.75
+        },
+        {
+            "run_id": "HYB-bom_13-tax_75_cap_80",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 75,
+            "cap_level": 0.8
+        },
+        {
+            "run_id": "HYB-bom_13-tax_75_cap_85",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 75,
+            "cap_level": 0.85
+        },
+        {
+            "run_id": "HYB-bom_13-tax_75_cap_90",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 75,
+            "cap_level": 0.9
+        },
+        {
+            "run_id": "HYB-bom_13-tax_75_cap_95",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 75,
+            "cap_level": 0.95
+        },
+        {
+            "run_id": "HYB-bom_13-tax_75_cap_none",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_13",
+            "tax_rate": 75,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "HYB-bom_26-tax_0_cap_100",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 0,
+            "cap_level": 1
+        },
+        {
+            "run_id": "HYB-bom_26-tax_0_cap_70",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 0,
+            "cap_level": 0.7
+        },
+        {
+            "run_id": "HYB-bom_26-tax_0_cap_75",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 0,
+            "cap_level": 0.75
+        },
+        {
+            "run_id": "HYB-bom_26-tax_0_cap_80",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 0,
+            "cap_level": 0.8
+        },
+        {
+            "run_id": "HYB-bom_26-tax_0_cap_85",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 0,
+            "cap_level": 0.85
+        },
+        {
+            "run_id": "HYB-bom_26-tax_0_cap_90",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 0,
+            "cap_level": 0.9
+        },
+        {
+            "run_id": "HYB-bom_26-tax_0_cap_95",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 0,
+            "cap_level": 0.95
+        },
+        {
+            "run_id": "HYB-bom_26-tax_0_cap_none",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 0,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "HYB-bom_26-tax_100_cap_100",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 100,
+            "cap_level": 1
+        },
+        {
+            "run_id": "HYB-bom_26-tax_100_cap_70",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 100,
+            "cap_level": 0.7
+        },
+        {
+            "run_id": "HYB-bom_26-tax_100_cap_75",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 100,
+            "cap_level": 0.75
+        },
+        {
+            "run_id": "HYB-bom_26-tax_100_cap_80",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 100,
+            "cap_level": 0.8
+        },
+        {
+            "run_id": "HYB-bom_26-tax_100_cap_85",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 100,
+            "cap_level": 0.85
+        },
+        {
+            "run_id": "HYB-bom_26-tax_100_cap_90",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 100,
+            "cap_level": 0.9
+        },
+        {
+            "run_id": "HYB-bom_26-tax_100_cap_95",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 100,
+            "cap_level": 0.95
+        },
+        {
+            "run_id": "HYB-bom_26-tax_100_cap_none",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 100,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "HYB-bom_26-tax_15_cap_100",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 15,
+            "cap_level": 1
+        },
+        {
+            "run_id": "HYB-bom_26-tax_15_cap_70",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 15,
+            "cap_level": 0.7
+        },
+        {
+            "run_id": "HYB-bom_26-tax_15_cap_75",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 15,
+            "cap_level": 0.75
+        },
+        {
+            "run_id": "HYB-bom_26-tax_15_cap_80",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 15,
+            "cap_level": 0.8
+        },
+        {
+            "run_id": "HYB-bom_26-tax_15_cap_85",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 15,
+            "cap_level": 0.85
+        },
+        {
+            "run_id": "HYB-bom_26-tax_15_cap_90",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 15,
+            "cap_level": 0.9
+        },
+        {
+            "run_id": "HYB-bom_26-tax_15_cap_95",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 15,
+            "cap_level": 0.95
+        },
+        {
+            "run_id": "HYB-bom_26-tax_15_cap_none",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 15,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "HYB-bom_26-tax_50_cap_100",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 50,
+            "cap_level": 1
+        },
+        {
+            "run_id": "HYB-bom_26-tax_50_cap_70",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 50,
+            "cap_level": 0.7
+        },
+        {
+            "run_id": "HYB-bom_26-tax_50_cap_75",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 50,
+            "cap_level": 0.75
+        },
+        {
+            "run_id": "HYB-bom_26-tax_50_cap_80",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 50,
+            "cap_level": 0.8
+        },
+        {
+            "run_id": "HYB-bom_26-tax_50_cap_85",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 50,
+            "cap_level": 0.85
+        },
+        {
+            "run_id": "HYB-bom_26-tax_50_cap_90",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 50,
+            "cap_level": 0.9
+        },
+        {
+            "run_id": "HYB-bom_26-tax_50_cap_95",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 50,
+            "cap_level": 0.95
+        },
+        {
+            "run_id": "HYB-bom_26-tax_50_cap_none",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 50,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "HYB-bom_26-tax_75_cap_100",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 75,
+            "cap_level": 1
+        },
+        {
+            "run_id": "HYB-bom_26-tax_75_cap_70",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 75,
+            "cap_level": 0.7
+        },
+        {
+            "run_id": "HYB-bom_26-tax_75_cap_75",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 75,
+            "cap_level": 0.75
+        },
+        {
+            "run_id": "HYB-bom_26-tax_75_cap_80",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 75,
+            "cap_level": 0.8
+        },
+        {
+            "run_id": "HYB-bom_26-tax_75_cap_85",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 75,
+            "cap_level": 0.85
+        },
+        {
+            "run_id": "HYB-bom_26-tax_75_cap_90",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 75,
+            "cap_level": 0.9
+        },
+        {
+            "run_id": "HYB-bom_26-tax_75_cap_95",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 75,
+            "cap_level": 0.95
+        },
+        {
+            "run_id": "HYB-bom_26-tax_75_cap_none",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_26",
+            "tax_rate": 75,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "HYB-bom_5-tax_0_cap_100",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 0,
+            "cap_level": 1
+        },
+        {
+            "run_id": "HYB-bom_5-tax_0_cap_70",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 0,
+            "cap_level": 0.7
+        },
+        {
+            "run_id": "HYB-bom_5-tax_0_cap_75",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 0,
+            "cap_level": 0.75
+        },
+        {
+            "run_id": "HYB-bom_5-tax_0_cap_80",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 0,
+            "cap_level": 0.8
+        },
+        {
+            "run_id": "HYB-bom_5-tax_0_cap_85",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 0,
+            "cap_level": 0.85
+        },
+        {
+            "run_id": "HYB-bom_5-tax_0_cap_90",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 0,
+            "cap_level": 0.9
+        },
+        {
+            "run_id": "HYB-bom_5-tax_0_cap_95",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 0,
+            "cap_level": 0.95
+        },
+        {
+            "run_id": "HYB-bom_5-tax_0_cap_none",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 0,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "HYB-bom_5-tax_100_cap_100",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 100,
+            "cap_level": 1
+        },
+        {
+            "run_id": "HYB-bom_5-tax_100_cap_70",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 100,
+            "cap_level": 0.7
+        },
+        {
+            "run_id": "HYB-bom_5-tax_100_cap_75",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 100,
+            "cap_level": 0.75
+        },
+        {
+            "run_id": "HYB-bom_5-tax_100_cap_80",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 100,
+            "cap_level": 0.8
+        },
+        {
+            "run_id": "HYB-bom_5-tax_100_cap_85",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 100,
+            "cap_level": 0.85
+        },
+        {
+            "run_id": "HYB-bom_5-tax_100_cap_90",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 100,
+            "cap_level": 0.9
+        },
+        {
+            "run_id": "HYB-bom_5-tax_100_cap_95",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 100,
+            "cap_level": 0.95
+        },
+        {
+            "run_id": "HYB-bom_5-tax_100_cap_none",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 100,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "HYB-bom_5-tax_15_cap_100",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 15,
+            "cap_level": 1
+        },
+        {
+            "run_id": "HYB-bom_5-tax_15_cap_70",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 15,
+            "cap_level": 0.7
+        },
+        {
+            "run_id": "HYB-bom_5-tax_15_cap_75",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 15,
+            "cap_level": 0.75
+        },
+        {
+            "run_id": "HYB-bom_5-tax_15_cap_80",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 15,
+            "cap_level": 0.8
+        },
+        {
+            "run_id": "HYB-bom_5-tax_15_cap_85",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 15,
+            "cap_level": 0.85
+        },
+        {
+            "run_id": "HYB-bom_5-tax_15_cap_90",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 15,
+            "cap_level": 0.9
+        },
+        {
+            "run_id": "HYB-bom_5-tax_15_cap_95",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 15,
+            "cap_level": 0.95
+        },
+        {
+            "run_id": "HYB-bom_5-tax_15_cap_none",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 15,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "HYB-bom_5-tax_50_cap_100",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 50,
+            "cap_level": 1
+        },
+        {
+            "run_id": "HYB-bom_5-tax_50_cap_70",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 50,
+            "cap_level": 0.7
+        },
+        {
+            "run_id": "HYB-bom_5-tax_50_cap_75",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 50,
+            "cap_level": 0.75
+        },
+        {
+            "run_id": "HYB-bom_5-tax_50_cap_80",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 50,
+            "cap_level": 0.8
+        },
+        {
+            "run_id": "HYB-bom_5-tax_50_cap_85",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 50,
+            "cap_level": 0.85
+        },
+        {
+            "run_id": "HYB-bom_5-tax_50_cap_90",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 50,
+            "cap_level": 0.9
+        },
+        {
+            "run_id": "HYB-bom_5-tax_50_cap_95",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 50,
+            "cap_level": 0.95
+        },
+        {
+            "run_id": "HYB-bom_5-tax_50_cap_none",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 50,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "HYB-bom_5-tax_75_cap_100",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 75,
+            "cap_level": 1
+        },
+        {
+            "run_id": "HYB-bom_5-tax_75_cap_70",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 75,
+            "cap_level": 0.7
+        },
+        {
+            "run_id": "HYB-bom_5-tax_75_cap_75",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 75,
+            "cap_level": 0.75
+        },
+        {
+            "run_id": "HYB-bom_5-tax_75_cap_80",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 75,
+            "cap_level": 0.8
+        },
+        {
+            "run_id": "HYB-bom_5-tax_75_cap_85",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 75,
+            "cap_level": 0.85
+        },
+        {
+            "run_id": "HYB-bom_5-tax_75_cap_90",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 75,
+            "cap_level": 0.9
+        },
+        {
+            "run_id": "HYB-bom_5-tax_75_cap_95",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 75,
+            "cap_level": 0.95
+        },
+        {
+            "run_id": "HYB-bom_5-tax_75_cap_none",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_5",
+            "tax_rate": 75,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "HYB-bom_50-tax_0_cap_100",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 0,
+            "cap_level": 1
+        },
+        {
+            "run_id": "HYB-bom_50-tax_0_cap_70",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 0,
+            "cap_level": 0.7
+        },
+        {
+            "run_id": "HYB-bom_50-tax_0_cap_75",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 0,
+            "cap_level": 0.75
+        },
+        {
+            "run_id": "HYB-bom_50-tax_0_cap_80",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 0,
+            "cap_level": 0.8
+        },
+        {
+            "run_id": "HYB-bom_50-tax_0_cap_85",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 0,
+            "cap_level": 0.85
+        },
+        {
+            "run_id": "HYB-bom_50-tax_0_cap_90",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 0,
+            "cap_level": 0.9
+        },
+        {
+            "run_id": "HYB-bom_50-tax_0_cap_95",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 0,
+            "cap_level": 0.95
+        },
+        {
+            "run_id": "HYB-bom_50-tax_0_cap_none",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 0,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "HYB-bom_50-tax_100_cap_100",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 100,
+            "cap_level": 1
+        },
+        {
+            "run_id": "HYB-bom_50-tax_100_cap_70",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 100,
+            "cap_level": 0.7
+        },
+        {
+            "run_id": "HYB-bom_50-tax_100_cap_75",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 100,
+            "cap_level": 0.75
+        },
+        {
+            "run_id": "HYB-bom_50-tax_100_cap_80",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 100,
+            "cap_level": 0.8
+        },
+        {
+            "run_id": "HYB-bom_50-tax_100_cap_85",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 100,
+            "cap_level": 0.85
+        },
+        {
+            "run_id": "HYB-bom_50-tax_100_cap_90",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 100,
+            "cap_level": 0.9
+        },
+        {
+            "run_id": "HYB-bom_50-tax_100_cap_95",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 100,
+            "cap_level": 0.95
+        },
+        {
+            "run_id": "HYB-bom_50-tax_100_cap_none",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 100,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "HYB-bom_50-tax_15_cap_100",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 15,
+            "cap_level": 1
+        },
+        {
+            "run_id": "HYB-bom_50-tax_15_cap_70",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 15,
+            "cap_level": 0.7
+        },
+        {
+            "run_id": "HYB-bom_50-tax_15_cap_75",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 15,
+            "cap_level": 0.75
+        },
+        {
+            "run_id": "HYB-bom_50-tax_15_cap_80",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 15,
+            "cap_level": 0.8
+        },
+        {
+            "run_id": "HYB-bom_50-tax_15_cap_85",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 15,
+            "cap_level": 0.85
+        },
+        {
+            "run_id": "HYB-bom_50-tax_15_cap_90",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 15,
+            "cap_level": 0.9
+        },
+        {
+            "run_id": "HYB-bom_50-tax_15_cap_95",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 15,
+            "cap_level": 0.95
+        },
+        {
+            "run_id": "HYB-bom_50-tax_15_cap_none",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 15,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "HYB-bom_50-tax_50_cap_100",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 50,
+            "cap_level": 1
+        },
+        {
+            "run_id": "HYB-bom_50-tax_50_cap_70",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 50,
+            "cap_level": 0.7
+        },
+        {
+            "run_id": "HYB-bom_50-tax_50_cap_75",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 50,
+            "cap_level": 0.75
+        },
+        {
+            "run_id": "HYB-bom_50-tax_50_cap_80",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 50,
+            "cap_level": 0.8
+        },
+        {
+            "run_id": "HYB-bom_50-tax_50_cap_85",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 50,
+            "cap_level": 0.85
+        },
+        {
+            "run_id": "HYB-bom_50-tax_50_cap_90",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 50,
+            "cap_level": 0.9
+        },
+        {
+            "run_id": "HYB-bom_50-tax_50_cap_95",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 50,
+            "cap_level": 0.95
+        },
+        {
+            "run_id": "HYB-bom_50-tax_50_cap_none",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 50,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "HYB-bom_50-tax_75_cap_100",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 75,
+            "cap_level": 1
+        },
+        {
+            "run_id": "HYB-bom_50-tax_75_cap_70",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 75,
+            "cap_level": 0.7
+        },
+        {
+            "run_id": "HYB-bom_50-tax_75_cap_75",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 75,
+            "cap_level": 0.75
+        },
+        {
+            "run_id": "HYB-bom_50-tax_75_cap_80",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 75,
+            "cap_level": 0.8
+        },
+        {
+            "run_id": "HYB-bom_50-tax_75_cap_85",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 75,
+            "cap_level": 0.85
+        },
+        {
+            "run_id": "HYB-bom_50-tax_75_cap_90",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 75,
+            "cap_level": 0.9
+        },
+        {
+            "run_id": "HYB-bom_50-tax_75_cap_95",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 75,
+            "cap_level": 0.95
+        },
+        {
+            "run_id": "HYB-bom_50-tax_75_cap_none",
+            "experiment": "carbon_hybrid",
+            "instance_id": "bom_50",
+            "tax_rate": 75,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "SCAL-002",
+            "experiment": "scalability",
+            "instance_id": "bom_2"
+        },
+        {
+            "run_id": "SCAL-003",
+            "experiment": "scalability",
+            "instance_id": "bom_3"
+        },
+        {
+            "run_id": "SCAL-004",
+            "experiment": "scalability",
+            "instance_id": "bom_4"
+        },
+        {
+            "run_id": "SCAL-005",
+            "experiment": "scalability",
+            "instance_id": "bom_5"
+        },
+        {
+            "run_id": "SCAL-006",
+            "experiment": "scalability",
+            "instance_id": "bom_6"
+        },
+        {
+            "run_id": "SCAL-007",
+            "experiment": "scalability",
+            "instance_id": "bom_7"
+        },
+        {
+            "run_id": "SCAL-008",
+            "experiment": "scalability",
+            "instance_id": "bom_8"
+        },
+        {
+            "run_id": "SCAL-010",
+            "experiment": "scalability",
+            "instance_id": "bom_10"
+        },
+        {
+            "run_id": "SCAL-013",
+            "experiment": "scalability",
+            "instance_id": "bom_13"
+        },
+        {
+            "run_id": "SCAL-015",
+            "experiment": "scalability",
+            "instance_id": "bom_15"
+        },
+        {
+            "run_id": "SCAL-020",
+            "experiment": "scalability",
+            "instance_id": "bom_20"
+        },
+        {
+            "run_id": "SCAL-025",
+            "experiment": "scalability",
+            "instance_id": "bom_25"
+        },
+        {
+            "run_id": "SCAL-026",
+            "experiment": "scalability",
+            "instance_id": "bom_26"
+        },
+        {
+            "run_id": "SCAL-030",
+            "experiment": "scalability",
+            "instance_id": "bom_30"
+        },
+        {
+            "run_id": "SCAL-035",
+            "experiment": "scalability",
+            "instance_id": "bom_35"
+        },
+        {
+            "run_id": "SCAL-040",
+            "experiment": "scalability",
+            "instance_id": "bom_40"
+        },
+        {
+            "run_id": "SCAL-050",
+            "experiment": "scalability",
+            "instance_id": "bom_50"
+        },
+        {
+            "run_id": "SCAL-060",
+            "experiment": "scalability",
+            "instance_id": "bom_60"
+        },
+        {
+            "run_id": "SCAL-080",
+            "experiment": "scalability",
+            "instance_id": "bom_80"
+        },
+        {
+            "run_id": "SCAL-090",
+            "experiment": "scalability",
+            "instance_id": "bom_90"
+        },
+        {
+            "run_id": "SCAL-100",
+            "experiment": "scalability",
+            "instance_id": "bom_100"
+        },
+        {
+            "run_id": "SCAL-123",
+            "experiment": "scalability",
+            "instance_id": "bom_123"
+        },
+        {
+            "run_id": "SCAL-150",
+            "experiment": "scalability",
+            "instance_id": "bom_150"
+        },
+        {
+            "run_id": "SVT-bom_13-EMISCAP-SvT0",
+            "experiment": "service_time_sensitivity",
+            "instance_id": "bom_13",
+            "strategy": "EMISCAP",
+            "service_time": 0
+        },
+        {
+            "run_id": "SVT-bom_13-EMISCAP-SvT1",
+            "experiment": "service_time_sensitivity",
+            "instance_id": "bom_13",
+            "strategy": "EMISCAP",
+            "service_time": 1
+        },
+        {
+            "run_id": "SVT-bom_13-EMISCAP-SvT3",
+            "experiment": "service_time_sensitivity",
+            "instance_id": "bom_13",
+            "strategy": "EMISCAP",
+            "service_time": 3
+        },
+        {
+            "run_id": "SVT-bom_13-EMISTAXE-SvT0",
+            "experiment": "service_time_sensitivity",
+            "instance_id": "bom_13",
+            "strategy": "EMISTAXE",
+            "service_time": 0
+        },
+        {
+            "run_id": "SVT-bom_13-EMISTAXE-SvT1",
+            "experiment": "service_time_sensitivity",
+            "instance_id": "bom_13",
+            "strategy": "EMISTAXE",
+            "service_time": 1
+        },
+        {
+            "run_id": "SVT-bom_13-EMISTAXE-SvT3",
+            "experiment": "service_time_sensitivity",
+            "instance_id": "bom_13",
+            "strategy": "EMISTAXE",
+            "service_time": 3
+        },
+        {
+            "run_id": "SVT-bom_26-EMISCAP-SvT0",
+            "experiment": "service_time_sensitivity",
+            "instance_id": "bom_26",
+            "strategy": "EMISCAP",
+            "service_time": 0
+        },
+        {
+            "run_id": "SVT-bom_26-EMISCAP-SvT1",
+            "experiment": "service_time_sensitivity",
+            "instance_id": "bom_26",
+            "strategy": "EMISCAP",
+            "service_time": 1
+        },
+        {
+            "run_id": "SVT-bom_26-EMISCAP-SvT3",
+            "experiment": "service_time_sensitivity",
+            "instance_id": "bom_26",
+            "strategy": "EMISCAP",
+            "service_time": 3
+        },
+        {
+            "run_id": "SVT-bom_26-EMISTAXE-SvT0",
+            "experiment": "service_time_sensitivity",
+            "instance_id": "bom_26",
+            "strategy": "EMISTAXE",
+            "service_time": 0
+        },
+        {
+            "run_id": "SVT-bom_26-EMISTAXE-SvT1",
+            "experiment": "service_time_sensitivity",
+            "instance_id": "bom_26",
+            "strategy": "EMISTAXE",
+            "service_time": 1
+        },
+        {
+            "run_id": "SVT-bom_26-EMISTAXE-SvT3",
+            "experiment": "service_time_sensitivity",
+            "instance_id": "bom_26",
+            "strategy": "EMISTAXE",
+            "service_time": 3
+        },
+        {
+            "run_id": "SVT-bom_5-EMISCAP-SvT0",
+            "experiment": "service_time_sensitivity",
+            "instance_id": "bom_5",
+            "strategy": "EMISCAP",
+            "service_time": 0
+        },
+        {
+            "run_id": "SVT-bom_5-EMISCAP-SvT1",
+            "experiment": "service_time_sensitivity",
+            "instance_id": "bom_5",
+            "strategy": "EMISCAP",
+            "service_time": 1
+        },
+        {
+            "run_id": "SVT-bom_5-EMISCAP-SvT3",
+            "experiment": "service_time_sensitivity",
+            "instance_id": "bom_5",
+            "strategy": "EMISCAP",
+            "service_time": 3
+        },
+        {
+            "run_id": "SVT-bom_5-EMISTAXE-SvT0",
+            "experiment": "service_time_sensitivity",
+            "instance_id": "bom_5",
+            "strategy": "EMISTAXE",
+            "service_time": 0
+        },
+        {
+            "run_id": "SVT-bom_5-EMISTAXE-SvT1",
+            "experiment": "service_time_sensitivity",
+            "instance_id": "bom_5",
+            "strategy": "EMISTAXE",
+            "service_time": 1
+        },
+        {
+            "run_id": "SVT-bom_5-EMISTAXE-SvT3",
+            "experiment": "service_time_sensitivity",
+            "instance_id": "bom_5",
+            "strategy": "EMISTAXE",
+            "service_time": 3
+        },
+        {
+            "run_id": "SVT-bom_50-EMISCAP-SvT0",
+            "experiment": "service_time_sensitivity",
+            "instance_id": "bom_50",
+            "strategy": "EMISCAP",
+            "service_time": 0
+        },
+        {
+            "run_id": "SVT-bom_50-EMISCAP-SvT1",
+            "experiment": "service_time_sensitivity",
+            "instance_id": "bom_50",
+            "strategy": "EMISCAP",
+            "service_time": 1
+        },
+        {
+            "run_id": "SVT-bom_50-EMISCAP-SvT3",
+            "experiment": "service_time_sensitivity",
+            "instance_id": "bom_50",
+            "strategy": "EMISCAP",
+            "service_time": 3
+        },
+        {
+            "run_id": "SVT-bom_50-EMISTAXE-SvT0",
+            "experiment": "service_time_sensitivity",
+            "instance_id": "bom_50",
+            "strategy": "EMISTAXE",
+            "service_time": 0
+        },
+        {
+            "run_id": "SVT-bom_50-EMISTAXE-SvT1",
+            "experiment": "service_time_sensitivity",
+            "instance_id": "bom_50",
+            "strategy": "EMISTAXE",
+            "service_time": 1
+        },
+        {
+            "run_id": "SVT-bom_50-EMISTAXE-SvT3",
+            "experiment": "service_time_sensitivity",
+            "instance_id": "bom_50",
+            "strategy": "EMISTAXE",
+            "service_time": 3
+        },
+        {
+            "run_id": "TAX-bom_13-0.00",
+            "experiment": "carbon_tax_sweep",
+            "instance_id": "bom_13",
+            "tax_rate": 0,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "TAX-bom_13-100.00",
+            "experiment": "carbon_tax_sweep",
+            "instance_id": "bom_13",
+            "tax_rate": 100,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "TAX-bom_13-15.00",
+            "experiment": "carbon_tax_sweep",
+            "instance_id": "bom_13",
+            "tax_rate": 15,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "TAX-bom_13-50.00",
+            "experiment": "carbon_tax_sweep",
+            "instance_id": "bom_13",
+            "tax_rate": 50,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "TAX-bom_13-75.00",
+            "experiment": "carbon_tax_sweep",
+            "instance_id": "bom_13",
+            "tax_rate": 75,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "TAX-bom_26-0.00",
+            "experiment": "carbon_tax_sweep",
+            "instance_id": "bom_26",
+            "tax_rate": 0,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "TAX-bom_26-100.00",
+            "experiment": "carbon_tax_sweep",
+            "instance_id": "bom_26",
+            "tax_rate": 100,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "TAX-bom_26-15.00",
+            "experiment": "carbon_tax_sweep",
+            "instance_id": "bom_26",
+            "tax_rate": 15,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "TAX-bom_26-50.00",
+            "experiment": "carbon_tax_sweep",
+            "instance_id": "bom_26",
+            "tax_rate": 50,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "TAX-bom_26-75.00",
+            "experiment": "carbon_tax_sweep",
+            "instance_id": "bom_26",
+            "tax_rate": 75,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "TAX-bom_5-0.00",
+            "experiment": "carbon_tax_sweep",
+            "instance_id": "bom_5",
+            "tax_rate": 0,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "TAX-bom_5-100.00",
+            "experiment": "carbon_tax_sweep",
+            "instance_id": "bom_5",
+            "tax_rate": 100,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "TAX-bom_5-15.00",
+            "experiment": "carbon_tax_sweep",
+            "instance_id": "bom_5",
+            "tax_rate": 15,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "TAX-bom_5-50.00",
+            "experiment": "carbon_tax_sweep",
+            "instance_id": "bom_5",
+            "tax_rate": 50,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "TAX-bom_5-75.00",
+            "experiment": "carbon_tax_sweep",
+            "instance_id": "bom_5",
+            "tax_rate": 75,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "TAX-bom_50-0.00",
+            "experiment": "carbon_tax_sweep",
+            "instance_id": "bom_50",
+            "tax_rate": 0,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "TAX-bom_50-100.00",
+            "experiment": "carbon_tax_sweep",
+            "instance_id": "bom_50",
+            "tax_rate": 100,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "TAX-bom_50-15.00",
+            "experiment": "carbon_tax_sweep",
+            "instance_id": "bom_50",
+            "tax_rate": 15,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "TAX-bom_50-50.00",
+            "experiment": "carbon_tax_sweep",
+            "instance_id": "bom_50",
+            "tax_rate": 50,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "TAX-bom_50-75.00",
+            "experiment": "carbon_tax_sweep",
+            "instance_id": "bom_50",
+            "tax_rate": 75,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "TAX-bom_ml4_30-0.00",
+            "experiment": "carbon_tax_sweep",
+            "instance_id": "bom_ml4_30",
+            "tax_rate": 0,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "TAX-bom_ml4_30-100.00",
+            "experiment": "carbon_tax_sweep",
+            "instance_id": "bom_ml4_30",
+            "tax_rate": 100,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "TAX-bom_ml4_30-15.00",
+            "experiment": "carbon_tax_sweep",
+            "instance_id": "bom_ml4_30",
+            "tax_rate": 15,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "TAX-bom_ml4_30-50.00",
+            "experiment": "carbon_tax_sweep",
+            "instance_id": "bom_ml4_30",
+            "tax_rate": 50,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "TAX-bom_ml4_30-75.00",
+            "experiment": "carbon_tax_sweep",
+            "instance_id": "bom_ml4_30",
+            "tax_rate": 75,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "TAX-bom_par4-0.00",
+            "experiment": "carbon_tax_sweep",
+            "instance_id": "bom_par4",
+            "tax_rate": 0,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "TAX-bom_par4-100.00",
+            "experiment": "carbon_tax_sweep",
+            "instance_id": "bom_par4",
+            "tax_rate": 100,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "TAX-bom_par4-15.00",
+            "experiment": "carbon_tax_sweep",
+            "instance_id": "bom_par4",
+            "tax_rate": 15,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "TAX-bom_par4-50.00",
+            "experiment": "carbon_tax_sweep",
+            "instance_id": "bom_par4",
+            "tax_rate": 50,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "TAX-bom_par4-75.00",
+            "experiment": "carbon_tax_sweep",
+            "instance_id": "bom_par4",
+            "tax_rate": 75,
+            "cap_level": "none"
+        },
+        {
+            "run_id": "TOPO-multi_level-bom_ml4_30",
+            "experiment": "topology_baseline",
+            "instance_id": "bom_ml4_30",
+            "family": "multi_level"
+        },
+        {
+            "run_id": "TOPO-multi_level-bom_ml4_55",
+            "experiment": "topology_baseline",
+            "instance_id": "bom_ml4_55",
+            "family": "multi_level"
+        },
+        {
+            "run_id": "TOPO-multi_level-bom_ml5_45",
+            "experiment": "topology_baseline",
+            "instance_id": "bom_ml5_45",
+            "family": "multi_level"
+        },
+        {
+            "run_id": "TOPO-multi_level-bom_ml5_65",
+            "experiment": "topology_baseline",
+            "instance_id": "bom_ml5_65",
+            "family": "multi_level"
+        },
+        {
+            "run_id": "TOPO-multi_level-bom_ml6_70",
+            "experiment": "topology_baseline",
+            "instance_id": "bom_ml6_70",
+            "family": "multi_level"
+        },
+        {
+            "run_id": "TOPO-parallel-bom_par2",
+            "experiment": "topology_baseline",
+            "instance_id": "bom_par2",
+            "family": "parallel"
+        },
+        {
+            "run_id": "TOPO-parallel-bom_par3",
+            "experiment": "topology_baseline",
+            "instance_id": "bom_par3",
+            "family": "parallel"
+        },
+        {
+            "run_id": "TOPO-parallel-bom_par4",
+            "experiment": "topology_baseline",
+            "instance_id": "bom_par4",
+            "family": "parallel"
+        },
+        {
+            "run_id": "TOPO-parallel-bom_par5",
+            "experiment": "topology_baseline",
+            "instance_id": "bom_par5",
+            "family": "parallel"
+        },
+        {
+            "run_id": "TOPO-parallel-bom_par6",
+            "experiment": "topology_baseline",
+            "instance_id": "bom_par6",
+            "family": "parallel"
+        }
+    ],
+    "internal_solver_runs": [],
+    "multi_objective_solver_runs": [
+        {
+            "run_id": "MOBJ-bom_13_CDIO_0",
+            "experiment": "multi_objective_cost_DIO",
+            "instance_id": "bom_13",
+            "point": 0
+        },
+        {
+            "run_id": "MOBJ-bom_13_CDIO_1",
+            "experiment": "multi_objective_cost_DIO",
+            "instance_id": "bom_13",
+            "point": 1
+        },
+        {
+            "run_id": "MOBJ-bom_13_CDIO_2",
+            "experiment": "multi_objective_cost_DIO",
+            "instance_id": "bom_13",
+            "point": 2
+        },
+        {
+            "run_id": "MOBJ-bom_13_CDIO_3",
+            "experiment": "multi_objective_cost_DIO",
+            "instance_id": "bom_13",
+            "point": 3
+        },
+        {
+            "run_id": "MOBJ-bom_13_CDIO_4",
+            "experiment": "multi_objective_cost_DIO",
+            "instance_id": "bom_13",
+            "point": 4
+        },
+        {
+            "run_id": "MOBJ-bom_13_CDIO_5",
+            "experiment": "multi_objective_cost_DIO",
+            "instance_id": "bom_13",
+            "point": 5
+        },
+        {
+            "run_id": "MOBJ-bom_13_CDIO_6",
+            "experiment": "multi_objective_cost_DIO",
+            "instance_id": "bom_13",
+            "point": 6
+        },
+        {
+            "run_id": "MOBJ-bom_13_CDIO_7",
+            "experiment": "multi_objective_cost_DIO",
+            "instance_id": "bom_13",
+            "point": 7
+        },
+        {
+            "run_id": "MOBJ-bom_13_CDIO_8",
+            "experiment": "multi_objective_cost_DIO",
+            "instance_id": "bom_13",
+            "point": 8
+        },
+        {
+            "run_id": "MOBJ-bom_13_CDIO_9",
+            "experiment": "multi_objective_cost_DIO",
+            "instance_id": "bom_13",
+            "point": 9
+        },
+        {
+            "run_id": "MOBJ-bom_13_CEMIS_0",
+            "experiment": "multi_objective_cost_EMIS",
+            "instance_id": "bom_13",
+            "point": 0
+        },
+        {
+            "run_id": "MOBJ-bom_13_CEMIS_1",
+            "experiment": "multi_objective_cost_EMIS",
+            "instance_id": "bom_13",
+            "point": 1
+        },
+        {
+            "run_id": "MOBJ-bom_13_CEMIS_2",
+            "experiment": "multi_objective_cost_EMIS",
+            "instance_id": "bom_13",
+            "point": 2
+        },
+        {
+            "run_id": "MOBJ-bom_13_CEMIS_3",
+            "experiment": "multi_objective_cost_EMIS",
+            "instance_id": "bom_13",
+            "point": 3
+        },
+        {
+            "run_id": "MOBJ-bom_13_CEMIS_4",
+            "experiment": "multi_objective_cost_EMIS",
+            "instance_id": "bom_13",
+            "point": 4
+        },
+        {
+            "run_id": "MOBJ-bom_13_CEMIS_5",
+            "experiment": "multi_objective_cost_EMIS",
+            "instance_id": "bom_13",
+            "point": 5
+        },
+        {
+            "run_id": "MOBJ-bom_13_CEMIS_6",
+            "experiment": "multi_objective_cost_EMIS",
+            "instance_id": "bom_13",
+            "point": 6
+        },
+        {
+            "run_id": "MOBJ-bom_13_CEMIS_7",
+            "experiment": "multi_objective_cost_EMIS",
+            "instance_id": "bom_13",
+            "point": 7
+        },
+        {
+            "run_id": "MOBJ-bom_13_CEMIS_8",
+            "experiment": "multi_objective_cost_EMIS",
+            "instance_id": "bom_13",
+            "point": 8
+        },
+        {
+            "run_id": "MOBJ-bom_13_CEMIS_9",
+            "experiment": "multi_objective_cost_EMIS",
+            "instance_id": "bom_13",
+            "point": 9
+        },
+        {
+            "run_id": "MOBJ-bom_13_IDEAL_OBJ1",
+            "experiment": "multi_objective_ideal_nadir",
+            "instance_id": "bom_13",
+            "objective": 1
+        },
+        {
+            "run_id": "MOBJ-bom_13_IDEAL_OBJ2",
+            "experiment": "multi_objective_ideal_nadir",
+            "instance_id": "bom_13",
+            "objective": 2
+        },
+        {
+            "run_id": "MOBJ-bom_13_IDEAL_OBJ3",
+            "experiment": "multi_objective_ideal_nadir",
+            "instance_id": "bom_13",
+            "objective": 3
+        },
+        {
+            "run_id": "MOBJ-bom_13_IDEAL_OBJ4",
+            "experiment": "multi_objective_ideal_nadir",
+            "instance_id": "bom_13",
+            "objective": 4
+        },
+        {
+            "run_id": "MOBJ-bom_26_CDIO_0",
+            "experiment": "multi_objective_cost_DIO",
+            "instance_id": "bom_26",
+            "point": 0
+        },
+        {
+            "run_id": "MOBJ-bom_26_CDIO_1",
+            "experiment": "multi_objective_cost_DIO",
+            "instance_id": "bom_26",
+            "point": 1
+        },
+        {
+            "run_id": "MOBJ-bom_26_CDIO_2",
+            "experiment": "multi_objective_cost_DIO",
+            "instance_id": "bom_26",
+            "point": 2
+        },
+        {
+            "run_id": "MOBJ-bom_26_CDIO_3",
+            "experiment": "multi_objective_cost_DIO",
+            "instance_id": "bom_26",
+            "point": 3
+        },
+        {
+            "run_id": "MOBJ-bom_26_CDIO_4",
+            "experiment": "multi_objective_cost_DIO",
+            "instance_id": "bom_26",
+            "point": 4
+        },
+        {
+            "run_id": "MOBJ-bom_26_CDIO_5",
+            "experiment": "multi_objective_cost_DIO",
+            "instance_id": "bom_26",
+            "point": 5
+        },
+        {
+            "run_id": "MOBJ-bom_26_CDIO_6",
+            "experiment": "multi_objective_cost_DIO",
+            "instance_id": "bom_26",
+            "point": 6
+        },
+        {
+            "run_id": "MOBJ-bom_26_CDIO_7",
+            "experiment": "multi_objective_cost_DIO",
+            "instance_id": "bom_26",
+            "point": 7
+        },
+        {
+            "run_id": "MOBJ-bom_26_CDIO_8",
+            "experiment": "multi_objective_cost_DIO",
+            "instance_id": "bom_26",
+            "point": 8
+        },
+        {
+            "run_id": "MOBJ-bom_26_CDIO_9",
+            "experiment": "multi_objective_cost_DIO",
+            "instance_id": "bom_26",
+            "point": 9
+        },
+        {
+            "run_id": "MOBJ-bom_26_CEMIS_0",
+            "experiment": "multi_objective_cost_EMIS",
+            "instance_id": "bom_26",
+            "point": 0
+        },
+        {
+            "run_id": "MOBJ-bom_26_CEMIS_1",
+            "experiment": "multi_objective_cost_EMIS",
+            "instance_id": "bom_26",
+            "point": 1
+        },
+        {
+            "run_id": "MOBJ-bom_26_CEMIS_2",
+            "experiment": "multi_objective_cost_EMIS",
+            "instance_id": "bom_26",
+            "point": 2
+        },
+        {
+            "run_id": "MOBJ-bom_26_CEMIS_3",
+            "experiment": "multi_objective_cost_EMIS",
+            "instance_id": "bom_26",
+            "point": 3
+        },
+        {
+            "run_id": "MOBJ-bom_26_CEMIS_4",
+            "experiment": "multi_objective_cost_EMIS",
+            "instance_id": "bom_26",
+            "point": 4
+        },
+        {
+            "run_id": "MOBJ-bom_26_CEMIS_5",
+            "experiment": "multi_objective_cost_EMIS",
+            "instance_id": "bom_26",
+            "point": 5
+        },
+        {
+            "run_id": "MOBJ-bom_26_CEMIS_6",
+            "experiment": "multi_objective_cost_EMIS",
+            "instance_id": "bom_26",
+            "point": 6
+        },
+        {
+            "run_id": "MOBJ-bom_26_CEMIS_7",
+            "experiment": "multi_objective_cost_EMIS",
+            "instance_id": "bom_26",
+            "point": 7
+        },
+        {
+            "run_id": "MOBJ-bom_26_CEMIS_8",
+            "experiment": "multi_objective_cost_EMIS",
+            "instance_id": "bom_26",
+            "point": 8
+        },
+        {
+            "run_id": "MOBJ-bom_26_CEMIS_9",
+            "experiment": "multi_objective_cost_EMIS",
+            "instance_id": "bom_26",
+            "point": 9
+        },
+        {
+            "run_id": "MOBJ-bom_26_IDEAL_OBJ1",
+            "experiment": "multi_objective_ideal_nadir",
+            "instance_id": "bom_26",
+            "objective": 1
+        },
+        {
+            "run_id": "MOBJ-bom_26_IDEAL_OBJ2",
+            "experiment": "multi_objective_ideal_nadir",
+            "instance_id": "bom_26",
+            "objective": 2
+        },
+        {
+            "run_id": "MOBJ-bom_26_IDEAL_OBJ3",
+            "experiment": "multi_objective_ideal_nadir",
+            "instance_id": "bom_26",
+            "objective": 3
+        },
+        {
+            "run_id": "MOBJ-bom_26_IDEAL_OBJ4",
+            "experiment": "multi_objective_ideal_nadir",
+            "instance_id": "bom_26",
+            "objective": 4
+        },
+        {
+            "run_id": "MOBJ-bom_5_CDIO_0",
+            "experiment": "multi_objective_cost_DIO",
+            "instance_id": "bom_5",
+            "point": 0
+        },
+        {
+            "run_id": "MOBJ-bom_5_CDIO_1",
+            "experiment": "multi_objective_cost_DIO",
+            "instance_id": "bom_5",
+            "point": 1
+        },
+        {
+            "run_id": "MOBJ-bom_5_CDIO_2",
+            "experiment": "multi_objective_cost_DIO",
+            "instance_id": "bom_5",
+            "point": 2
+        },
+        {
+            "run_id": "MOBJ-bom_5_CDIO_3",
+            "experiment": "multi_objective_cost_DIO",
+            "instance_id": "bom_5",
+            "point": 3
+        },
+        {
+            "run_id": "MOBJ-bom_5_CDIO_4",
+            "experiment": "multi_objective_cost_DIO",
+            "instance_id": "bom_5",
+            "point": 4
+        },
+        {
+            "run_id": "MOBJ-bom_5_CDIO_5",
+            "experiment": "multi_objective_cost_DIO",
+            "instance_id": "bom_5",
+            "point": 5
+        },
+        {
+            "run_id": "MOBJ-bom_5_CDIO_6",
+            "experiment": "multi_objective_cost_DIO",
+            "instance_id": "bom_5",
+            "point": 6
+        },
+        {
+            "run_id": "MOBJ-bom_5_CDIO_7",
+            "experiment": "multi_objective_cost_DIO",
+            "instance_id": "bom_5",
+            "point": 7
+        },
+        {
+            "run_id": "MOBJ-bom_5_CDIO_8",
+            "experiment": "multi_objective_cost_DIO",
+            "instance_id": "bom_5",
+            "point": 8
+        },
+        {
+            "run_id": "MOBJ-bom_5_CDIO_9",
+            "experiment": "multi_objective_cost_DIO",
+            "instance_id": "bom_5",
+            "point": 9
+        },
+        {
+            "run_id": "MOBJ-bom_5_CEMIS_0",
+            "experiment": "multi_objective_cost_EMIS",
+            "instance_id": "bom_5",
+            "point": 0
+        },
+        {
+            "run_id": "MOBJ-bom_5_CEMIS_1",
+            "experiment": "multi_objective_cost_EMIS",
+            "instance_id": "bom_5",
+            "point": 1
+        },
+        {
+            "run_id": "MOBJ-bom_5_CEMIS_2",
+            "experiment": "multi_objective_cost_EMIS",
+            "instance_id": "bom_5",
+            "point": 2
+        },
+        {
+            "run_id": "MOBJ-bom_5_CEMIS_3",
+            "experiment": "multi_objective_cost_EMIS",
+            "instance_id": "bom_5",
+            "point": 3
+        },
+        {
+            "run_id": "MOBJ-bom_5_CEMIS_4",
+            "experiment": "multi_objective_cost_EMIS",
+            "instance_id": "bom_5",
+            "point": 4
+        },
+        {
+            "run_id": "MOBJ-bom_5_CEMIS_5",
+            "experiment": "multi_objective_cost_EMIS",
+            "instance_id": "bom_5",
+            "point": 5
+        },
+        {
+            "run_id": "MOBJ-bom_5_CEMIS_6",
+            "experiment": "multi_objective_cost_EMIS",
+            "instance_id": "bom_5",
+            "point": 6
+        },
+        {
+            "run_id": "MOBJ-bom_5_CEMIS_7",
+            "experiment": "multi_objective_cost_EMIS",
+            "instance_id": "bom_5",
+            "point": 7
+        },
+        {
+            "run_id": "MOBJ-bom_5_CEMIS_8",
+            "experiment": "multi_objective_cost_EMIS",
+            "instance_id": "bom_5",
+            "point": 8
+        },
+        {
+            "run_id": "MOBJ-bom_5_CEMIS_9",
+            "experiment": "multi_objective_cost_EMIS",
+            "instance_id": "bom_5",
+            "point": 9
+        },
+        {
+            "run_id": "MOBJ-bom_5_IDEAL_OBJ1",
+            "experiment": "multi_objective_ideal_nadir",
+            "instance_id": "bom_5",
+            "objective": 1
+        },
+        {
+            "run_id": "MOBJ-bom_5_IDEAL_OBJ2",
+            "experiment": "multi_objective_ideal_nadir",
+            "instance_id": "bom_5",
+            "objective": 2
+        },
+        {
+            "run_id": "MOBJ-bom_5_IDEAL_OBJ3",
+            "experiment": "multi_objective_ideal_nadir",
+            "instance_id": "bom_5",
+            "objective": 3
+        },
+        {
+            "run_id": "MOBJ-bom_5_IDEAL_OBJ4",
+            "experiment": "multi_objective_ideal_nadir",
+            "instance_id": "bom_5",
+            "objective": 4
+        }
+    ],
+    "pareto_files": [
+        "pareto\/bom_5_cost_dio_pareto.csv",
+        "pareto\/bom_5_cost_emissions_pareto.csv",
+        "pareto\/bom_5_ideal_nadir.json",
+        "pareto\/bom_13_cost_dio_pareto.csv",
+        "pareto\/bom_13_cost_emissions_pareto.csv",
+        "pareto\/bom_13_ideal_nadir.json",
+        "pareto\/bom_26_cost_dio_pareto.csv",
+        "pareto\/bom_26_cost_emissions_pareto.csv",
+        "pareto\/bom_26_ideal_nadir.json"
+    ],
+    "conditional_decision_stability_runs": [
+        {
+            "run_id": "CAP-bom_13-100-STAB-ALLOCATION",
+            "experiment": "decision_stability",
+            "instance_id": "bom_13",
+            "anchor_run_id": "CAP-bom_13-100",
+            "source_experiment": "carbon_cap_sweep",
+            "probe": "allocation"
+        },
+        {
+            "run_id": "CAP-bom_13-100-STAB-BUFFERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_13",
+            "anchor_run_id": "CAP-bom_13-100",
+            "source_experiment": "carbon_cap_sweep",
+            "probe": "buffers"
+        },
+        {
+            "run_id": "CAP-bom_13-100-STAB-SUPPLIERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_13",
+            "anchor_run_id": "CAP-bom_13-100",
+            "source_experiment": "carbon_cap_sweep",
+            "probe": "suppliers"
+        },
+        {
+            "run_id": "CAP-bom_13-70-STAB-ALLOCATION",
+            "experiment": "decision_stability",
+            "instance_id": "bom_13",
+            "anchor_run_id": "CAP-bom_13-70",
+            "source_experiment": "carbon_cap_sweep",
+            "probe": "allocation"
+        },
+        {
+            "run_id": "CAP-bom_13-70-STAB-BUFFERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_13",
+            "anchor_run_id": "CAP-bom_13-70",
+            "source_experiment": "carbon_cap_sweep",
+            "probe": "buffers"
+        },
+        {
+            "run_id": "CAP-bom_13-70-STAB-SUPPLIERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_13",
+            "anchor_run_id": "CAP-bom_13-70",
+            "source_experiment": "carbon_cap_sweep",
+            "probe": "suppliers"
+        },
+        {
+            "run_id": "CAP-bom_13-85-STAB-ALLOCATION",
+            "experiment": "decision_stability",
+            "instance_id": "bom_13",
+            "anchor_run_id": "CAP-bom_13-85",
+            "source_experiment": "carbon_cap_sweep",
+            "probe": "allocation"
+        },
+        {
+            "run_id": "CAP-bom_13-85-STAB-BUFFERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_13",
+            "anchor_run_id": "CAP-bom_13-85",
+            "source_experiment": "carbon_cap_sweep",
+            "probe": "buffers"
+        },
+        {
+            "run_id": "CAP-bom_13-85-STAB-SUPPLIERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_13",
+            "anchor_run_id": "CAP-bom_13-85",
+            "source_experiment": "carbon_cap_sweep",
+            "probe": "suppliers"
+        },
+        {
+            "run_id": "CAP-bom_26-100-STAB-ALLOCATION",
+            "experiment": "decision_stability",
+            "instance_id": "bom_26",
+            "anchor_run_id": "CAP-bom_26-100",
+            "source_experiment": "carbon_cap_sweep",
+            "probe": "allocation"
+        },
+        {
+            "run_id": "CAP-bom_26-100-STAB-BUFFERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_26",
+            "anchor_run_id": "CAP-bom_26-100",
+            "source_experiment": "carbon_cap_sweep",
+            "probe": "buffers"
+        },
+        {
+            "run_id": "CAP-bom_26-100-STAB-SUPPLIERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_26",
+            "anchor_run_id": "CAP-bom_26-100",
+            "source_experiment": "carbon_cap_sweep",
+            "probe": "suppliers"
+        },
+        {
+            "run_id": "CAP-bom_26-70-STAB-ALLOCATION",
+            "experiment": "decision_stability",
+            "instance_id": "bom_26",
+            "anchor_run_id": "CAP-bom_26-70",
+            "source_experiment": "carbon_cap_sweep",
+            "probe": "allocation"
+        },
+        {
+            "run_id": "CAP-bom_26-70-STAB-BUFFERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_26",
+            "anchor_run_id": "CAP-bom_26-70",
+            "source_experiment": "carbon_cap_sweep",
+            "probe": "buffers"
+        },
+        {
+            "run_id": "CAP-bom_26-70-STAB-SUPPLIERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_26",
+            "anchor_run_id": "CAP-bom_26-70",
+            "source_experiment": "carbon_cap_sweep",
+            "probe": "suppliers"
+        },
+        {
+            "run_id": "CAP-bom_26-85-STAB-ALLOCATION",
+            "experiment": "decision_stability",
+            "instance_id": "bom_26",
+            "anchor_run_id": "CAP-bom_26-85",
+            "source_experiment": "carbon_cap_sweep",
+            "probe": "allocation"
+        },
+        {
+            "run_id": "CAP-bom_26-85-STAB-BUFFERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_26",
+            "anchor_run_id": "CAP-bom_26-85",
+            "source_experiment": "carbon_cap_sweep",
+            "probe": "buffers"
+        },
+        {
+            "run_id": "CAP-bom_26-85-STAB-SUPPLIERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_26",
+            "anchor_run_id": "CAP-bom_26-85",
+            "source_experiment": "carbon_cap_sweep",
+            "probe": "suppliers"
+        },
+        {
+            "run_id": "CAP-bom_5-100-STAB-ALLOCATION",
+            "experiment": "decision_stability",
+            "instance_id": "bom_5",
+            "anchor_run_id": "CAP-bom_5-100",
+            "source_experiment": "carbon_cap_sweep",
+            "probe": "allocation"
+        },
+        {
+            "run_id": "CAP-bom_5-100-STAB-BUFFERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_5",
+            "anchor_run_id": "CAP-bom_5-100",
+            "source_experiment": "carbon_cap_sweep",
+            "probe": "buffers"
+        },
+        {
+            "run_id": "CAP-bom_5-100-STAB-SUPPLIERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_5",
+            "anchor_run_id": "CAP-bom_5-100",
+            "source_experiment": "carbon_cap_sweep",
+            "probe": "suppliers"
+        },
+        {
+            "run_id": "CAP-bom_5-70-STAB-ALLOCATION",
+            "experiment": "decision_stability",
+            "instance_id": "bom_5",
+            "anchor_run_id": "CAP-bom_5-70",
+            "source_experiment": "carbon_cap_sweep",
+            "probe": "allocation"
+        },
+        {
+            "run_id": "CAP-bom_5-70-STAB-BUFFERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_5",
+            "anchor_run_id": "CAP-bom_5-70",
+            "source_experiment": "carbon_cap_sweep",
+            "probe": "buffers"
+        },
+        {
+            "run_id": "CAP-bom_5-70-STAB-SUPPLIERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_5",
+            "anchor_run_id": "CAP-bom_5-70",
+            "source_experiment": "carbon_cap_sweep",
+            "probe": "suppliers"
+        },
+        {
+            "run_id": "CAP-bom_5-85-STAB-ALLOCATION",
+            "experiment": "decision_stability",
+            "instance_id": "bom_5",
+            "anchor_run_id": "CAP-bom_5-85",
+            "source_experiment": "carbon_cap_sweep",
+            "probe": "allocation"
+        },
+        {
+            "run_id": "CAP-bom_5-85-STAB-BUFFERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_5",
+            "anchor_run_id": "CAP-bom_5-85",
+            "source_experiment": "carbon_cap_sweep",
+            "probe": "buffers"
+        },
+        {
+            "run_id": "CAP-bom_5-85-STAB-SUPPLIERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_5",
+            "anchor_run_id": "CAP-bom_5-85",
+            "source_experiment": "carbon_cap_sweep",
+            "probe": "suppliers"
+        },
+        {
+            "run_id": "CAP-bom_50-100-STAB-ALLOCATION",
+            "experiment": "decision_stability",
+            "instance_id": "bom_50",
+            "anchor_run_id": "CAP-bom_50-100",
+            "source_experiment": "carbon_cap_sweep",
+            "probe": "allocation"
+        },
+        {
+            "run_id": "CAP-bom_50-100-STAB-BUFFERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_50",
+            "anchor_run_id": "CAP-bom_50-100",
+            "source_experiment": "carbon_cap_sweep",
+            "probe": "buffers"
+        },
+        {
+            "run_id": "CAP-bom_50-100-STAB-SUPPLIERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_50",
+            "anchor_run_id": "CAP-bom_50-100",
+            "source_experiment": "carbon_cap_sweep",
+            "probe": "suppliers"
+        },
+        {
+            "run_id": "CAP-bom_50-70-STAB-ALLOCATION",
+            "experiment": "decision_stability",
+            "instance_id": "bom_50",
+            "anchor_run_id": "CAP-bom_50-70",
+            "source_experiment": "carbon_cap_sweep",
+            "probe": "allocation"
+        },
+        {
+            "run_id": "CAP-bom_50-70-STAB-BUFFERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_50",
+            "anchor_run_id": "CAP-bom_50-70",
+            "source_experiment": "carbon_cap_sweep",
+            "probe": "buffers"
+        },
+        {
+            "run_id": "CAP-bom_50-70-STAB-SUPPLIERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_50",
+            "anchor_run_id": "CAP-bom_50-70",
+            "source_experiment": "carbon_cap_sweep",
+            "probe": "suppliers"
+        },
+        {
+            "run_id": "CAP-bom_50-85-STAB-ALLOCATION",
+            "experiment": "decision_stability",
+            "instance_id": "bom_50",
+            "anchor_run_id": "CAP-bom_50-85",
+            "source_experiment": "carbon_cap_sweep",
+            "probe": "allocation"
+        },
+        {
+            "run_id": "CAP-bom_50-85-STAB-BUFFERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_50",
+            "anchor_run_id": "CAP-bom_50-85",
+            "source_experiment": "carbon_cap_sweep",
+            "probe": "buffers"
+        },
+        {
+            "run_id": "CAP-bom_50-85-STAB-SUPPLIERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_50",
+            "anchor_run_id": "CAP-bom_50-85",
+            "source_experiment": "carbon_cap_sweep",
+            "probe": "suppliers"
+        },
+        {
+            "run_id": "HYB-bom_13-tax_100_cap_70-STAB-ALLOCATION",
+            "experiment": "decision_stability",
+            "instance_id": "bom_13",
+            "anchor_run_id": "HYB-bom_13-tax_100_cap_70",
+            "source_experiment": "carbon_hybrid",
+            "probe": "allocation"
+        },
+        {
+            "run_id": "HYB-bom_13-tax_100_cap_70-STAB-BUFFERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_13",
+            "anchor_run_id": "HYB-bom_13-tax_100_cap_70",
+            "source_experiment": "carbon_hybrid",
+            "probe": "buffers"
+        },
+        {
+            "run_id": "HYB-bom_13-tax_100_cap_70-STAB-SUPPLIERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_13",
+            "anchor_run_id": "HYB-bom_13-tax_100_cap_70",
+            "source_experiment": "carbon_hybrid",
+            "probe": "suppliers"
+        },
+        {
+            "run_id": "HYB-bom_13-tax_15_cap_none-STAB-ALLOCATION",
+            "experiment": "decision_stability",
+            "instance_id": "bom_13",
+            "anchor_run_id": "HYB-bom_13-tax_15_cap_none",
+            "source_experiment": "carbon_hybrid",
+            "probe": "allocation"
+        },
+        {
+            "run_id": "HYB-bom_13-tax_15_cap_none-STAB-BUFFERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_13",
+            "anchor_run_id": "HYB-bom_13-tax_15_cap_none",
+            "source_experiment": "carbon_hybrid",
+            "probe": "buffers"
+        },
+        {
+            "run_id": "HYB-bom_13-tax_15_cap_none-STAB-SUPPLIERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_13",
+            "anchor_run_id": "HYB-bom_13-tax_15_cap_none",
+            "source_experiment": "carbon_hybrid",
+            "probe": "suppliers"
+        },
+        {
+            "run_id": "HYB-bom_13-tax_50_cap_85-STAB-ALLOCATION",
+            "experiment": "decision_stability",
+            "instance_id": "bom_13",
+            "anchor_run_id": "HYB-bom_13-tax_50_cap_85",
+            "source_experiment": "carbon_hybrid",
+            "probe": "allocation"
+        },
+        {
+            "run_id": "HYB-bom_13-tax_50_cap_85-STAB-BUFFERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_13",
+            "anchor_run_id": "HYB-bom_13-tax_50_cap_85",
+            "source_experiment": "carbon_hybrid",
+            "probe": "buffers"
+        },
+        {
+            "run_id": "HYB-bom_13-tax_50_cap_85-STAB-SUPPLIERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_13",
+            "anchor_run_id": "HYB-bom_13-tax_50_cap_85",
+            "source_experiment": "carbon_hybrid",
+            "probe": "suppliers"
+        },
+        {
+            "run_id": "HYB-bom_26-tax_100_cap_70-STAB-ALLOCATION",
+            "experiment": "decision_stability",
+            "instance_id": "bom_26",
+            "anchor_run_id": "HYB-bom_26-tax_100_cap_70",
+            "source_experiment": "carbon_hybrid",
+            "probe": "allocation"
+        },
+        {
+            "run_id": "HYB-bom_26-tax_100_cap_70-STAB-BUFFERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_26",
+            "anchor_run_id": "HYB-bom_26-tax_100_cap_70",
+            "source_experiment": "carbon_hybrid",
+            "probe": "buffers"
+        },
+        {
+            "run_id": "HYB-bom_26-tax_100_cap_70-STAB-SUPPLIERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_26",
+            "anchor_run_id": "HYB-bom_26-tax_100_cap_70",
+            "source_experiment": "carbon_hybrid",
+            "probe": "suppliers"
+        },
+        {
+            "run_id": "HYB-bom_26-tax_15_cap_none-STAB-ALLOCATION",
+            "experiment": "decision_stability",
+            "instance_id": "bom_26",
+            "anchor_run_id": "HYB-bom_26-tax_15_cap_none",
+            "source_experiment": "carbon_hybrid",
+            "probe": "allocation"
+        },
+        {
+            "run_id": "HYB-bom_26-tax_15_cap_none-STAB-BUFFERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_26",
+            "anchor_run_id": "HYB-bom_26-tax_15_cap_none",
+            "source_experiment": "carbon_hybrid",
+            "probe": "buffers"
+        },
+        {
+            "run_id": "HYB-bom_26-tax_15_cap_none-STAB-SUPPLIERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_26",
+            "anchor_run_id": "HYB-bom_26-tax_15_cap_none",
+            "source_experiment": "carbon_hybrid",
+            "probe": "suppliers"
+        },
+        {
+            "run_id": "HYB-bom_26-tax_50_cap_85-STAB-ALLOCATION",
+            "experiment": "decision_stability",
+            "instance_id": "bom_26",
+            "anchor_run_id": "HYB-bom_26-tax_50_cap_85",
+            "source_experiment": "carbon_hybrid",
+            "probe": "allocation"
+        },
+        {
+            "run_id": "HYB-bom_26-tax_50_cap_85-STAB-BUFFERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_26",
+            "anchor_run_id": "HYB-bom_26-tax_50_cap_85",
+            "source_experiment": "carbon_hybrid",
+            "probe": "buffers"
+        },
+        {
+            "run_id": "HYB-bom_26-tax_50_cap_85-STAB-SUPPLIERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_26",
+            "anchor_run_id": "HYB-bom_26-tax_50_cap_85",
+            "source_experiment": "carbon_hybrid",
+            "probe": "suppliers"
+        },
+        {
+            "run_id": "HYB-bom_5-tax_100_cap_70-STAB-ALLOCATION",
+            "experiment": "decision_stability",
+            "instance_id": "bom_5",
+            "anchor_run_id": "HYB-bom_5-tax_100_cap_70",
+            "source_experiment": "carbon_hybrid",
+            "probe": "allocation"
+        },
+        {
+            "run_id": "HYB-bom_5-tax_100_cap_70-STAB-BUFFERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_5",
+            "anchor_run_id": "HYB-bom_5-tax_100_cap_70",
+            "source_experiment": "carbon_hybrid",
+            "probe": "buffers"
+        },
+        {
+            "run_id": "HYB-bom_5-tax_100_cap_70-STAB-SUPPLIERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_5",
+            "anchor_run_id": "HYB-bom_5-tax_100_cap_70",
+            "source_experiment": "carbon_hybrid",
+            "probe": "suppliers"
+        },
+        {
+            "run_id": "HYB-bom_5-tax_15_cap_none-STAB-ALLOCATION",
+            "experiment": "decision_stability",
+            "instance_id": "bom_5",
+            "anchor_run_id": "HYB-bom_5-tax_15_cap_none",
+            "source_experiment": "carbon_hybrid",
+            "probe": "allocation"
+        },
+        {
+            "run_id": "HYB-bom_5-tax_15_cap_none-STAB-BUFFERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_5",
+            "anchor_run_id": "HYB-bom_5-tax_15_cap_none",
+            "source_experiment": "carbon_hybrid",
+            "probe": "buffers"
+        },
+        {
+            "run_id": "HYB-bom_5-tax_15_cap_none-STAB-SUPPLIERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_5",
+            "anchor_run_id": "HYB-bom_5-tax_15_cap_none",
+            "source_experiment": "carbon_hybrid",
+            "probe": "suppliers"
+        },
+        {
+            "run_id": "HYB-bom_5-tax_50_cap_85-STAB-ALLOCATION",
+            "experiment": "decision_stability",
+            "instance_id": "bom_5",
+            "anchor_run_id": "HYB-bom_5-tax_50_cap_85",
+            "source_experiment": "carbon_hybrid",
+            "probe": "allocation"
+        },
+        {
+            "run_id": "HYB-bom_5-tax_50_cap_85-STAB-BUFFERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_5",
+            "anchor_run_id": "HYB-bom_5-tax_50_cap_85",
+            "source_experiment": "carbon_hybrid",
+            "probe": "buffers"
+        },
+        {
+            "run_id": "HYB-bom_5-tax_50_cap_85-STAB-SUPPLIERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_5",
+            "anchor_run_id": "HYB-bom_5-tax_50_cap_85",
+            "source_experiment": "carbon_hybrid",
+            "probe": "suppliers"
+        },
+        {
+            "run_id": "HYB-bom_50-tax_100_cap_70-STAB-ALLOCATION",
+            "experiment": "decision_stability",
+            "instance_id": "bom_50",
+            "anchor_run_id": "HYB-bom_50-tax_100_cap_70",
+            "source_experiment": "carbon_hybrid",
+            "probe": "allocation"
+        },
+        {
+            "run_id": "HYB-bom_50-tax_100_cap_70-STAB-BUFFERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_50",
+            "anchor_run_id": "HYB-bom_50-tax_100_cap_70",
+            "source_experiment": "carbon_hybrid",
+            "probe": "buffers"
+        },
+        {
+            "run_id": "HYB-bom_50-tax_100_cap_70-STAB-SUPPLIERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_50",
+            "anchor_run_id": "HYB-bom_50-tax_100_cap_70",
+            "source_experiment": "carbon_hybrid",
+            "probe": "suppliers"
+        },
+        {
+            "run_id": "HYB-bom_50-tax_15_cap_none-STAB-ALLOCATION",
+            "experiment": "decision_stability",
+            "instance_id": "bom_50",
+            "anchor_run_id": "HYB-bom_50-tax_15_cap_none",
+            "source_experiment": "carbon_hybrid",
+            "probe": "allocation"
+        },
+        {
+            "run_id": "HYB-bom_50-tax_15_cap_none-STAB-BUFFERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_50",
+            "anchor_run_id": "HYB-bom_50-tax_15_cap_none",
+            "source_experiment": "carbon_hybrid",
+            "probe": "buffers"
+        },
+        {
+            "run_id": "HYB-bom_50-tax_15_cap_none-STAB-SUPPLIERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_50",
+            "anchor_run_id": "HYB-bom_50-tax_15_cap_none",
+            "source_experiment": "carbon_hybrid",
+            "probe": "suppliers"
+        },
+        {
+            "run_id": "HYB-bom_50-tax_50_cap_85-STAB-ALLOCATION",
+            "experiment": "decision_stability",
+            "instance_id": "bom_50",
+            "anchor_run_id": "HYB-bom_50-tax_50_cap_85",
+            "source_experiment": "carbon_hybrid",
+            "probe": "allocation"
+        },
+        {
+            "run_id": "HYB-bom_50-tax_50_cap_85-STAB-BUFFERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_50",
+            "anchor_run_id": "HYB-bom_50-tax_50_cap_85",
+            "source_experiment": "carbon_hybrid",
+            "probe": "buffers"
+        },
+        {
+            "run_id": "HYB-bom_50-tax_50_cap_85-STAB-SUPPLIERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_50",
+            "anchor_run_id": "HYB-bom_50-tax_50_cap_85",
+            "source_experiment": "carbon_hybrid",
+            "probe": "suppliers"
+        },
+        {
+            "run_id": "TAX-bom_13-0.00-STAB-ALLOCATION",
+            "experiment": "decision_stability",
+            "instance_id": "bom_13",
+            "anchor_run_id": "TAX-bom_13-0.00",
+            "source_experiment": "carbon_tax_sweep",
+            "probe": "allocation"
+        },
+        {
+            "run_id": "TAX-bom_13-0.00-STAB-BUFFERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_13",
+            "anchor_run_id": "TAX-bom_13-0.00",
+            "source_experiment": "carbon_tax_sweep",
+            "probe": "buffers"
+        },
+        {
+            "run_id": "TAX-bom_13-0.00-STAB-SUPPLIERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_13",
+            "anchor_run_id": "TAX-bom_13-0.00",
+            "source_experiment": "carbon_tax_sweep",
+            "probe": "suppliers"
+        },
+        {
+            "run_id": "TAX-bom_13-100.00-STAB-ALLOCATION",
+            "experiment": "decision_stability",
+            "instance_id": "bom_13",
+            "anchor_run_id": "TAX-bom_13-100.00",
+            "source_experiment": "carbon_tax_sweep",
+            "probe": "allocation"
+        },
+        {
+            "run_id": "TAX-bom_13-100.00-STAB-BUFFERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_13",
+            "anchor_run_id": "TAX-bom_13-100.00",
+            "source_experiment": "carbon_tax_sweep",
+            "probe": "buffers"
+        },
+        {
+            "run_id": "TAX-bom_13-100.00-STAB-SUPPLIERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_13",
+            "anchor_run_id": "TAX-bom_13-100.00",
+            "source_experiment": "carbon_tax_sweep",
+            "probe": "suppliers"
+        },
+        {
+            "run_id": "TAX-bom_13-50.00-STAB-ALLOCATION",
+            "experiment": "decision_stability",
+            "instance_id": "bom_13",
+            "anchor_run_id": "TAX-bom_13-50.00",
+            "source_experiment": "carbon_tax_sweep",
+            "probe": "allocation"
+        },
+        {
+            "run_id": "TAX-bom_13-50.00-STAB-BUFFERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_13",
+            "anchor_run_id": "TAX-bom_13-50.00",
+            "source_experiment": "carbon_tax_sweep",
+            "probe": "buffers"
+        },
+        {
+            "run_id": "TAX-bom_13-50.00-STAB-SUPPLIERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_13",
+            "anchor_run_id": "TAX-bom_13-50.00",
+            "source_experiment": "carbon_tax_sweep",
+            "probe": "suppliers"
+        },
+        {
+            "run_id": "TAX-bom_26-0.00-STAB-ALLOCATION",
+            "experiment": "decision_stability",
+            "instance_id": "bom_26",
+            "anchor_run_id": "TAX-bom_26-0.00",
+            "source_experiment": "carbon_tax_sweep",
+            "probe": "allocation"
+        },
+        {
+            "run_id": "TAX-bom_26-0.00-STAB-BUFFERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_26",
+            "anchor_run_id": "TAX-bom_26-0.00",
+            "source_experiment": "carbon_tax_sweep",
+            "probe": "buffers"
+        },
+        {
+            "run_id": "TAX-bom_26-0.00-STAB-SUPPLIERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_26",
+            "anchor_run_id": "TAX-bom_26-0.00",
+            "source_experiment": "carbon_tax_sweep",
+            "probe": "suppliers"
+        },
+        {
+            "run_id": "TAX-bom_26-100.00-STAB-ALLOCATION",
+            "experiment": "decision_stability",
+            "instance_id": "bom_26",
+            "anchor_run_id": "TAX-bom_26-100.00",
+            "source_experiment": "carbon_tax_sweep",
+            "probe": "allocation"
+        },
+        {
+            "run_id": "TAX-bom_26-100.00-STAB-BUFFERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_26",
+            "anchor_run_id": "TAX-bom_26-100.00",
+            "source_experiment": "carbon_tax_sweep",
+            "probe": "buffers"
+        },
+        {
+            "run_id": "TAX-bom_26-100.00-STAB-SUPPLIERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_26",
+            "anchor_run_id": "TAX-bom_26-100.00",
+            "source_experiment": "carbon_tax_sweep",
+            "probe": "suppliers"
+        },
+        {
+            "run_id": "TAX-bom_26-50.00-STAB-ALLOCATION",
+            "experiment": "decision_stability",
+            "instance_id": "bom_26",
+            "anchor_run_id": "TAX-bom_26-50.00",
+            "source_experiment": "carbon_tax_sweep",
+            "probe": "allocation"
+        },
+        {
+            "run_id": "TAX-bom_26-50.00-STAB-BUFFERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_26",
+            "anchor_run_id": "TAX-bom_26-50.00",
+            "source_experiment": "carbon_tax_sweep",
+            "probe": "buffers"
+        },
+        {
+            "run_id": "TAX-bom_26-50.00-STAB-SUPPLIERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_26",
+            "anchor_run_id": "TAX-bom_26-50.00",
+            "source_experiment": "carbon_tax_sweep",
+            "probe": "suppliers"
+        },
+        {
+            "run_id": "TAX-bom_5-0.00-STAB-ALLOCATION",
+            "experiment": "decision_stability",
+            "instance_id": "bom_5",
+            "anchor_run_id": "TAX-bom_5-0.00",
+            "source_experiment": "carbon_tax_sweep",
+            "probe": "allocation"
+        },
+        {
+            "run_id": "TAX-bom_5-0.00-STAB-BUFFERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_5",
+            "anchor_run_id": "TAX-bom_5-0.00",
+            "source_experiment": "carbon_tax_sweep",
+            "probe": "buffers"
+        },
+        {
+            "run_id": "TAX-bom_5-0.00-STAB-SUPPLIERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_5",
+            "anchor_run_id": "TAX-bom_5-0.00",
+            "source_experiment": "carbon_tax_sweep",
+            "probe": "suppliers"
+        },
+        {
+            "run_id": "TAX-bom_5-100.00-STAB-ALLOCATION",
+            "experiment": "decision_stability",
+            "instance_id": "bom_5",
+            "anchor_run_id": "TAX-bom_5-100.00",
+            "source_experiment": "carbon_tax_sweep",
+            "probe": "allocation"
+        },
+        {
+            "run_id": "TAX-bom_5-100.00-STAB-BUFFERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_5",
+            "anchor_run_id": "TAX-bom_5-100.00",
+            "source_experiment": "carbon_tax_sweep",
+            "probe": "buffers"
+        },
+        {
+            "run_id": "TAX-bom_5-100.00-STAB-SUPPLIERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_5",
+            "anchor_run_id": "TAX-bom_5-100.00",
+            "source_experiment": "carbon_tax_sweep",
+            "probe": "suppliers"
+        },
+        {
+            "run_id": "TAX-bom_5-50.00-STAB-ALLOCATION",
+            "experiment": "decision_stability",
+            "instance_id": "bom_5",
+            "anchor_run_id": "TAX-bom_5-50.00",
+            "source_experiment": "carbon_tax_sweep",
+            "probe": "allocation"
+        },
+        {
+            "run_id": "TAX-bom_5-50.00-STAB-BUFFERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_5",
+            "anchor_run_id": "TAX-bom_5-50.00",
+            "source_experiment": "carbon_tax_sweep",
+            "probe": "buffers"
+        },
+        {
+            "run_id": "TAX-bom_5-50.00-STAB-SUPPLIERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_5",
+            "anchor_run_id": "TAX-bom_5-50.00",
+            "source_experiment": "carbon_tax_sweep",
+            "probe": "suppliers"
+        },
+        {
+            "run_id": "TAX-bom_50-0.00-STAB-ALLOCATION",
+            "experiment": "decision_stability",
+            "instance_id": "bom_50",
+            "anchor_run_id": "TAX-bom_50-0.00",
+            "source_experiment": "carbon_tax_sweep",
+            "probe": "allocation"
+        },
+        {
+            "run_id": "TAX-bom_50-0.00-STAB-BUFFERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_50",
+            "anchor_run_id": "TAX-bom_50-0.00",
+            "source_experiment": "carbon_tax_sweep",
+            "probe": "buffers"
+        },
+        {
+            "run_id": "TAX-bom_50-0.00-STAB-SUPPLIERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_50",
+            "anchor_run_id": "TAX-bom_50-0.00",
+            "source_experiment": "carbon_tax_sweep",
+            "probe": "suppliers"
+        },
+        {
+            "run_id": "TAX-bom_50-100.00-STAB-ALLOCATION",
+            "experiment": "decision_stability",
+            "instance_id": "bom_50",
+            "anchor_run_id": "TAX-bom_50-100.00",
+            "source_experiment": "carbon_tax_sweep",
+            "probe": "allocation"
+        },
+        {
+            "run_id": "TAX-bom_50-100.00-STAB-BUFFERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_50",
+            "anchor_run_id": "TAX-bom_50-100.00",
+            "source_experiment": "carbon_tax_sweep",
+            "probe": "buffers"
+        },
+        {
+            "run_id": "TAX-bom_50-100.00-STAB-SUPPLIERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_50",
+            "anchor_run_id": "TAX-bom_50-100.00",
+            "source_experiment": "carbon_tax_sweep",
+            "probe": "suppliers"
+        },
+        {
+            "run_id": "TAX-bom_50-50.00-STAB-ALLOCATION",
+            "experiment": "decision_stability",
+            "instance_id": "bom_50",
+            "anchor_run_id": "TAX-bom_50-50.00",
+            "source_experiment": "carbon_tax_sweep",
+            "probe": "allocation"
+        },
+        {
+            "run_id": "TAX-bom_50-50.00-STAB-BUFFERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_50",
+            "anchor_run_id": "TAX-bom_50-50.00",
+            "source_experiment": "carbon_tax_sweep",
+            "probe": "buffers"
+        },
+        {
+            "run_id": "TAX-bom_50-50.00-STAB-SUPPLIERS",
+            "experiment": "decision_stability",
+            "instance_id": "bom_50",
+            "anchor_run_id": "TAX-bom_50-50.00",
+            "source_experiment": "carbon_tax_sweep",
+            "probe": "suppliers"
+        }
+    ]
+}

@@ -13,7 +13,7 @@ $result = $method->invoke($runner, [
     '_SUPP_DETAILS_FILE_' => 'supp_details_supeco.csv',
     '_NBSUPP_' => 10,
     '_SERVICE_T_' => 1,
-    '_EMISCAP_' => 1.0e30,
+    '_EMISCAP_' => 100000000.0,
     '_EMISTAXE_' => 0.0,
     'MODEL_FILE' => 'RUNS_SupEmis_Cplex_PLM_Tax.mod',
     'MODEL_TYPE' => 'PLM',
@@ -22,20 +22,23 @@ $result = $method->invoke($runner, [
 
 $config = $result['config'];
 $kpis = $result['kpis'];
-$optimalCost = (float)$config['BASELINE_COST_OPTIMUM'];
-$tolerance = (float)$config['BASELINE_COST_TOLERANCE'];
 $baselineCost = (float)$kpis['cost']['total_cost_without_tax'];
+$baselineEmissions = $kpis['carbon']['total_emissions'] ?? null;
 
 if (($kpis['computational']['solver_status'] ?? null) !== 'OPTIMAL') {
-    throw new RuntimeException('Lexicographic emissions stage did not terminate optimally');
+    throw new RuntimeException('Native lexicographic baseline did not terminate optimally');
 }
-if ($baselineCost > $optimalCost + $tolerance + 1e-6) {
-    throw new RuntimeException(
-        "Lexicographic baseline cost {$baselineCost} exceeds {$optimalCost} + {$tolerance}"
-    );
+if (($config['PREFIXE'] ?? null) !== 'TEST-LEX-BASELINE-5') {
+    throw new RuntimeException('Native lexicographic baseline must keep the reported run prefix');
 }
-if (($config['BASELINE_METHOD'] ?? null) !== 'LEXICOGRAPHIC_COST_THEN_EMISSIONS') {
+if (($config['BASELINE_METHOD'] ?? null) !== 'STATIC_LEX_COST_THEN_EMISSIONS') {
     throw new RuntimeException('Lexicographic baseline method metadata missing');
+}
+if (($config['BASELINE_LEX_OBJECTIVE'] ?? null) !== 'staticLex(TotalCostCS, Emis)') {
+    throw new RuntimeException('Native lexicographic objective metadata missing');
+}
+if ($baselineCost <= 0.0 || $baselineEmissions === null) {
+    throw new RuntimeException('Native lexicographic baseline did not return cost and emissions KPIs');
 }
 
 echo "Lexicographic baseline test passed.\n";

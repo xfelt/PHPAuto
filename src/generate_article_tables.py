@@ -96,6 +96,12 @@ def comparison_admissible(rows):
         gap = pd.Series(float('nan'), index=rows.index)
     return rows[(status == 'OPTIMAL') | ((status == 'FEASIBLE') & (gap <= 1.0))].copy()
 
+def maybe_read_table_csv(name):
+    path = os.path.join(results_dir, 'tables', name)
+    if os.path.exists(path):
+        return pd.read_csv(path)
+    return pd.DataFrame()
+
 # ================================================================ 1. SCALABILITY
 scal = df[df['experiment'] == 'scalability'].copy()
 if not scal.empty:
@@ -220,6 +226,31 @@ if not hyb.empty:
         "\\midrule\n" + body + "\n\\bottomrule\n\\end{tabular}\n\\end{table*}\n"
     )
     write('tab_hybrid.tex', tex)
+
+# ================================================================ 4B. DECISION STABILITY
+stability = maybe_read_table_csv('decision_stability_summary.csv')
+if not stability.empty:
+    rows = []
+    for _, r in stability.sort_values(['instance_id', 'source_experiment', 'tax_rate']).iterrows():
+        rows.append(
+            f"{str(r['instance_id']).replace('_',chr(92)+'_')} & "
+            f"{str(r['source_experiment']).replace('_',chr(92)+'_')} & "
+            f"{fmt_num(r.get('tax_rate'), 2)} & {str(r.get('cap_level', '--')).replace('%', chr(92)+'%')} & "
+            f"{fmt_num(r.get('minimum_buffer_jaccard_similarity'), 2)} & "
+            f"{fmt_num(r.get('minimum_supplier_jaccard_similarity'), 2)} & "
+            f"{fmt_num(r.get('maximum_allocation_l1_normalized'), 2)} \\\\"
+        )
+    body = "\n".join(rows)
+    tex = (
+        "\\begin{table*}[!htbp]\\centering\\small\n"
+        "\\caption{Near-optimal decision-degeneracy diagnostic probes. Each row summarizes extremal alternatives "
+        "whose original objective remains within 1\\% of the proven optimum; no binary stability "
+        "class is assigned.}\\label{tab:stability}\n"
+        "\\begin{tabular}{lllcccc}\n\\toprule\n"
+        "Instance & Source & $EmisTax$ & Cap & Min buffer Jaccard & Min supplier Jaccard & Max alloc. L1\\\\\n"
+        "\\midrule\n" + body + "\n\\bottomrule\n\\end{tabular}\n\\end{table*}\n"
+    )
+    write('tab_decision_stability.tex', tex)
 
 # ================================================================ 6. PARETO FRONTS
 def pareto_table(front, xcol, xfmt, xhead, caption, label, fname):

@@ -258,11 +258,23 @@ S10=>P5
    Follow the project structure above and place all files in their respective directories.
 2. **Configure Your Environment:**  
    Edit `config/settings.php` to ensure paths (WORK_DIR, LOGS_DIR, MODELE) are correct and that `oplrun` is detected.
-3. **Run the Main Script:**  
-   Open a terminal, navigate to the `src` folder, and run:
+3. **Run the deployment preflight gate before launching the campaign:**
    ```bash
-   php Main.php
-4. **Check the Logs:**  
+   php tests/DeploymentPreflightTest.php
+   ```
+   This lightweight check verifies the article-critical configuration and model assumptions before expensive solver runs. The final campaign runner also executes this preflight automatically. For deliberate debugging only, bypass it with `php src/FinalCampaignRunner.php --skip-preflight` or `PHPAUTO_SKIP_PREFLIGHT=1`.
+4. **Preview the final campaign without solver execution:**
+   ```bash
+   php src/FinalCampaignRunner.php --dry-run
+   ```
+   This prints planned run counts, estimated solver calls, baseline prerequisites, and maximum conditional decision-degeneracy probes.
+5. **Run the final campaign runner:**  
+   From the repository root, run:
+   ```bash
+   php src/FinalCampaignRunner.php
+   ```
+   The runner writes `campaign_plan.md`, `campaign_plan.json`, and `run_manifest.json` before solver execution starts, then writes `post_run_validation.md` and `post_run_validation.json` after output generation. A failed post-run validation stops the campaign before it is treated as publication-ready.
+6. **Check the Logs:**  
    A new subfolder (named with the current timestamp) will be created in the `logs/` folder. This folder contains:
    - **Result Log Files:**  
      E.g., `05-10-01-EMISCAP-PLM-1_result.log` for each run.

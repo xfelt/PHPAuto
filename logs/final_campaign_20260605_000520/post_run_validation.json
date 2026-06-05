@@ -1,0 +1,215 @@
+{
+    "status": "FAIL",
+    "generated_at": "2026-06-05 00:39:20",
+    "checks": [
+        {
+            "name": "run_manifest_json",
+            "status": "PASS",
+            "detail": "run_manifest.json is valid JSON"
+        },
+        {
+            "name": "file_campaign_metadata.json",
+            "status": "PASS",
+            "detail": "campaign_metadata.json exists"
+        },
+        {
+            "name": "file_campaign_plan.md",
+            "status": "PASS",
+            "detail": "campaign_plan.md exists"
+        },
+        {
+            "name": "file_run_manifest.json",
+            "status": "PASS",
+            "detail": "run_manifest.json exists"
+        },
+        {
+            "name": "file_consolidated_results.csv",
+            "status": "PASS",
+            "detail": "consolidated_results.csv exists"
+        },
+        {
+            "name": "file_summary_statistics.md",
+            "status": "PASS",
+            "detail": "summary_statistics.md exists"
+        },
+        {
+            "name": "file_campaign_checklist.md",
+            "status": "PASS",
+            "detail": "campaign_checklist.md exists"
+        },
+        {
+            "name": "consolidated_row_count",
+            "status": "PASS",
+            "detail": "planned=301, realized=301"
+        },
+        {
+            "name": "in_memory_result_count",
+            "status": "PASS",
+            "detail": "planned=301, realized=301"
+        },
+        {
+            "name": "runner_solver_call_count",
+            "status": "PASS",
+            "detail": "expected=409, realized=409"
+        },
+        {
+            "name": "consolidated_run_manifest_ids",
+            "status": "PASS",
+            "detail": "missing=0, unexpected=0, duplicates=0"
+        },
+        {
+            "name": "executed_run_manifest_ids",
+            "status": "FAIL",
+            "detail": "missing=72, unexpected=0, duplicates=0"
+        },
+        {
+            "name": "conditional_decision_stability_manifest_ids",
+            "status": "PASS",
+            "detail": "realized=108, allowed_max=108, unexpected=0"
+        },
+        {
+            "name": "manifest_file_pareto\/bom_5_cost_dio_pareto.csv",
+            "status": "PASS",
+            "detail": "pareto\/bom_5_cost_dio_pareto.csv exists"
+        },
+        {
+            "name": "manifest_file_pareto\/bom_5_cost_emissions_pareto.csv",
+            "status": "PASS",
+            "detail": "pareto\/bom_5_cost_emissions_pareto.csv exists"
+        },
+        {
+            "name": "manifest_file_pareto\/bom_5_ideal_nadir.json",
+            "status": "PASS",
+            "detail": "pareto\/bom_5_ideal_nadir.json exists"
+        },
+        {
+            "name": "manifest_file_pareto\/bom_13_cost_dio_pareto.csv",
+            "status": "PASS",
+            "detail": "pareto\/bom_13_cost_dio_pareto.csv exists"
+        },
+        {
+            "name": "manifest_file_pareto\/bom_13_cost_emissions_pareto.csv",
+            "status": "PASS",
+            "detail": "pareto\/bom_13_cost_emissions_pareto.csv exists"
+        },
+        {
+            "name": "manifest_file_pareto\/bom_13_ideal_nadir.json",
+            "status": "PASS",
+            "detail": "pareto\/bom_13_ideal_nadir.json exists"
+        },
+        {
+            "name": "manifest_file_pareto\/bom_26_cost_dio_pareto.csv",
+            "status": "PASS",
+            "detail": "pareto\/bom_26_cost_dio_pareto.csv exists"
+        },
+        {
+            "name": "manifest_file_pareto\/bom_26_cost_emissions_pareto.csv",
+            "status": "PASS",
+            "detail": "pareto\/bom_26_cost_emissions_pareto.csv exists"
+        },
+        {
+            "name": "manifest_file_pareto\/bom_26_ideal_nadir.json",
+            "status": "PASS",
+            "detail": "pareto\/bom_26_ideal_nadir.json exists"
+        },
+        {
+            "name": "table_scalability_row_count",
+            "status": "PASS",
+            "detail": "planned=23, realized=23, file=scalability_results.csv"
+        },
+        {
+            "name": "table_topology_baseline_row_count",
+            "status": "PASS",
+            "detail": "planned=10, realized=10, file=topology_baseline_results.csv"
+        },
+        {
+            "name": "table_carbon_tax_sweep_row_count",
+            "status": "PASS",
+            "detail": "planned=30, realized=30, file=carbon_tax_sweep_results.csv"
+        },
+        {
+            "name": "table_carbon_cap_sweep_row_count",
+            "status": "PASS",
+            "detail": "planned=42, realized=42, file=carbon_cap_sweep_results.csv"
+        },
+        {
+            "name": "table_carbon_hybrid_row_count",
+            "status": "PASS",
+            "detail": "planned=160, realized=160, file=carbon_hybrid_results.csv"
+        },
+        {
+            "name": "table_service_time_sensitivity_row_count",
+            "status": "PASS",
+            "detail": "planned=24, realized=24, file=service_time_sensitivity_results.csv"
+        },
+        {
+            "name": "table_nlm_comparison_row_count",
+            "status": "PASS",
+            "detail": "planned=12, realized=12, file=nlm_comparison_results.csv"
+        },
+        {
+            "name": "multi_objective_file_bom_5_cost_emissions_pareto.csv",
+            "status": "PASS",
+            "detail": "bom_5_cost_emissions_pareto.csv exists"
+        },
+        {
+            "name": "multi_objective_file_bom_5_cost_dio_pareto.csv",
+            "status": "PASS",
+            "detail": "bom_5_cost_dio_pareto.csv exists"
+        },
+        {
+            "name": "multi_objective_file_bom_5_ideal_nadir.json",
+            "status": "PASS",
+            "detail": "bom_5_ideal_nadir.json exists"
+        },
+        {
+            "name": "multi_objective_file_bom_13_cost_emissions_pareto.csv",
+            "status": "PASS",
+            "detail": "bom_13_cost_emissions_pareto.csv exists"
+        },
+        {
+            "name": "multi_objective_file_bom_13_cost_dio_pareto.csv",
+            "status": "PASS",
+            "detail": "bom_13_cost_dio_pareto.csv exists"
+        },
+        {
+            "name": "multi_objective_file_bom_13_ideal_nadir.json",
+            "status": "PASS",
+            "detail": "bom_13_ideal_nadir.json exists"
+        },
+        {
+            "name": "multi_objective_file_bom_26_cost_emissions_pareto.csv",
+            "status": "PASS",
+            "detail": "bom_26_cost_emissions_pareto.csv exists"
+        },
+        {
+            "name": "multi_objective_file_bom_26_cost_dio_pareto.csv",
+            "status": "PASS",
+            "detail": "bom_26_cost_dio_pareto.csv exists"
+        },
+        {
+            "name": "multi_objective_file_bom_26_ideal_nadir.json",
+            "status": "PASS",
+            "detail": "bom_26_ideal_nadir.json exists"
+        },
+        {
+            "name": "multi_objective_pareto_rows",
+            "status": "PASS",
+            "detail": "planned=60, realized=60"
+        },
+        {
+            "name": "decision_stability_detail_rows",
+            "status": "PASS",
+            "detail": "in_memory=108, detail=108"
+        },
+        {
+            "name": "decision_stability_summary_exists",
+            "status": "PASS",
+            "detail": "summary_rows=33"
+        }
+    ],
+    "warnings": [],
+    "failures": [
+        "executed_run_manifest_ids: missing=72, unexpected=0, duplicates=0"
+    ]
+}

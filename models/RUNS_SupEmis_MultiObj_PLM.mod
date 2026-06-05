@@ -184,13 +184,13 @@ execute {
        fail();
      }
 //Tree structure index
-     for(var i in N){     
+     for(var i in N){
      	index_par[i]=0;
      	var j=0;
      	while((index_par[i]==0) && (j <= (NB_NODE))){
      	     	index_par[i]=1*(parent[j] == i);
      	     	j++;
-     	}    
+     	}
      }
  }//End execute
 

@@ -39,6 +39,8 @@ class SynthesisGenerator {
             'carbon_tax_sweep' => 'carbon_tax_sweep_results.csv',
             'carbon_cap_sweep' => 'carbon_cap_sweep_results.csv',
             'carbon_hybrid' => 'carbon_hybrid_results.csv',
+            'decision_stability' => 'decision_stability_results.csv',
+            'decision_stability_summary' => 'decision_stability_summary.csv',
             'service_time_sensitivity' => 'service_time_sensitivity_results.csv',
             'nlm_comparison' => 'nlm_comparison_results.csv'
         ];
@@ -102,6 +104,7 @@ class SynthesisGenerator {
         $synthesis .= $this->generateInventorySection();
         $synthesis .= $this->generateMultiObjectiveSection();
         $synthesis .= $this->generateImplementationSection();
+        $synthesis .= $this->generateDecisionStabilitySection();
         $synthesis .= $this->generateConclusionsSection();
         $synthesis .= $this->generateAppendix();
         
@@ -264,6 +267,46 @@ class SynthesisGenerator {
         
         return $section;
     }
+
+    private function generateDecisionStabilitySection(): string {
+        $section = "## 6. Near-Optimal Decision Stability\n\n";
+
+        if (!isset($this->experimentData['decision_stability_summary'])
+            || empty($this->experimentData['decision_stability_summary'])) {
+            $section .= "*No decision-stability data available*\n\n";
+            return $section;
+        }
+
+        $rows = $this->experimentData['decision_stability_summary'];
+        $bufferSimilarities = array_filter(array_column($rows, 'minimum_buffer_jaccard_similarity'), 'is_numeric');
+        $supplierSimilarities = array_filter(array_column($rows, 'minimum_supplier_jaccard_similarity'), 'is_numeric');
+        $allocationDeviations = array_filter(array_column($rows, 'maximum_allocation_l1_normalized'), 'is_numeric');
+
+        $section .= "The decision-degeneracy probes search for alternative decisions within 1% of each representative proven optimum.\n";
+        $section .= "They diagnose near-optimal decision degeneracy without expanding the analysis to every policy scenario.\n\n";
+        $section .= sprintf("- Anchors probed: %d\n", count($rows));
+        if (!empty($bufferSimilarities)) {
+            $section .= sprintf(
+                "- Worst buffer-position Jaccard similarity: %.3f\n",
+                min(array_map('floatval', $bufferSimilarities))
+            );
+        }
+        if (!empty($supplierSimilarities)) {
+            $section .= sprintf(
+                "- Worst supplier-selection Jaccard similarity: %.3f\n",
+                min(array_map('floatval', $supplierSimilarities))
+            );
+        }
+        if (!empty($allocationDeviations)) {
+            $section .= sprintf(
+                "- Largest normalized allocation L1 deviation: %.3f\n",
+                max(array_map('floatval', $allocationDeviations))
+            );
+        }
+
+        $section .= "\nThese values are continuous diagnostics: the campaign does not assign stable/unstable labels without an externally justified tolerance threshold, and does not treat the probes as stochastic robustness tests.\n\n";
+        return $section;
+    }
     
     /**
      * Generate carbon policy section
@@ -352,10 +395,10 @@ class SynthesisGenerator {
                 return ($r['solver_status'] ?? '') === 'INFEASIBLE';
             });
             
-            $section .= "The hybrid tax+cap strategy combines the benefits of both mechanisms:\n\n";
-            $section .= "1. **Cap provides assurance:** Hard emission limit ensures compliance\n";
-            $section .= "2. **Tax provides incentive:** Financial motivation for beyond-compliance reductions\n";
-            $section .= "3. **Flexibility:** Multiple policy combinations tested\n\n";
+            $section .= "In the corrected per-tonne combined design, the cap is the binding mechanism:\n\n";
+            $section .= "1. **Cap governs emissions:** the hard ceiling sets the achieved emissions, which fall monotonically as it tightens\n";
+            $section .= "2. **Price is decision-neutral at the tested levels:** over the internationally informed prices the carbon price does not change the cost-optimal buffers or supplier allocations\n";
+            $section .= "3. **Full factorial coverage:** every price level is crossed with every cap level, including an explicit no-cap level\n\n";
             
             $section .= "Total combined scenarios tested: " . count($allHybridData) . "\n";
             $section .= "Comparison-admissible scenarios: " . count($hybridData) . "\n";
@@ -531,7 +574,7 @@ class SynthesisGenerator {
      * Generate conclusions section
      */
     private function generateConclusionsSection(): string {
-        $section = "## 6. Conclusions\n\n";
+        $section = "## 7. Conclusions\n\n";
         
         $totalRuns = count($this->consolidatedData);
         $optimalRuns = count(array_filter($this->consolidatedData, function($r) {
@@ -546,10 +589,10 @@ class SynthesisGenerator {
         $section .= "{$comparisonAdmissibleRuns} comparison-admissible) demonstrates that:\n\n";
         
         $section .= "1. **The integrated DDMRP-supplier-carbon model is computationally tractable** for industrial-scale supply chains\n\n";
-        $section .= "2. **Carbon policy effectiveness varies by mechanism:**\n";
-        $section .= "   - Tax strategies provide gradual emission reductions\n";
-        $section .= "   - Cap strategies ensure compliance but with higher cost variance\n";
-        $section .= "   - Hybrid strategies offer the best balance of assurance and efficiency\n\n";
+        $section .= "2. **Carbon policy effectiveness varies by mechanism (corrected per-tonne pricing):**\n";
+        $section .= "   - At the tested carbon-price levels the price alone does not displace the cost-optimal decisions; emissions are invariant to the price\n";
+        $section .= "   - Emission caps reduce emissions monotonically at a rising compliance cost\n";
+        $section .= "   - The combined carbon-price-and-cap scenario inherits its emission behaviour from the cap\n\n";
         $section .= "3. **Buffer positioning decisions interact with carbon policies**, creating opportunities for co-optimization\n\n";
         $section .= "4. **The pseudo-linear formulation (PLM) enables practical implementation** with solve times under 1 second for most instances\n\n";
         

@@ -11,6 +11,8 @@ generator = repo / "src" / "generate_article_tables.py"
 with tempfile.TemporaryDirectory() as temp_dir:
     results_dir = Path(temp_dir)
     csv_path = results_dir / "consolidated_results.csv"
+    tables_dir = results_dir / "tables"
+    tables_dir.mkdir()
     with csv_path.open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(
             handle,
@@ -73,6 +75,41 @@ with tempfile.TemporaryDirectory() as temp_dir:
             }
         )
 
+    stability_path = tables_dir / "decision_stability_summary.csv"
+    with stability_path.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(
+            handle,
+            fieldnames=[
+                "anchor_run_id",
+                "instance_id",
+                "source_experiment",
+                "strategy",
+                "tax_rate",
+                "cap_level",
+                "probes_completed",
+                "minimum_buffer_jaccard_similarity",
+                "minimum_supplier_jaccard_similarity",
+                "maximum_allocation_l1_normalized",
+                "maximum_objective_degradation_pct",
+            ],
+        )
+        writer.writeheader()
+        writer.writerow(
+            {
+                "anchor_run_id": "TAX-bom_5-50.00",
+                "instance_id": "bom_5",
+                "source_experiment": "carbon_tax_sweep",
+                "strategy": "EMISTAXE",
+                "tax_rate": "50",
+                "cap_level": "none",
+                "probes_completed": "3",
+                "minimum_buffer_jaccard_similarity": "0.75",
+                "minimum_supplier_jaccard_similarity": "0.33",
+                "maximum_allocation_l1_normalized": "1.11",
+                "maximum_objective_degradation_pct": "0.8",
+            }
+        )
+
     subprocess.run([sys.executable, str(generator), str(results_dir)], check=True)
     table = (results_dir / "tables_tex" / "tab_hybrid.tex").read_text(encoding="utf-8")
 
@@ -82,5 +119,10 @@ with tempfile.TemporaryDirectory() as temp_dir:
     tax_table = (results_dir / "tables_tex" / "tab_tax_sweep.tex").read_text(encoding="utf-8")
     assert "$EmisTax=50$" in tax_table
     assert "$EmisTax=100$" not in tax_table
+    stability_table = (results_dir / "tables_tex" / "tab_decision_stability.tex").read_text(
+        encoding="utf-8"
+    )
+    assert "Near-optimal decision-degeneracy diagnostic" in stability_table
+    assert "0.33" in stability_table
 
 print("Article table reporting and comparison-admissibility tests passed.")

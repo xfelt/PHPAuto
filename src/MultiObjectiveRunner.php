@@ -8,6 +8,14 @@ require_once __DIR__ . '/CplexRunner.php';
  * Generates Pareto fronts for Cost-DIO, Cost-WIP, and Cost-Emissions
  */
 class MultiObjectiveRunner {
+    private static function nonBindingBounds(array $baseRun): array {
+        return [
+            'cost' => (float)($baseRun['_NONBINDING_COST_'] ?? 100000000.0),
+            'dio' => (float)($baseRun['_NONBINDING_DIO_'] ?? 100000000.0),
+            'wip' => (float)($baseRun['_NONBINDING_WIP_'] ?? 100000000.0),
+            'emissions' => (float)($baseRun['_NONBINDING_EMIS_'] ?? 100000000.0),
+        ];
+    }
     
     /**
      * Generate epsilon values for a given range
@@ -48,17 +56,16 @@ class MultiObjectiveRunner {
             'all_solutions' => []
         ];
         
-        // Set very large epsilon values (effectively no constraint)
-        $largeValue = 1e10;
+        $bounds = self::nonBindingBounds($baseRun);
         
         // Optimize each objective individually
         for ($obj = 1; $obj <= 4; $obj++) {
             $run = $baseRun;
             $run['_OBJ_PRIMARY_'] = $obj;
-            $run['_EPSILON_COST_'] = $largeValue;
-            $run['_EPSILON_DIO_'] = $largeValue;
-            $run['_EPSILON_WIP_'] = $largeValue;
-            $run['_EPSILON_EMIS_'] = $largeValue;
+            $run['_EPSILON_COST_'] = $bounds['cost'];
+            $run['_EPSILON_DIO_'] = $bounds['dio'];
+            $run['_EPSILON_WIP_'] = $bounds['wip'];
+            $run['_EPSILON_EMIS_'] = $bounds['emissions'];
             
             $prefix = $run['PREFIXE'] . '_IDEAL_OBJ' . $obj;
             $run['PREFIXE'] = $prefix;
@@ -147,15 +154,15 @@ class MultiObjectiveRunner {
         $dioMax = $idealNadir['nadir']['DIO'] * 1.2; // Add 20% margin
         
         $epsilonValues = self::generateEpsilonValues($dioMin, $dioMax, $numPoints);
-        $largeValue = 1e10;
+        $bounds = self::nonBindingBounds($baseRun);
         
         foreach ($epsilonValues as $idx => $epsilonDIO) {
             $run = $baseRun;
             $run['_OBJ_PRIMARY_'] = 1; // Minimize cost
-            $run['_EPSILON_COST_'] = $largeValue;
+            $run['_EPSILON_COST_'] = $bounds['cost'];
             $run['_EPSILON_DIO_'] = $epsilonDIO;
-            $run['_EPSILON_WIP_'] = $largeValue; // No constraint on WIP
-            $run['_EPSILON_EMIS_'] = $largeValue; // No constraint on emissions
+            $run['_EPSILON_WIP_'] = $bounds['wip']; // No constraint on WIP
+            $run['_EPSILON_EMIS_'] = $bounds['emissions']; // No constraint on emissions
             
             $prefix = $baseRun['PREFIXE'] . '_CDIO_' . $idx;
             $run['PREFIXE'] = $prefix;
@@ -205,15 +212,15 @@ class MultiObjectiveRunner {
         $wipMax = $idealNadir['nadir']['WIP'] * 1.2; // Add 20% margin
         
         $epsilonValues = self::generateEpsilonValues($wipMin, $wipMax, $numPoints);
-        $largeValue = 1e10;
+        $bounds = self::nonBindingBounds($baseRun);
         
         foreach ($epsilonValues as $idx => $epsilonWIP) {
             $run = $baseRun;
             $run['_OBJ_PRIMARY_'] = 1; // Minimize cost
-            $run['_EPSILON_COST_'] = $largeValue;
-            $run['_EPSILON_DIO_'] = $largeValue; // No constraint on DIO
+            $run['_EPSILON_COST_'] = $bounds['cost'];
+            $run['_EPSILON_DIO_'] = $bounds['dio']; // No constraint on DIO
             $run['_EPSILON_WIP_'] = $epsilonWIP;
-            $run['_EPSILON_EMIS_'] = $largeValue; // No constraint on emissions
+            $run['_EPSILON_EMIS_'] = $bounds['emissions']; // No constraint on emissions
             
             $prefix = $baseRun['PREFIXE'] . '_CWIP_' . $idx;
             $run['PREFIXE'] = $prefix;
@@ -263,14 +270,14 @@ class MultiObjectiveRunner {
         $emisMax = $idealNadir['nadir']['Emissions'] * 1.2; // Add 20% margin
         
         $epsilonValues = self::generateEpsilonValues($emisMin, $emisMax, $numPoints);
-        $largeValue = 1e10;
+        $bounds = self::nonBindingBounds($baseRun);
         
         foreach ($epsilonValues as $idx => $epsilonEmis) {
             $run = $baseRun;
             $run['_OBJ_PRIMARY_'] = 1; // Minimize cost
-            $run['_EPSILON_COST_'] = $largeValue;
-            $run['_EPSILON_DIO_'] = $largeValue; // No constraint on DIO
-            $run['_EPSILON_WIP_'] = $largeValue; // No constraint on WIP
+            $run['_EPSILON_COST_'] = $bounds['cost'];
+            $run['_EPSILON_DIO_'] = $bounds['dio']; // No constraint on DIO
+            $run['_EPSILON_WIP_'] = $bounds['wip']; // No constraint on WIP
             $run['_EPSILON_EMIS_'] = $epsilonEmis;
             
             $prefix = $baseRun['PREFIXE'] . '_CEMIS_' . $idx;

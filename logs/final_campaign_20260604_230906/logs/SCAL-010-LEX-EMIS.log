@@ -1,0 +1,207 @@
+Array
+(
+    [CplexRunTime] => Total (root+branch&cut) =    0,61 sec
+    [status] => OPTIMAL
+    [termination_reason] => OPTIMAL
+    [mip_gap] => 0
+    [Result] => Array
+        (
+            [Objective] => 9949300
+            [TotalCost] => 63273
+            [DIO] => 74
+            [WIP] => 145000
+            [Emissions] => 0
+        )
+
+    [CS] => 63273
+    [DIO] => 74
+    [WIP] => 145000
+    [E] => 9949345
+    [A] => Array
+        (
+            [0] => 1
+            [1] => 2
+            [2] => 16
+            [3] => 9
+            [4] => 12
+            [5] => 6
+            [6] => 10
+            [7] => 6
+            [8] => 7
+            [9] => 5
+        )
+
+    [X] => Array
+        (
+            [0] => 0
+            [1] => 1
+            [2] => 1
+            [3] => 1
+            [4] => 0
+            [5] => 0
+            [6] => 0
+            [7] => 0
+            [8] => 0
+            [9] => 1
+        )
+
+    [DELIVER] => Array
+        (
+            [0] => S6=>P6
+            [1] => S8=>P6
+            [2] => S4=>P7
+            [3] => S10=>P7
+            [4] => S4=>P8
+            [5] => S10=>P8
+            [6] => S4=>P9
+        )
+
+    [_raw_output] => 
+<<< setup
+
+0 0 -1 0 0 0.25 0.5 0.8 1 0 0 0 0  14
+1 2 0 800 1 0.25 0.5 0.8 1 0 8000 800 1500  14
+2 4 1 190 1 0.25 0.5 0.8 1 0 6000 600 1500  14
+3 3 1 125 2 0.25 0.5 0.8 1 0 4200 420 1500  14
+4 5 2 35 6 0.25 0.5 0.8 1 0 3600 360 1500  14
+5 6 3 45 2 0.25 0.5 0.8 1 0 3200 320 1500  14
+6 4 2 27 4 0.25 0.5 0.8 1 0 3100 310 1500  14
+7 5 3 32 3 0.25 0.5 0.8 1 0 2900 290 1500  14
+8 6 4 20 5 0.25 0.5 0.8 1 0 2600 260 1500  14
+9 4 5 18 2 0.25 0.5 0.8 1 0 2400 240 1500  14
+Node nums: [0 1 2 3 4 5 6 7 8 9]
+xx-Data uploaded-xx
+	**** start init su array ...
+0 [0 0 0 0 0 0 0 0 0 0]
+1 [0 0 0 0 0 0 0 0 0 0]
+2 [1 1 1 1 1 1 1 1 1 1]
+3 [0 0 0 0 0 0 0 0 0 0]
+4 [1 1 1 1 1 1 1 1 1 1]
+5 [1 1 1 1 1 1 1 1 1 1]
+6 [1 1 1 1 1 1 1 1 1 1]
+7 [1 1 1 1 1 1 1 1 1 1]
+8 [1 1 1 1 1 1 1 1 1 1]
+9 [1 1 1 1 1 1 1 1 1 1]
+	**** end init su array ...
+1 2 1 100 80 0.85 0.92 0.8 (9)9
+2 2 0.9 60 75 0.82 0.90 0.9 (9)9
+3 1 1.1 80 90 0.88 0.95 0.5 (9)9
+4 1 1 80 100 0.86 0.93 0.6 (9)9
+5 5 0.6 50 40 0.72 0.78 1.5 (9)9
+6 6 0.5 60 45 0.70 0.75 2.0 (9)9
+7 7 0.5 80 40 0.68 0.72 2.5 (9)9
+8 5 0.3 25 30 0.65 0.70 1.8 (9)9
+9 9 0.2 250 15 0.60 0.65 3.5 (9)9
+10 1 0.8 30 40 0.80 0.88 0.7 (9)9
+
+<<< generate
+
+Version identifier: 20.1.0.0 | 2020-11-10 | 9bedb6d68
+CPXPARAM_TimeLimit                               300
+Tried aggregator 2 times.
+MIP Presolve eliminated 957 rows and 183 columns.
+MIP Presolve modified 31 coefficients.
+Aggregator did 2 substitutions.
+Reduced MIP has 281 rows, 145 columns, and 769 nonzeros.
+Reduced MIP has 48 binaries, 97 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0,00 sec. (1,47 ticks)
+Probing fixed 0 vars, tightened 16 bounds.
+Probing time = 0,00 sec. (0,15 ticks)
+Cover probing fixed 0 vars, tightened 4 bounds.
+Tried aggregator 1 time.
+Detecting symmetries...
+MIP Presolve eliminated 12 rows and 0 columns.
+MIP Presolve modified 67 coefficients.
+Reduced MIP has 269 rows, 145 columns, and 745 nonzeros.
+Reduced MIP has 48 binaries, 97 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0,00 sec. (0,50 ticks)
+Probing fixed 0 vars, tightened 1 bounds.
+Probing time = 0,00 sec. (0,14 ticks)
+Clique table members: 4.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 20 threads.
+Root relaxation solution time = 0,00 sec. (0,95 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+      0     0  3634107,3633    24                3634107,3633       96         
+      0     0  3662226,6416    26                    Cuts: 49      132         
+      0     0  3773269,9524    51                    Cuts: 23      161         
+      0     0  3825609,6965    62                    Cuts: 30      184         
+      0     0  3858232,0737    43                    Cuts: 31      202         
+      0     0  3928257,2592    56                    Cuts: 24      231         
+Detecting symmetries...
+      0     0  3967291,8025    41                    Cuts: 22      254         
+      0     0  3989891,4525    46                    Cuts: 15      271         
+      0     0  4089595,4656    55                    Cuts: 14      294         
+      0     0  4163535,4825    62                    Cuts: 18      317         
+      0     0  4171611,6918    60                    Cuts: 19      332         
+      0     0  4204376,0156    57                    Cuts: 22      350         
+      0     0  4246795,7038    59                    Cuts: 15      368         
+      0     0  4289767,2074    55                    Cuts: 23      387         
+      0     0  4327843,6350    56                     Cuts: 9      397         
+      0     0  4377308,5991    50                     Cuts: 8      411         
+      0     0  4427663,1469    57                    Cuts: 15      424         
+      0     0  4456527,9439    65                    Cuts: 23      439         
+      0     0  4490279,4041    84                    Cuts: 18      456         
+      0     0  4510791,5830    81                    Cuts: 15      471         
+      0     0  4548206,1549    74                    Cuts: 17      495         
+      0     0  4557661,1258    95                    Cuts: 17      508         
+      0     0  4562803,1961    94                     Cuts: 7      514         
+      0     0  4578943,5666    88                     Cuts: 9      528         
+      0     0  4591101,1502    93                    Cuts: 16      542         
+      0     0  4650105,5562    93                    Cuts: 16      558         
+      0     0  4654005,0490    93                    Cuts: 15      570         
+      0     0  4658238,3250    90                    Cuts: 13      587         
+      0     0  4661301,1553    80                    Cuts: 12      604         
+      0     0  4666446,5441    93                     Cuts: 8      620         
+      0     0  4675625,5945    91                    Cuts: 12      630         
+      0     0  4680486,7660    92                    Cuts: 10      637         
+      0     0  4681123,4089    92                     Cuts: 6      642         
+      0     0  4683262,9087    94                    Cuts: 18      653         
+      0     0  4683451,0086    94                     Cuts: 6      657         
+*     0+    0                      9949345,0000  4683451,0086            52,93%
+Detecting symmetries...
+      0     2  4683451,0086    94  9949345,0000  8344188,2723      657   16,13%
+Elapsed time = 0,26 sec. (73,06 ticks, tree = 0,02 MB, solutions = 1)
+
+Cover cuts applied:  7
+Implied bound cuts applied:  40
+Flow cuts applied:  2
+Mixed integer rounding cuts applied:  12
+Zero-half cuts applied:  35
+Gomory fractional cuts applied:  8
+
+Root node processing (before b&c):
+  Real time             =    0,23 sec. (72,87 ticks)
+Parallel b&c, 20 threads:
+  Real time             =    0,38 sec. (18,44 ticks)
+  Sync time (average)   =    0,32 sec.
+  Wait time (average)   =    0,00 sec.
+                          ------------
+Total (root+branch&cut) =    0,61 sec. (91,31 ticks)
+
+<<< solve
+
+
+OBJECTIVE: 9949345
+xxxx
+#Result <fct_obj, tot_cost, DIO, WIP, Emiss>: <9.9493e+6 63273 74 1.45e+5 9.9493e+6 5273 58000 0>#CS:63273#DIO:74#WIP:145000#E: 9949345#A:[1,2,16,9,12,6,10,6,7,5]#X:[0,1,1,1,0,0,0,0,0,1]#DELIVER:
+S6=>P6
+S8=>P6
+S4=>P7
+S10=>P7
+S4=>P8
+S10=>P8
+S4=>P9
+xxxx
+
+<<< post process
+
+
+<<< done
+
+
+)

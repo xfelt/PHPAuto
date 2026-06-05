@@ -93,10 +93,18 @@ class CplexRunner {
                         // last <...> group. Always parse the values vector, never the label.
                         $vector = end($vectorMatches[1]);
                         $components = preg_split('/\s+/', trim(str_replace(',', '.', $vector)));
-                        // Positional labels depend on the model: the multi-objective model emits a
-                        // 5-field vector (fctObj, TotalCost, DIO, WIP, Emiss) while the tax/cap models
-                        // emit 4 fields (fctObj, TotalCost, leadTime, Emiss). Emissions are always last.
-                        if (count($components) >= 5) {
+                        // Positional labels depend on the model. Emissions are NOT always the last
+                        // field: the multi-objective model emits an 8-field tuple
+                        // (fctObj, TotalCost, DIO, WIP, Emiss, RawMCost, InventCost, EmisCost) whose
+                        // last field is the carbon cost (0 when EmisTax=0), not the emissions. Map
+                        // each field by its actual position for every emitted arity:
+                        //   8 fields -> full multi-objective tuple (Emiss at index 4),
+                        //   5 fields -> compact multi-objective tuple (Emiss at index 4, last),
+                        //   4 fields -> tax/cap tuple (Emiss at index 3, last).
+                        $count = count($components);
+                        if ($count >= 8) {
+                            $labels = ['Objective', 'TotalCost', 'DIO', 'WIP', 'Emissions', 'RawMCost', 'InventCost', 'EmisCost'];
+                        } elseif ($count >= 5) {
                             $labels = ['Objective', 'TotalCost', 'DIO', 'WIP', 'Emissions'];
                         } else {
                             $labels = ['Objective', 'TotalCost', 'LeadTime', 'Emissions'];
@@ -106,10 +114,6 @@ class CplexRunner {
                             if (isset($components[$index])) {
                                 $resultData[$label] = self::normalizeScalar($components[$index]);
                             }
-                        }
-                        // Emissions always come from the final component, regardless of arity.
-                        if (!empty($components)) {
-                            $resultData['Emissions'] = self::normalizeScalar(end($components));
                         }
                         if (!empty($resultData)) {
                             $solution['Result'] = $resultData;
@@ -203,6 +207,35 @@ class CplexRunner {
 					}
 				}
 			}
+
+			// For CPLEX native multi-objective (staticLex) solves there is no single
+			// "Total (root+branch&cut)" line. CPLEX prints a per-priority table whose
+			// "Time (sec.)" column reports each lexicographic stage's solve time. Sum the
+			// stage times, scoped to the multi-objective block, to report total solve time.
+			$inMultiObjective = false;
+			$multiObjectiveSeconds = 0.0;
+			$matchedMultiObjective = false;
+			foreach ($lines as $line) {
+				if (strpos($line, "Multi-objective solve log") !== false) {
+					$inMultiObjective = true;
+					continue;
+				}
+				if (!$inMultiObjective) {
+					continue;
+				}
+				// Priority row: index priority blend objective nodes TIME dettime.
+				if (preg_match('/^\s*\d+\s+\d+\s+\d+\s+\S+\s+\d+\s+([\d.,]+)\s+[\d.,]+\s*$/', $line, $matches)) {
+					$multiObjectiveSeconds += (float)str_replace(',', '.', $matches[1]);
+					$matchedMultiObjective = true;
+				} elseif (trim($line) !== '' && strpos($line, 'Index') === false) {
+					// Left the priority table (e.g. the "OBJECTIVE:" summary line).
+					$inMultiObjective = false;
+				}
+			}
+			if ($matchedMultiObjective) {
+				return rtrim(rtrim(sprintf('%.6f', $multiObjectiveSeconds), '0'), '.');
+			}
+
             // Step 3: Return -1 if no runtime information is found
             return -1;
 
@@ -245,7 +278,10 @@ class CplexRunner {
             return $metadata;
         }
 
-        if (preg_match('/Best objective\s*:.*\(optimal\b|integer optimal solution|optimal solution found/i', $output)
+        if (($hasSolution
+                && preg_match('/Multi-objective solve log/i', $output)
+                && preg_match('/^\s*\d+\s+\d+\s+\d+\s+[-+]?[\d,.]+(?:e[+\-]?\d+)?/mi', $output))
+            || preg_match('/Best objective\s*:.*\(optimal\b|integer optimal solution|optimal solution found/i', $output)
             || ($hasSolution && preg_match('/Total \(root\+branch&cut\)/i', $output))) {
             $metadata['status'] = 'OPTIMAL';
             $metadata['termination_reason'] = 'OPTIMAL';

@@ -10,10 +10,11 @@
     "optimality_gap": 0.01,
     "threads": 4
   },
-  "analysis_settings": {
-    "comparison_gap_threshold_pct": 1.0,
-    "description": "Behavioral comparisons admit proven-optimal solutions and feasible incumbents with a final optimality gap no greater than this percentage"
-  },
+    "analysis_settings": {
+      "comparison_gap_threshold_pct": 1.0,
+      "description": "Behavioral comparisons admit proven-optimal solutions and feasible incumbents with a final optimality gap no greater than this percentage",
+      "scenario_interpretation": "Simulation scenarios are controlled deterministic optimization scenarios, not Monte Carlo, stochastic demand, disruption, or dynamic execution simulations"
+    },
   "experiments": {
     "scalability": {
       "enabled": true,
@@ -96,6 +97,21 @@
       "service_time": 1,
       "suppliers": 10,
       "representative_instances": ["bom_5", "bom_13", "bom_26"]
+    },
+    "decision_stability": {
+      "enabled": true,
+      "description": "Extremal near-optimal decision-degeneracy diagnostic around proven-optimal policy solutions",
+      "scope": "Representative proven-optimal policy anchors only, to diagnose decision degeneracy without multiplying the full scenario sweep",
+      "objective_tolerance_pct": 1.0,
+      "probes": ["buffers", "suppliers", "allocation"],
+      "representative_instances": ["bom_5", "bom_13", "bom_26", "bom_50"],
+      "tax_rates": [0.0, 50.0, 100.0],
+      "cap_percentages": [1.0, 0.85, 0.70],
+      "hybrid_combinations": [
+        {"tax": 15.0, "cap_level": "none"},
+        {"tax": 50.0, "cap_level": 0.85},
+        {"tax": 100.0, "cap_level": 0.70}
+      ]
     }
   },
   "kpi_definitions": {
@@ -113,7 +129,7 @@
       "total_emissions": "Total CO2 emissions (g; convert by 1e6 for tCO2)",
       "storage_emissions": "Emissions from inventory storage",
       "transport_emissions": "Emissions from transportation",
-      "supplier_emissions": "Embodied emissions from suppliers",
+      "supplier_emissions": "Supplier-side emissions within the modeled boundary",
       "emission_reduction_pct": "((E_baseline - E) / E_baseline) * 100"
     },
     "inventory": {
@@ -138,12 +154,17 @@
       "runtime_sec": "Solver computation time",
       "mip_gap": "Final optimality gap in percent if non-zero",
       "comparison_admissible": "True for proven-optimal solutions and feasible incumbents whose final optimality gap is at most 1%"
+    },
+    "decision_stability": {
+      "buffer_jaccard_similarity": "Jaccard similarity between reference and extremal near-optimal buffer-position sets",
+      "supplier_jaccard_similarity": "Jaccard similarity between reference and extremal near-optimal supplier-selection pairs",
+      "allocation_l1_normalized": "Absolute allocation deviation divided by total reference allocation",
+      "interpretation": "Report continuous metrics only; do not assign stable/unstable classes without an externally justified tolerance threshold"
     }
   },
   "baseline_references": {
     "description": "Lexicographic baseline used for cap percentage calculations",
-    "method": "First minimize economic cost with EmisTax=0 and no cap; then minimize emissions while retaining the optimal economic cost",
-    "economic_cost_tolerance_abs_eur": 0.001
+    "method": "Use CPLEX native staticLex(TotalCostCS, Emis) with EmisTax=0 and no cap, so economic cost is optimized first and supplier-side emissions are used as the internal tie-break objective."
   },
   "output_configuration": {
     "results_folder": "results/final_campaign/",

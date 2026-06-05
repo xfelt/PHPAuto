@@ -469,7 +469,13 @@ class KPICalculator {
             'Result.emiss'
         ]);
 
-        if ($eField !== null && $eField < 2147483647) {
+        // OPL coerces the emissions written via "#E:" to a 32-bit int, which clamps to
+        // exactly 2147483647 once the true emissions exceed that bound (large instances).
+        // The "#Result" values vector keeps the correct float emissions, so fall back to
+        // it only when #E hit that clamp sentinel; otherwise #E carries full precision
+        // (including legitimate values above 2147483647 that escaped the int write).
+        $clampSentinel = 2147483647.0;
+        if ($eField !== null && abs($eField - $clampSentinel) > 0.5) {
             return $eField;
         }
         return $resultVecEmis ?? $eField;

@@ -1,0 +1,496 @@
+Running deployment preflight...
+Deployment preflight checks passed.
+========================================
+FINAL COMPREHENSIVE TEST CAMPAIGN
+Journal of Cleaner Production Article
+========================================
+
+Campaign started: 2026-06-05 06:13:05
+Results directory: C:\Users\Xfeltech\OneDrive\Documents\GitHub\PHPAuto\config/../logs/final_campaign_20260605_061305\
+
+Campaign plan saved to: C:\Users\Xfeltech\OneDrive\Documents\GitHub\PHPAuto\config/../logs/final_campaign_20260605_061305\campaign_plan.md
+
+=== PHASE 1: SCALABILITY BENCHMARK ===
+Testing 23 BOM sizes: 2, 3, 4, 5, 6, 7, 8, 10, 13, 15, 20, 25, 26, 30, 35, 40, 50, 60, 80, 90, 100, 123, 150
+  N=2: Status=OPTIMAL, Runtime=0.02s, Emissions=112400
+  N=3: Status=OPTIMAL, Runtime=0.03s, Emissions=237400
+  N=4: Status=OPTIMAL, Runtime=0.16s, Emissions=461840
+  N=5: Status=OPTIMAL, Runtime=0.16s, Emissions=2932200
+  N=6: Status=OPTIMAL, Runtime=0.7s, Emissions=2681960
+  N=7: Status=OPTIMAL, Runtime=0.29s, Emissions=3853590
+  N=8: Status=OPTIMAL, Runtime=0.11s, Emissions=5587240
+  N=10: Status=OPTIMAL, Runtime=0.33s, Emissions=9949345
+  N=13: Status=OPTIMAL, Runtime=0.16s, Emissions=29495946
+  N=15: Status=OPTIMAL, Runtime=0.19s, Emissions=33149700
+  N=20: Status=OPTIMAL, Runtime=1.55s, Emissions=25445265
+  N=25: Status=OPTIMAL, Runtime=1.69s, Emissions=31154440
+  N=26: Status=OPTIMAL, Runtime=0.19s, Emissions=41574400
+  N=30: Status=OPTIMAL, Runtime=0.39s, Emissions=49597500
+  N=35: Status=OPTIMAL, Runtime=5.55s, Emissions=48310880
+  N=40: Status=OPTIMAL, Runtime=0.32s, Emissions=101719560
+  N=50: Status=OPTIMAL, Runtime=0.48s, Emissions=194576659
+  N=60: Status=OPTIMAL, Runtime=0.86s, Emissions=1787782270
+  N=80: Status=OPTIMAL, Runtime=0.39s, Emissions=2590837935.4
+  N=90: Status=OPTIMAL, Runtime=0.3s, Emissions=9092900000
+  N=100: Status=OPTIMAL, Runtime=0.22s, Emissions=14450000000
+  N=123: Status=OPTIMAL, Runtime=5.31s, Emissions=646956126.6
+  N=150: Status=OPTIMAL, Runtime=0.99s, Emissions=25080000000
+  Saved scalability results to: C:\Users\Xfeltech\OneDrive\Documents\GitHub\PHPAuto\config/../logs/final_campaign_20260605_061305\tables\scalability_results.csv
+
+=== PHASE 2: TOPOLOGY BASELINE ===
+Testing multi_level family: 5 instances
+  bom_ml4_30: Status=OPTIMAL, Emissions=13603260
+  bom_ml4_55: Status=OPTIMAL, Emissions=20449523.6
+  bom_ml5_45: Status=OPTIMAL, Emissions=21728460
+  bom_ml5_65: Status=OPTIMAL, Emissions=29937037.2
+  bom_ml6_70: Status=OPTIMAL, Emissions=32902875
+Testing parallel family: 5 instances
+  bom_par2: Status=OPTIMAL, Emissions=10080095
+  bom_par3: Status=OPTIMAL, Emissions=8147540
+  bom_par4: Status=OPTIMAL, Emissions=5939600
+  bom_par5: Status=OPTIMAL, Emissions=18512205
+  bom_par6: Status=OPTIMAL, Emissions=18894145
+  Saved topology_baseline results to: C:\Users\Xfeltech\OneDrive\Documents\GitHub\PHPAuto\config/../logs/final_campaign_20260605_061305\tables\topology_baseline_results.csv
+
+=== PHASE 3: CARBON TAX SWEEP ===
+Testing tax rates: 0, 15, 50, 75, 100
+Instances: bom_5, bom_13, bom_26, bom_50, bom_ml4_30, bom_par4
+  bom_5, tax=0: Cost=48640, Emissions=2932200
+  bom_5, tax=15: Cost=48683.983, Emissions=2932200
+  bom_5, tax=50: Cost=48786.61, Emissions=2932200
+  bom_5, tax=75: Cost=48859.915, Emissions=2932200
+  bom_5, tax=100: Cost=48933.22, Emissions=2932200
+  bom_13, tax=0: Cost=116448, Emissions=29495946
+  bom_13, tax=15: Cost=116890.43919, Emissions=29495946
+  bom_13, tax=50: Cost=117922.7973, Emissions=29495946
+  bom_13, tax=75: Cost=118660.19595, Emissions=29495946
+  bom_13, tax=100: Cost=119397.5946, Emissions=29495946
+  bom_26, tax=0: Cost=867120, Emissions=41574400
+  bom_26, tax=15: Cost=867743.616, Emissions=41574400
+  bom_26, tax=50: Cost=869198.72, Emissions=41574400
+  bom_26, tax=75: Cost=870238.08, Emissions=41574400
+  bom_26, tax=100: Cost=871277.44, Emissions=41574400
+  bom_50, tax=0: Cost=1381460, Emissions=194576659
+  bom_50, tax=15: Cost=1384378.649885, Emissions=194576659
+  bom_50, tax=50: Cost=1391188.83295, Emissions=194576659
+  bom_50, tax=75: Cost=1396053.249425, Emissions=194576659
+  bom_50, tax=100: Cost=1400917.6659, Emissions=194576659
+  bom_ml4_30, tax=0: Cost=378440, Emissions=13603260
+  bom_ml4_30, tax=15: Cost=378644.0489, Emissions=13603260
+  bom_ml4_30, tax=50: Cost=379120.163, Emissions=13603260
+  bom_ml4_30, tax=75: Cost=379460.2445, Emissions=13603260
+  bom_ml4_30, tax=100: Cost=379800.326, Emissions=13603260
+  bom_par4, tax=0: Cost=169920, Emissions=5939600
+  bom_par4, tax=15: Cost=170009.094, Emissions=5939600
+  bom_par4, tax=50: Cost=170216.98, Emissions=5939600
+  bom_par4, tax=75: Cost=170365.47, Emissions=5939600
+  bom_par4, tax=100: Cost=170513.96, Emissions=5939600
+  Saved carbon_tax_sweep results to: C:\Users\Xfeltech\OneDrive\Documents\GitHub\PHPAuto\config/../logs/final_campaign_20260605_061305\tables\carbon_tax_sweep_results.csv
+
+=== PHASE 4: CARBON CAP SWEEP ===
+Testing cap percentages: 100%, 95%, 90%, 85%, 80%, 75%, 70%
+Instances: bom_5, bom_13, bom_26, bom_50, bom_ml4_30, bom_par4
+  bom_5, cap=1: Cost=48640, Emissions=2932200
+  bom_5, cap=0.95: Cost=48815, Emissions=2646200
+  bom_5, cap=0.9: Cost=51555, Emissions=2253700
+  bom_5, cap=0.85: Cost=51555, Emissions=2253700
+  bom_5, cap=0.8: Cost=51555, Emissions=2253700
+  bom_5, cap=0.75: Cost=60260, Emissions=1503000
+  bom_5, cap=0.7: Cost=60260, Emissions=1503000
+  bom_13, cap=1: Cost=116448, Emissions=29495946
+  bom_13, cap=0.95: Cost=118411, Emissions=27870521
+  bom_13, cap=0.9: Cost=119556, Emissions=26147646
+  bom_13, cap=0.85: Cost=127100.5, Emissions=24993922
+  bom_13, cap=0.8: Cost=127888, Emissions=23557372
+  bom_13, cap=0.75: Cost=151636, Emissions=22077992
+  bom_13, cap=0.7: Cost=170516, Emissions=19963682
+  bom_26, cap=1: Cost=867120, Emissions=41574400
+  bom_26, cap=0.95: Cost=874160, Emissions=39200500
+  bom_26, cap=0.9: Cost=888160, Emissions=37236100
+  bom_26, cap=0.85: Cost=909180, Emissions=35289400
+  bom_26, cap=0.8: Cost=931800, Emissions=33015100
+  bom_26, cap=0.75: Cost=957140, Emissions=31144400
+  bom_26, cap=0.7: Cost=1008240, Emissions=29010200
+  bom_50, cap=1: Cost=1381460, Emissions=194576659
+  bom_50, cap=0.95: Cost=1402860, Emissions=184765903.8
+  bom_50, cap=0.9: Cost=1436340, Emissions=174980592.6
+  bom_50, cap=0.85: Cost=1497760, Emissions=165252592.6
+  bom_50, cap=0.8: Cost=1566140, Emissions=155569821.2
+  bom_50, cap=0.75: Cost=1601800, Emissions=145879910
+  bom_50, cap=0.7: Cost=1636980, Emissions=136143294
+  bom_ml4_30, cap=1: Cost=378440, Emissions=13603260
+  bom_ml4_30, cap=0.95: Cost=382640, Emissions=12835660
+  bom_ml4_30, cap=0.9: Cost=408848, Emissions=12176900
+  bom_ml4_30, cap=0.85: Cost=424400, Emissions=11445260
+  bom_ml4_30, cap=0.8: Cost=450800, Emissions=10619040
+  bom_ml4_30, cap=0.75: Cost=455600, Emissions=10152660
+  bom_ml4_30, cap=0.7: Cost=469360, Emissions=9349860
+  bom_par4, cap=1: Cost=169920, Emissions=5939600
+  bom_par4, cap=0.95: Cost=170151, Emissions=5605600
+  bom_par4, cap=0.9: Cost=175184, Emissions=4693730
+  bom_par4, cap=0.85: Cost=175186.7, Emissions=4693755
+  bom_par4, cap=0.8: Cost=175184, Emissions=4693730
+  bom_par4, cap=0.75: Cost=184121, Emissions=4066280
+  bom_par4, cap=0.7: Cost=184121, Emissions=4066280
+  Saved carbon_cap_sweep results to: C:\Users\Xfeltech\OneDrive\Documents\GitHub\PHPAuto\config/../logs/final_campaign_20260605_061305\tables\carbon_cap_sweep_results.csv
+
+=== PHASE 5: HYBRID STRATEGY TESTS ===
+Testing 40 full factorial combined scenarios
+Instances: bom_5, bom_13, bom_26, bom_50
+  bom_5, tax_0_cap_none: Status=OPTIMAL, Cost=48640
+  bom_5, tax_0_cap_100: Status=OPTIMAL, Cost=48640
+  bom_5, tax_0_cap_95: Status=OPTIMAL, Cost=48815
+  bom_5, tax_0_cap_90: Status=OPTIMAL, Cost=51555
+  bom_5, tax_0_cap_85: Status=OPTIMAL, Cost=51555
+  bom_5, tax_0_cap_80: Status=OPTIMAL, Cost=51555
+  bom_5, tax_0_cap_75: Status=OPTIMAL, Cost=60260
+  bom_5, tax_0_cap_70: Status=OPTIMAL, Cost=60260
+  bom_5, tax_15_cap_none: Status=OPTIMAL, Cost=48683.983
+  bom_5, tax_15_cap_100: Status=OPTIMAL, Cost=48683.983
+  bom_5, tax_15_cap_95: Status=OPTIMAL, Cost=48854.693
+  bom_5, tax_15_cap_90: Status=OPTIMAL, Cost=51588.8055
+  bom_5, tax_15_cap_85: Status=OPTIMAL, Cost=51588.8055
+  bom_5, tax_15_cap_80: Status=OPTIMAL, Cost=51588.8055
+  bom_5, tax_15_cap_75: Status=OPTIMAL, Cost=60282.545
+  bom_5, tax_15_cap_70: Status=OPTIMAL, Cost=60282.545
+  bom_5, tax_50_cap_none: Status=OPTIMAL, Cost=48786.61
+  bom_5, tax_50_cap_100: Status=OPTIMAL, Cost=48786.61
+  bom_5, tax_50_cap_95: Status=OPTIMAL, Cost=48947.31
+  bom_5, tax_50_cap_90: Status=OPTIMAL, Cost=51667.685
+  bom_5, tax_50_cap_85: Status=OPTIMAL, Cost=51667.685
+  bom_5, tax_50_cap_80: Status=OPTIMAL, Cost=51667.685
+  bom_5, tax_50_cap_75: Status=OPTIMAL, Cost=60335.15
+  bom_5, tax_50_cap_70: Status=OPTIMAL, Cost=60335.15
+  bom_5, tax_75_cap_none: Status=OPTIMAL, Cost=48859.915
+  bom_5, tax_75_cap_100: Status=OPTIMAL, Cost=48859.915
+  bom_5, tax_75_cap_95: Status=OPTIMAL, Cost=49013.465
+  bom_5, tax_75_cap_90: Status=OPTIMAL, Cost=51724.0275
+  bom_5, tax_75_cap_85: Status=OPTIMAL, Cost=51724.0275
+  bom_5, tax_75_cap_80: Status=OPTIMAL, Cost=51724.0275
+  bom_5, tax_75_cap_75: Status=OPTIMAL, Cost=60372.725
+  bom_5, tax_75_cap_70: Status=OPTIMAL, Cost=60372.725
+  bom_5, tax_100_cap_none: Status=OPTIMAL, Cost=48933.22
+  bom_5, tax_100_cap_100: Status=OPTIMAL, Cost=48933.22
+  bom_5, tax_100_cap_95: Status=OPTIMAL, Cost=49079.62
+  bom_5, tax_100_cap_90: Status=OPTIMAL, Cost=51780.37
+  bom_5, tax_100_cap_85: Status=OPTIMAL, Cost=51780.37
+  bom_5, tax_100_cap_80: Status=OPTIMAL, Cost=51780.37
+  bom_5, tax_100_cap_75: Status=OPTIMAL, Cost=60410.3
+  bom_5, tax_100_cap_70: Status=OPTIMAL, Cost=60410.3
+  bom_13, tax_0_cap_none: Status=OPTIMAL, Cost=116448
+  bom_13, tax_0_cap_100: Status=OPTIMAL, Cost=116448
+  bom_13, tax_0_cap_95: Status=OPTIMAL, Cost=118411
+  bom_13, tax_0_cap_90: Status=OPTIMAL, Cost=119556
+  bom_13, tax_0_cap_85: Status=OPTIMAL, Cost=127100.5
+  bom_13, tax_0_cap_80: Status=OPTIMAL, Cost=127888
+  bom_13, tax_0_cap_75: Status=OPTIMAL, Cost=151636
+  bom_13, tax_0_cap_70: Status=OPTIMAL, Cost=170516
+  bom_13, tax_15_cap_none: Status=OPTIMAL, Cost=116890.43919
+  bom_13, tax_15_cap_100: Status=OPTIMAL, Cost=116890.43919
+  bom_13, tax_15_cap_95: Status=OPTIMAL, Cost=118829.057815
+  bom_13, tax_15_cap_90: Status=OPTIMAL, Cost=119948.21469
+  bom_13, tax_15_cap_85: Status=OPTIMAL, Cost=127475.40883
+  bom_13, tax_15_cap_80: Status=OPTIMAL, Cost=128241.36058
+  bom_13, tax_15_cap_75: Status=OPTIMAL, Cost=151967.16988
+  bom_13, tax_15_cap_70: Status=OPTIMAL, Cost=170815.45523
+  bom_13, tax_50_cap_none: Status=OPTIMAL, Cost=117922.7973
+  bom_13, tax_50_cap_100: Status=OPTIMAL, Cost=117922.7973
+  bom_13, tax_50_cap_95: Status=OPTIMAL, Cost=119804.52605
+  bom_13, tax_50_cap_90: Status=OPTIMAL, Cost=120863.3823
+  bom_13, tax_50_cap_85: Status=OPTIMAL, Cost=128350.1961
+  bom_13, tax_50_cap_80: Status=OPTIMAL, Cost=129065.8686
+  bom_13, tax_50_cap_75: Status=OPTIMAL, Cost=152739.8996
+  bom_13, tax_50_cap_70: Status=OPTIMAL, Cost=171514.1841
+  bom_13, tax_75_cap_none: Status=OPTIMAL, Cost=118660.19595
+  bom_13, tax_75_cap_100: Status=OPTIMAL, Cost=118660.19595
+  bom_13, tax_75_cap_95: Status=OPTIMAL, Cost=120501.289075
+  bom_13, tax_75_cap_90: Status=OPTIMAL, Cost=121517.07345
+  bom_13, tax_75_cap_85: Status=OPTIMAL, Cost=128975.09065
+  bom_13, tax_75_cap_80: Status=OPTIMAL, Cost=129654.8029
+  bom_13, tax_75_cap_75: Status=OPTIMAL, Cost=153291.8494
+  bom_13, tax_75_cap_70: Status=OPTIMAL, Cost=172013.27615
+  bom_13, tax_100_cap_none: Status=OPTIMAL, Cost=119397.5946
+  bom_13, tax_100_cap_100: Status=OPTIMAL, Cost=119397.5946
+  bom_13, tax_100_cap_95: Status=OPTIMAL, Cost=121198.0521
+  bom_13, tax_100_cap_90: Status=OPTIMAL, Cost=122170.7646
+  bom_13, tax_100_cap_85: Status=OPTIMAL, Cost=129599.8922
+  bom_13, tax_100_cap_80: Status=OPTIMAL, Cost=130243.7372
+  bom_13, tax_100_cap_75: Status=OPTIMAL, Cost=153843.7992
+  bom_13, tax_100_cap_70: Status=OPTIMAL, Cost=172512.3682
+  bom_26, tax_0_cap_none: Status=OPTIMAL, Cost=867120
+  bom_26, tax_0_cap_100: Status=OPTIMAL, Cost=867120
+  bom_26, tax_0_cap_95: Status=OPTIMAL, Cost=874160
+  bom_26, tax_0_cap_90: Status=OPTIMAL, Cost=888160
+  bom_26, tax_0_cap_85: Status=OPTIMAL, Cost=909180
+  bom_26, tax_0_cap_80: Status=OPTIMAL, Cost=931800
+  bom_26, tax_0_cap_75: Status=OPTIMAL, Cost=957140
+  bom_26, tax_0_cap_70: Status=OPTIMAL, Cost=1008240
+  bom_26, tax_15_cap_none: Status=OPTIMAL, Cost=867743.616
+  bom_26, tax_15_cap_100: Status=OPTIMAL, Cost=867743.616
+  bom_26, tax_15_cap_95: Status=OPTIMAL, Cost=874748.0075
+  bom_26, tax_15_cap_90: Status=OPTIMAL, Cost=888718.5415
+  bom_26, tax_15_cap_85: Status=OPTIMAL, Cost=909709.341
+  bom_26, tax_15_cap_80: Status=OPTIMAL, Cost=932295.2265
+  bom_26, tax_15_cap_75: Status=OPTIMAL, Cost=957607.166
+  bom_26, tax_15_cap_70: Status=OPTIMAL, Cost=1008675.153
+  bom_26, tax_50_cap_none: Status=OPTIMAL, Cost=869198.72
+  bom_26, tax_50_cap_100: Status=OPTIMAL, Cost=869198.72
+  bom_26, tax_50_cap_95: Status=OPTIMAL, Cost=876120.025
+  bom_26, tax_50_cap_90: Status=OPTIMAL, Cost=890021.805
+  bom_26, tax_50_cap_85: Status=OPTIMAL, Cost=910944.47
+  bom_26, tax_50_cap_80: Status=OPTIMAL, Cost=933450.755
+  bom_26, tax_50_cap_75: Status=OPTIMAL, Cost=958697.22
+  bom_26, tax_50_cap_70: Status=OPTIMAL, Cost=1009690.51
+  bom_26, tax_75_cap_none: Status=OPTIMAL, Cost=870238.08
+  bom_26, tax_75_cap_100: Status=OPTIMAL, Cost=870238.08
+  bom_26, tax_75_cap_95: Status=OPTIMAL, Cost=877100.0375
+  bom_26, tax_75_cap_90: Status=OPTIMAL, Cost=890952.7075
+  bom_26, tax_75_cap_85: Status=OPTIMAL, Cost=911826.705
+  bom_26, tax_75_cap_80: Status=OPTIMAL, Cost=934276.1325
+  bom_26, tax_75_cap_75: Status=OPTIMAL, Cost=959475.83
+  bom_26, tax_75_cap_70: Status=OPTIMAL, Cost=1010415.765
+  bom_26, tax_100_cap_none: Status=OPTIMAL, Cost=871277.44
+  bom_26, tax_100_cap_100: Status=OPTIMAL, Cost=871277.44
+  bom_26, tax_100_cap_95: Status=OPTIMAL, Cost=878080.05
+  bom_26, tax_100_cap_90: Status=OPTIMAL, Cost=891883.61
+  bom_26, tax_100_cap_85: Status=OPTIMAL, Cost=912708.94
+  bom_26, tax_100_cap_80: Status=OPTIMAL, Cost=935101.51
+  bom_26, tax_100_cap_75: Status=OPTIMAL, Cost=960254.44
+  bom_26, tax_100_cap_70: Status=OPTIMAL, Cost=1011141.02
+  bom_50, tax_0_cap_none: Status=OPTIMAL, Cost=1381460
+  bom_50, tax_0_cap_100: Status=OPTIMAL, Cost=1381460
+  bom_50, tax_0_cap_95: Status=OPTIMAL, Cost=1402860
+  bom_50, tax_0_cap_90: Status=OPTIMAL, Cost=1436340
+  bom_50, tax_0_cap_85: Status=OPTIMAL, Cost=1497760
+  bom_50, tax_0_cap_80: Status=OPTIMAL, Cost=1566140
+  bom_50, tax_0_cap_75: Status=OPTIMAL, Cost=1601800
+  bom_50, tax_0_cap_70: Status=OPTIMAL, Cost=1636980
+  bom_50, tax_15_cap_none: Status=OPTIMAL, Cost=1384378.649885
+  bom_50, tax_15_cap_100: Status=OPTIMAL, Cost=1384378.649885
+  bom_50, tax_15_cap_95: Status=OPTIMAL, Cost=1405631.488557
+  bom_50, tax_15_cap_90: Status=OPTIMAL, Cost=1438964.708889
+  bom_50, tax_15_cap_85: Status=OPTIMAL, Cost=1500238.788889
+  bom_50, tax_15_cap_80: Status=OPTIMAL, Cost=1568473.547318
+  bom_50, tax_15_cap_75: Status=OPTIMAL, Cost=1603988.19865
+  bom_50, tax_15_cap_70: Status=OPTIMAL, Cost=1639022.14941
+  bom_50, tax_50_cap_none: Status=OPTIMAL, Cost=1391188.83295
+  bom_50, tax_50_cap_100: Status=OPTIMAL, Cost=1391188.83295
+  bom_50, tax_50_cap_95: Status=OPTIMAL, Cost=1412098.29519
+  bom_50, tax_50_cap_90: Status=OPTIMAL, Cost=1445089.02963
+  bom_50, tax_50_cap_85: Status=OPTIMAL, Cost=1506022.62963
+  bom_50, tax_50_cap_80: Status=OPTIMAL, Cost=1573918.49106
+  bom_50, tax_50_cap_75: Status=OPTIMAL, Cost=1609093.9955
+  bom_50, tax_50_cap_70: Status=OPTIMAL, Cost=1643787.1647
+  bom_50, tax_75_cap_none: Status=OPTIMAL, Cost=1396053.249425
+  bom_50, tax_75_cap_100: Status=OPTIMAL, Cost=1396053.249425
+  bom_50, tax_75_cap_95: Status=OPTIMAL, Cost=1416717.442785
+  bom_50, tax_75_cap_90: Status=OPTIMAL, Cost=1449463.544445
+  bom_50, tax_75_cap_85: Status=OPTIMAL, Cost=1510153.944445
+  bom_50, tax_75_cap_80: Status=OPTIMAL, Cost=1577807.73659
+  bom_50, tax_75_cap_75: Status=OPTIMAL, Cost=1612740.99325
+  bom_50, tax_75_cap_70: Status=OPTIMAL, Cost=1647190.74705
+  bom_50, tax_100_cap_none: Status=OPTIMAL, Cost=1400917.6659
+  bom_50, tax_100_cap_100: Status=OPTIMAL, Cost=1400917.6659
+  bom_50, tax_100_cap_95: Status=OPTIMAL, Cost=1421358.59038
+  bom_50, tax_100_cap_90: Status=OPTIMAL, Cost=1453838.05926
+  bom_50, tax_100_cap_85: Status=OPTIMAL, Cost=1514285.25926
+  bom_50, tax_100_cap_80: Status=OPTIMAL, Cost=1581696.98212
+  bom_50, tax_100_cap_75: Status=OPTIMAL, Cost=1616387.991
+  bom_50, tax_100_cap_70: Status=OPTIMAL, Cost=1650594.3294
+  Saved carbon_hybrid results to: C:\Users\Xfeltech\OneDrive\Documents\GitHub\PHPAuto\config/../logs/final_campaign_20260605_061305\tables\carbon_hybrid_results.csv
+
+=== PHASE 6: SERVICE TIME SENSITIVITY ===
+Testing service times: 0, 1, 3
+Strategies: EMISTAXE, EMISCAP
+  bom_5, EMISTAXE, SvT=0: Status=OPTIMAL, Buffers=3
+  bom_5, EMISTAXE, SvT=1: Status=OPTIMAL, Buffers=3
+  bom_5, EMISTAXE, SvT=3: Status=OPTIMAL, Buffers=2
+  bom_5, EMISCAP, SvT=0: Status=OPTIMAL, Buffers=4
+  bom_5, EMISCAP, SvT=1: Status=OPTIMAL, Buffers=4
+  bom_5, EMISCAP, SvT=3: Status=OPTIMAL, Buffers=3
+  bom_13, EMISTAXE, SvT=0: Status=OPTIMAL, Buffers=7
+  bom_13, EMISTAXE, SvT=1: Status=OPTIMAL, Buffers=7
+  bom_13, EMISTAXE, SvT=3: Status=OPTIMAL, Buffers=6
+  bom_13, EMISCAP, SvT=0: Status=OPTIMAL, Buffers=9
+  bom_13, EMISCAP, SvT=1: Status=OPTIMAL, Buffers=9
+  bom_13, EMISCAP, SvT=3: Status=OPTIMAL, Buffers=8
+  bom_26, EMISTAXE, SvT=0: Status=OPTIMAL, Buffers=1
+  bom_26, EMISTAXE, SvT=1: Status=OPTIMAL, Buffers=1
+  bom_26, EMISTAXE, SvT=3: Status=OPTIMAL, Buffers=2
+  bom_26, EMISCAP, SvT=0: Status=OPTIMAL, Buffers=1
+  bom_26, EMISCAP, SvT=1: Status=OPTIMAL, Buffers=1
+  bom_26, EMISCAP, SvT=3: Status=OPTIMAL, Buffers=2
+  bom_50, EMISTAXE, SvT=0: Status=OPTIMAL, Buffers=5
+  bom_50, EMISTAXE, SvT=1: Status=OPTIMAL, Buffers=5
+  bom_50, EMISTAXE, SvT=3: Status=OPTIMAL, Buffers=4
+  bom_50, EMISCAP, SvT=0: Status=OPTIMAL, Buffers=5
+  bom_50, EMISCAP, SvT=1: Status=OPTIMAL, Buffers=5
+  bom_50, EMISCAP, SvT=3: Status=OPTIMAL, Buffers=4
+  Saved service_time_sensitivity results to: C:\Users\Xfeltech\OneDrive\Documents\GitHub\PHPAuto\config/../logs/final_campaign_20260605_061305\tables\service_time_sensitivity_results.csv
+
+=== PHASE 7: MULTI-OBJECTIVE OPTIMIZATION ===
+Generating Pareto fronts with 10 points
+Instances: bom_5, bom_13, bom_26
+  Processing bom_5...
+    Finding ideal/nadir points...
+    Generating Cost-Emissions Pareto front...
+    Generating Cost-DIO Pareto front...
+    Cost-Emissions: 10 points
+    Cost-DIO: 10 points
+    Cost-WIP: 0 points
+  Processing bom_13...
+    Finding ideal/nadir points...
+    Generating Cost-Emissions Pareto front...
+    Generating Cost-DIO Pareto front...
+    Cost-Emissions: 10 points
+    Cost-DIO: 10 points
+    Cost-WIP: 0 points
+  Processing bom_26...
+    Finding ideal/nadir points...
+    Generating Cost-Emissions Pareto front...
+    Generating Cost-DIO Pareto front...
+    Cost-Emissions: 10 points
+    Cost-DIO: 10 points
+    Cost-WIP: 0 points
+
+=== PHASE 8: PLM vs NLM COMPARISON ===
+Comparing PLM vs NLM for selected instances
+  bom_5, EMISTAXE, PLM: Runtime=0.05s, Cost=48280
+  bom_5, EMISTAXE, NLM: Runtime=300.052s, Cost=48280
+  bom_5, EMISCAP, PLM: Runtime=0.05s, Cost=50264
+  bom_5, EMISCAP, NLM: Runtime=0.233s, Cost=50264
+  bom_13, EMISTAXE, PLM: Runtime=0.06s, Cost=105568.8
+  bom_13, EMISTAXE, NLM: Runtime=300.036s, Cost=105568.8
+  bom_13, EMISCAP, PLM: Runtime=0.06s, Cost=105512.8
+  bom_13, EMISCAP, NLM: Runtime=300.023s, Cost=105512.8
+  bom_26, EMISTAXE, PLM: Runtime=0.09s, Cost=867120
+  bom_26, EMISTAXE, NLM: Runtime=300.051s, Cost=867120
+  bom_26, EMISCAP, PLM: Runtime=0.36s, Cost=909180
+  bom_26, EMISCAP, NLM: Runtime=300.041s, Cost=909180
+  Saved nlm_comparison results to: C:\Users\Xfeltech\OneDrive\Documents\GitHub\PHPAuto\config/../logs/final_campaign_20260605_061305\tables\nlm_comparison_results.csv
+
+=== PHASE 9: NEAR-OPTIMAL DECISION STABILITY ===
+Proven-optimal anchors selected: 36
+Objective tolerance: 1%
+  TAX-bom_5-0.00, buffers: status=OPTIMAL, buffer J=0.75, supplier J=0.375, allocation L1=1.3333333333333
+  TAX-bom_5-0.00, suppliers: status=OPTIMAL, buffer J=1, supplier J=0.22222222222222, allocation L1=1.4444444444444
+  TAX-bom_5-0.00, allocation: status=OPTIMAL, buffer J=1, supplier J=0.375, allocation L1=1.5222222222222
+  TAX-bom_5-50.00, buffers: status=OPTIMAL, buffer J=0.75, supplier J=0.33333333333333, allocation L1=1.1111111111111
+  TAX-bom_5-50.00, suppliers: status=OPTIMAL, buffer J=1, supplier J=0.22222222222222, allocation L1=1.5111111111111
+  TAX-bom_5-50.00, allocation: status=OPTIMAL, buffer J=1, supplier J=0.375, allocation L1=1.5444444444444
+  TAX-bom_5-100.00, buffers: status=OPTIMAL, buffer J=0.75, supplier J=0.22222222222222, allocation L1=1.4444444444444
+  TAX-bom_5-100.00, suppliers: status=OPTIMAL, buffer J=1, supplier J=0.22222222222222, allocation L1=1.4444444444444
+  TAX-bom_5-100.00, allocation: status=OPTIMAL, buffer J=1, supplier J=0.375, allocation L1=1.5666666666667
+  TAX-bom_13-0.00, buffers: status=OPTIMAL, buffer J=0.75, supplier J=0.9375, allocation L1=0.125
+  TAX-bom_13-0.00, suppliers: status=OPTIMAL, buffer J=1, supplier J=0.25, allocation L1=0.64166666666667
+  TAX-bom_13-0.00, allocation: status=OPTIMAL, buffer J=1, supplier J=0.5, allocation L1=0.8875
+  TAX-bom_13-50.00, buffers: status=OPTIMAL, buffer J=0.75, supplier J=0.64705882352941, allocation L1=0.56041666666667
+  TAX-bom_13-50.00, suppliers: status=OPTIMAL, buffer J=1, supplier J=0.25641025641026, allocation L1=0.57708333333333
+  TAX-bom_13-50.00, allocation: status=OPTIMAL, buffer J=1, supplier J=0.52631578947368, allocation L1=0.84791666666667
+  TAX-bom_13-100.00, buffers: status=OPTIMAL, buffer J=0.77777777777778, supplier J=0.875, allocation L1=0.125
+  TAX-bom_13-100.00, suppliers: status=OPTIMAL, buffer J=1, supplier J=0.26315789473684, allocation L1=0.61666666666667
+  TAX-bom_13-100.00, allocation: status=OPTIMAL, buffer J=1, supplier J=0.52631578947368, allocation L1=0.80625
+  TAX-bom_26-0.00, buffers: status=OPTIMAL, buffer J=0.5, supplier J=1, allocation L1=0
+  TAX-bom_26-0.00, suppliers: status=OPTIMAL, buffer J=1, supplier J=0.20588235294118, allocation L1=0.093103448275862
+  TAX-bom_26-0.00, allocation: status=OPTIMAL, buffer J=1, supplier J=0.57894736842105, allocation L1=0.32068965517241
+  TAX-bom_26-50.00, buffers: status=OPTIMAL, buffer J=0.5, supplier J=1, allocation L1=0
+  TAX-bom_26-50.00, suppliers: status=OPTIMAL, buffer J=1, supplier J=0.20588235294118, allocation L1=0.093103448275862
+  TAX-bom_26-50.00, allocation: status=OPTIMAL, buffer J=1, supplier J=0.57894736842105, allocation L1=0.32413793103448
+  TAX-bom_26-100.00, buffers: status=OPTIMAL, buffer J=0.5, supplier J=1, allocation L1=0
+  TAX-bom_26-100.00, suppliers: status=OPTIMAL, buffer J=1, supplier J=0.20588235294118, allocation L1=0.093103448275862
+  TAX-bom_26-100.00, allocation: status=OPTIMAL, buffer J=1, supplier J=0.57894736842105, allocation L1=0.32758620689655
+  TAX-bom_50-0.00, buffers: status=OPTIMAL, buffer J=0.83333333333333, supplier J=0.86206896551724, allocation L1=0.005699481865285
+  TAX-bom_50-0.00, suppliers: status=OPTIMAL, buffer J=1, supplier J=0.18115942028986, allocation L1=0.032383419689119
+  TAX-bom_50-0.00, allocation: status=OPTIMAL, buffer J=1, supplier J=0.74193548387097, allocation L1=0.43341968911917
+  TAX-bom_50-50.00, buffers: status=OPTIMAL, buffer J=0.83333333333333, supplier J=0.82758620689655, allocation L1=0.14740932642487
+  TAX-bom_50-50.00, suppliers: status=OPTIMAL, buffer J=1, supplier J=0.18115942028986, allocation L1=0.032383419689119
+  TAX-bom_50-50.00, allocation: status=OPTIMAL, buffer J=1, supplier J=0.7741935483871, allocation L1=0.43445595854922
+  TAX-bom_50-100.00, buffers: status=OPTIMAL, buffer J=0.83333333333333, supplier J=0.71875, allocation L1=0.28134715025907
+  TAX-bom_50-100.00, suppliers: status=OPTIMAL, buffer J=1, supplier J=0.18248175182482, allocation L1=0.032124352331606
+  TAX-bom_50-100.00, allocation: status=OPTIMAL, buffer J=1, supplier J=0.71875, allocation L1=0.43549222797927
+  CAP-bom_5-100, buffers: status=OPTIMAL, buffer J=0.75, supplier J=0.22222222222222, allocation L1=1.4444444444444
+  CAP-bom_5-100, suppliers: status=OPTIMAL, buffer J=1, supplier J=0.22222222222222, allocation L1=1.4444444444444
+  CAP-bom_5-100, allocation: status=OPTIMAL, buffer J=1, supplier J=0.375, allocation L1=1.5222222222222
+  CAP-bom_5-85, buffers: status=OPTIMAL, buffer J=0.8, supplier J=0.66666666666667, allocation L1=0.44444444444444
+  CAP-bom_5-85, suppliers: status=OPTIMAL, buffer J=1, supplier J=0.66666666666667, allocation L1=0.44444444444444
+  CAP-bom_5-85, allocation: status=OPTIMAL, buffer J=1, supplier J=0.66666666666667, allocation L1=0.92222222222222
+  CAP-bom_5-70, buffers: status=OPTIMAL, buffer J=0.83333333333333, supplier J=1, allocation L1=0.2
+  CAP-bom_5-70, suppliers: status=OPTIMAL, buffer J=1, supplier J=0.6, allocation L1=0.44444444444444
+  CAP-bom_5-70, allocation: status=OPTIMAL, buffer J=1, supplier J=0.6, allocation L1=0.88888888888889
+  CAP-bom_13-100, buffers: status=OPTIMAL, buffer J=0.77777777777778, supplier J=0.82352941176471, allocation L1=0.18958333333333
+  CAP-bom_13-100, suppliers: status=OPTIMAL, buffer J=1, supplier J=0.31428571428571, allocation L1=0.31041666666667
+  CAP-bom_13-100, allocation: status=OPTIMAL, buffer J=1, supplier J=0.6, allocation L1=0.62083333333333
+  CAP-bom_13-85, buffers: status=OPTIMAL, buffer J=0.6, supplier J=0.68421052631579, allocation L1=0.34375
+  CAP-bom_13-85, suppliers: status=OPTIMAL, buffer J=0.66666666666667, supplier J=0.3448275862069, allocation L1=0.41666666666667
+  CAP-bom_13-85, allocation: status=OPTIMAL, buffer J=0.66666666666667, supplier J=0.45454545454545, allocation L1=0.6375
+  CAP-bom_13-70, buffers: status=OPTIMAL, buffer J=0.66666666666667, supplier J=0.75, allocation L1=0.3125
+  CAP-bom_13-70, suppliers: status=OPTIMAL, buffer J=0.72727272727273, supplier J=0.59090909090909, allocation L1=0.40416666666667
+  CAP-bom_13-70, allocation: status=INFEASIBLE, buffer J=1, supplier J=0.7, allocation L1=0.64166666666667
+  CAP-bom_26-100, buffers: status=OPTIMAL, buffer J=0.5, supplier J=0.76470588235294, allocation L1=0.072413793103448
+  CAP-bom_26-100, suppliers: status=OPTIMAL, buffer J=1, supplier J=0.21311475409836, allocation L1=0.14310344827586
+  CAP-bom_26-100, allocation: status=OPTIMAL, buffer J=1, supplier J=0.66666666666667, allocation L1=0.32068965517241
+  CAP-bom_26-85, buffers: status=OPTIMAL, buffer J=0.5, supplier J=0.70588235294118, allocation L1=0.28448275862069
+  CAP-bom_26-85, suppliers: status=INFEASIBLE, buffer J=1, supplier J=0.13207547169811, allocation L1=1.4431034482759
+  CAP-bom_26-85, allocation: status=INFEASIBLE, buffer J=1, supplier J=0.26086956521739, allocation L1=1.55
+  CAP-bom_26-70, buffers: status=INFEASIBLE, buffer J=0.33333333333333, supplier J=0.4, allocation L1=0.55172413793103
+  CAP-bom_26-70, suppliers: status=INFEASIBLE, buffer J=1, supplier J=0.25, allocation L1=0.072413793103448
+  CAP-bom_26-70, allocation: status=INFEASIBLE, buffer J=0.5, supplier J=0.38095238095238, allocation L1=0.55689655172414
+  CAP-bom_50-100, buffers: status=OPTIMAL, buffer J=0.83333333333333, supplier J=0.76666666666667, allocation L1=0.057253886010363
+  CAP-bom_50-100, suppliers: status=OPTIMAL, buffer J=1, supplier J=0.18518518518519, allocation L1=0.031865284974093
+  CAP-bom_50-100, allocation: status=OPTIMAL, buffer J=1, supplier J=0.74193548387097, allocation L1=0.43341968911917
+  CAP-bom_50-85, buffers: status=OPTIMAL, buffer J=0.83333333333333, supplier J=0.54545454545455, allocation L1=0.31658031088083
+  CAP-bom_50-85, suppliers: status=INFEASIBLE, buffer J=1, supplier J=0.18421052631579, allocation L1=0.046891191709845
+  CAP-bom_50-85, allocation: status=INFEASIBLE, buffer J=1, supplier J=0.57575757575758, allocation L1=0.59067357512953
+  CAP-bom_50-70, buffers: status=INFEASIBLE, buffer J=0.85714285714286, supplier J=0.82142857142857, allocation L1=0.046632124352332
+  CAP-bom_50-70, suppliers: status=OPTIMAL, buffer J=1, supplier J=0.18110236220472, allocation L1=0.050259067357513
+  CAP-bom_50-70, allocation: status=INFEASIBLE, buffer J=1, supplier J=0.33333333333333, allocation L1=0.67305699481865
+  HYB-bom_5-tax_15_cap_none, buffers: status=OPTIMAL, buffer J=0.75, supplier J=0.33333333333333, allocation L1=1.1111111111111
+  HYB-bom_5-tax_15_cap_none, suppliers: status=OPTIMAL, buffer J=1, supplier J=0.22222222222222, allocation L1=1.4444444444444
+  HYB-bom_5-tax_15_cap_none, allocation: status=OPTIMAL, buffer J=1, supplier J=0.375, allocation L1=1.5333333333333
+  HYB-bom_5-tax_50_cap_85, buffers: status=OPTIMAL, buffer J=0.8, supplier J=0.66666666666667, allocation L1=0.44444444444444
+  HYB-bom_5-tax_50_cap_85, suppliers: status=OPTIMAL, buffer J=1, supplier J=0.66666666666667, allocation L1=0.46666666666667
+  HYB-bom_5-tax_50_cap_85, allocation: status=OPTIMAL, buffer J=1, supplier J=0.66666666666667, allocation L1=0.92222222222222
+  HYB-bom_5-tax_100_cap_70, buffers: status=OPTIMAL, buffer J=0.83333333333333, supplier J=1, allocation L1=0
+  HYB-bom_5-tax_100_cap_70, suppliers: status=OPTIMAL, buffer J=1, supplier J=0.6, allocation L1=0.44444444444444
+  HYB-bom_5-tax_100_cap_70, allocation: status=OPTIMAL, buffer J=1, supplier J=0.6, allocation L1=0.88888888888889
+  HYB-bom_13-tax_15_cap_none, buffers: status=OPTIMAL, buffer J=0.77777777777778, supplier J=0.82352941176471, allocation L1=0.3125
+  HYB-bom_13-tax_15_cap_none, suppliers: status=OPTIMAL, buffer J=1, supplier J=0.25, allocation L1=0.64166666666667
+  HYB-bom_13-tax_15_cap_none, allocation: status=OPTIMAL, buffer J=1, supplier J=0.5, allocation L1=0.875
+  HYB-bom_13-tax_50_cap_85, buffers: status=OPTIMAL, buffer J=0.6, supplier J=0.77777777777778, allocation L1=0.21875
+  HYB-bom_13-tax_50_cap_85, suppliers: status=OPTIMAL, buffer J=0.66666666666667, supplier J=0.3448275862069, allocation L1=0.46875
+  HYB-bom_13-tax_50_cap_85, allocation: status=OPTIMAL, buffer J=0.66666666666667, supplier J=0.40909090909091, allocation L1=0.64583333333333
+  HYB-bom_13-tax_100_cap_70, buffers: status=OPTIMAL, buffer J=0.66666666666667, supplier J=0.84210526315789, allocation L1=0.1875
+  HYB-bom_13-tax_100_cap_70, suppliers: status=OPTIMAL, buffer J=0.72727272727273, supplier J=0.57142857142857, allocation L1=0.53125
+  HYB-bom_13-tax_100_cap_70, allocation: status=OPTIMAL, buffer J=1, supplier J=0.7, allocation L1=0.64791666666667
+  HYB-bom_26-tax_15_cap_none, buffers: status=OPTIMAL, buffer J=0.5, supplier J=0.93333333333333, allocation L1=0.0017241379310345
+  HYB-bom_26-tax_15_cap_none, suppliers: status=OPTIMAL, buffer J=1, supplier J=0.20588235294118, allocation L1=0.093103448275862
+  HYB-bom_26-tax_15_cap_none, allocation: status=OPTIMAL, buffer J=1, supplier J=0.61111111111111, allocation L1=0.32241379310345
+  HYB-bom_26-tax_50_cap_85, buffers: status=INFEASIBLE, buffer J=0.5, supplier J=0.70588235294118, allocation L1=0.11896551724138
+  HYB-bom_26-tax_50_cap_85, suppliers: status=INFEASIBLE, buffer J=1, supplier J=0.13207547169811, allocation L1=1.4413793103448
+  HYB-bom_26-tax_50_cap_85, allocation: status=INFEASIBLE, buffer J=1, supplier J=0.26086956521739, allocation L1=1.55
+  HYB-bom_26-tax_100_cap_70, buffers: status=OPTIMAL, buffer J=0.33333333333333, supplier J=0.5, allocation L1=0.32931034482759
+  HYB-bom_26-tax_100_cap_70, suppliers: status=INFEASIBLE, buffer J=1, supplier J=0.24561403508772, allocation L1=0.074137931034483
+  HYB-bom_26-tax_100_cap_70, allocation: status=INFEASIBLE, buffer J=0.5, supplier J=0.38095238095238, allocation L1=0.55689655172414
+  HYB-bom_50-tax_15_cap_none, buffers: status=OPTIMAL, buffer J=0.83333333333333, supplier J=0.82142857142857, allocation L1=0.31088082901554
+  HYB-bom_50-tax_15_cap_none, suppliers: status=OPTIMAL, buffer J=1, supplier J=0.18115942028986, allocation L1=0.032383419689119
+  HYB-bom_50-tax_15_cap_none, allocation: status=OPTIMAL, buffer J=1, supplier J=0.71875, allocation L1=0.43367875647668
+  HYB-bom_50-tax_50_cap_85, buffers: status=INFEASIBLE, buffer J=0.83333333333333, supplier J=0.5, allocation L1=0.44637305699482
+  HYB-bom_50-tax_50_cap_85, suppliers: status=OPTIMAL, buffer J=1, supplier J=0.17699115044248, allocation L1=0.085751295336788
+  HYB-bom_50-tax_50_cap_85, allocation: status=INFEASIBLE, buffer J=1, supplier J=0.59375, allocation L1=0.59119170984456
+  HYB-bom_50-tax_100_cap_70, buffers: status=INFEASIBLE, buffer J=0.85714285714286, supplier J=0.85714285714286, allocation L1=0.016062176165803
+  HYB-bom_50-tax_100_cap_70, suppliers: status=OPTIMAL, buffer J=1, supplier J=0.18110236220472, allocation L1=0.050259067357513
+  HYB-bom_50-tax_100_cap_70, allocation: status=OPTIMAL, buffer J=1, supplier J=0.33333333333333, allocation L1=0.67512953367876
+
+=== GENERATING OUTPUTS ===
+Consolidated results saved to: C:\Users\Xfeltech\OneDrive\Documents\GitHub\PHPAuto\config/../logs/final_campaign_20260605_061305\consolidated_results.csv
+Summary statistics saved to: C:\Users\Xfeltech\OneDrive\Documents\GitHub\PHPAuto\config/../logs/final_campaign_20260605_061305\summary_statistics.md
+Campaign checklist saved to: C:\Users\Xfeltech\OneDrive\Documents\GitHub\PHPAuto\config/../logs/final_campaign_20260605_061305\campaign_checklist.md
+Post-run validation passed: C:\Users\Xfeltech\OneDrive\Documents\GitHub\PHPAuto\config/../logs/final_campaign_20260605_061305\post_run_validation.md
+
+========================================
+CAMPAIGN COMPLETE
+Total runs: 409
+Elapsed time: 00:30:05
+Results saved to: C:\Users\Xfeltech\OneDrive\Documents\GitHub\PHPAuto\config/../logs/final_campaign_20260605_061305\
+========================================
+CAMPAIGN_EXIT=0
