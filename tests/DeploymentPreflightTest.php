@@ -63,6 +63,12 @@ assertSameList(
     $config['experiments']['carbon_hybrid']['tax_rates'] ?? [],
     'Hybrid sweep must use the agreed EmisTax scenario set'
 );
+assertTrue(
+    ($config['experiments']['carbon_price_switching_threshold']['enabled'] ?? false) === true
+        && ($config['experiments']['carbon_price_switching_threshold']['observed_policy_max'] ?? null) === 100.0
+        && ($config['experiments']['carbon_price_switching_threshold']['max_probe_rate'] ?? null) >= 1000000.0,
+    'Carbon-price switching-threshold diagnostic must remain configured as an exploratory stress test'
+);
 assertSameList(
     ['none', 1.0, 0.95, 0.90, 0.85, 0.80, 0.75, 0.70],
     $config['experiments']['carbon_hybrid']['cap_levels'] ?? [],
@@ -135,6 +141,7 @@ assertTrue(
     strpos($runner, 'runDeploymentPreflight') !== false
         && strpos($runner, '--skip-preflight') !== false
         && strpos($runner, '--dry-run') !== false
+        && strpos($runner, '--price-threshold') !== false
         && strpos($runner, 'campaign_plan.md') !== false
         && strpos($runner, 'campaign_plan.json') !== false
         && strpos($runner, 'run_manifest.json') !== false
@@ -146,6 +153,25 @@ assertTrue(
 assertTrue(
     strpos($article, 'Infeasible combinations are retained and reported') !== false,
     'Article must state that infeasible combined policy scenarios are retained and reported'
+);
+assertTrue(
+    strpos($article, 'price inertia') !== false
+        && strpos($article, 'switching-threshold diagnostic') !== false
+        && strpos($article, '\\input{tables/tab_price_threshold.tex}') !== false
+        && is_file(repoPath('article/tables/tab_price_threshold.tex')),
+    'Article must foreground carbon-price inertia and include the switching-threshold table'
+);
+assertTrue(
+    strpos($article, '5.55 seconds') !== false
+        && strpos($article, '1.58 seconds') !== false
+        && strpos($article, '21 small PLM/NLM pairs') !== false
+        && strpos($article, 'Time-limited NLM incumbents') !== false,
+    'Article must distinguish lexicographic baseline runtime from PLM stress runtime and show PLM/NLM denominator'
+);
+assertTrue(
+    stripos($article, 'jointly reshape') === false
+        && stripos($article, 'ecological') === false,
+    'Article must not retain the old overclaim or loose ecological terminology'
 );
 
 // Comparison-admissible filtering and reporting.
@@ -202,6 +228,10 @@ assertTrue(
     strpos($context, '**Simulation scenarios**') !== false
         && strpos($article, 'simulation scenarios denote controlled deterministic optimization scenarios') !== false,
     'Simulation scenarios must be defined as deterministic scenario analysis'
+);
+assertTrue(
+    strpos($context, '**Carbon-price switching threshold**') !== false,
+    'CONTEXT.md must define the carbon-price switching-threshold diagnostic'
 );
 
 echo "Deployment preflight checks passed.\n";

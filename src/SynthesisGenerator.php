@@ -37,6 +37,7 @@ class SynthesisGenerator {
             'scalability' => 'scalability_results.csv',
             'topology_baseline' => 'topology_baseline_results.csv',
             'carbon_tax_sweep' => 'carbon_tax_sweep_results.csv',
+            'carbon_price_threshold' => 'carbon_price_threshold_results.csv',
             'carbon_cap_sweep' => 'carbon_cap_sweep_results.csv',
             'carbon_hybrid' => 'carbon_hybrid_results.csv',
             'decision_stability' => 'decision_stability_results.csv',
@@ -91,6 +92,11 @@ class SynthesisGenerator {
             && isset($row['mip_gap'])
             && is_numeric($row['mip_gap'])
             && (float)$row['mip_gap'] <= 1.0;
+    }
+
+    private function formatScalarLabel($value): string {
+        $label = rtrim(rtrim(sprintf('%.6F', (float)$value), '0'), '.');
+        return $label === '' || $label === '-0' ? '0' : $label;
     }
     
     /**
@@ -160,7 +166,7 @@ class SynthesisGenerator {
         
         // Carbon policy finding
         if (isset($this->experimentData['carbon_tax_sweep']) || isset($this->experimentData['carbon_cap_sweep'])) {
-            $summary .= "2. **Carbon Policies:** Tax, cap, and hybrid strategies produce distinct cost-emission trade-offs with hybrid offering best flexibility\n";
+            $summary .= "2. **Carbon Policies:** Corrected per-tonne prices are decision-neutral at tested levels; binding caps drive the observed compliance trade-offs\n";
         }
         
         // Inventory finding
@@ -330,9 +336,22 @@ class SynthesisGenerator {
                     $byInstance[$inst][] = $row;
                 }
                 
+                $rates = [];
+                foreach ($taxData as $row) {
+                    if (is_numeric($row['tax_rate'] ?? null)) {
+                        $rates[(float)$row['tax_rate']] = (float)$row['tax_rate'];
+                    }
+                }
+                sort($rates, SORT_NUMERIC);
+                $rateLabels = array_map(function($rate) {
+                    return $this->formatScalarLabel($rate);
+                }, $rates);
+
                 $section .= "Carbon tax policy analysis across representative instances:\n\n";
-                $section .= "| Instance | EmisTax=0 | EmisTax=50 | EmisTax=100 | Emissions Δ |\n";
-                $section .= "|----------|----------|----------|----------|-------------|\n";
+                $section .= "| Instance | " . implode(' | ', array_map(function($rate) {
+                    return "EmisTax={$rate}";
+                }, $rateLabels)) . " | Emissions Δ |\n";
+                $section .= "|" . str_repeat("----------|", count($rateLabels) + 2) . "\n";
                 
                 foreach ($byInstance as $inst => $rows) {
                     // Sort by tax rate
@@ -340,29 +359,51 @@ class SynthesisGenerator {
                         return ($a['tax_rate'] ?? 0) <=> ($b['tax_rate'] ?? 0);
                     });
                     
-                    $baseline = null;
-                    $tax02 = null;
-                    $tax05 = null;
+                    $emissionsByRate = [];
                     
                     foreach ($rows as $r) {
                         $tax = (float)($r['tax_rate'] ?? 0);
                         $emis = (float)($r['total_emissions'] ?? 0);
-                        
-                        if ($tax == 0) $baseline = $emis;
-                        elseif ($tax == 50.0) $tax02 = $emis;
-                        elseif ($tax == 100.0) $tax05 = $emis;
+                        $emissionsByRate[$this->formatScalarLabel($tax)] = $emis;
                     }
                     
-                    $delta = ($baseline && $tax05) ? 
-                        round((($baseline - $tax05) / $baseline) * 100, 1) : '-';
+                    $baseline = $emissionsByRate['0'] ?? null;
+                    $highestRate = end($rateLabels);
+                    $highest = $emissionsByRate[$highestRate] ?? null;
+                    $delta = ($baseline && $highest) ?
+                        round((($baseline - $highest) / $baseline) * 100, 1) : '-';
+                    $emissionCells = [];
+                    foreach ($rateLabels as $rateLabel) {
+                        $emissionCells[] = isset($emissionsByRate[$rateLabel])
+                            ? number_format($emissionsByRate[$rateLabel] / 1e6, 2) . 'M'
+                            : '-';
+                    }
                     
-                    $section .= sprintf("| %s | %s | %s | %s | %s%% |\n",
+                    $section .= sprintf("| %s | %s | %s%% |\n",
                         $inst,
-                        $baseline ? number_format($baseline/1e6, 2).'M' : '-',
-                        $tax02 ? number_format($tax02/1e6, 2).'M' : '-',
-                        $tax05 ? number_format($tax05/1e6, 2).'M' : '-',
+                        implode(' | ', $emissionCells),
                         $delta);
                 }
+
+                $section .= "\nAt the tested corrected prices, the tax term does not alter the operating point; emissions, buffers, supplier selections, and allocations remain invariant across the observed policy range.\n";
+            }
+        }
+
+        if (isset($this->experimentData['carbon_price_threshold'])) {
+            $thresholdRows = array_filter($this->experimentData['carbon_price_threshold'], function($r) {
+                return (($r['switched_within_max'] ?? '') === '1')
+                    && is_numeric($r['threshold_lower_eur_per_tco2'] ?? null)
+                    && is_numeric($r['threshold_upper_eur_per_tco2'] ?? null);
+            });
+
+            if (!empty($thresholdRows)) {
+                $lowers = array_map('floatval', array_column($thresholdRows, 'threshold_lower_eur_per_tco2'));
+                $uppers = array_map('floatval', array_column($thresholdRows, 'threshold_upper_eur_per_tco2'));
+                $section .= sprintf(
+                    "\nThe exploratory switching-threshold diagnostic finds the first price-only decision changes between %.1f and %.1f EUR/tCO2 across representative instances. These values are stress-test diagnostics, not proposed statutory tax levels, and they support the interpretation that the tested prices are below the instance-level switching boundary.\n",
+                    min($lowers),
+                    max($uppers)
+                );
             }
         }
         
@@ -565,7 +606,7 @@ class SynthesisGenerator {
         $section .= "\n### 5.3 Recommendations\n\n";
         $section .= "1. **Use PLM for operational planning** - Fast enough for daily/weekly cycles\n";
         $section .= "2. **Time limits of 5-10 minutes** - Sufficient for most industrial instances\n";
-        $section .= "3. **Hybrid strategy for regulated industries** - Combines compliance assurance with efficiency incentives\n\n";
+        $section .= "3. **Use caps for binding emissions targets** - Corrected per-tonne prices can be retained for accounting or hybrid reporting, but the tested price levels do not redirect decisions without a binding cap\n\n";
         
         return $section;
     }
@@ -591,6 +632,7 @@ class SynthesisGenerator {
         $section .= "1. **The integrated DDMRP-supplier-carbon model is computationally tractable** for industrial-scale supply chains\n\n";
         $section .= "2. **Carbon policy effectiveness varies by mechanism (corrected per-tonne pricing):**\n";
         $section .= "   - At the tested carbon-price levels the price alone does not displace the cost-optimal decisions; emissions are invariant to the price\n";
+        $section .= "   - Exploratory switching thresholds lie above the observed policy range in the representative instances\n";
         $section .= "   - Emission caps reduce emissions monotonically at a rising compliance cost\n";
         $section .= "   - The combined carbon-price-and-cap scenario inherits its emission behaviour from the cap\n\n";
         $section .= "3. **Buffer positioning decisions interact with carbon policies**, creating opportunities for co-optimization\n\n";

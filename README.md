@@ -268,13 +268,18 @@ S10=>P5
    php src/FinalCampaignRunner.php --dry-run
    ```
    This prints planned run counts, estimated solver calls, baseline prerequisites, and maximum conditional decision-degeneracy probes.
-5. **Run the final campaign runner:**  
+5. **Run the optional carbon-price switching-threshold diagnostic:**
+   ```bash
+   php src/FinalCampaignRunner.php --price-threshold
+   ```
+   This stress-test diagnostic increases `EmisTax` beyond the policy-informed range to identify the first price interval where the price-only operating point changes. It writes `tables/carbon_price_threshold_results.csv` and `tables_tex/tab_price_threshold.tex`.
+6. **Run the final campaign runner:**  
    From the repository root, run:
    ```bash
    php src/FinalCampaignRunner.php
    ```
    The runner writes `campaign_plan.md`, `campaign_plan.json`, and `run_manifest.json` before solver execution starts, then writes `post_run_validation.md` and `post_run_validation.json` after output generation. A failed post-run validation stops the campaign before it is treated as publication-ready.
-6. **Check the Logs:**  
+7. **Check the Logs:**  
    A new subfolder (named with the current timestamp) will be created in the `logs/` folder. This folder contains:
    - **Result Log Files:**  
      E.g., `05-10-01-EMISCAP-PLM-1_result.log` for each run.

@@ -1,0 +1,7 @@
+instance_id,observed_policy_max,max_probe_rate,switched_within_max,threshold_lower_eur_per_tco2,threshold_upper_eur_per_tco2,changed_components,baseline_cost_without_tax,baseline_emissions_gco2,switch_cost_without_tax,switch_emissions_gco2,delta_cost_without_tax,delta_emissions_gco2,baseline_run_status,switch_run_status
+bom_5,100,1000000,1,607.421875,609.375,suppliers|allocation|tax_free_cost|emissions,48640,2932200,48815,2646200,175,-286000,OPTIMAL,OPTIMAL
+bom_13,100,1000000,1,925.78125,927.734375,suppliers|allocation|tax_free_cost|emissions,116448,29495946,119556,26147646,3107.9999999998,-3348300,OPTIMAL,OPTIMAL
+bom_26,100,1000000,1,2382.8125,2390.625,suppliers|allocation|tax_free_cost|emissions,867120,41574400,869080,40759000,1960,-815400,OPTIMAL,OPTIMAL
+bom_50,100,1000000,1,202.5390625,203.125,suppliers|allocation|tax_free_cost|emissions,1381460,194576659,1381680,193496559,220,-1080100,OPTIMAL,OPTIMAL
+bom_ml4_30,100,1000000,1,3218.75,3226.5625,suppliers|allocation|tax_free_cost|emissions,378440,13603260,379840,13171460,1400,-431800,OPTIMAL,OPTIMAL
+bom_par4,100,1000000,1,656.25,658.203125,suppliers|allocation|tax_free_cost|emissions,169920,5939600,170016,5796350,96.000000000233,-143250,OPTIMAL,OPTIMAL

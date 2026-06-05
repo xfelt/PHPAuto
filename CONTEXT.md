@@ -6,8 +6,9 @@ optimization framework for sustainable DDMRP decisions.
 ## Language
 
 **Integrated sustainable DDMRP decision framework**:
-An optimization framework in which carbon policies jointly reshape DDMRP
-buffer positioning and supplier allocation.
+An optimization framework that jointly optimizes DDMRP strategic buffer
+positioning, supplier selection and allocation, and decision-relevant
+operational emissions under carbon-price and emissions-cap scenarios.
 _Avoid_: Ecological approach, green ecological approach
 
 **Supplier selection and allocation**:
@@ -49,6 +50,14 @@ The no-price baseline and four study scenarios applying `EmisTax` values of
 internationally informed comparison levels, not statutory rates or a universal
 international norm.
 _Avoid_: International standard tax rates, direct reproduction of one jurisdiction
+
+**Carbon-price switching threshold**:
+An exploratory sensitivity result identifying the `EmisTax` level at which the
+first buffer-position, supplier-selection, allocation, cost, or emissions change
+appears relative to the no-price solution. It is a stress-test diagnostic of
+decision responsiveness, not a realistic statutory tax scenario.
+_Avoid_: Presenting very high exploratory prices as observed policy levels or
+claiming that price-inertia means the carbon-price term was not evaluated
 
 **Full factorial combined scenario**:
 The combined carbon-price-and-cap experiment in which every carbon-price

@@ -13,6 +13,7 @@ import sys
 import glob
 import os
 import math
+import re
 import pandas as pd
 
 # ---------------------------------------------------------------- helpers
@@ -49,6 +50,17 @@ def fmt_num(x, d=2):
     except (TypeError, ValueError):
         return "--"
 
+def fmt_rate(x):
+    try:
+        x = float(x)
+    except (TypeError, ValueError):
+        return "--"
+    if math.isnan(x):
+        return "--"
+    if abs(x - round(x)) < 0.05:
+        return f"{x:,.0f}".replace(",", "\\,")
+    return f"{x:,.1f}".replace(",", "\\,")
+
 def emis_of(df_rows):
     return df_rows['total_emissions'].astype(float)
 
@@ -81,6 +93,20 @@ def n_of(instance_id):
     """Extract numeric BOM size from instance id like bom_50 / bom_ml4_30."""
     digits = ''.join(ch for ch in str(instance_id).split('_')[-1] if ch.isdigit())
     return int(digits) if digits else 0
+
+def instance_sort_key(instance_id):
+    """Sort regular BOMs numerically first, then structural benchmark families."""
+    value = str(instance_id)
+    regular = re.match(r'^bom_(\d+)$', value)
+    if regular:
+        return (0, int(regular.group(1)), value)
+    multi_level = re.match(r'^bom_ml(\d+)_(\d+)$', value)
+    if multi_level:
+        return (1, int(multi_level.group(2)), int(multi_level.group(1)), value)
+    parallel = re.match(r'^bom_par(\d+)$', value)
+    if parallel:
+        return (2, int(parallel.group(1)), value)
+    return (9, n_of(value), value)
 
 def comparison_admissible(rows):
     """Keep rows eligible to support behavioral comparisons."""
@@ -130,8 +156,8 @@ tax = comparison_admissible(df[df['experiment'] == 'carbon_tax_sweep'].copy())
 if not tax.empty:
     tax['tax_rate'] = tax['tax_rate'].astype(float)
     rates = sorted(tax['tax_rate'].unique())
-    insts = sorted(tax['instance_id'].unique(), key=n_of)
-    header = "Instance & " + " & ".join(f"$EmisTax={r:g}$" for r in rates) + " & Red.\\,\\%\\\\"
+    insts = sorted(tax['instance_id'].unique(), key=instance_sort_key)
+    header = "Instance & " + " & ".join(f"${r:g}$" for r in rates) + " & Red.\\,\\%\\\\"
     rows = []
     for inst in insts:
         sub = tax[tax['instance_id'] == inst]
@@ -154,20 +180,58 @@ if not tax.empty:
     body = "\n".join(rows)
     colspec = "l" + "c" * (len(rates) + 1)
     tex = (
-        "\\begin{table*}[!htbp]\\centering\\small\n"
+        "\\begin{table*}[!htbp]\\centering\\scriptsize\n"
+        "\\setlength{\\tabcolsep}{3pt}\n"
         "\\caption{Carbon tax sweep: total emissions (t\\,CO$_2$) per instance as the "
-        "carbon price $EmisTax$ (currency/tCO$_2$) increases, and the emission reduction at the highest price.}"
+        "carbon price $EmisTax$ (EUR/tCO$_2$) increases; column headings report $EmisTax$ values.}"
         "\\label{tab:tax}\n"
         f"\\begin{{tabular}}{{{colspec}}}\n\\toprule\n" + header + "\n\\midrule\n" +
         body + "\n\\bottomrule\n\\end{tabular}\n\\end{table*}\n"
     )
     write('tab_tax_sweep.tex', tex)
 
+# ================================================================ 2B. PRICE THRESHOLD
+threshold = maybe_read_table_csv('carbon_price_threshold_results.csv')
+if not threshold.empty:
+    rows = []
+    for _, r in threshold.sort_values('instance_id', key=lambda s: s.map(instance_sort_key)).iterrows():
+        inst = str(r['instance_id']).replace('_', '\\_')
+        switched = str(r.get('switched_within_max', '0')).strip() in ['1', '1.0', 'true', 'True']
+        if switched:
+            interval = (
+                fmt_rate(r.get('threshold_lower_eur_per_tco2'))
+                + "--"
+                + fmt_rate(r.get('threshold_upper_eur_per_tco2'))
+            )
+        else:
+            interval = "$>" + fmt_rate(r.get('max_probe_rate')) + "$"
+        delta_cost = fmt_cost(r.get('delta_cost_without_tax'))
+        try:
+            emis_reduction = -float(r.get('delta_emissions_gco2')) / 1e6
+        except (TypeError, ValueError):
+            emis_reduction = float('nan')
+        rows.append(
+            f"{inst} & {interval} & {delta_cost} & {fmt_num(emis_reduction, 2)} \\\\"
+        )
+    body = "\n".join(rows)
+    tex = (
+        "\\begin{table*}[!htbp]\\centering\\scriptsize\n"
+        "\\setlength{\\tabcolsep}{4pt}\n"
+        "\\caption{Exploratory carbon-price switching-threshold diagnostic. The interval reports "
+        "the first $EmisTax$ range, in EUR/tCO$_2$, where the price-only operating point differs "
+        "from the no-price solution; values above observed policy levels are stress-test diagnostics, "
+        "not proposed statutory taxes.}\\label{tab:pricethreshold}\n"
+        "\\begin{tabular}{lccc}\n\\toprule\n"
+        "Instance & Switching interval & $\\Delta$ cost & Emission reduction (t\\,CO$_2$)\\\\\n"
+        "\\midrule\n" + body + "\n\\bottomrule\n\\end{tabular}\n\\end{table*}\n"
+    )
+    write('tab_price_threshold.tex', tex)
+
 # ================================================================ 3. CAP SWEEP
 cap = comparison_admissible(df[df['experiment'] == 'carbon_cap_sweep'].copy())
 if not cap.empty:
     # cap level expressed as % of baseline; recover from cap_value vs baseline_emissions
-    insts = sorted(cap['instance_id'].unique(), key=n_of)
+    insts = sorted(cap['instance_id'].unique(), key=instance_sort_key)
     # Determine cap percentages present (round cap_value/baseline)
     def cap_pct(row):
         try:
@@ -194,7 +258,8 @@ if not cap.empty:
         body = "\n".join(rows)
         colspec = "l" + "c" * len(pcts)
         tex = (
-            "\\begin{table*}[!htbp]\\centering\\small\n"
+            "\\begin{table*}[!htbp]\\centering\\scriptsize\n"
+            "\\setlength{\\tabcolsep}{3pt}\n"
             "\\caption{Carbon cap sweep: total cost per instance as the emission cap "
             "tightens from 100\\% to 70\\% of the baseline emissions.}\\label{tab:cap}\n"
             f"\\begin{{tabular}}{{{colspec}}}\n\\toprule\n" + header + "\n\\midrule\n" +
@@ -206,7 +271,8 @@ if not cap.empty:
 hyb = df[df['experiment'] == 'carbon_hybrid'].copy()
 if not hyb.empty:
     rows = []
-    for _, r in hyb.sort_values(['instance_id', 'tax_rate', 'cap_value']).iterrows():
+    hyb['_instance_sort_key'] = hyb['instance_id'].map(instance_sort_key)
+    for _, r in hyb.sort_values(['_instance_sort_key', 'tax_rate', 'cap_value']).iterrows():
         cap_level = str(r.get('cap_level', '')).strip().lower()
         cap_display = "No cap" if cap_level == "none" else fmt_emis(r['cap_value'])
         status = str(r.get('solver_status', 'UNKNOWN')).strip().upper().replace('_', '\\_')
@@ -218,12 +284,20 @@ if not hyb.empty:
         )
     body = "\n".join(rows)
     tex = (
-        "\\begin{table*}[!htbp]\\centering\\small\n"
+        "\\begingroup\\scriptsize\n"
+        "\\setlength{\\tabcolsep}{3pt}\n"
+        "\\begin{longtable}{lcccccc}\n"
         "\\caption{Full results of the hybrid strategy across all tested instances, for every "
-        "combination of carbon price $EmisTax$ (currency/tCO$_2$) and emission cap.}\\label{tab:hybridfull}\n"
-        "\\begin{tabular}{lcccccc}\n\\toprule\n"
+        "combination of carbon price $EmisTax$ (currency/tCO$_2$) and emission cap.}\\label{tab:hybridfull}\\\\\n"
+        "\\toprule\n"
         "Instance & $EmisTax$ & Cap level & Emissions (t\\,CO$_2$) & Cost & Buffers & Status\\\\\n"
-        "\\midrule\n" + body + "\n\\bottomrule\n\\end{tabular}\n\\end{table*}\n"
+        "\\midrule\n\\endfirsthead\n"
+        "\\toprule\n"
+        "Instance & $EmisTax$ & Cap level & Emissions (t\\,CO$_2$) & Cost & Buffers & Status\\\\\n"
+        "\\midrule\n\\endhead\n"
+        "\\midrule\n\\multicolumn{7}{r}{Continued on next page}\\\\\n\\endfoot\n"
+        "\\bottomrule\n\\endlastfoot\n"
+        + body + "\n\\end{longtable}\n\\endgroup\n"
     )
     write('tab_hybrid.tex', tex)
 
@@ -231,10 +305,17 @@ if not hyb.empty:
 stability = maybe_read_table_csv('decision_stability_summary.csv')
 if not stability.empty:
     rows = []
-    for _, r in stability.sort_values(['instance_id', 'source_experiment', 'tax_rate']).iterrows():
+    source_labels = {
+        'carbon_tax_sweep': 'tax',
+        'carbon_cap_sweep': 'cap',
+        'carbon_hybrid': 'hybrid',
+    }
+    stability['_instance_sort_key'] = stability['instance_id'].map(instance_sort_key)
+    for _, r in stability.sort_values(['_instance_sort_key', 'source_experiment', 'tax_rate']).iterrows():
+        source = source_labels.get(str(r['source_experiment']), str(r['source_experiment']))
         rows.append(
             f"{str(r['instance_id']).replace('_',chr(92)+'_')} & "
-            f"{str(r['source_experiment']).replace('_',chr(92)+'_')} & "
+            f"{source.replace('_',chr(92)+'_')} & "
             f"{fmt_num(r.get('tax_rate'), 2)} & {str(r.get('cap_level', '--')).replace('%', chr(92)+'%')} & "
             f"{fmt_num(r.get('minimum_buffer_jaccard_similarity'), 2)} & "
             f"{fmt_num(r.get('minimum_supplier_jaccard_similarity'), 2)} & "
@@ -242,12 +323,13 @@ if not stability.empty:
         )
     body = "\n".join(rows)
     tex = (
-        "\\begin{table*}[!htbp]\\centering\\small\n"
+        "\\begin{table*}[!htbp]\\centering\\scriptsize\n"
+        "\\setlength{\\tabcolsep}{3pt}\n"
         "\\caption{Near-optimal decision-degeneracy diagnostic probes. Each row summarizes extremal alternatives "
-        "whose original objective remains within 1\\% of the proven optimum; no binary stability "
+        "whose original objective remains within 1\\% of the proven optimum. Source abbreviations are tax, cap and hybrid; no binary stability "
         "class is assigned.}\\label{tab:stability}\n"
-        "\\begin{tabular}{lllcccc}\n\\toprule\n"
-        "Instance & Source & $EmisTax$ & Cap & Min buffer Jaccard & Min supplier Jaccard & Max alloc. L1\\\\\n"
+        "\\begin{tabular}{llccccc}\n\\toprule\n"
+        "Instance & Source & Tax & Cap & Buf. J & Sup. J & Alloc. L1\\\\\n"
         "\\midrule\n" + body + "\n\\bottomrule\n\\end{tabular}\n\\end{table*}\n"
     )
     write('tab_decision_stability.tex', tex)
@@ -256,7 +338,7 @@ if not stability.empty:
 def pareto_table(front, xcol, xfmt, xhead, caption, label, fname):
     pdir = os.path.join(results_dir, 'pareto')
     files = sorted(glob.glob(os.path.join(pdir, '*_' + front + '_pareto.csv')),
-                   key=lambda f: n_of(os.path.basename(f)))
+                   key=lambda f: instance_sort_key(os.path.basename(f).replace('_' + front + '_pareto.csv', '')))
     if not files:
         return
     rows = []
@@ -299,7 +381,7 @@ pareto_table('cost_dio', 'DIO', lambda x: f"{float(x):.0f}", 'DIO (days)',
 # ================================================================ 5. PLM vs NLM
 nlm = comparison_admissible(df[df['experiment'] == 'nlm_comparison'].copy())
 if not nlm.empty:
-    insts = sorted(nlm['instance_id'].unique(), key=n_of)
+    insts = sorted(nlm['instance_id'].unique(), key=instance_sort_key)
     rows = []
     for inst in insts:
         for strat in sorted(nlm[nlm['instance_id'] == inst]['strategy'].unique()):

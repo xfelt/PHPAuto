@@ -1080,6 +1080,362 @@ class FinalCampaignRunner {
             return ($r['config']['EXPERIMENT'] ?? '') === 'carbon_tax_sweep';
         }));
     }
+
+    /**
+     * Exploratory diagnostic: identify the EmisTax level at which the price-only
+     * operating point first changes relative to the no-price tax-policy solution.
+     */
+    public function runCarbonPriceThresholdDiagnostic(): void {
+        $taxConfig = $this->campaignConfig['experiments']['carbon_tax_sweep'] ?? [];
+        $expConfig = $this->campaignConfig['experiments']['carbon_price_switching_threshold'] ?? [];
+        if (!($expConfig['enabled'] ?? false)) {
+            echo "Carbon-price switching-threshold diagnostic is disabled.\n";
+            return;
+        }
+
+        $instances = $expConfig['representative_instances']
+            ?? $taxConfig['representative_instances']
+            ?? [];
+        if (empty($instances)) {
+            throw new RuntimeException('No representative instances configured for price-threshold diagnostic');
+        }
+
+        echo "=== CARBON-PRICE SWITCHING-THRESHOLD DIAGNOSTIC ===\n";
+        echo "Instances: " . implode(', ', $instances) . "\n";
+        echo "Observed policy max: " . ($expConfig['observed_policy_max'] ?? 100.0) . " EUR/tCO2\n";
+
+        $rows = [];
+        foreach ($instances as $instanceId) {
+            $row = $this->findCarbonPriceSwitchingThreshold($instanceId, $expConfig);
+            $rows[] = $row;
+            $threshold = $row['switched_within_max']
+                ? sprintf(
+                    '[%s, %s] EUR/tCO2',
+                    $this->formatThresholdRate($row['threshold_lower_eur_per_tco2']),
+                    $this->formatThresholdRate($row['threshold_upper_eur_per_tco2'])
+                )
+                : '>' . $this->formatThresholdRate($row['max_probe_rate']) . ' EUR/tCO2';
+            echo "  {$instanceId}: {$threshold}; components={$row['changed_components']}\n";
+        }
+
+        $this->writeCarbonPriceThresholdResults($rows);
+        echo "Carbon-price threshold diagnostic saved to: {$this->resultsDir}\n";
+    }
+
+    private function findCarbonPriceSwitchingThreshold(string $instanceId, array $expConfig): array {
+        $observedMax = (float)($expConfig['observed_policy_max'] ?? 100.0);
+        $initialProbe = (float)($expConfig['initial_probe_rate'] ?? 250.0);
+        $maxProbe = (float)($expConfig['max_probe_rate'] ?? 1000000.0);
+        $growthFactor = (float)($expConfig['growth_factor'] ?? 2.0);
+        $iterations = (int)($expConfig['bisection_iterations'] ?? 8);
+
+        if ($growthFactor <= 1.0) {
+            throw new RuntimeException('Price-threshold growth_factor must be greater than 1');
+        }
+        if ($observedMax < 0.0 || $initialProbe <= 0.0 || $maxProbe <= 0.0) {
+            throw new RuntimeException('Price-threshold rates must be non-negative and bounded');
+        }
+
+        $baseline = $this->executeTaxThresholdRun($instanceId, 0.0, 'BASE', $expConfig);
+        $this->requireOptimalThresholdRun($baseline, $instanceId, 0.0);
+        $reference = $this->operatingPointSignature($baseline);
+
+        $lowRate = 0.0;
+        $highRate = null;
+        $highResult = null;
+        $changedComponents = [];
+
+        if ($observedMax > 0.0) {
+            $observed = $this->executeTaxThresholdRun($instanceId, $observedMax, 'OBSERVEDMAX', $expConfig);
+            $this->requireOptimalThresholdRun($observed, $instanceId, $observedMax);
+            $observedChanges = $this->changedOperatingPointComponents(
+                $reference,
+                $this->operatingPointSignature($observed)
+            );
+            if (!empty($observedChanges)) {
+                $highRate = $observedMax;
+                $highResult = $observed;
+                $changedComponents = $observedChanges;
+            } else {
+                $lowRate = $observedMax;
+            }
+        }
+
+        $probeRate = max($initialProbe, $observedMax * $growthFactor);
+        while ($highRate === null && $probeRate <= $maxProbe + 1.0e-9) {
+            $probe = $this->executeTaxThresholdRun($instanceId, $probeRate, 'PROBE', $expConfig);
+            $this->requireOptimalThresholdRun($probe, $instanceId, $probeRate);
+            $probeChanges = $this->changedOperatingPointComponents(
+                $reference,
+                $this->operatingPointSignature($probe)
+            );
+            if (!empty($probeChanges)) {
+                $highRate = $probeRate;
+                $highResult = $probe;
+                $changedComponents = $probeChanges;
+                break;
+            }
+            $lowRate = $probeRate;
+            $probeRate *= $growthFactor;
+        }
+
+        if ($highRate !== null) {
+            for ($i = 0; $i < $iterations; $i++) {
+                $midRate = ($lowRate + $highRate) / 2.0;
+                if ($midRate <= $lowRate + 1.0e-9 || $midRate >= $highRate - 1.0e-9) {
+                    break;
+                }
+                $mid = $this->executeTaxThresholdRun($instanceId, $midRate, 'BISECT', $expConfig);
+                $this->requireOptimalThresholdRun($mid, $instanceId, $midRate);
+                $midChanges = $this->changedOperatingPointComponents(
+                    $reference,
+                    $this->operatingPointSignature($mid)
+                );
+                if (!empty($midChanges)) {
+                    $highRate = $midRate;
+                    $highResult = $mid;
+                    $changedComponents = $midChanges;
+                } else {
+                    $lowRate = $midRate;
+                }
+            }
+        }
+
+        $baselineSignature = $reference;
+        $switchSignature = $highResult !== null
+            ? $this->operatingPointSignature($highResult)
+            : null;
+
+        return [
+            'instance_id' => $instanceId,
+            'observed_policy_max' => $observedMax,
+            'max_probe_rate' => $maxProbe,
+            'switched_within_max' => $highRate !== null ? 1 : 0,
+            'threshold_lower_eur_per_tco2' => $lowRate,
+            'threshold_upper_eur_per_tco2' => $highRate,
+            'changed_components' => !empty($changedComponents) ? implode('|', $changedComponents) : 'none',
+            'baseline_cost_without_tax' => $baselineSignature['cost_without_tax'],
+            'baseline_emissions_gco2' => $baselineSignature['emissions_gco2'],
+            'switch_cost_without_tax' => $switchSignature['cost_without_tax'] ?? null,
+            'switch_emissions_gco2' => $switchSignature['emissions_gco2'] ?? null,
+            'delta_cost_without_tax' => $switchSignature !== null
+                ? $switchSignature['cost_without_tax'] - $baselineSignature['cost_without_tax']
+                : null,
+            'delta_emissions_gco2' => $switchSignature !== null
+                ? $switchSignature['emissions_gco2'] - $baselineSignature['emissions_gco2']
+                : null,
+            'baseline_run_status' => $baseline['kpis']['computational']['solver_status'] ?? 'UNKNOWN',
+            'switch_run_status' => $highResult['kpis']['computational']['solver_status'] ?? null,
+        ];
+    }
+
+    private function executeTaxThresholdRun(
+        string $instanceId,
+        float $taxRate,
+        string $stage,
+        array $expConfig
+    ): array {
+        $runConfig = $this->buildTaxRunConfig(
+            $instanceId,
+            $taxRate,
+            sprintf(
+                'THR-%s-%s-%s',
+                $instanceId,
+                strtoupper($stage),
+                $this->slugTaxRate($taxRate)
+            ),
+            'carbon_price_switching_threshold',
+            $expConfig
+        );
+
+        return $this->executeSingleRun($runConfig, $instanceId, false);
+    }
+
+    private function buildTaxRunConfig(
+        string $instanceId,
+        float $taxRate,
+        string $prefix,
+        string $experiment,
+        array $expConfig
+    ): array {
+        $instance = $this->findInstance($instanceId);
+        if (!$instance) {
+            throw new RuntimeException("Unknown instance for tax run: {$instanceId}");
+        }
+
+        $bomFile = $instance['file'];
+        $suppListBaseName = preg_replace('/^bom_supemis_/', '', basename($bomFile, '.csv'));
+        $suppListFile = "supp_list_{$suppListBaseName}.csv";
+        if (!file_exists($this->dataDir . $bomFile) || !file_exists($this->dataDir . $suppListFile)) {
+            throw new RuntimeException("Missing BOM or supplier-list file for {$instanceId}");
+        }
+
+        $suppDetailsFile = ($instance['nodes'] >= 25)
+            ? 'supp_details_supeco_grdCapacity.csv'
+            : 'supp_details_supeco.csv';
+
+        return [
+            'PREFIXE' => $prefix,
+            '_NODE_FILE_' => $bomFile,
+            '_NODE_SUPP_FILE_' => $suppListFile,
+            '_SUPP_DETAILS_FILE_' => $suppDetailsFile,
+            '_NBSUPP_' => $expConfig['suppliers'],
+            '_SERVICE_T_' => $expConfig['service_time'],
+            '_EMISCAP_' => $this->getNonBindingBounds(
+                $bomFile,
+                $suppDetailsFile,
+                (int)$expConfig['suppliers']
+            )['emissions'],
+            '_EMISTAXE_' => $taxRate,
+            'MODEL_FILE' => 'RUNS_SupEmis_Cplex_PLM_Tax.mod',
+            'MODEL_TYPE' => $expConfig['model_type'] ?? 'PLM',
+            'EXPERIMENT' => $experiment,
+            'TAX_RATE' => $taxRate,
+            'CAP_LEVEL' => 'none',
+        ];
+    }
+
+    private function requireOptimalThresholdRun(array $result, string $instanceId, float $taxRate): void {
+        $status = $result['kpis']['computational']['solver_status'] ?? 'UNKNOWN';
+        if ($status !== 'OPTIMAL') {
+            throw new RuntimeException(
+                "Price-threshold run for {$instanceId} at EmisTax={$taxRate} did not prove optimal; status={$status}"
+            );
+        }
+    }
+
+    private function operatingPointSignature(array $result): array {
+        return [
+            'X' => $this->numericVector($result['result']['X'] ?? []),
+            'Z' => $this->numericVector($result['result']['Z'] ?? []),
+            'Q' => $this->numericVector($result['result']['Q'] ?? []),
+            'cost_without_tax' => (float)($result['kpis']['cost']['total_cost_without_tax'] ?? 0.0),
+            'emissions_gco2' => (float)($result['kpis']['carbon']['total_emissions'] ?? 0.0),
+        ];
+    }
+
+    private function changedOperatingPointComponents(array $reference, array $candidate): array {
+        $components = [];
+        if (!$this->vectorsEqual($reference['X'], $candidate['X'])) {
+            $components[] = 'buffers';
+        }
+        if (!$this->vectorsEqual($reference['Z'], $candidate['Z'])) {
+            $components[] = 'suppliers';
+        }
+        if (!$this->vectorsEqual($reference['Q'], $candidate['Q'])) {
+            $components[] = 'allocation';
+        }
+        if (abs($reference['cost_without_tax'] - $candidate['cost_without_tax']) > 1.0e-3) {
+            $components[] = 'tax_free_cost';
+        }
+        if (abs($reference['emissions_gco2'] - $candidate['emissions_gco2']) > 1.0e-3) {
+            $components[] = 'emissions';
+        }
+        return $components;
+    }
+
+    private function numericVector($values): array {
+        if (!is_array($values)) {
+            return [];
+        }
+        return array_map(static function($value): float {
+            return (float)$value;
+        }, array_values($values));
+    }
+
+    private function vectorsEqual(array $left, array $right, float $tolerance = 1.0e-6): bool {
+        if (count($left) !== count($right)) {
+            return false;
+        }
+        foreach ($left as $index => $value) {
+            if (abs((float)$value - (float)$right[$index]) > $tolerance) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private function writeCarbonPriceThresholdResults(array $rows): void {
+        if (empty($rows)) {
+            return;
+        }
+
+        $csvFile = $this->tablesDir . 'carbon_price_threshold_results.csv';
+        $fp = fopen($csvFile, 'w');
+        fputcsv($fp, array_keys($rows[0]));
+        foreach ($rows as $row) {
+            fputcsv($fp, array_values($row));
+        }
+        fclose($fp);
+
+        $tablesTexDir = $this->resultsDir . 'tables_tex' . DIRECTORY_SEPARATOR;
+        if (!is_dir($tablesTexDir) && !@mkdir($tablesTexDir, 0755, true) && !is_dir($tablesTexDir)) {
+            throw new RuntimeException("Unable to create threshold table directory: {$tablesTexDir}");
+        }
+        file_put_contents(
+            $tablesTexDir . 'tab_price_threshold.tex',
+            $this->renderCarbonPriceThresholdLatexTable($rows)
+        );
+    }
+
+    private function renderCarbonPriceThresholdLatexTable(array $rows): string {
+        $bodyRows = [];
+        foreach ($rows as $row) {
+            $instance = str_replace('_', '\\_', $row['instance_id']);
+            $threshold = $row['switched_within_max']
+                ? sprintf(
+                    '%s--%s',
+                    $this->formatThresholdRate($row['threshold_lower_eur_per_tco2']),
+                    $this->formatThresholdRate($row['threshold_upper_eur_per_tco2'])
+                )
+                : '$>' . $this->formatThresholdRate($row['max_probe_rate']) . '$';
+            $deltaCost = $row['delta_cost_without_tax'] !== null
+                ? $this->formatThresholdNumber((float)$row['delta_cost_without_tax'], 0)
+                : '--';
+            $emissionReduction = $row['delta_emissions_gco2'] !== null
+                ? $this->formatThresholdNumber(-(float)$row['delta_emissions_gco2'] / 1000000.0, 2)
+                : '--';
+            $components = str_replace(
+                ['tax_free_cost', '|', '_'],
+                ['tax-free cost', ', ', '\\_'],
+                $row['changed_components']
+            );
+            $bodyRows[] = "{$instance} & {$threshold} & {$components} & {$deltaCost} & {$emissionReduction} \\\\";
+        }
+
+        return "\\begin{table*}[!htbp]\\centering\\small\n"
+            . "\\caption{Exploratory carbon-price switching-threshold diagnostic. The interval reports "
+            . 'the first $EmisTax$ range, in EUR/tCO$_2$, where the price-only operating point differs '
+            . "from the no-price solution; values above observed policy levels are stress-test diagnostics, "
+            . "not proposed statutory taxes.}\\label{tab:pricethreshold}\n"
+            . "\\begin{tabular}{lcccc}\n\\toprule\n"
+            . 'Instance & Switching interval & Changed components & $\Delta$ cost & Emission reduction (t\,CO$_2$)\\\\' . "\n"
+            . "\\midrule\n"
+            . implode("\n", $bodyRows)
+            . "\n\\bottomrule\n\\end{tabular}\n\\end{table*}\n";
+    }
+
+    private function slugTaxRate(float $taxRate): string {
+        $formatted = abs($taxRate - round($taxRate)) < 1.0e-6
+            ? sprintf('%.0f', $taxRate)
+            : sprintf('%.2f', $taxRate);
+        return str_replace(['.', '-'], ['p', 'm'], $formatted);
+    }
+
+    private function formatThresholdRate($value): string {
+        if ($value === null || $value === '') {
+            return '--';
+        }
+        $number = (float)$value;
+        if (abs($number - round($number)) < 0.05) {
+            return number_format($number, 0, '.', '\\,');
+        }
+        return number_format($number, 1, '.', '\\,');
+    }
+
+    private function formatThresholdNumber(float $value, int $decimals): string {
+        return number_format($value, $decimals, '.', '\\,');
+    }
     
     /**
      * Run carbon cap sweep
@@ -2424,6 +2780,7 @@ class FinalCampaignRunner {
 if (php_sapi_name() === 'cli' && basename(__FILE__) === basename($_SERVER['SCRIPT_FILENAME'])) {
     try {
         $dryRun = in_array('--dry-run', $argv ?? [], true);
+        $priceThreshold = in_array('--price-threshold', $argv ?? [], true);
         $skipPreflight = in_array('--skip-preflight', $argv ?? [], true)
             || getenv('PHPAUTO_SKIP_PREFLIGHT') === '1';
 
@@ -2437,6 +2794,10 @@ if (php_sapi_name() === 'cli' && basename(__FILE__) === basename($_SERVER['SCRIP
         $runner = new FinalCampaignRunner(!$dryRun);
         if ($dryRun) {
             $runner->printDryRunSummary();
+            exit(0);
+        }
+        if ($priceThreshold) {
+            $runner->runCarbonPriceThresholdDiagnostic();
             exit(0);
         }
 

@@ -1,9 +1,60 @@
-\begin{table*}[!htbp]\centering\small
-\caption{Full results of the hybrid strategy across all tested instances, for every combination of carbon price $EmisTax$ (currency/tCO$_2$) and emission cap.}\label{tab:hybridfull}
-\begin{tabular}{lcccccc}
+\begingroup\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{lcccccc}
+\caption{Full results of the hybrid strategy across all tested instances, for every combination of carbon price $EmisTax$ (currency/tCO$_2$) and emission cap.}\label{tab:hybridfull}\\
 \toprule
 Instance & $EmisTax$ & Cap level & Emissions (t\,CO$_2$) & Cost & Buffers & Status\\
 \midrule
+\endfirsthead
+\toprule
+Instance & $EmisTax$ & Cap level & Emissions (t\,CO$_2$) & Cost & Buffers & Status\\
+\midrule
+\endhead
+\midrule
+\multicolumn{7}{r}{Continued on next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+bom\_5 & 0.00 & 2.05 & 1.50 & 60\,260 & 5 & OPTIMAL \\
+bom\_5 & 0.00 & 2.20 & 1.50 & 60\,260 & 5 & OPTIMAL \\
+bom\_5 & 0.00 & 2.35 & 2.25 & 51\,555 & 4 & OPTIMAL \\
+bom\_5 & 0.00 & 2.49 & 2.25 & 51\,555 & 4 & OPTIMAL \\
+bom\_5 & 0.00 & 2.64 & 2.25 & 51\,555 & 4 & OPTIMAL \\
+bom\_5 & 0.00 & 2.79 & 2.65 & 48\,815 & 3 & OPTIMAL \\
+bom\_5 & 0.00 & 2.93 & 2.93 & 48\,640 & 3 & OPTIMAL \\
+bom\_5 & 0.00 & No cap & 2.93 & 48\,640 & 3 & OPTIMAL \\
+bom\_5 & 15.00 & 2.05 & 1.50 & 60\,283 & 5 & OPTIMAL \\
+bom\_5 & 15.00 & 2.20 & 1.50 & 60\,283 & 5 & OPTIMAL \\
+bom\_5 & 15.00 & 2.35 & 2.25 & 51\,589 & 4 & OPTIMAL \\
+bom\_5 & 15.00 & 2.49 & 2.25 & 51\,589 & 4 & OPTIMAL \\
+bom\_5 & 15.00 & 2.64 & 2.25 & 51\,589 & 4 & OPTIMAL \\
+bom\_5 & 15.00 & 2.79 & 2.65 & 48\,855 & 3 & OPTIMAL \\
+bom\_5 & 15.00 & 2.93 & 2.93 & 48\,684 & 3 & OPTIMAL \\
+bom\_5 & 15.00 & No cap & 2.93 & 48\,684 & 3 & OPTIMAL \\
+bom\_5 & 50.00 & 2.05 & 1.50 & 60\,335 & 5 & OPTIMAL \\
+bom\_5 & 50.00 & 2.20 & 1.50 & 60\,335 & 5 & OPTIMAL \\
+bom\_5 & 50.00 & 2.35 & 2.25 & 51\,668 & 4 & OPTIMAL \\
+bom\_5 & 50.00 & 2.49 & 2.25 & 51\,668 & 4 & OPTIMAL \\
+bom\_5 & 50.00 & 2.64 & 2.25 & 51\,668 & 4 & OPTIMAL \\
+bom\_5 & 50.00 & 2.79 & 2.65 & 48\,947 & 3 & OPTIMAL \\
+bom\_5 & 50.00 & 2.93 & 2.93 & 48\,787 & 3 & OPTIMAL \\
+bom\_5 & 50.00 & No cap & 2.93 & 48\,787 & 3 & OPTIMAL \\
+bom\_5 & 75.00 & 2.05 & 1.50 & 60\,373 & 5 & OPTIMAL \\
+bom\_5 & 75.00 & 2.20 & 1.50 & 60\,373 & 5 & OPTIMAL \\
+bom\_5 & 75.00 & 2.35 & 2.25 & 51\,724 & 4 & OPTIMAL \\
+bom\_5 & 75.00 & 2.49 & 2.25 & 51\,724 & 4 & OPTIMAL \\
+bom\_5 & 75.00 & 2.64 & 2.25 & 51\,724 & 4 & OPTIMAL \\
+bom\_5 & 75.00 & 2.79 & 2.65 & 49\,013 & 3 & OPTIMAL \\
+bom\_5 & 75.00 & 2.93 & 2.93 & 48\,860 & 3 & OPTIMAL \\
+bom\_5 & 75.00 & No cap & 2.93 & 48\,860 & 3 & OPTIMAL \\
+bom\_5 & 100.00 & 2.05 & 1.50 & 60\,410 & 5 & OPTIMAL \\
+bom\_5 & 100.00 & 2.20 & 1.50 & 60\,410 & 5 & OPTIMAL \\
+bom\_5 & 100.00 & 2.35 & 2.25 & 51\,780 & 4 & OPTIMAL \\
+bom\_5 & 100.00 & 2.49 & 2.25 & 51\,780 & 4 & OPTIMAL \\
+bom\_5 & 100.00 & 2.64 & 2.25 & 51\,780 & 4 & OPTIMAL \\
+bom\_5 & 100.00 & 2.79 & 2.65 & 49\,080 & 3 & OPTIMAL \\
+bom\_5 & 100.00 & 2.93 & 2.93 & 48\,933 & 3 & OPTIMAL \\
+bom\_5 & 100.00 & No cap & 2.93 & 48\,933 & 3 & OPTIMAL \\
 bom\_13 & 0.00 & 20.6 & 20.0 & 170\,516 & 10 & OPTIMAL \\
 bom\_13 & 0.00 & 22.1 & 22.1 & 151\,636 & 10 & OPTIMAL \\
 bom\_13 & 0.00 & 23.6 & 23.6 & 127\,888 & 9 & OPTIMAL \\
@@ -84,46 +135,6 @@ bom\_26 & 100.00 & 37.4 & 37.2 & 891\,884 & 1 & OPTIMAL \\
 bom\_26 & 100.00 & 39.5 & 39.2 & 878\,080 & 1 & OPTIMAL \\
 bom\_26 & 100.00 & 41.6 & 41.6 & 871\,277 & 1 & OPTIMAL \\
 bom\_26 & 100.00 & No cap & 41.6 & 871\,277 & 1 & OPTIMAL \\
-bom\_5 & 0.00 & 2.05 & 1.50 & 60\,260 & 5 & OPTIMAL \\
-bom\_5 & 0.00 & 2.20 & 1.50 & 60\,260 & 5 & OPTIMAL \\
-bom\_5 & 0.00 & 2.35 & 2.25 & 51\,555 & 4 & OPTIMAL \\
-bom\_5 & 0.00 & 2.49 & 2.25 & 51\,555 & 4 & OPTIMAL \\
-bom\_5 & 0.00 & 2.64 & 2.25 & 51\,555 & 4 & OPTIMAL \\
-bom\_5 & 0.00 & 2.79 & 2.65 & 48\,815 & 3 & OPTIMAL \\
-bom\_5 & 0.00 & 2.93 & 2.93 & 48\,640 & 3 & OPTIMAL \\
-bom\_5 & 0.00 & No cap & 2.93 & 48\,640 & 3 & OPTIMAL \\
-bom\_5 & 15.00 & 2.05 & 1.50 & 60\,283 & 5 & OPTIMAL \\
-bom\_5 & 15.00 & 2.20 & 1.50 & 60\,283 & 5 & OPTIMAL \\
-bom\_5 & 15.00 & 2.35 & 2.25 & 51\,589 & 4 & OPTIMAL \\
-bom\_5 & 15.00 & 2.49 & 2.25 & 51\,589 & 4 & OPTIMAL \\
-bom\_5 & 15.00 & 2.64 & 2.25 & 51\,589 & 4 & OPTIMAL \\
-bom\_5 & 15.00 & 2.79 & 2.65 & 48\,855 & 3 & OPTIMAL \\
-bom\_5 & 15.00 & 2.93 & 2.93 & 48\,684 & 3 & OPTIMAL \\
-bom\_5 & 15.00 & No cap & 2.93 & 48\,684 & 3 & OPTIMAL \\
-bom\_5 & 50.00 & 2.05 & 1.50 & 60\,335 & 5 & OPTIMAL \\
-bom\_5 & 50.00 & 2.20 & 1.50 & 60\,335 & 5 & OPTIMAL \\
-bom\_5 & 50.00 & 2.35 & 2.25 & 51\,668 & 4 & OPTIMAL \\
-bom\_5 & 50.00 & 2.49 & 2.25 & 51\,668 & 4 & OPTIMAL \\
-bom\_5 & 50.00 & 2.64 & 2.25 & 51\,668 & 4 & OPTIMAL \\
-bom\_5 & 50.00 & 2.79 & 2.65 & 48\,947 & 3 & OPTIMAL \\
-bom\_5 & 50.00 & 2.93 & 2.93 & 48\,787 & 3 & OPTIMAL \\
-bom\_5 & 50.00 & No cap & 2.93 & 48\,787 & 3 & OPTIMAL \\
-bom\_5 & 75.00 & 2.05 & 1.50 & 60\,373 & 5 & OPTIMAL \\
-bom\_5 & 75.00 & 2.20 & 1.50 & 60\,373 & 5 & OPTIMAL \\
-bom\_5 & 75.00 & 2.35 & 2.25 & 51\,724 & 4 & OPTIMAL \\
-bom\_5 & 75.00 & 2.49 & 2.25 & 51\,724 & 4 & OPTIMAL \\
-bom\_5 & 75.00 & 2.64 & 2.25 & 51\,724 & 4 & OPTIMAL \\
-bom\_5 & 75.00 & 2.79 & 2.65 & 49\,013 & 3 & OPTIMAL \\
-bom\_5 & 75.00 & 2.93 & 2.93 & 48\,860 & 3 & OPTIMAL \\
-bom\_5 & 75.00 & No cap & 2.93 & 48\,860 & 3 & OPTIMAL \\
-bom\_5 & 100.00 & 2.05 & 1.50 & 60\,410 & 5 & OPTIMAL \\
-bom\_5 & 100.00 & 2.20 & 1.50 & 60\,410 & 5 & OPTIMAL \\
-bom\_5 & 100.00 & 2.35 & 2.25 & 51\,780 & 4 & OPTIMAL \\
-bom\_5 & 100.00 & 2.49 & 2.25 & 51\,780 & 4 & OPTIMAL \\
-bom\_5 & 100.00 & 2.64 & 2.25 & 51\,780 & 4 & OPTIMAL \\
-bom\_5 & 100.00 & 2.79 & 2.65 & 49\,080 & 3 & OPTIMAL \\
-bom\_5 & 100.00 & 2.93 & 2.93 & 48\,933 & 3 & OPTIMAL \\
-bom\_5 & 100.00 & No cap & 2.93 & 48\,933 & 3 & OPTIMAL \\
 bom\_50 & 0.00 & 136.2 & 136.1 & 1\,636\,980 & 6 & OPTIMAL \\
 bom\_50 & 0.00 & 145.9 & 145.9 & 1\,601\,800 & 6 & OPTIMAL \\
 bom\_50 & 0.00 & 155.7 & 155.6 & 1\,566\,140 & 6 & OPTIMAL \\
@@ -164,6 +175,5 @@ bom\_50 & 100.00 & 175.1 & 175.0 & 1\,453\,838 & 5 & OPTIMAL \\
 bom\_50 & 100.00 & 184.8 & 184.8 & 1\,421\,359 & 5 & OPTIMAL \\
 bom\_50 & 100.00 & 194.6 & 194.6 & 1\,400\,918 & 5 & OPTIMAL \\
 bom\_50 & 100.00 & No cap & 194.6 & 1\,400\,918 & 5 & OPTIMAL \\
-\bottomrule
-\end{tabular}
-\end{table*}
+\end{longtable}
+\endgroup

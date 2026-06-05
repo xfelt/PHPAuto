@@ -46,6 +46,20 @@
       "tax_rates": [0.0, 15.0, 50.0, 75.0, 100.0],
       "representative_instances": ["bom_5", "bom_13", "bom_26", "bom_50", "bom_ml4_30", "bom_par4"]
     },
+    "carbon_price_switching_threshold": {
+      "enabled": true,
+      "description": "Exploratory diagnostic for the EmisTax value at which the price-only operating point first changes",
+      "model_type": "PLM",
+      "strategy": "EMISTAXE",
+      "service_time": 1,
+      "suppliers": 10,
+      "observed_policy_max": 100.0,
+      "initial_probe_rate": 250.0,
+      "max_probe_rate": 1000000.0,
+      "growth_factor": 2.0,
+      "bisection_iterations": 8,
+      "representative_instances": ["bom_5", "bom_13", "bom_26", "bom_50", "bom_ml4_30", "bom_par4"]
+    },
     "carbon_cap_sweep": {
       "enabled": true,
       "description": "Carbon cap policy analysis",

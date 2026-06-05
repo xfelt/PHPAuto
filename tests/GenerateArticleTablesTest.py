@@ -110,6 +110,49 @@ with tempfile.TemporaryDirectory() as temp_dir:
             }
         )
 
+    threshold_path = tables_dir / "carbon_price_threshold_results.csv"
+    with threshold_path.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(
+            handle,
+            fieldnames=[
+                "instance_id",
+                "observed_policy_max",
+                "max_probe_rate",
+                "switched_within_max",
+                "threshold_lower_eur_per_tco2",
+                "threshold_upper_eur_per_tco2",
+                "changed_components",
+                "baseline_cost_without_tax",
+                "baseline_emissions_gco2",
+                "switch_cost_without_tax",
+                "switch_emissions_gco2",
+                "delta_cost_without_tax",
+                "delta_emissions_gco2",
+                "baseline_run_status",
+                "switch_run_status",
+            ],
+        )
+        writer.writeheader()
+        writer.writerow(
+            {
+                "instance_id": "bom_5",
+                "observed_policy_max": "100",
+                "max_probe_rate": "1000000",
+                "switched_within_max": "1",
+                "threshold_lower_eur_per_tco2": "607.4",
+                "threshold_upper_eur_per_tco2": "609.4",
+                "changed_components": "suppliers|allocation|tax_free_cost|emissions",
+                "baseline_cost_without_tax": "48640",
+                "baseline_emissions_gco2": "2932200",
+                "switch_cost_without_tax": "48815",
+                "switch_emissions_gco2": "2646200",
+                "delta_cost_without_tax": "175",
+                "delta_emissions_gco2": "-286000",
+                "baseline_run_status": "OPTIMAL",
+                "switch_run_status": "OPTIMAL",
+            }
+        )
+
     subprocess.run([sys.executable, str(generator), str(results_dir)], check=True)
     table = (results_dir / "tables_tex" / "tab_hybrid.tex").read_text(encoding="utf-8")
 
@@ -117,12 +160,18 @@ with tempfile.TemporaryDirectory() as temp_dir:
     assert "Status" in table
     assert " -- " in table
     tax_table = (results_dir / "tables_tex" / "tab_tax_sweep.tex").read_text(encoding="utf-8")
-    assert "$EmisTax=50$" in tax_table
-    assert "$EmisTax=100$" not in tax_table
+    assert "$50$" in tax_table
+    assert "$EmisTax=50$" not in tax_table
     stability_table = (results_dir / "tables_tex" / "tab_decision_stability.tex").read_text(
         encoding="utf-8"
     )
     assert "Near-optimal decision-degeneracy diagnostic" in stability_table
     assert "0.33" in stability_table
+    threshold_table = (results_dir / "tables_tex" / "tab_price_threshold.tex").read_text(
+        encoding="utf-8"
+    )
+    assert "switching-threshold diagnostic" in threshold_table
+    assert "607.4--609.4" in threshold_table
+    assert "Changed components" not in threshold_table
 
 print("Article table reporting and comparison-admissibility tests passed.")
