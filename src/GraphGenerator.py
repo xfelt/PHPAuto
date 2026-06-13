@@ -54,6 +54,10 @@ TOPOLOGY_COLORS = {
     'parallel': '#f39c12'
 }
 
+BW_LINE_STYLES = ['-', '--', '-.', ':', (0, (5, 1)), (0, (3, 1, 1, 1)), (0, (1, 1))]
+BW_MARKERS = ['o', 's', '^', 'D', 'v', 'P', 'X']
+BW_GRAYS = ['black', '0.25', '0.45', '0.6', '0.75', '0.15', '0.35']
+
 
 class GraphGenerator:
     def __init__(self, results_dir: str):
@@ -107,6 +111,18 @@ class GraphGenerator:
         else:
             gap = pd.Series(np.nan, index=df.index)
         return df[(status == 'OPTIMAL') | ((status == 'FEASIBLE') & (gap <= 1.0))].copy()
+
+    @staticmethod
+    def display_instance_id(instance_id: str) -> str:
+        """Return article-facing instance labels for structural BOMs."""
+        parallel_components = {
+            'bom_par2': 'bom_par2_9',
+            'bom_par3': 'bom_par3_11',
+            'bom_par4': 'bom_par4_10',
+            'bom_par5': 'bom_par5_18',
+            'bom_par6': 'bom_par6_24',
+        }
+        return parallel_components.get(str(instance_id), str(instance_id))
     
     def generate_all_figures(self):
         """Generate all publication figures"""
@@ -193,25 +209,39 @@ class GraphGenerator:
         print("Generated: fig1_scalability_runtime.png/pdf")
     
     def plot_scalability_emissions(self):
-        """Figure 2: Baseline Emissions vs BOM Size"""
+        """Figure 2: Baseline Emissions vs BOM Size, split by scale"""
         df = self.scalability_df.copy()
         df = self.comparison_admissible(df)
         
         if df.empty or 'total_emissions' not in df.columns:
             return
         
-        fig, ax = plt.subplots(figsize=(8, 5))
-        
         df['bom_size'] = df['instance_id'].str.extract(r'bom_(\d+)').astype(float)
         df = df.dropna(subset=['bom_size', 'total_emissions']).sort_values('bom_size')
-        
-        ax.bar(df['bom_size'].astype(str), df['total_emissions'] / 1e6, color='#E94F37', alpha=0.7, edgecolor='black')
-        
-        ax.set_xlabel('BOM Size (number of components)')
-        ax.set_ylabel('Baseline Emissions (Tonnes CO₂)')
-        ax.set_title('Baseline Carbon Emissions by BOM Complexity')
-        
-        plt.xticks(rotation=45, ha='right')
+
+        small = df[df['bom_size'] <= 50]
+        large = df[df['bom_size'] >= 60]
+
+        fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+        panels = [
+            (axes[0], small, 'BOMs up to 50 components'),
+            (axes[1], large, 'BOMs with 60 or more components'),
+        ]
+
+        for ax, panel_df, title in panels:
+            ax.bar(
+                panel_df['bom_size'].astype(int).astype(str),
+                panel_df['total_emissions'] / 1e6,
+                color='0.78',
+                edgecolor='black',
+                hatch='///',
+                linewidth=0.8,
+            )
+            ax.set_xlabel('BOM Size (number of components)')
+            ax.set_ylabel('Baseline emissions (tCO₂)')
+            ax.set_title(title)
+            ax.tick_params(axis='x', rotation=45)
+
         plt.tight_layout()
         plt.savefig(self.figures_dir / 'fig2_scalability_emissions.png')
         plt.savefig(self.figures_dir / 'fig2_scalability_emissions.pdf')
@@ -259,28 +289,32 @@ class GraphGenerator:
         
         fig, axes = plt.subplots(1, 2, figsize=(12, 5))
         
-        # Group by instance
         instances = df['instance_id'].unique()
-        colors = plt.cm.tab10(np.linspace(0, 1, len(instances)))
-        
+
         for i, instance in enumerate(instances):
             inst_df = df[df['instance_id'] == instance].sort_values('tax_rate')
-            
+
             if len(inst_df) > 1:
-                # Emissions plot
-                axes[0].plot(inst_df['tax_rate'], inst_df['total_emissions'] / 1e6, 
-                           marker='o', label=instance, color=colors[i], linewidth=2, markersize=6)
-                
-                # Cost plot
+                style = BW_LINE_STYLES[i % len(BW_LINE_STYLES)]
+                marker = BW_MARKERS[i % len(BW_MARKERS)]
+                color = BW_GRAYS[i % len(BW_GRAYS)]
+
+                axes[0].plot(inst_df['tax_rate'], inst_df['total_emissions'] / 1e6,
+                           marker=marker, linestyle=style, label=self.display_instance_id(instance),
+                           color=color, linewidth=1.8, markersize=6,
+                           markerfacecolor='white', markeredgecolor=color)
+
                 axes[1].plot(inst_df['tax_rate'], inst_df['total_cost_with_tax'] / 1e3,
-                           marker='s', label=instance, color=colors[i], linewidth=2, markersize=6)
-        
-        axes[0].set_xlabel('EmisTax (currency/tCO₂)')
-        axes[0].set_ylabel('Total Emissions (Tonnes CO₂)')
+                           marker=marker, linestyle=style, label=self.display_instance_id(instance),
+                           color=color, linewidth=1.8, markersize=6,
+                           markerfacecolor='white', markeredgecolor=color)
+
+        axes[0].set_xlabel('EmisTax (EUR/tCO₂)')
+        axes[0].set_ylabel('Total emissions (tCO₂)')
         axes[0].set_title('Emissions Response to Carbon Tax')
         axes[0].legend(loc='best', fontsize=8)
-        
-        axes[1].set_xlabel('EmisTax (currency/tCO₂)')
+
+        axes[1].set_xlabel('EmisTax (EUR/tCO₂)')
         axes[1].set_ylabel('Total Cost (Thousand $)')
         axes[1].set_title('Cost Impact of Carbon Tax')
         axes[1].legend(loc='best', fontsize=8)
@@ -302,19 +336,24 @@ class GraphGenerator:
         fig, ax = plt.subplots(figsize=(8, 5))
         
         instances = df['instance_id'].unique()
-        colors = plt.cm.Set2(np.linspace(0, 1, len(instances)))
-        
+
         for i, instance in enumerate(instances):
             inst_df = df[df['instance_id'] == instance].sort_values('cap_value', ascending=False)
-            
+
             if len(inst_df) > 1 and 'emission_reduction_pct' in inst_df.columns:
-                # Calculate cap percentage from baseline
                 baseline_emis = inst_df['baseline_emissions'].iloc[0] if 'baseline_emissions' in inst_df.columns else inst_df['cap_value'].max()
                 cap_pct = (inst_df['cap_value'] / baseline_emis) * 100
-                
+
                 ax.plot(cap_pct, inst_df['total_cost_without_tax'] / 1e3,
-                       marker='o', label=instance, color=colors[i], linewidth=2, markersize=6)
-        
+                       marker=BW_MARKERS[i % len(BW_MARKERS)],
+                       linestyle=BW_LINE_STYLES[i % len(BW_LINE_STYLES)],
+                       label=self.display_instance_id(instance),
+                       color=BW_GRAYS[i % len(BW_GRAYS)],
+                       linewidth=1.8,
+                       markersize=6,
+                       markerfacecolor='white',
+                       markeredgecolor=BW_GRAYS[i % len(BW_GRAYS)])
+
         ax.set_xlabel('Emission Cap (% of baseline)')
         ax.set_ylabel('Total Cost (Thousand $)')
         ax.set_title('Cost of Emission Cap Compliance')
@@ -336,37 +375,41 @@ class GraphGenerator:
             return
         
         fig, axes = plt.subplots(1, 2, figsize=(12, 5))
-        
-        # Create pivot for heatmap-style visualization
+
         instances = df['instance_id'].unique()
-        
+
         for i, instance in enumerate(instances[:2]):  # First two instances for clarity
             inst_df = df[df['instance_id'] == instance]
-            
+
             if len(inst_df) > 1:
                 ax = axes[i] if len(instances) > 1 else axes
-                
-                # Scatter plot with color coding
-                scatter = ax.scatter(inst_df['total_emissions'] / 1e6, 
-                                   inst_df['total_cost_with_tax'] / 1e3,
-                                   c=inst_df['tax_rate'], 
-                                   s=100, 
-                                   cmap='viridis',
-                                   alpha=0.8,
-                                   edgecolors='black')
-                
-                # Annotate points
-                for _, row in inst_df.iterrows():
-                    label = f"τ={row['tax_rate']:.2f}"
-                    ax.annotate(label, (row['total_emissions']/1e6, row['total_cost_with_tax']/1e3),
-                              fontsize=7, xytext=(5, 5), textcoords='offset points')
-                
-                ax.set_xlabel('Total Emissions (Tonnes CO₂)')
+
+                cap_labels = ['none', '100%', '95%', '90%', '85%', '80%', '75%', '70%']
+                cap_positions = {label: pos for pos, label in enumerate(cap_labels)}
+                inst_df = inst_df.copy()
+                inst_df['cap_label'] = inst_df['cap_level'].astype(str)
+                inst_df['cap_pos'] = inst_df['cap_label'].map(cap_positions)
+                inst_df = inst_df.dropna(subset=['cap_pos']).sort_values(['tax_rate', 'cap_pos'])
+
+                for j, tax_rate in enumerate(sorted(inst_df['tax_rate'].unique())):
+                    tax_df = inst_df[inst_df['tax_rate'] == tax_rate].sort_values('cap_pos')
+                    ax.plot(tax_df['cap_pos'], tax_df['total_cost_with_tax'] / 1e3,
+                           marker=BW_MARKERS[j % len(BW_MARKERS)],
+                           linestyle=BW_LINE_STYLES[j % len(BW_LINE_STYLES)],
+                           color=BW_GRAYS[j % len(BW_GRAYS)],
+                           linewidth=1.6,
+                           markersize=5,
+                           markerfacecolor='white',
+                           markeredgecolor=BW_GRAYS[j % len(BW_GRAYS)],
+                           label=f'{tax_rate:g} EUR/tCO₂')
+
+                ax.set_xticks(range(len(cap_labels)))
+                ax.set_xticklabels(['No cap', '100', '95', '90', '85', '80', '75', '70'], rotation=45, ha='right')
+                ax.set_xlabel('Emission cap (% of baseline)')
                 ax.set_ylabel('Total Cost (Thousand $)')
-                ax.set_title(f'Hybrid Strategy Trade-offs: {instance}')
-                
-                plt.colorbar(scatter, ax=ax, label='EmisTax (currency/tCO₂)')
-        
+                ax.set_title(f'Hybrid Strategy: {instance}')
+                ax.legend(title='EmisTax', loc='best', fontsize=7)
+
         plt.tight_layout()
         plt.savefig(self.figures_dir / 'fig6_hybrid_strategy.png')
         plt.savefig(self.figures_dir / 'fig6_hybrid_strategy.pdf')
@@ -394,7 +437,7 @@ class GraphGenerator:
                       c=color, s=60, alpha=0.6, label=strategy,
                       edgecolors='black', linewidths=0.3)
         
-        ax.set_xlabel('Total Emissions (Tonnes CO₂)')
+        ax.set_xlabel('Total emissions (tCO₂)')
         ax.set_ylabel('Total Cost (Thousand $)')
         ax.set_title('Cost-Emissions Trade-offs by Carbon Policy Strategy')
         ax.legend(title='Strategy', loc='best')
@@ -447,7 +490,7 @@ class GraphGenerator:
         for patch, color in zip(bp2['boxes'], colors):
             patch.set_facecolor(color)
             patch.set_alpha(0.7)
-        axes[1].set_ylabel('Total Emissions (Tonnes CO₂)')
+        axes[1].set_ylabel('Total emissions (tCO₂)')
         axes[1].set_title('Emissions Distribution by Strategy')
         
         # Buffer count comparison
@@ -558,7 +601,7 @@ class GraphGenerator:
         for patch, color in zip(bp1['boxes'], colors):
             patch.set_facecolor(color)
             patch.set_alpha(0.7)
-        axes[0].set_ylabel('Total Emissions (Tonnes CO₂)')
+        axes[0].set_ylabel('Total emissions (tCO₂)')
         axes[0].set_title('Emissions by BOM Topology')
         
         # Buffers by topology
@@ -630,16 +673,23 @@ class GraphGenerator:
         if cost_emis_files:
             fig, ax = plt.subplots(figsize=(8, 6))
             
-            for f in cost_emis_files:
+            for i, f in enumerate(cost_emis_files):
                 df = pd.read_csv(f, sep=';')
                 instance = f.stem.replace('_cost_emissions_pareto', '')
                 
                 if 'Cost' in df.columns and 'Emissions' in df.columns:
                     df = df.dropna(subset=['Cost', 'Emissions'])
                     ax.plot(df['Emissions'] / 1e6, df['Cost'] / 1e3, 
-                           marker='o', label=instance, linewidth=2, markersize=6)
+                           marker=BW_MARKERS[i % len(BW_MARKERS)],
+                           linestyle=BW_LINE_STYLES[i % len(BW_LINE_STYLES)],
+                           color=BW_GRAYS[i % len(BW_GRAYS)],
+                           label=instance,
+                           linewidth=1.8,
+                           markersize=6,
+                           markerfacecolor='white',
+                           markeredgecolor=BW_GRAYS[i % len(BW_GRAYS)])
             
-            ax.set_xlabel('Total Emissions (Tonnes CO₂)')
+            ax.set_xlabel('Total emissions (tCO₂)')
             ax.set_ylabel('Total Cost (Thousand $)')
             ax.set_title('Cost-Emissions Pareto Front')
             ax.legend(loc='best')
@@ -654,14 +704,21 @@ class GraphGenerator:
         if cost_dio_files:
             fig, ax = plt.subplots(figsize=(8, 6))
             
-            for f in cost_dio_files:
+            for i, f in enumerate(cost_dio_files):
                 df = pd.read_csv(f, sep=';')
                 instance = f.stem.replace('_cost_dio_pareto', '')
                 
                 if 'Cost' in df.columns and 'DIO' in df.columns:
                     df = df.dropna(subset=['Cost', 'DIO'])
                     ax.plot(df['DIO'], df['Cost'] / 1e3, 
-                           marker='s', label=instance, linewidth=2, markersize=6)
+                           marker=BW_MARKERS[i % len(BW_MARKERS)],
+                           linestyle=BW_LINE_STYLES[i % len(BW_LINE_STYLES)],
+                           color=BW_GRAYS[i % len(BW_GRAYS)],
+                           label=instance,
+                           linewidth=1.8,
+                           markersize=6,
+                           markerfacecolor='white',
+                           markeredgecolor=BW_GRAYS[i % len(BW_GRAYS)])
             
             ax.set_xlabel('Days Inventory Outstanding (DIO)')
             ax.set_ylabel('Total Cost (Thousand $)')

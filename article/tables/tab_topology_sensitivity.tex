@@ -1,0 +1,23 @@
+\begin{table*}[!htbp]\centering\scriptsize
+\setlength{\tabcolsep}{3pt}
+\caption{Topology sensitivity results for the zero-price baseline. The multi-level instances use the \texttt{bom\_mlL\_N} naming convention, where $L$ is the number of levels and $N$ is the number of components. The parallel instances use the \texttt{bom\_parB\_N} naming convention, where $B$ is the number of parallel branches and $N$ is the number of components.}\label{tab:topologyappendix}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}llrrrrrrr@{}}
+\toprule
+Family & Instance & Cost & Emissions (t\,CO$_2$) & DIO (days) & Buffers & Avg. DLT & Suppliers & Runtime (s)\\
+\midrule
+Multi-level & \texttt{bom\_ml4\_30} & 378\,440 & 13.60 & 291 & 3 & 9.39 & 2 & 1.20\\
+Multi-level & \texttt{bom\_ml4\_55} & 625\,890 & 20.45 & 453 & 10 & 8.09 & 3 & 15.90\\
+Multi-level & \texttt{bom\_ml5\_45} & 426\,070 & 21.73 & 460 & 3 & 10.00 & 3 & 4.55\\
+Multi-level & \texttt{bom\_ml5\_65} & 501\,450 & 29.94 & 685 & 18 & 10.38 & 3 & 23.35\\
+Multi-level & \texttt{bom\_ml6\_70} & 583\,450 & 32.90 & 715 & 10 & 10.07 & 3 & 29.03\\
+\midrule
+Parallel & \texttt{bom\_par2\_9} & 98\,537 & 10.08 & 75 & 4 & 7.50 & 5 & 0.45\\
+Parallel & \texttt{bom\_par3\_11} & 78\,984 & 8.15 & 54 & 4 & 4.50 & 4 & 0.19\\
+Parallel & \texttt{bom\_par4\_10} & 169\,920 & 5.94 & 58 & 6 & 5.27 & 4 & 0.26\\
+Parallel & \texttt{bom\_par5\_18} & 220\,690 & 18.51 & 116 & 7 & 6.11 & 6 & 0.45\\
+Parallel & \texttt{bom\_par6\_24} & 275\,520 & 18.89 & 152 & 11 & 6.08 & 5 & 1.66\\
+\bottomrule
+\end{tabular}
+}
+\end{table*}

@@ -1,0 +1,39 @@
+\begin{table*}[!htbp]\centering\scriptsize
+\setlength{\tabcolsep}{2.4pt}
+\caption{Service-time sensitivity results for the carbon-price and emissions-cap strategies. The service-time column gives the tested value in days. Cost excludes carbon tax, while the objective column includes the active policy term.}\label{tab:servicetimeappendix}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}llrrrrrrr@{}}
+\toprule
+Instance & Strategy & Service time & Objective & Cost excl. tax & Emissions (t\,CO$_2$) & DIO (days) & Buffers & Runtime (s)\\
+\midrule
+\texttt{bom\_5} & EMISTAXE & 0 & 48\,817 & 48\,640 & 2.93 & 30 & 3 & 0.02\\
+\texttt{bom\_5} & EMISTAXE & 1 & 48\,817 & 48\,640 & 2.93 & 30 & 3 & 0.03\\
+\texttt{bom\_5} & EMISTAXE & 3 & 37\,619 & 37\,440 & 2.94 & 32 & 2 & 0.03\\
+\texttt{bom\_5} & EMISCAP & 0 & 51\,582 & 51\,555 & 2.25 & 27 & 4 & 0.03\\
+\texttt{bom\_5} & EMISCAP & 1 & 51\,582 & 51\,555 & 2.25 & 27 & 4 & 0.03\\
+\texttt{bom\_5} & EMISCAP & 3 & 40\,384 & 40\,355 & 2.27 & 29 & 3 & 0.03\\
+\midrule
+\texttt{bom\_13} & EMISTAXE & 0 & 118\,060 & 116\,448 & 29.50 & 134 & 7 & 0.03\\
+\texttt{bom\_13} & EMISTAXE & 1 & 118\,060 & 116\,448 & 29.50 & 134 & 7 & 0.04\\
+\texttt{bom\_13} & EMISTAXE & 3 & 102\,060 & 100\,448 & 29.51 & 136 & 6 & 0.05\\
+\texttt{bom\_13} & EMISCAP & 0 & 127\,220 & 127\,100 & 24.99 & 120 & 9 & 0.30\\
+\texttt{bom\_13} & EMISCAP & 1 & 127\,220 & 127\,100 & 24.99 & 120 & 9 & 0.52\\
+\texttt{bom\_13} & EMISCAP & 3 & 111\,220 & 111\,100 & 25.01 & 122 & 8 & 0.22\\
+\midrule
+\texttt{bom\_26} & EMISTAXE & 0 & 869\,630 & 867\,120 & 41.57 & 430 & 1 & 0.06\\
+\texttt{bom\_26} & EMISTAXE & 1 & 869\,630 & 867\,120 & 41.57 & 430 & 1 & 0.07\\
+\texttt{bom\_26} & EMISTAXE & 3 & 869\,630 & 867\,120 & 41.57 & 430 & 2 & 0.08\\
+\texttt{bom\_26} & EMISCAP & 0 & 909\,550 & 909\,180 & 35.29 & 368 & 1 & 0.39\\
+\texttt{bom\_26} & EMISCAP & 1 & 909\,550 & 909\,180 & 35.29 & 368 & 1 & 0.31\\
+\texttt{bom\_26} & EMISCAP & 3 & 909\,550 & 909\,180 & 35.29 & 368 & 2 & 0.34\\
+\midrule
+\texttt{bom\_50} & EMISTAXE & 0 & 1\,391\,900 & 1\,381\,460 & 194.58 & 706 & 5 & 0.11\\
+\texttt{bom\_50} & EMISTAXE & 1 & 1\,391\,900 & 1\,381\,460 & 194.58 & 706 & 5 & 0.13\\
+\texttt{bom\_50} & EMISTAXE & 3 & 1\,311\,900 & 1\,301\,460 & 194.57 & 708 & 4 & 0.16\\
+\texttt{bom\_50} & EMISCAP & 0 & 1\,498\,400 & 1\,497\,800 & 165.25 & 606 & 5 & 0.53\\
+\texttt{bom\_50} & EMISCAP & 1 & 1\,498\,400 & 1\,497\,800 & 165.25 & 606 & 5 & 0.59\\
+\texttt{bom\_50} & EMISCAP & 3 & 1\,418\,000 & 1\,417\,360 & 165.39 & 608 & 4 & 0.66\\
+\bottomrule
+\end{tabular}
+}
+\end{table*}
