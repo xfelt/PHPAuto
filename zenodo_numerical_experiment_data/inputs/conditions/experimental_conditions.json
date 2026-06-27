@@ -1,0 +1,99 @@
+{
+  "study_type": "Controlled deterministic optimization benchmarks",
+  "not_in_scope": [
+    "Monte Carlo simulation",
+    "stochastic demand",
+    "supplier disruption",
+    "dynamic execution simulation",
+    "industrial field data"
+  ],
+  "supply_chain_environment": {
+    "product_scope": "Single product",
+    "network": "Multi-echelon bill of materials",
+    "lead_times": "Deterministic",
+    "service_framework": "Guaranteed service",
+    "production_capacity": "Assumed infinite",
+    "storage_capacity": "Assumed infinite",
+    "supplier_capacity": "Limited by supplier input tables",
+    "supplier_count_configured": 10,
+    "bom_node_range": [2, 150],
+    "topologies": ["chain", "tree", "multi_level", "parallel"]
+  },
+  "environmental_boundary": {
+    "included": [
+      "sourcing",
+      "inbound supplier transportation to the unloading dock",
+      "internal transportation",
+      "warehousing"
+    ],
+    "excluded": "Other lifecycle stages and Scope 3 categories outside the modeled decision boundary",
+    "internal_transport_emissions_gco2_per_unit": 1500,
+    "buffered_replenishment_reduction_factor": 3,
+    "raw_emissions_unit": "gCO2",
+    "reported_emissions_conversion": "1 tCO2 = 1,000,000 gCO2"
+  },
+  "monetary_basis": "Constant 2023 EUR",
+  "baseline": {
+    "carbon_price_eur_per_tco2": 0,
+    "emissions_cap": "None",
+    "selection_rule": "Lexicographic: minimize economic cost first, then emissions as tie-break objective"
+  },
+  "experiments": {
+    "scalability": {
+      "instances": [2, 3, 4, 5, 6, 7, 8, 10, 13, 15, 20, 25, 26, 30, 35, 40, 50, 60, 80, 90, 100, 123, 150],
+      "service_time_days": 1,
+      "carbon_price_eur_per_tco2": 0
+    },
+    "topology": {
+      "families": ["multi_level", "parallel"],
+      "instances_per_family": 5,
+      "service_time_days": 1,
+      "carbon_price_eur_per_tco2": 0
+    },
+    "carbon_price": {
+      "instances": ["bom_5", "bom_13", "bom_26", "bom_50", "bom_ml4_30", "bom_par4"],
+      "levels_eur_per_tco2": [0, 15, 50, 75, 100]
+    },
+    "price_switching_threshold": {
+      "instances": ["bom_5", "bom_13", "bom_26", "bom_50", "bom_ml4_30", "bom_par4"],
+      "observed_policy_max_eur_per_tco2": 100,
+      "initial_probe_eur_per_tco2": 250,
+      "maximum_probe_eur_per_tco2": 1000000,
+      "growth_factor": 2,
+      "bisection_iterations": 8
+    },
+    "emissions_cap": {
+      "instances": ["bom_5", "bom_13", "bom_26", "bom_50", "bom_ml4_30", "bom_par4"],
+      "fractions_of_baseline": [1.0, 0.95, 0.90, 0.85, 0.80, 0.75, 0.70]
+    },
+    "combined_price_and_cap": {
+      "instances": ["bom_5", "bom_13", "bom_26", "bom_50"],
+      "carbon_prices_eur_per_tco2": [0, 15, 50, 75, 100],
+      "cap_levels": ["none", 1.0, 0.95, 0.90, 0.85, 0.80, 0.75, 0.70],
+      "design": "Full factorial"
+    },
+    "service_time_sensitivity": {
+      "instances": ["bom_5", "bom_13", "bom_26", "bom_50"],
+      "service_time_days": [0, 1, 3],
+      "carbon_price_eur_per_tco2": 50,
+      "cap_fraction_of_baseline": 0.85
+    },
+    "multi_objective": {
+      "instances": ["bom_5", "bom_13", "bom_26"],
+      "pareto_points_per_front": 10,
+      "fronts": ["cost_emissions", "cost_DIO"]
+    },
+    "decision_degeneracy": {
+      "instances": ["bom_5", "bom_13", "bom_26", "bom_50"],
+      "objective_tolerance_percent": 1.0,
+      "probes": ["buffers", "suppliers", "allocation"]
+    },
+    "focused_formulation_validation": {
+      "equivalence_instance_sizes": [2, 3, 4, 5, 6, 7, 8],
+      "scenarios": ["carbon_price", "emissions_cap", "combined_price_and_cap"],
+      "equivalence_pairs": 21,
+      "stress_instance_sizes": [13, 26, 50, 100, 150],
+      "stress_cases": 15
+    }
+  }
+}

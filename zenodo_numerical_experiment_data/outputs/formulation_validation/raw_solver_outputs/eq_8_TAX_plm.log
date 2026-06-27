@@ -1,0 +1,117 @@
+
+<<< setup
+
+0 0 -1 0 0 0.25 0.5 0.8 1 0 0 0 0  14
+1 2 0 760 1 0.25 0.5 0.8 1 0 7600 760 1500  14
+2 4 1 180 1 0.25 0.5 0.8 1 0 5600 560 1500  14
+3 3 1 115 2 0.25 0.5 0.8 1 0 3900 390 1500  14
+4 5 2 32 6 0.25 0.5 0.8 1 0 3400 340 1500  14
+5 6 3 40 2 0.25 0.5 0.8 1 0 3000 300 1500  14
+6 4 2 24 4 0.25 0.5 0.8 1 0 2900 290 1500  14
+7 5 3 28 3 0.25 0.5 0.8 1 0 2700 270 1500  14
+Node nums: [0 1 2 3 4 5 6 7]
+xx-Data uploaded-xx
+	**** start init su array ...
+0 [0 0 0 0 0 0 0 0 0 0]
+1 [0 0 0 0 0 0 0 0 0 0]
+2 [1 1 1 1 1 1 1 1 1 1]
+3 [0 0 0 0 0 0 0 0 0 0]
+4 [1 1 1 1 1 1 1 1 1 1]
+5 [1 1 1 1 1 1 1 1 1 1]
+6 [1 1 1 1 1 1 1 1 1 1]
+7 [1 1 1 1 1 1 1 1 1 1]
+	**** end init su array ...
+1 2 1 700 80 0.85 0.92 0.8 (9)9
+2 2 0.9 800 75 0.82 0.90 0.9 (9)9
+3 1 1.1 680 90 0.88 0.95 0.5 (9)9
+4 1 1 480 100 0.86 0.93 0.6 (9)9
+5 5 0.6 550 40 0.72 0.78 1.5 (9)9
+6 6 0.5 650 45 0.70 0.75 2.0 (9)9
+7 7 0.5 1100 40 0.68 0.72 2.5 (9)9
+8 5 0.3 700 30 0.65 0.70 1.8 (9)9
+9 9 0.2 1700 15 0.60 0.65 3.5 (9)9
+10 1 0.8 5800 40 0.80 0.88 0.7 (9)9
+
+<<< generate
+
+Version identifier: 20.1.0.0 | 2020-11-10 | 9bedb6d68
+CPXPARAM_TimeLimit                               60
+Tried aggregator 2 times.
+MIP Presolve eliminated 633 rows and 123 columns.
+MIP Presolve modified 43 coefficients.
+Aggregator did 6 substitutions.
+Reduced MIP has 268 rows, 135 columns, and 684 nonzeros.
+Reduced MIP has 46 binaries, 89 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0,00 sec. (0,96 ticks)
+Found incumbent of value 1107101,216250 after 0,00 sec. (1,72 ticks)
+Probing time = 0,00 sec. (0,10 ticks)
+Cover probing fixed 0 vars, tightened 4 bounds.
+Tried aggregator 1 time.
+Detecting symmetries...
+MIP Presolve eliminated 12 rows and 0 columns.
+MIP Presolve modified 56 coefficients.
+Reduced MIP has 256 rows, 135 columns, and 660 nonzeros.
+Reduced MIP has 46 binaries, 89 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0,00 sec. (0,46 ticks)
+Probing time = 0,00 sec. (0,09 ticks)
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 20 threads.
+Root relaxation solution time = 0,00 sec. (0,75 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                      1107101,2163    -7458,3130           100,67%
+*     0+    0                      1017271,4348    -7458,3130           100,73%
+*     0+    0                       167505,5690    -7458,3130           104,45%
+*     0+    0                        88385,5610    -7458,3130           108,44%
+*     0+    0                        87901,8440    -7458,3130           108,48%
+*     0+    0                        87518,1437    -7458,3130           108,52%
+      0     0    47276,9424    52    87518,1437    47276,9424       68   45,98%
+      0     0    47961,2800    41    87518,1437      Cuts: 49      104   45,20%
+      0     0    48407,0247    47    87518,1437      Cuts: 34      138   44,69%
+      0     0    48519,2194    44    87518,1437       Cuts: 8      145   44,56%
+      0     0    48541,4163    45    87518,1437      Cuts: 11      155   44,54%
+      0     0    48551,8697    51    87518,1437       Cuts: 2      161   44,52%
+Detecting symmetries...
+      0     0    48579,4353    70    87518,1437   ZeroHalf: 1      173   44,49%
+      0     0    48581,8726    51    87518,1437   ZeroHalf: 2      175   44,49%
+      0     0    48581,8840    51    87518,1437   ZeroHalf: 1      176   44,49%
+      0     0    48591,9491    51    87518,1437    MIRcuts: 1      178   44,48%
+*     0+    0                        61040,4950    48591,9491            20,39%
+*     0+    0                        52500,1270    48591,9491             7,44%
+      0     0        cutoff          52500,1270    52500,1270      178    0,00%
+Elapsed time = 0,06 sec. (17,39 ticks, tree = 0,01 MB, solutions = 8)
+
+Implied bound cuts applied:  18
+Mixed integer rounding cuts applied:  6
+Zero-half cuts applied:  7
+Gomory fractional cuts applied:  11
+
+Root node processing (before b&c):
+  Real time             =    0,06 sec. (17,42 ticks)
+Parallel b&c, 20 threads:
+  Real time             =    0,00 sec. (0,00 ticks)
+  Sync time (average)   =    0,00 sec.
+  Wait time (average)   =    0,00 sec.
+                          ------------
+Total (root+branch&cut) =    0,06 sec. (17,42 ticks)
+
+<<< solve
+
+
+OBJECTIVE: 52500.13
+xxxx
+#Result <fct_obj, tot_cst, tot_ldt, Emiss>: <52500 52454 46 5.2425e+6>#TS:52454.127#A:[0,2,10,10,6,7,5,6]#X:[0,1,1,1,0,0,0,0]#E: 5242540#DELIVER:
+S10=>P4
+S10=>P5
+S10=>P6
+S10=>P7
+xxxx
+
+<<< post process
+
+
+<<< done
+

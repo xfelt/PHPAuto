@@ -1,0 +1,17 @@
+{
+  "operating_system": "Windows 10",
+  "processor": "Intel Core i7-12700K at 3.61 GHz",
+  "memory_gb": 32,
+  "optimization_suite": "IBM ILOG CPLEX Studio 20.1.0",
+  "linearized_formulation_solver": "CPLEX",
+  "nonlinear_formulation_solver": "CP Optimizer",
+  "solver_threads": 4,
+  "main_campaign_time_limit_seconds": 300,
+  "focused_equivalence_validation_time_limit_seconds": 60,
+  "main_campaign_started_at": "2026-06-05 06:13:05",
+  "main_campaign_completed_at": "2026-06-05 06:43:11",
+  "main_campaign_status": "PASS",
+  "main_campaign_reported_rows": 301,
+  "main_campaign_raw_solver_outputs": 409,
+  "comparison_gap_threshold_percent": 1.0
+}

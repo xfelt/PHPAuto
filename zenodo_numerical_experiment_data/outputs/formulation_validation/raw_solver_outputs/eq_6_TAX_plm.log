@@ -1,0 +1,107 @@
+
+<<< setup
+
+0 0 -1 0 0 0.25 0.5 0.8 1 0 0 0 0  14
+1 2 0 720 1 0.25 0.5 0.8 1 0 7200 720 1500  14
+2 4 1 170 1 0.25 0.5 0.8 1 0 5200 520 1500  14
+3 3 1 105 2 0.25 0.5 0.8 1 0 3700 370 1500  14
+4 5 2 28 6 0.25 0.5 0.8 1 0 3200 320 1500  14
+5 6 3 35 2 0.25 0.5 0.8 1 0 2800 280 1500  14
+Node nums: [0 1 2 3 4 5]
+xx-Data uploaded-xx
+	**** start init su array ...
+0 [0 0 0 0 0 0 0 0 0 0]
+1 [0 0 0 0 0 0 0 0 0 0]
+2 [1 1 1 1 1 1 1 1 1 1]
+3 [0 0 0 0 0 0 0 0 0 0]
+4 [1 1 1 1 1 1 1 1 1 1]
+5 [1 1 1 1 1 1 1 1 1 1]
+	**** end init su array ...
+1 2 1 700 80 0.85 0.92 0.8 (9)9
+2 2 0.9 800 75 0.82 0.90 0.9 (9)9
+3 1 1.1 680 90 0.88 0.95 0.5 (9)9
+4 1 1 480 100 0.86 0.93 0.6 (9)9
+5 5 0.6 550 40 0.72 0.78 1.5 (9)9
+6 6 0.5 650 45 0.70 0.75 2.0 (9)9
+7 7 0.5 1100 40 0.68 0.72 2.5 (9)9
+8 5 0.3 700 30 0.65 0.70 1.8 (9)9
+9 9 0.2 1700 15 0.60 0.65 3.5 (9)9
+10 1 0.8 5800 40 0.80 0.88 0.7 (9)9
+
+<<< generate
+
+Version identifier: 20.1.0.0 | 2020-11-10 | 9bedb6d68
+CPXPARAM_TimeLimit                               60
+Tried aggregator 2 times.
+MIP Presolve eliminated 481 rows and 123 columns.
+MIP Presolve modified 23 coefficients.
+Aggregator did 4 substitutions.
+Reduced MIP has 138 rows, 71 columns, and 352 nonzeros.
+Reduced MIP has 24 binaries, 47 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0,02 sec. (0,57 ticks)
+Found incumbent of value 466731,726750 after 0,02 sec. (1,03 ticks)
+Probing time = 0,00 sec. (0,05 ticks)
+Cover probing fixed 0 vars, tightened 2 bounds.
+Tried aggregator 1 time.
+Detecting symmetries...
+MIP Presolve eliminated 6 rows and 0 columns.
+MIP Presolve modified 28 coefficients.
+Reduced MIP has 132 rows, 71 columns, and 340 nonzeros.
+Reduced MIP has 24 binaries, 47 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0,00 sec. (0,23 ticks)
+Probing time = 0,00 sec. (0,05 ticks)
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 20 threads.
+Root relaxation solution time = 0,00 sec. (0,39 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                       466731,7268     1216,7040            99,74%
+*     0+    0                       382376,5502     1216,7040            99,68%
+*     0+    0                       102940,0705     1216,7040            98,82%
+*     0+    0                        79878,0625     1216,7040            98,48%
+*     0+    0                        79632,3040     1216,7040            98,47%
+*     0+    0                        79474,0622     1216,7040            98,47%
+      0     0    37944,2559    32    79474,0622    37944,2559       44   52,26%
+      0     0    38201,1823    14    79474,0622      Cuts: 30       55   51,93%
+      0     0    38321,7809    19    79474,0622      Cuts: 15       71   51,78%
+      0     0    38352,8002    15    79474,0622       Cuts: 4       79   51,74%
+*     0+    0                        43373,2890    38352,8002            11,58%
+      0     0    38879,9293    16    43373,2890      Cuts: 11       94   10,36%
+      0     0    40051,6900     8    43373,2890       Cuts: 3       95    7,66%
+Detecting symmetries...
+      0     0    40095,9150    14    43373,2890      Fract: 1       96    7,56%
+*     0+    0                        41185,7130    40095,9150             2,65%
+
+Implied bound cuts applied:  12
+Mixed integer rounding cuts applied:  11
+Zero-half cuts applied:  4
+Lift and project cuts applied:  1
+Gomory fractional cuts applied:  8
+
+Root node processing (before b&c):
+  Real time             =    0,63 sec. (6,63 ticks)
+Parallel b&c, 20 threads:
+  Real time             =    0,00 sec. (0,00 ticks)
+  Sync time (average)   =    0,00 sec.
+  Wait time (average)   =    0,00 sec.
+                          ------------
+Total (root+branch&cut) =    0,63 sec. (6,63 ticks)
+
+<<< solve
+
+
+OBJECTIVE: 41185.71
+xxxx
+#Result <fct_obj, tot_cst, tot_ldt, Emiss>: <41186 41158 28 2.6743e+6>#TS:41157.713#A:[0,2,10,3,6,7]#X:[0,1,1,1,0,1]#E: 2674260#DELIVER:
+S10=>P4
+S10=>P5
+xxxx
+
+<<< post process
+
+
+<<< done
+
